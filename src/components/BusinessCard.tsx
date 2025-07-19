@@ -74,6 +74,8 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
   };
 
   const cardStyles: React.CSSProperties = {
+    maxWidth: '450px',
+    borderRadius: '20px',
     backgroundColor: cardBackgroundColor,
     color: cardTextColor,
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
