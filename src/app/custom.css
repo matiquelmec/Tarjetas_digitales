@@ -1,0 +1,24 @@
+/* Regla para que el canvas de partículas no intercepte los clics */
+#tsparticles canvas {
+  pointer-events: none !important;
+}
+
+/* Estilos para unificar los iconos dentro de los botones y enlaces */
+.icon {
+  width: 1.2em; /* Ancho unificado para los iconos */
+  height: 1.2em; /* Alto unificado para los iconos */
+  margin-right: 0.75em; /* Espacio entre el icono y el texto */
+  vertical-align: middle; /* Alineación vertical con el texto */
+}
+
+/* Animación sutil de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos para la tarjeta de presentación */
+.business-card-custom {
+  max-width: 400px; /* Ancho máximo de la tarjeta */
+  margin: auto; /* Centrar la tarjeta horizontalmente */
+}
