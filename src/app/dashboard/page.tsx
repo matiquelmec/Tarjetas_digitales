@@ -134,8 +134,8 @@ export default function Dashboard() {
               <Card className="glass-card">
                 <Card.Header className="d-flex justify-content-between align-items-center">
                   <h3 className="text-white mb-0">Your Business Cards</h3>
-                  <Link href="/business-card-generator">
-                    <Button variant="primary">Create New Card</Button>
+                  <Link href="/create">
+                    <Button variant="primary">Crear Nueva Tarjeta</Button>
                   </Link>
                 </Card.Header>
                 <Card.Body>
@@ -144,8 +144,8 @@ export default function Dashboard() {
                   ) : cards.length === 0 ? (
                     <div className="text-white text-center py-4">
                       <p>You haven't created any cards yet.</p>
-                      <Link href="/business-card-generator">
-                        <Button variant="primary">Create Your First Card</Button>
+                      <Link href="/create">
+                        <Button variant="primary">Crear Tu Primera Tarjeta</Button>
                       </Link>
                     </div>
                   ) : (

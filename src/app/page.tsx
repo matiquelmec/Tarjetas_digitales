@@ -72,8 +72,8 @@ export default function HomePage() {
                   <Card.Text className="mb-4">
                     Create and customize your digital business cards with an intuitive editor and modern designs.
                   </Card.Text>
-                  <Link href="/business-card-generator" passHref>
-                    <Button variant="primary" className="btn-modern w-100">Go to Generator</Button>
+                  <Link href="/create" passHref>
+                    <Button variant="primary" className="btn-modern w-100">Crear Tarjeta</Button>
                   </Link>
                 </Card.Body>
               </Card>
