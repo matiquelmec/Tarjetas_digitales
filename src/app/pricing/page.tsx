@@ -30,10 +30,14 @@ export default function PricingPage() {
         }),
       });
 
-      const { url } = await response.json();
+      const data = await response.json();
       
-      if (url) {
-        window.location.href = url;
+      if (data.url) {
+        window.location.href = data.url;
+      } else if (data.error === 'Stripe not configured') {
+        alert('Payment system is not configured yet. Please contact support.');
+      } else {
+        alert('Error creating checkout session: ' + (data.error || 'Unknown error'));
       }
     } catch (error) {
       console.error('Error creating checkout session:', error);
