@@ -16,10 +16,10 @@ const nextConfig = {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   },
 
-  // Optimize bundle
-  experimental: {
-    optimizeCss: true,
-  },
+  // Optimize bundle - disabled optimizeCss due to critters module issue
+  // experimental: {
+  //   optimizeCss: true,
+  // },
 
   // Headers for security
   async headers() {
