@@ -7,8 +7,8 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
   callbacks: {
@@ -30,5 +30,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     error: '/auth/error',
+    signIn: '/',
   },
+  debug: process.env.NODE_ENV === 'development',
 };
