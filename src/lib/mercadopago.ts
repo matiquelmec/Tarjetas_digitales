@@ -14,6 +14,13 @@ export const PLAN_PRICES = {
   ENTERPRISE: 149990, // $149.990 CLP (aprox $199 USD)
 };
 
+export const PLAN_LIMITS = {
+  FREE: { maxCards: 1 },
+  PROFESSIONAL: { maxCards: 5 },
+  BUSINESS: { maxCards: 25 },
+  ENTERPRISE: { maxCards: -1 }, // -1 means unlimited
+};
+
 export const PLAN_DETAILS = {
   PROFESSIONAL: {
     name: 'Plan Profesional',

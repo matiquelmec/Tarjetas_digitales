@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { Container, Row, Col, Card, Button, ListGroup } from 'react-bootstrap';
-import { PLAN_DETAILS } from '@/lib/mercadopago';
+import { PLAN_DETAILS, PLAN_LIMITS } from '@/lib/mercadopago';
 
 export default function PricingPage() {
   const { data: session } = useSession();
