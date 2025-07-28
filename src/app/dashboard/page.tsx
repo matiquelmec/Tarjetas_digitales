@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession, signOut } from 'next-auth/react';
+import { useMockSession } from '@/lib/mock-session';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Table } from 'react-bootstrap';
 import Link from 'next/link';
@@ -18,7 +18,7 @@ interface CardData {
 }
 
 export default function Dashboard() {
-  const { data: session } = useSession();
+  const { data: session } = useMockSession();
   const [cards, setCards] = useState<CardData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -86,7 +86,7 @@ export default function Dashboard() {
                 <h1 className="text-white">Dashboard</h1>
                 <div>
                   <span className="text-white me-3">Welcome, {session?.user?.name}</span>
-                  <Button variant="outline-light" onClick={() => signOut()}>
+                  <Button variant="outline-light" onClick={() => alert('Sign out disabled in demo')}>
                     Sign Out
                   </Button>
                 </div>

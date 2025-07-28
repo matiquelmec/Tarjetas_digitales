@@ -3,12 +3,12 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import dynamic from 'next/dynamic';
-import { useSession } from 'next-auth/react';
+import { useMockSession } from '@/lib/mock-session';
 import { useCards } from '../hooks/useCards';
 import BusinessCard from '../components/BusinessCard';
 
 export default function BusinessCardGenerator() {
-  const { data: session } = useSession();
+  const { data: session } = useMockSession();
   const { saveCard, loading: saveLoading, error: saveError } = useCards();
   const [saveSuccess, setSaveSuccess] = useState(false);
   

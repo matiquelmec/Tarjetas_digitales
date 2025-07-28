@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { Container, Row, Col, Card, Button, ListGroup } from 'react-bootstrap';
 import { PLAN_DETAILS, PLAN_LIMITS } from '@/lib/mercadopago';
+import { useMockSession } from '@/lib/mock-session';
 
 export default function PricingPage() {
-  const { data: session } = useSession();
+  const { data: session } = useMockSession();
   const [loading, setLoading] = useState<string | null>(null);
 
   const handleSubscribe = async (planType: string, planName: string) => {

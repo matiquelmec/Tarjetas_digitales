@@ -2,11 +2,11 @@
 
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
-import { useSession, signIn } from 'next-auth/react';
+import { useMockSession } from '@/lib/mock-session';
 import { useEffect, useState } from 'react';
 
 export default function HomePage() {
-  const { data: session, status } = useSession();
+  const { data: session, status } = useMockSession();
   
   return (
     <>
@@ -53,23 +53,15 @@ export default function HomePage() {
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h1 className="text-center display-4 fw-bold" style={{ color: '#ffffff', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>Digital Business Cards Platform</h1>
             <div>
-              {status === 'loading' ? (
-                <div className="text-white">Loading...</div>
-              ) : session ? (
-                <div className="d-flex gap-2">
-                  <Link href="/pricing">
-                    <Button variant="outline-warning">Upgrade</Button>
-                  </Link>
-                  <Link href="/dashboard">
-                    <Button variant="outline-light">Dashboard</Button>
-                  </Link>
-                  <span className="text-white align-self-center">Welcome, {session.user?.name}</span>
-                </div>
-              ) : (
-                <Button variant="outline-light" onClick={() => signIn('google')}>
-                  Sign In
-                </Button>
-              )}
+              <div className="d-flex gap-2">
+                <Link href="/pricing">
+                  <Button variant="outline-warning">Upgrade</Button>
+                </Link>
+                <Link href="/dashboard">
+                  <Button variant="outline-light">Dashboard</Button>
+                </Link>
+                <span className="text-white align-self-center">Welcome, {session?.user?.name}</span>
+              </div>
             </div>
           </div>
           <Row className="justify-content-center text-center w-100">
