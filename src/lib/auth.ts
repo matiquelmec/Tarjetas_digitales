@@ -12,20 +12,23 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session: async ({ session, user }) => {
+    session: async ({ session, token }) => {
       if (session?.user) {
-        session.user.id = user.id;
+        session.user.id = token.sub || "";
       }
       return session;
     },
     jwt: async ({ user, token }) => {
       if (user) {
-        token.uid = user.id;
+        token.sub = user.id;
       }
       return token;
     },
   },
   session: {
-    strategy: "database",
+    strategy: "jwt",
+  },
+  pages: {
+    error: '/auth/error',
   },
 };
