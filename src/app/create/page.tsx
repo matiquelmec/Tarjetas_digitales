@@ -8,6 +8,7 @@ import { StepTwo } from '@/components/create/StepTwo';
 import { StepThree } from '@/components/create/StepThree';
 import { StepFour } from '@/components/create/StepFour';
 import { PublishModal } from '@/components/create/PublishModal';
+import BusinessCard from '@/components/BusinessCard';
 
 export default function CreateCardPage() {
   const { data: session } = useMockSession();
@@ -17,22 +18,38 @@ export default function CreateCardPage() {
     // Datos básicos
     name: '',
     title: '',
+    about: '',
     company: '',
     email: '',
     phone: '',
+    location: '',
+    whatsapp: '',
     
     // Diseño
     template: 'modern',
-    primaryColor: '#007bff',
-    secondaryColor: '#6c757d',
     photo: '',
+    cardBackgroundColor: '#2c2c2c',
+    cardTextColor: '#ffffff',
+    buttonSecondaryColor: '#00F6FF',
+    buttonSecondaryHoverColor: '#00D1DB',
+    buttonNormalBackgroundColor: '#1F1F1F',
+    
+    // Efectos visuales
+    enableHoverEffect: false,
+    enableGlassmorphism: false,
+    enableSubtleAnimations: false,
+    enableBackgroundPatterns: false,
     
     // Redes sociales
     linkedin: '',
     twitter: '',
     instagram: '',
     website: '',
-    whatsapp: '',
+    facebook: '',
+    appointmentLink: '',
+    
+    // Detalles profesionales
+    professionalDetails: '',
     
     // Configuración
     customUrl: '',
@@ -171,7 +188,7 @@ export default function CreateCardPage() {
             </Col>
 
             {/* Main Content */}
-            <Col lg={9}>
+            <Col lg={6}>
               <Card className="glass-card text-white">
                 <Card.Header>
                   <h4 className="mb-0">{steps[currentStep - 1].title}</h4>
@@ -195,6 +212,46 @@ export default function CreateCardPage() {
                   </Button>
                 </Card.Footer>
               </Card>
+            </Col>
+
+            {/* Preview */}
+            <Col lg={3}>
+              <div style={{ position: 'sticky', top: '20px' }}>
+                <Card className="glass-card text-white">
+                  <Card.Header>
+                    <h6 className="mb-0">👁️ Preview</h6>
+                  </Card.Header>
+                  <Card.Body className="p-2">
+                    <div style={{ transform: 'scale(0.7)', transformOrigin: 'top center' }}>
+                      <BusinessCard
+                        name={cardData.name || 'Tu Nombre'}
+                        title={cardData.title || 'Tu Título'}
+                        about={cardData.about || 'Tu descripción profesional aparecerá aquí...'}
+                        location={cardData.location || 'Tu ubicación'}
+                        whatsapp={cardData.whatsapp || '56912345678'}
+                        email={cardData.email || 'tu@email.com'}
+                        photoUrl={cardData.photo || 'https://via.placeholder.com/150'}
+                        cardBackgroundColor={cardData.cardBackgroundColor}
+                        cardTextColor={cardData.cardTextColor}
+                        enableHoverEffect={cardData.enableHoverEffect}
+                        enableGlassmorphism={cardData.enableGlassmorphism}
+                        enableSubtleAnimations={cardData.enableSubtleAnimations}
+                        enableBackgroundPatterns={cardData.enableBackgroundPatterns}
+                        whatsappShareUrl=""
+                        appointmentLink={cardData.appointmentLink}
+                        professionalDetails={cardData.professionalDetails}
+                        linkedin={cardData.linkedin}
+                        instagram={cardData.instagram}
+                        twitter={cardData.twitter}
+                        facebook={cardData.facebook}
+                        buttonSecondaryColor={cardData.buttonSecondaryColor}
+                        buttonNormalBackgroundColor={cardData.buttonNormalBackgroundColor}
+                        buttonSecondaryHoverColor={cardData.buttonSecondaryHoverColor}
+                      />
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
             </Col>
           </Row>
         </Container>

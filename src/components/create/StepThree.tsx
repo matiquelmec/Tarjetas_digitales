@@ -31,10 +31,24 @@ export function StepThree({ cardData, updateCardData }: StepThreeProps) {
       prefix: 'instagram.com/'
     },
     {
+      key: 'facebook',
+      label: 'Facebook',
+      icon: '📘',
+      placeholder: 'alejandro.torres',
+      prefix: 'facebook.com/'
+    },
+    {
       key: 'website',
       label: 'Sitio Web',
       icon: '🌐',
       placeholder: 'https://alejandrotorres.dev',
+      prefix: ''
+    },
+    {
+      key: 'appointmentLink',
+      label: 'Agendar Citas',
+      icon: '📅',
+      placeholder: 'https://calendly.com/alejandro',
       prefix: ''
     }
   ];
@@ -42,7 +56,20 @@ export function StepThree({ cardData, updateCardData }: StepThreeProps) {
   return (
     <div>
       <div className="mb-4">
-        <h5 className="mb-3">Conecta tus Redes Sociales</h5>
+        <h5 className="mb-3">🌍 Ubicación</h5>
+        <Form.Group className="mb-3">
+          <Form.Label>Dirección / Ubicación</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Ej: Av. Providencia 1234, Santiago"
+            value={cardData.location}
+            onChange={(e) => updateCardData('location', e.target.value)}
+          />
+        </Form.Group>
+      </div>
+
+      <div className="mb-4">
+        <h5 className="mb-3">🔗 Conecta tus Redes Sociales</h5>
         <p className="text-muted">
           Agrega tus perfiles profesionales para que tus contactos puedan conectar contigo
         </p>
@@ -108,6 +135,24 @@ export function StepThree({ cardData, updateCardData }: StepThreeProps) {
             </small>
           )}
         </div>
+      </div>
+
+      {/* Detalles Profesionales */}
+      <div className="mb-4 mt-4">
+        <h5 className="mb-3">📋 Detalles Profesionales</h5>
+        <Form.Group className="mb-3">
+          <Form.Label>Información Adicional</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            placeholder="Ej: RUT: 12.345.678-9&#10;Registro profesional: 12345&#10;Certificaciones: AWS, Google Cloud..."
+            value={cardData.professionalDetails}
+            onChange={(e) => updateCardData('professionalDetails', e.target.value)}
+          />
+          <Form.Text className="text-muted">
+            Agrega información como RUT, registros profesionales, certificaciones, etc.
+          </Form.Text>
+        </Form.Group>
       </div>
 
       <div className="bg-success bg-opacity-10 p-3 rounded mt-4">
