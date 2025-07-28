@@ -1,4 +1,48 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  // Enable React strict mode for better development experience
+  reactStrictMode: true,
+  
+  // Optimize images
+  images: {
+    domains: ['randomuser.me', 'lh3.googleusercontent.com'],
+  },
+
+  // For Netlify deployment
+  trailingSlash: false,
+  
+  // Environment variables
+  env: {
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+  },
+
+  // Optimize bundle
+  experimental: {
+    optimizeCss: true,
+  },
+
+  // Headers for security
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
+  },
+};
 
 module.exports = nextConfig;

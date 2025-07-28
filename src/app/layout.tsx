@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css';
+import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
-  title: "Tarjeta de Presentación Digital - Andrés Astorga Márquez",
-  description: "Plataforma de Creación de Tarjetas de Presentación Digitales",
+  title: "Digital Business Cards - Professional Card Generator",
+  description: "Create professional digital business cards with our advanced visual editor. Modern designs, instant sharing, and powerful customization.",
 };
 
 export default function RootLayout({
@@ -17,14 +18,12 @@ export default function RootLayout({
     <html lang="es">
       <body style={{
         fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
-        padding: '20px'
+        margin: 0,
+        padding: 0
       }}>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

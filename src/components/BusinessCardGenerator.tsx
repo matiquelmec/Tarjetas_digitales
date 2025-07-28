@@ -1,13 +1,19 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/react';
+import { useCards } from '../hooks/useCards';
 import BusinessCard from '../components/BusinessCard';
 
 export default function BusinessCardGenerator() {
+  const { data: session } = useSession();
+  const { saveCard, loading: saveLoading, error: saveError } = useCards();
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  
   const [name, setName] = useState('Alejandro Torres');
-    const [photoUrl, setPhotoUrl] = useState('https://randomuser.me/api/portraits/men/75.jpg'); // Ejemplo de foto profesional generada por IA
+  const [photoUrl, setPhotoUrl] = useState('https://randomuser.me/api/portraits/men/75.jpg');
   const [title, setTitle] = useState('Desarrollador Full-Stack Senior');
   const [about, setAbout] = useState('Ingeniero de software con más de 10 años de experiencia en el desarrollo de aplicaciones web escalables. Experto en tecnologías como React, Node.js y Python. Me especializo en crear soluciones robustas y eficientes que impulsan el crecimiento del negocio.');
   const [location, setLocation] = useState('Av. Siempre Viva 742, Santiago');
@@ -119,11 +125,72 @@ export default function BusinessCardGenerator() {
     }
   };
 
+  const handleSaveCard = async () => {
+    if (!session?.user?.id) return;
+
+    const cardData = {
+      title: title,
+      name: name,
+      profession: title,
+      about: about,
+      email: email,
+      phone: whatsapp,
+      website: appointmentLink,
+      linkedin: linkedin,
+      twitter: twitter,
+      instagram: instagram,
+      photoUrl: photoUrl,
+      customization: {
+        cardBackgroundColor,
+        cardTextColor,
+        buttonSecondaryColor,
+        buttonNormalBackgroundColor,
+        buttonSecondaryHoverColor,
+        pageBackgroundColor,
+        enableHoverEffect,
+        enableGlassmorphism,
+        enableSubtleAnimations,
+        enableBackgroundPatterns,
+        enableAIPalette,
+      },
+    };
+
+    try {
+      await saveCard(cardData);
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 3000);
+    } catch (error) {
+      console.error('Error saving card:', error);
+    }
+  };
+
   return (
     <Container fluid className="d-flex justify-content-center align-items-center min-vh-100" style={{ background: pageBackgroundColor }}>
       <Row className="w-100">
         <Col md={6} className="p-4">
-          <h2 className="mb-4" style={{ color: editorTextColor }}>Editor de Tarjeta de Presentación</h2>
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2 style={{ color: editorTextColor }}>Editor de Tarjeta de Presentación</h2>
+            <Button 
+              variant="success" 
+              onClick={handleSaveCard}
+              disabled={saveLoading}
+            >
+              {saveLoading ? 'Saving...' : 'Save Card'}
+            </Button>
+          </div>
+          
+          {saveSuccess && (
+            <Alert variant="success" className="mb-3">
+              Card saved successfully!
+            </Alert>
+          )}
+          
+          {saveError && (
+            <Alert variant="danger" className="mb-3">
+              Error saving card: {saveError}
+            </Alert>
+          )}
+          
           <Form>
             <fieldset>
               <legend style={{ color: editorTextColor }}>Información Personal</legend>
