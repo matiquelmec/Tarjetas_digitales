@@ -3,13 +3,13 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { Container, Row, Col, Card, Button, ListGroup } from 'react-bootstrap';
-import { PLAN_LIMITS } from '@/lib/stripe';
+import { PLAN_DETAILS } from '@/lib/mercadopago';
 
 export default function PricingPage() {
   const { data: session } = useSession();
   const [loading, setLoading] = useState<string | null>(null);
 
-  const handleSubscribe = async (priceId: string, planName: string) => {
+  const handleSubscribe = async (planType: string, planName: string) => {
     if (!session) {
       alert('Please sign in to subscribe');
       return;
@@ -24,8 +24,8 @@ export default function PricingPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          priceId,
-          successUrl: `${window.location.origin}/dashboard?success=true`,
+          planType,
+          successUrl: `${window.location.origin}/dashboard?success=true&plan=${planType}`,
           cancelUrl: `${window.location.origin}/pricing?canceled=true`,
         }),
       });
@@ -34,7 +34,7 @@ export default function PricingPage() {
       
       if (data.url) {
         window.location.href = data.url;
-      } else if (data.error === 'Stripe not configured') {
+      } else if (data.error === 'MercadoPago not configured') {
         alert('Payment system is not configured yet. Please contact support.');
       } else {
         alert('Error creating checkout session: ' + (data.error || 'Unknown error'));
@@ -125,8 +125,8 @@ export default function PricingPage() {
                 <Card.Header className="text-center border-0 bg-transparent">
                   <div className="badge bg-primary mb-2">Most Popular</div>
                   <h3>Professional</h3>
-                  <h2 className="display-4 fw-bold">$12.99</h2>
-                  <p>per month</p>
+                  <h2 className="display-4 fw-bold">$9.990</h2>
+                  <p>pesos chilenos</p>
                 </Card.Header>
                 <Card.Body>
                   <ListGroup variant="flush" className="bg-transparent">
@@ -154,10 +154,10 @@ export default function PricingPage() {
                   <Button 
                     variant="primary" 
                     className="w-100"
-                    onClick={() => handleSubscribe('price_professional', 'Professional')}
+                    onClick={() => handleSubscribe('PROFESSIONAL', 'Professional')}
                     disabled={loading === 'Professional'}
                   >
-                    {loading === 'Professional' ? 'Loading...' : 'Subscribe Now'}
+                    {loading === 'Professional' ? 'Procesando...' : 'Suscribirse Ahora'}
                   </Button>
                 </Card.Footer>
               </Card>
@@ -168,8 +168,8 @@ export default function PricingPage() {
               <Card className="glass-card text-white h-100">
                 <Card.Header className="text-center border-0 bg-transparent">
                   <h3>Business</h3>
-                  <h2 className="display-4 fw-bold">$39.99</h2>
-                  <p>per month</p>
+                  <h2 className="display-4 fw-bold">$29.990</h2>
+                  <p>pesos chilenos</p>
                 </Card.Header>
                 <Card.Body>
                   <ListGroup variant="flush" className="bg-transparent">
@@ -197,10 +197,10 @@ export default function PricingPage() {
                   <Button 
                     variant="outline-light" 
                     className="w-100"
-                    onClick={() => handleSubscribe('price_business', 'Business')}
+                    onClick={() => handleSubscribe('BUSINESS', 'Business')}
                     disabled={loading === 'Business'}
                   >
-                    {loading === 'Business' ? 'Loading...' : 'Subscribe Now'}
+                    {loading === 'Business' ? 'Procesando...' : 'Suscribirse Ahora'}
                   </Button>
                 </Card.Footer>
               </Card>
@@ -211,8 +211,8 @@ export default function PricingPage() {
               <Card className="glass-card text-white h-100">
                 <Card.Header className="text-center border-0 bg-transparent">
                   <h3>Enterprise</h3>
-                  <h2 className="display-4 fw-bold">$199+</h2>
-                  <p>per month</p>
+                  <h2 className="display-4 fw-bold">$149.990</h2>
+                  <p>pesos chilenos</p>
                 </Card.Header>
                 <Card.Body>
                   <ListGroup variant="flush" className="bg-transparent">
