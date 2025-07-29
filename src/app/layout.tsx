@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css';
 import { Providers } from '@/components/Providers';
+import { OptimizedStyles } from '@/components/OptimizedStyles';
 
 export const metadata: Metadata = {
   title: "Digital Business Cards - Professional Card Generator",
@@ -22,6 +22,7 @@ export default function RootLayout({
         padding: 0
       }}>
         <Providers>
+          <OptimizedStyles />
           {children}
         </Providers>
       </body>

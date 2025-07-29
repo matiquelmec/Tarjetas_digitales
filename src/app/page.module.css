@@ -1,0 +1,71 @@
+/* Critical styles for homepage only */
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animatedGradientBackground {
+  background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.glassCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  height: 100%;
+  color: white;
+}
+
+.glassCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.5);
+}
+
+.btnModern {
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  width: 100%;
+}
+
+.btnModern:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btnDisabled {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+  cursor: not-allowed;
+}
+
+.header {
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.cardText {
+  margin-bottom: 1.5rem;
+}
+
+.buttonLink {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
