@@ -6,9 +6,18 @@ import { PlanLimitService } from '@/lib/planLimits';
 
 export async function GET() {
   try {
+    console.log('GET /api/cards - Starting request');
     const session = await getServerSession(authOptionsSafe);
     
+    console.log('GET Session data:', {
+      hasSession: !!session,
+      hasUser: !!session?.user,
+      userId: session?.user?.id,
+      userEmail: session?.user?.email
+    });
+    
     if (!session?.user?.id) {
+      console.log('GET Authorization failed - no session or user ID');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -22,9 +31,18 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('POST /api/cards - Starting request');
     const session = await getServerSession(authOptionsSafe);
     
+    console.log('Session data:', {
+      hasSession: !!session,
+      hasUser: !!session?.user,
+      userId: session?.user?.id,
+      userEmail: session?.user?.email
+    });
+    
     if (!session?.user?.id) {
+      console.log('Authorization failed - no session or user ID');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

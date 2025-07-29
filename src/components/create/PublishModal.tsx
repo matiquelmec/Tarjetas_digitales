@@ -67,6 +67,7 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'same-origin', // Include cookies for authentication
         body: JSON.stringify(cardDataForAPI),
       });
 

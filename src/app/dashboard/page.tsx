@@ -73,7 +73,9 @@ export default function Dashboard() {
 
   const fetchCards = async () => {
     try {
-      const response = await fetch('/api/cards');
+      const response = await fetch('/api/cards', {
+        credentials: 'same-origin' // Include cookies for authentication
+      });
       if (response.ok) {
         const data = await response.json();
         setCards(data);
@@ -87,7 +89,9 @@ export default function Dashboard() {
 
   const fetchPlanLimits = async () => {
     try {
-      const response = await fetch('/api/user/plan-limits');
+      const response = await fetch('/api/user/plan-limits', {
+        credentials: 'same-origin' // Include cookies for authentication
+      });
       if (response.ok) {
         const data = await response.json();
         setPlanLimits(data);
@@ -103,6 +107,7 @@ export default function Dashboard() {
     try {
       const response = await fetch(`/api/cards/${cardId}`, {
         method: 'DELETE',
+        credentials: 'same-origin' // Include cookies for authentication
       });
       
       if (response.ok) {
