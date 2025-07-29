@@ -3,36 +3,24 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "./db";
 import { logger } from "./logger";
+import { env, validateRuntimeEnvironment, isBuildTime } from "./env";
 
-// Verify environment variables
-const requiredEnvVars = [
-  'GOOGLE_CLIENT_ID',
-  'GOOGLE_CLIENT_SECRET',
-  'NEXTAUTH_SECRET',
-  'DATABASE_URL'
-];
-
-for (const envVar of requiredEnvVars) {
-  if (!process.env[envVar]) {
-    logger.error(`Missing required environment variable: ${envVar}`);
-    throw new Error(`Missing required environment variable: ${envVar}`);
+// Validate environment at runtime (not build time)
+if (!isBuildTime) {
+  const validation = validateRuntimeEnvironment();
+  if (!validation.isValid) {
+    logger.warn('Environment validation issues found', validation.errors);
+  } else {
+    logger.info('Environment validation passed');
   }
 }
-
-logger.info('NextAuth configuration loading', {
-  hasGoogleClientId: !!process.env.GOOGLE_CLIENT_ID,
-  hasGoogleClientSecret: !!process.env.GOOGLE_CLIENT_SECRET,
-  hasNextAuthSecret: !!process.env.NEXTAUTH_SECRET,
-  hasDatabaseUrl: !!process.env.DATABASE_URL,
-  nodeEnv: process.env.NODE_ENV
-});
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
   ],
   callbacks: {
