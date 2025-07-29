@@ -13,7 +13,6 @@ export default function HomePage() {
     e.preventDefault();
     e.stopPropagation();
     console.log('Create card button clicked');
-    alert('Button clicked! Navigating to create page...');
     
     // Try multiple navigation methods
     try {
