@@ -2,10 +2,17 @@
 
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function HomePage() {
   const { data: session, status } = useSession();
+  const router = useRouter();
+
+  const handleCreateCard = () => {
+    console.log('Create card button clicked');
+    router.push('/create');
+  };
   
   return (
     <>
@@ -82,9 +89,13 @@ export default function HomePage() {
                   <Card.Text className="mb-4">
                     Create and customize your digital business cards with an intuitive editor and modern designs.
                   </Card.Text>
-                  <Link href="/create" passHref>
-                    <Button variant="primary" className="btn-modern w-100">Crear Tarjeta</Button>
-                  </Link>
+                  <Button 
+                    variant="primary" 
+                    className="btn-modern w-100"
+                    onClick={handleCreateCard}
+                  >
+                    Crear Tarjeta
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>
