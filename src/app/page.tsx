@@ -9,7 +9,7 @@ export default function HomePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  const handleCreateCard = (e) => {
+  const handleCreateCard = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     console.log('Create card button clicked');
