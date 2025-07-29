@@ -4,17 +4,29 @@ import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { usePostLoginRedirect } from '@/hooks/usePostLoginRedirect';
 
 export default function HomePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  
+  // Handle post-login redirection
+  usePostLoginRedirect();
 
   const handleCreateCard = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     console.log('Create card button clicked');
     
-    // Try multiple navigation methods
+    // Check if user is authenticated
+    if (!session) {
+      // Store intention to create card after login
+      sessionStorage.setItem('redirectAfterLogin', '/create');
+      signIn('google');
+      return;
+    }
+    
+    // User is authenticated, go directly to create
     try {
       router.push('/create');
     } catch (error) {
