@@ -61,7 +61,16 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
 
       console.log('Publishing card with data:', cardDataForAPI);
 
+      // Debug: Check session first
+      console.log('=== Checking debug session endpoint ===');
+      const debugResponse = await fetch('/api/debug-session', {
+        credentials: 'same-origin'
+      });
+      const debugData = await debugResponse.json();
+      console.log('Debug session data:', debugData);
+
       // Call the real API
+      console.log('=== Calling cards API ===');
       const response = await fetch('/api/cards', {
         method: 'POST',
         headers: {
@@ -70,6 +79,9 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
         credentials: 'same-origin', // Include cookies for authentication
         body: JSON.stringify(cardDataForAPI),
       });
+
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
 
       const responseData = await response.json();
       

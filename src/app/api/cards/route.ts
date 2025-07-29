@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptionsSafe } from '@/lib/auth-safe';
+import { authOptionsDebug } from '@/lib/auth-debug';
 import { CardService } from '@/lib/cardService';
 import { PlanLimitService } from '@/lib/planLimits';
 
@@ -32,7 +33,28 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     console.log('POST /api/cards - Starting request');
-    const session = await getServerSession(authOptionsSafe);
+    
+    // Try both auth configurations for comparison
+    console.log('=== Testing authOptionsSafe ===');
+    const sessionSafe = await getServerSession(authOptionsSafe);
+    console.log('Safe session result:', {
+      hasSession: !!sessionSafe,
+      hasUser: !!sessionSafe?.user,
+      userId: sessionSafe?.user?.id,
+      userEmail: sessionSafe?.user?.email
+    });
+    
+    console.log('=== Testing authOptionsDebug ===');
+    const sessionDebug = await getServerSession(authOptionsDebug);
+    console.log('Debug session result:', {
+      hasSession: !!sessionDebug,
+      hasUser: !!sessionDebug?.user,
+      userId: sessionDebug?.user?.id,
+      userEmail: sessionDebug?.user?.email
+    });
+    
+    // Use debug session for now
+    const session = sessionDebug;
     
     console.log('Session data:', {
       hasSession: !!session,
