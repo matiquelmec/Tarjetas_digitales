@@ -3,6 +3,7 @@ import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "./db";
+import { Plan } from "@prisma/client";
 
 // Basic auth configuration without validation (for build compatibility)
 export const authOptionsSafe: NextAuthOptions = {
@@ -31,7 +32,7 @@ export const authOptionsSafe: NextAuthOptions = {
                 email: user.email!,
                 name: user.name || '',
                 image: user.image || '',
-                plan: 'FREE',
+                plan: Plan.FREE,
               },
             });
             console.log('User created:', dbUser.id);
@@ -53,7 +54,7 @@ export const authOptionsSafe: NextAuthOptions = {
       
       if (token && session.user) {
         session.user.id = token.userId as string;
-        session.user.plan = token.plan as string || 'FREE';
+        session.user.plan = token.plan || Plan.FREE;
         console.log('Session user ID set to:', session.user.id);
       }
       
