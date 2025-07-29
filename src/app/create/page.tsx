@@ -254,7 +254,7 @@ export default function CreateCardPage() {
                   <Button 
                     variant="primary" 
                     onClick={handleNext}
-                    disabled={limitError && currentStep === 4}
+                    disabled={!!(limitError && currentStep === 4)}
                   >
                     {limitError && currentStep === 4 ? 'Upgrade Required' : (currentStep === 4 ? 'Publicar Tarjeta' : 'Siguiente →')}
                   </Button>
