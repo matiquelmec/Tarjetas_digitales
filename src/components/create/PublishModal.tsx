@@ -19,14 +19,56 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
     setIsPublishing(true);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      const finalUrl = `https://tarjetasdigitales.netlify.app/c/${cardData.customUrl}`;
+      // Create card data for API
+      const cardDataForAPI = {
+        title: cardData.name || 'Untitled Card',
+        name: cardData.name || '',
+        profession: cardData.title || '',
+        about: cardData.about || '',
+        email: cardData.email || '',
+        phone: cardData.phone || '',
+        website: cardData.website || '',
+        linkedin: cardData.linkedin || '',
+        twitter: cardData.twitter || '',
+        instagram: cardData.instagram || '',
+        photoUrl: cardData.photo || '',
+        customization: {
+          template: cardData.template || 'modern',
+          cardBackgroundColor: cardData.cardBackgroundColor || '#2c2c2c',
+          cardTextColor: cardData.cardTextColor || '#ffffff',
+          buttonSecondaryColor: cardData.buttonSecondaryColor || '#00F6FF',
+          buttonSecondaryHoverColor: cardData.buttonSecondaryHoverColor || '#00D1DB',
+          buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor || '#1F1F1F',
+          enableHoverEffect: cardData.enableHoverEffect || false,
+          enableGlassmorphism: cardData.enableGlassmorphism || false,
+          enableSubtleAnimations: cardData.enableSubtleAnimations || false,
+          enableBackgroundPatterns: cardData.enableBackgroundPatterns || false,
+          customUrl: cardData.customUrl || '',
+          isPublic: cardData.isPublic || true
+        }
+      };
+
+      // Call the real API
+      const response = await fetch('/api/cards', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cardDataForAPI),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create card');
+      }
+
+      const newCard = await response.json();
+      const finalUrl = `https://tarjetasdigitales.netlify.app/card/${newCard.id}`;
       setCardUrl(finalUrl);
       setPublishStep(2);
     } catch (error) {
       console.error('Error publishing card:', error);
+      alert(`Error creating card: ${error.message}`);
     } finally {
       setIsPublishing(false);
     }
@@ -88,7 +130,8 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
                 </p>
                 
                 <Alert variant="info">
-                  <strong>URL:</strong> https://tarjetasdigitales.netlify.app/c/{cardData.customUrl}
+                  <strong>Tu tarjeta tendrá una URL única</strong><br/>
+                  <small className="text-muted">Se generará automáticamente después de publicar</small>
                 </Alert>
                 
                 <div className="d-flex gap-2 justify-content-center">

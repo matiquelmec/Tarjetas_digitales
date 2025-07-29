@@ -29,7 +29,7 @@ export function StepFour({ cardData, updateCardData }: StepFourProps) {
     }
   }, [cardData.name, cardData.title]);
 
-  const fullUrl = `https://tarjetasdigitales.netlify.app/c/${cardData.customUrl || generatedUrl}`;
+  const fullUrl = `https://tarjetasdigitales.netlify.app/card/[id]`;
 
   const completionPercentage = () => {
     const requiredFields = ['name', 'title', 'email'];
@@ -105,17 +105,9 @@ export function StepFour({ cardData, updateCardData }: StepFourProps) {
         </Form.Group>
 
         <Alert variant="info">
-          <div className="d-flex justify-content-between align-items-center">
-            <div>
-              <strong>Tu tarjeta estará disponible en:</strong><br/>
-              <code>{fullUrl}</code>
-            </div>
-            <button
-              className="btn btn-outline-info btn-sm"
-              onClick={() => navigator.clipboard.writeText(fullUrl)}
-            >
-              📋 Copiar
-            </button>
+          <div>
+            <strong>Tu tarjeta estará disponible después de publicarla</strong><br/>
+            <small className="text-muted">Se generará una URL única automáticamente</small>
           </div>
         </Alert>
       </div>
