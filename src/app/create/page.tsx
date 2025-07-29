@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, ProgressBar, Alert } from 'react-bootstrap';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { AuthWrapper } from '@/components/AuthWrapper';
 import { StepOne } from '@/components/create/StepOne';
 import { StepTwo } from '@/components/create/StepTwo';
 import { StepThree } from '@/components/create/StepThree';
@@ -78,12 +79,15 @@ export default function CreateCardPage() {
         if (cardsResponse.ok) {
           const cards = await cardsResponse.json();
           if (limits.maxCards !== -1 && cards.length >= limits.maxCards) {
-            setLimitError(`You've reached your plan limit of ${limits.maxCards} card${limits.maxCards > 1 ? 's' : ''}. Please upgrade to create more cards.`);
+            setLimitError(`Has alcanzado el límite de tu plan de ${limits.maxCards} tarjeta${limits.maxCards > 1 ? 's' : ''}. Por favor actualiza tu plan para crear más tarjetas.`);
+          } else {
+            setLimitError(null); // Clear any previous errors
           }
         }
       }
     } catch (error) {
       console.error('Error checking plan limits:', error);
+      setLimitError('Error verificando límites del plan. Por favor intenta de nuevo.');
     }
   };
 
@@ -128,7 +132,7 @@ export default function CreateCardPage() {
   };
 
   return (
-    <>
+    <AuthWrapper>
       <style jsx global>{`
         .animated-gradient-background {
           background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
@@ -310,6 +314,6 @@ export default function CreateCardPage() {
         onHide={() => setShowPublishModal(false)}
         cardData={cardData}
       />
-    </>
+    </AuthWrapper>
   );
 }

@@ -19,6 +19,15 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
     setIsPublishing(true);
     
     try {
+      // Validate required fields
+      if (!cardData.name || cardData.name.trim() === '') {
+        throw new Error('El nombre es requerido para crear la tarjeta');
+      }
+      
+      if (!cardData.title || cardData.title.trim() === '') {
+        throw new Error('El título/profesión es requerido para crear la tarjeta');
+      }
+
       // Create card data for API
       const cardDataForAPI = {
         title: cardData.name || 'Untitled Card',
@@ -26,8 +35,8 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
         profession: cardData.title || '',
         about: cardData.about || '',
         email: cardData.email || '',
-        phone: cardData.phone || '',
-        website: cardData.website || '',
+        phone: cardData.whatsapp || cardData.phone || '',
+        website: cardData.appointmentLink || cardData.website || '',
         linkedin: cardData.linkedin || '',
         twitter: cardData.twitter || '',
         instagram: cardData.instagram || '',
@@ -44,9 +53,13 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
           enableSubtleAnimations: cardData.enableSubtleAnimations || false,
           enableBackgroundPatterns: cardData.enableBackgroundPatterns || false,
           customUrl: cardData.customUrl || '',
-          isPublic: cardData.isPublic || true
+          isPublic: cardData.isPublic !== false,
+          professionalDetails: cardData.professionalDetails || '',
+          location: cardData.location || ''
         }
       };
+
+      console.log('Publishing card with data:', cardDataForAPI);
 
       // Call the real API
       const response = await fetch('/api/cards', {
@@ -57,19 +70,21 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
         body: JSON.stringify(cardDataForAPI),
       });
 
+      const responseData = await response.json();
+      
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to create card');
+        throw new Error(responseData.message || responseData.error || 'Failed to create card');
       }
 
-      const newCard = await response.json();
-      const finalUrl = `https://tarjetasdigitales.netlify.app/card/${newCard.id}`;
+      const newCard = responseData;
+      const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://tarjetasdigitales.netlify.app';
+      const finalUrl = `${baseUrl}/card/${newCard.id}`;
       setCardUrl(finalUrl);
       setPublishStep(2);
     } catch (error) {
       console.error('Error publishing card:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-      alert(`Error creating card: ${errorMessage}`);
+      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      alert(`Error al crear la tarjeta: ${errorMessage}`);
     } finally {
       setIsPublishing(false);
     }
