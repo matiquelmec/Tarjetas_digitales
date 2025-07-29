@@ -1,17 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { mercadopago, PLAN_DETAILS } from '@/lib/mercadopago';
 import { Preference } from 'mercadopago';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
-    // Mock user for testing - in production this would come from session
-    const mockUser = {
-      id: 'mock-user-123',
-      email: 'test@example.com',
-      name: 'Usuario de Prueba'
-    };
+    const session = await getServerSession(authOptions);
     
-    if (!mockUser?.id) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -45,11 +42,11 @@ export async function POST(request: NextRequest) {
           pending: `${request.nextUrl.origin}/dashboard?pending=true&plan=${planType}`,
         },
         auto_return: 'approved',
-        external_reference: `user-${mockUser.id}-plan-${planType}`,
+        external_reference: `user-${session.user.id}-plan-${planType}`,
         notification_url: `${request.nextUrl.origin}/api/mercadopago/webhook`,
         payer: {
-          email: mockUser.email,
-          name: mockUser.name,
+          email: session.user.email || '',
+          name: session.user.name || '',
         },
       },
     });

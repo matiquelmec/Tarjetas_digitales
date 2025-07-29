@@ -2,11 +2,10 @@
 
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
-import { useMockSession } from '@/lib/mock-session';
-import { useEffect, useState } from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function HomePage() {
-  const { data: session, status } = useMockSession();
+  const { data: session, status } = useSession();
   
   return (
     <>
@@ -54,13 +53,24 @@ export default function HomePage() {
             <h1 className="text-center display-4 fw-bold" style={{ color: '#ffffff', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>Digital Business Cards Platform</h1>
             <div>
               <div className="d-flex gap-2">
-                <Link href="/pricing">
-                  <Button variant="outline-warning">Upgrade</Button>
-                </Link>
-                <Link href="/dashboard">
-                  <Button variant="outline-light">Dashboard</Button>
-                </Link>
-                <span className="text-white align-self-center">Welcome, {session?.user?.name}</span>
+                {session ? (
+                  <>
+                    <Link href="/pricing">
+                      <Button variant="outline-warning">Upgrade</Button>
+                    </Link>
+                    <Link href="/dashboard">
+                      <Button variant="outline-light">Dashboard</Button>
+                    </Link>
+                    <Button variant="outline-secondary" onClick={() => signOut()}>
+                      Sign Out
+                    </Button>
+                    <span className="text-white align-self-center">Welcome, {session.user?.name}</span>
+                  </>
+                ) : (
+                  <Button variant="outline-light" onClick={() => signIn('google')}>
+                    Sign In with Google
+                  </Button>
+                )}
               </div>
             </div>
           </div>

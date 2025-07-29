@@ -1,7 +1,10 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { prisma } from "./db";
 
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -9,25 +12,24 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session: async ({ session, token }) => {
-      if (session?.user && token?.sub) {
-        session.user.id = token.sub;
+    session: async ({ session, user }) => {
+      if (session?.user && user?.id) {
+        session.user.id = user.id;
+        // Get user's plan from database
+        const dbUser = await prisma.user.findUnique({
+          where: { id: user.id },
+          select: { plan: true }
+        });
+        session.user.plan = dbUser?.plan || 'FREE';
       }
       return session;
     },
-    jwt: async ({ user, token }) => {
-      if (user) {
-        token.sub = user.id;
-      }
-      return token;
-    },
     signIn: async ({ user, account, profile }) => {
-      // Always allow sign in for now
       return true;
     },
   },
   session: {
-    strategy: "jwt",
+    strategy: "database",
   },
   pages: {
     error: '/auth/error',

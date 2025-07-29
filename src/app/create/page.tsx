@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, ProgressBar, Alert } from 'react-bootstrap';
-import { useMockSession } from '@/lib/mock-session';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { StepOne } from '@/components/create/StepOne';
 import { StepTwo } from '@/components/create/StepTwo';
 import { StepThree } from '@/components/create/StepThree';
@@ -11,9 +12,12 @@ import { PublishModal } from '@/components/create/PublishModal';
 import BusinessCard from '@/components/BusinessCard';
 
 export default function CreateCardPage() {
-  const { data: session } = useMockSession();
+  const { data: session } = useSession();
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [showPublishModal, setShowPublishModal] = useState(false);
+  const [planLimits, setPlanLimits] = useState<any>(null);
+  const [limitError, setLimitError] = useState<string | null>(null);
   const [cardData, setCardData] = useState({
     // Datos básicos
     name: '',
@@ -55,6 +59,33 @@ export default function CreateCardPage() {
     customUrl: '',
     isPublic: true,
   });
+
+  useEffect(() => {
+    if (session?.user?.id) {
+      checkPlanLimits();
+    }
+  }, [session]);
+
+  const checkPlanLimits = async () => {
+    try {
+      const response = await fetch('/api/user/plan-limits');
+      if (response.ok) {
+        const limits = await response.json();
+        setPlanLimits(limits);
+        
+        // Check if user can create more cards
+        const cardsResponse = await fetch('/api/cards');
+        if (cardsResponse.ok) {
+          const cards = await cardsResponse.json();
+          if (limits.maxCards !== -1 && cards.length >= limits.maxCards) {
+            setLimitError(`You've reached your plan limit of ${limits.maxCards} card${limits.maxCards > 1 ? 's' : ''}. Please upgrade to create more cards.`);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error checking plan limits:', error);
+    }
+  };
 
   const steps = [
     { id: 1, title: 'Datos Básicos', description: 'Información personal y contacto' },
@@ -148,6 +179,22 @@ export default function CreateCardPage() {
             </Col>
           </Row>
 
+          {/* Plan Limit Warning */}
+          {limitError && (
+            <Row className="mb-4">
+              <Col>
+                <Alert variant="warning" className="d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong>Plan Limit Reached!</strong> {limitError}
+                  </div>
+                  <Button variant="outline-primary" size="sm" href="/pricing">
+                    Upgrade Now
+                  </Button>
+                </Alert>
+              </Col>
+            </Row>
+          )}
+
           <Row>
             {/* Steps Sidebar */}
             <Col lg={3} className="mb-4">
@@ -207,8 +254,9 @@ export default function CreateCardPage() {
                   <Button 
                     variant="primary" 
                     onClick={handleNext}
+                    disabled={limitError && currentStep === 4}
                   >
-                    {currentStep === 4 ? 'Publicar Tarjeta' : 'Siguiente →'}
+                    {limitError && currentStep === 4 ? 'Upgrade Required' : (currentStep === 4 ? 'Publicar Tarjeta' : 'Siguiente →')}
                   </Button>
                 </Card.Footer>
               </Card>

@@ -3,15 +3,15 @@
 import { useState } from 'react';
 import { Container, Row, Col, Card, Button, ListGroup } from 'react-bootstrap';
 import { PLAN_DETAILS, PLAN_LIMITS } from '@/lib/mercadopago';
-import { useMockSession } from '@/lib/mock-session';
+import { useSession, signIn } from 'next-auth/react';
 
 export default function PricingPage() {
-  const { data: session } = useMockSession();
+  const { data: session } = useSession();
   const [loading, setLoading] = useState<string | null>(null);
 
   const handleSubscribe = async (planType: string, planName: string) => {
     if (!session) {
-      alert('Please sign in to subscribe');
+      signIn();
       return;
     }
 
@@ -112,8 +112,12 @@ export default function PricingPage() {
                   </ListGroup>
                 </Card.Body>
                 <Card.Footer className="border-0 bg-transparent">
-                  <Button variant="outline-light" className="w-100" disabled>
-                    Current Plan
+                  <Button 
+                    variant={(!session?.user?.plan || session.user.plan === 'FREE') ? 'success' : 'outline-light'} 
+                    className="w-100" 
+                    disabled
+                  >
+                    {(!session?.user?.plan || session.user.plan === 'FREE') ? 'Current Plan' : 'Free'}
                   </Button>
                 </Card.Footer>
               </Card>
@@ -152,12 +156,13 @@ export default function PricingPage() {
                 </Card.Body>
                 <Card.Footer className="border-0 bg-transparent">
                   <Button 
-                    variant="primary" 
+                    variant={session?.user?.plan === 'PROFESSIONAL' ? 'success' : 'primary'}
                     className="w-100"
                     onClick={() => handleSubscribe('PROFESSIONAL', 'Professional')}
-                    disabled={loading === 'Professional'}
+                    disabled={loading === 'Professional' || session?.user?.plan === 'PROFESSIONAL'}
                   >
-                    {loading === 'Professional' ? 'Procesando...' : 'Suscribirse Ahora'}
+                    {session?.user?.plan === 'PROFESSIONAL' ? 'Current Plan' : 
+                     loading === 'Professional' ? 'Procesando...' : 'Suscribirse Ahora'}
                   </Button>
                 </Card.Footer>
               </Card>
@@ -195,12 +200,13 @@ export default function PricingPage() {
                 </Card.Body>
                 <Card.Footer className="border-0 bg-transparent">
                   <Button 
-                    variant="outline-light" 
+                    variant={session?.user?.plan === 'BUSINESS' ? 'success' : 'outline-light'}
                     className="w-100"
                     onClick={() => handleSubscribe('BUSINESS', 'Business')}
-                    disabled={loading === 'Business'}
+                    disabled={loading === 'Business' || session?.user?.plan === 'BUSINESS'}
                   >
-                    {loading === 'Business' ? 'Procesando...' : 'Suscribirse Ahora'}
+                    {session?.user?.plan === 'BUSINESS' ? 'Current Plan' : 
+                     loading === 'Business' ? 'Procesando...' : 'Suscribirse Ahora'}
                   </Button>
                 </Card.Footer>
               </Card>
