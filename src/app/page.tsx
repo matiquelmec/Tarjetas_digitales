@@ -9,9 +9,20 @@ export default function HomePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  const handleCreateCard = () => {
+  const handleCreateCard = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     console.log('Create card button clicked');
-    router.push('/create');
+    alert('Button clicked! Navigating to create page...');
+    
+    // Try multiple navigation methods
+    try {
+      router.push('/create');
+    } catch (error) {
+      console.error('Router push failed:', error);
+      // Fallback to window.location
+      window.location.href = '/create';
+    }
   };
   
   return (
@@ -89,13 +100,26 @@ export default function HomePage() {
                   <Card.Text className="mb-4">
                     Create and customize your digital business cards with an intuitive editor and modern designs.
                   </Card.Text>
-                  <Button 
-                    variant="primary" 
-                    className="btn-modern w-100"
-                    onClick={handleCreateCard}
-                  >
-                    Crear Tarjeta
-                  </Button>
+                  <div>
+                    <a 
+                      href="/create"
+                      style={{ 
+                        textDecoration: 'none',
+                        display: 'block',
+                        width: '100%'
+                      }}
+                      onClick={handleCreateCard}
+                    >
+                      <Button 
+                        variant="primary" 
+                        className="btn-modern w-100"
+                        type="button"
+                        as="div"
+                      >
+                        Crear Tarjeta
+                      </Button>
+                    </a>
+                  </div>
                 </Card.Body>
               </Card>
             </Col>
