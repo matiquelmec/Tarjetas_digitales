@@ -57,7 +57,12 @@ export default function PublicCardPage() {
   if (loading) {
     return (
       <Container fluid className="d-flex justify-content-center align-items-center min-vh-100" style={{ background: '#121212' }}>
-        <div className="text-white">Loading...</div>
+        <div className="text-white text-center">
+          <div className="spinner-border text-light mb-3" role="status">
+            <span className="visually-hidden">Cargando...</span>
+          </div>
+          <h5>Cargando tarjeta digital...</h5>
+        </div>
       </Container>
     );
   }
@@ -66,8 +71,12 @@ export default function PublicCardPage() {
     return (
       <Container fluid className="d-flex justify-content-center align-items-center min-vh-100" style={{ background: '#121212' }}>
         <div className="text-white text-center">
-          <h2>{error || 'Card not found'}</h2>
-          <p>The card you're looking for doesn't exist or has been removed.</p>
+          <div style={{ fontSize: '4rem' }} className="mb-3">💼</div>
+          <h2>{error || 'Tarjeta no encontrada'}</h2>
+          <p className="text-white-50">La tarjeta que buscas no existe o ha sido eliminada.</p>
+          <a href="/" className="btn btn-primary mt-3">
+            Volver al inicio
+          </a>
         </div>
       </Container>
     );
@@ -76,8 +85,31 @@ export default function PublicCardPage() {
   const customization = card.customization || {};
   const pageBackgroundColor = customization.pageBackgroundColor || '#121212';
 
+  // Update page title and meta tags
+  useEffect(() => {
+    if (card) {
+      document.title = `${card.name} - ${card.profession} | Tarjeta Digital`;
+      
+      // Update meta description
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 
+          `Conoce a ${card.name}, ${card.profession}. ${card.about || 'Tarjeta digital profesional.'}`
+        );
+      }
+    }
+  }, [card]);
+
   return (
-    <Container fluid className="d-flex justify-content-center align-items-center min-vh-100" style={{ background: pageBackgroundColor }}>
+    <>
+      <style jsx global>{`
+        body {
+          margin: 0;
+          padding: 0;
+          background: ${pageBackgroundColor};
+        }
+      `}</style>
+      <Container fluid className="d-flex justify-content-center align-items-center min-vh-100" style={{ background: pageBackgroundColor }}>
       <BusinessCard
         name={card.name}
         title={card.profession}
@@ -103,6 +135,7 @@ export default function PublicCardPage() {
         buttonNormalBackgroundColor={customization.buttonNormalBackgroundColor || '#1F1F1F'}
         buttonSecondaryHoverColor={customization.buttonSecondaryHoverColor || '#00D1DB'}
       />
-    </Container>
+      </Container>
+    </>
   );
 }
