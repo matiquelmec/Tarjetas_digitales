@@ -68,7 +68,8 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
       setPublishStep(2);
     } catch (error) {
       console.error('Error publishing card:', error);
-      alert(`Error creating card: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Error creating card: ${errorMessage}`);
     } finally {
       setIsPublishing(false);
     }
