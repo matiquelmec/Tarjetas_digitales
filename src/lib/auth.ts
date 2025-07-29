@@ -13,19 +13,29 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     session: async ({ session, user }) => {
-      if (session?.user && user?.id) {
-        session.user.id = user.id;
-        // Get user's plan from database
-        const dbUser = await prisma.user.findUnique({
-          where: { id: user.id },
-          select: { plan: true }
-        });
-        session.user.plan = dbUser?.plan || 'FREE';
+      try {
+        if (session?.user && user?.id) {
+          session.user.id = user.id;
+          // Get user's plan from database
+          const dbUser = await prisma.user.findUnique({
+            where: { id: user.id },
+            select: { plan: true }
+          });
+          session.user.plan = dbUser?.plan || 'FREE';
+        }
+        return session;
+      } catch (error) {
+        console.error('Session callback error:', error);
+        return session;
       }
-      return session;
     },
     signIn: async ({ user, account, profile }) => {
-      return true;
+      try {
+        return true;
+      } catch (error) {
+        console.error('SignIn callback error:', error);
+        return false;
+      }
     },
   },
   session: {
@@ -35,5 +45,5 @@ export const authOptions: NextAuthOptions = {
     error: '/auth/error',
     signIn: '/',
   },
-  debug: false,
+  debug: process.env.NODE_ENV === 'development',
 };
