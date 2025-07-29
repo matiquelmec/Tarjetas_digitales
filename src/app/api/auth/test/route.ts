@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { authOptionsSafe } from '@/lib/auth-safe';
 import { prisma } from '@/lib/db';
 import { logger } from '@/lib/logger';
 
@@ -38,7 +38,7 @@ export async function GET() {
 
     // Test NextAuth session
     try {
-      const session = await getServerSession(authOptions);
+      const session = await getServerSession(authOptionsSafe);
       diagnostics.checks.nextAuth = { 
         configured: true, 
         hasSession: !!session,
