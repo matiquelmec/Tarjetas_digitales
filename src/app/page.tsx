@@ -20,8 +20,8 @@ export default function HomePage() {
     
     // Check if user is authenticated
     if (!session) {
-      // Store intention to create card after login
-      sessionStorage.setItem('redirectAfterLogin', '/create');
+      // Store user intention for after login
+      sessionStorage.setItem('userIntention', 'createCard');
       signIn('google');
       return;
     }

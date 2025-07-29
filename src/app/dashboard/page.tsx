@@ -24,6 +24,8 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [planLimits, setPlanLimits] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('overview');
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
+  const [welcomeMessage, setWelcomeMessage] = useState('');
   
   // Handle post-login redirection
   usePostLoginRedirect();
@@ -32,8 +34,42 @@ export default function Dashboard() {
     if (session?.user?.id) {
       fetchCards();
       fetchPlanLimits();
+      
+      // Check if user came here with a specific intention
+      const dashboardAction = sessionStorage.getItem('dashboardAction');
+      if (dashboardAction) {
+        sessionStorage.removeItem('dashboardAction');
+        handleUserIntention(dashboardAction);
+      }
     }
   }, [session]);
+
+  const handleUserIntention = (intention: string) => {
+    switch (intention) {
+      case 'createCard':
+        // Set tab to cards and show welcome message
+        setActiveTab('cards');
+        setWelcomeMessage('¡Perfecto! Aquí puedes crear tu nueva tarjeta digital. Haz clic en "Crear Nueva Tarjeta" para comenzar.');
+        setShowWelcomeMessage(true);
+        
+        // Auto-hide message after 5 seconds
+        setTimeout(() => {
+          setShowWelcomeMessage(false);
+        }, 5000);
+        
+        // Highlight the create button
+        setTimeout(() => {
+          const createButton = document.querySelector('[href="/create"]') as HTMLElement;
+          if (createButton) {
+            createButton.style.animation = 'pulse 2s';
+          }
+        }, 1000);
+        break;
+      default:
+        // Keep default overview tab
+        break;
+    }
+  };
 
   const fetchCards = async () => {
     try {
@@ -97,6 +133,11 @@ export default function Dashboard() {
           border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 15px;
           box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        @keyframes pulse {
+          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7); }
+          50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
+          100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
         }
       `}</style>
       <div className="animated-gradient-background">
@@ -273,6 +314,26 @@ export default function Dashboard() {
 
           {activeTab === 'cards' && (
             <>
+              {/* Welcome Message */}
+              {showWelcomeMessage && (
+                <Row className="mb-4">
+                  <Col>
+                    <Alert variant="success" className="d-flex justify-content-between align-items-center">
+                      <div>
+                        <strong>👋 ¡Bienvenido!</strong> {welcomeMessage}
+                      </div>
+                      <Button 
+                        variant="outline-success" 
+                        size="sm"
+                        onClick={() => setShowWelcomeMessage(false)}
+                      >
+                        ✕
+                      </Button>
+                    </Alert>
+                  </Col>
+                </Row>
+              )}
+
               {/* Plan Usage Section */}
               {planLimits && (
                 <Row className="mb-4">

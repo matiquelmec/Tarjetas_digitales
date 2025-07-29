@@ -10,16 +10,17 @@ export function usePostLoginRedirect() {
 
   useEffect(() => {
     if (status === 'authenticated' && session) {
-      // Check if there's a redirect intention stored
-      const redirectPath = sessionStorage.getItem('redirectAfterLogin');
+      // Check if there's a user intention stored
+      const userIntention = sessionStorage.getItem('userIntention');
       
-      if (redirectPath) {
+      if (userIntention) {
         // Clear the stored intention
-        sessionStorage.removeItem('redirectAfterLogin');
+        sessionStorage.removeItem('userIntention');
         
-        // Redirect to the intended destination
-        console.log('Redirecting after login to:', redirectPath);
-        router.push(redirectPath);
+        // Always redirect to dashboard but store the intention for dashboard to use
+        sessionStorage.setItem('dashboardAction', userIntention);
+        console.log('Redirecting after login to dashboard with intention:', userIntention);
+        router.push('/dashboard');
       }
     }
   }, [session, status, router]);
