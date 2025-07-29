@@ -39,12 +39,6 @@ export default function PublicCardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (params.id) {
-      fetchCard(params.id as string);
-    }
-  }, [params.id]);
-
   const fetchCard = async (cardId: string) => {
     try {
       const response = await fetch(`/api/cards/${cardId}`);
@@ -63,6 +57,27 @@ export default function PublicCardPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (params.id) {
+      fetchCard(params.id as string);
+    }
+  }, [params.id]);
+
+  // Update page title and meta tags
+  useEffect(() => {
+    if (card) {
+      document.title = `${card.name} - ${card.profession} | Tarjeta Digital`;
+      
+      // Update meta description
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 
+          `Conoce a ${card.name}, ${card.profession}. ${card.about || 'Tarjeta digital profesional.'}`
+        );
+      }
+    }
+  }, [card]);
 
   if (loading) {
     return (
@@ -93,21 +108,6 @@ export default function PublicCardPage() {
   }
 
   const pageBackgroundColor = card.pageBackgroundColor || '#121212';
-
-  // Update page title and meta tags
-  useEffect(() => {
-    if (card) {
-      document.title = `${card.name} - ${card.profession} | Tarjeta Digital`;
-      
-      // Update meta description
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) {
-        metaDescription.setAttribute('content', 
-          `Conoce a ${card.name}, ${card.profession}. ${card.about || 'Tarjeta digital profesional.'}`
-        );
-      }
-    }
-  }, [card]);
 
   return (
     <>

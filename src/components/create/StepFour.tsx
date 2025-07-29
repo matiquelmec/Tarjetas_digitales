@@ -27,7 +27,7 @@ export function StepFour({ cardData, updateCardData }: StepFourProps) {
         updateCardData('customUrl', defaultUrl);
       }
     }
-  }, [cardData.name, cardData.title]);
+  }, [cardData.name, cardData.title, cardData.customUrl, updateCardData]);
 
   const fullUrl = `https://tarjetasdigitales.netlify.app/card/[id]`;
 
