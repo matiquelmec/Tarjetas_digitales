@@ -6,12 +6,212 @@ import { useRouter } from 'next/navigation';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { usePostLoginRedirect } from '@/hooks/usePostLoginRedirect';
 
+type ServiceStatus = 'available' | 'coming-soon' | 'contact-us';
+
+interface Service {
+  icon: string;
+  title: string;
+  description: string;
+  features: string[];
+  status: ServiceStatus;
+  buttonText: string;
+  buttonVariant: string;
+  link?: string;
+  comingSoonDate?: string;
+}
+
 export default function HomePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  const services: Service[] = [
+    {
+      icon: '💼',
+      title: 'Tarjetas Digitales Premium',
+      description: 'Crea tarjetas de presentación digitales con efectos visuales premium, QR codes integrados y compartir instantáneo por WhatsApp.',
+      features: [
+        'Editor visual en tiempo real',
+        'Efectos glassmorphism y partículas',
+        'URLs personalizadas',
+        'Analytics de interacción',
+      ],
+      status: 'available',
+      buttonText: 'Crear Mi Tarjeta',
+      buttonVariant: 'primary',
+      link: '/create',
+    },
+    {
+      icon: '🚀',
+      title: 'CVs Inteligentes',
+      description: 'Sube tu CV actual y nuestra IA lo optimiza con diseños modernos, palabras clave relevantes y estructura profesional.',
+      features: [
+        'Optimización con IA',
+        'Plantillas modernas ATS-friendly',
+        'Análisis de palabras clave',
+        'Exportación PDF/Word',
+      ],
+      status: 'coming-soon',
+      buttonText: 'Próximamente',
+      buttonVariant: 'outline-light',
+      comingSoonDate: 'Febrero 2025',
+    },
+    {
+      icon: '🎯',
+      title: 'Presentaciones Inmersivas',
+      description: 'Crea presentaciones que hipnoticen a tu audiencia con transiciones cinematográficas y contenido interactivo.',
+      features: [
+        'Transiciones cinematográficas',
+        'Elementos interactivos',
+        'Colaboración en tiempo real',
+        'Analytics de engagement',
+      ],
+      status: 'coming-soon',
+      buttonText: 'Próximamente',
+      buttonVariant: 'outline-light',
+      comingSoonDate: 'Marzo 2025',
+    },
+    {
+      icon: '🏢',
+      title: 'Soluciones Empresariales',
+      description: 'White-label completo, integraciones CRM avanzadas, SSO y herramientas de gestión de equipos para empresas.',
+      features: [
+        'White-label personalizable',
+        'Integraciones CRM/API',
+        'Single Sign-On (SSO)',
+        'Manager dashboard',
+      ],
+      status: 'contact-us',
+      buttonText: 'Consulta Enterprise',
+      buttonVariant: 'outline-warning',
+      link: '/contact', // Assuming a contact page exists
+    },
+    {
+      icon: '🔗',
+      title: 'API & Integraciones',
+      description: 'Conecta nuestra plataforma con tus herramientas favoritas. API RESTful completa con webhooks y SDKs.',
+      features: [
+        'API RESTful completa',
+        'Webhooks en tiempo real',
+        'SDKs JavaScript/Python',
+        'HubSpot, Salesforce, Zapier',
+      ],
+      status: 'contact-us',
+      buttonText: 'Ver Documentación',
+      buttonVariant: 'outline-info',
+      link: '/docs', // Assuming a docs page exists
+    },
+    {
+      icon: '🎨',
+      title: 'Template Marketplace',
+      description: 'Descubre plantillas premium creadas por diseñadores profesionales o vende tus propios diseños.',
+      features: [
+        'Plantillas premium exclusivas',
+        'Diseños por profesionales',
+        'Vende tus creaciones',
+        'Comisiones del 70%',
+      ],
+      status: 'coming-soon',
+      buttonText: 'Próximamente',
+      buttonVariant: 'outline-light',
+      comingSoonDate: 'Abril 2025',
+    },
+  ];
   
   // Handle post-login redirection
   usePostLoginRedirect();
+
+  const services: Service[] = [
+    {
+      icon: '💼',
+      title: 'Tarjetas Digitales Premium',
+      description: 'Crea tarjetas de presentación digitales con efectos visuales premium, QR codes integrados y compartir instantáneo por WhatsApp.',
+      features: [
+        'Editor visual en tiempo real',
+        'Efectos glassmorphism y partículas',
+        'URLs personalizadas',
+        'Analytics de interacción',
+      ],
+      status: 'available',
+      buttonText: 'Crear Mi Tarjeta',
+      buttonVariant: 'primary',
+      link: '/create',
+    },
+    {
+      icon: '🚀',
+      title: 'CVs Inteligentes',
+      description: 'Sube tu CV actual y nuestra IA lo optimiza con diseños modernos, palabras clave relevantes y estructura profesional.',
+      features: [
+        'Optimización con IA',
+        'Plantillas modernas ATS-friendly',
+        'Análisis de palabras clave',
+        'Exportación PDF/Word',
+      ],
+      status: 'coming-soon',
+      buttonText: 'Próximamente',
+      buttonVariant: 'outline-light',
+      comingSoonDate: 'Febrero 2025',
+    },
+    {
+      icon: '🎯',
+      title: 'Presentaciones Inmersivas',
+      description: 'Crea presentaciones que hipnoticen a tu audiencia con transiciones cinematográficas y contenido interactivo.',
+      features: [
+        'Transiciones cinematográficas',
+        'Elementos interactivos',
+        'Colaboración en tiempo real',
+        'Analytics de engagement',
+      ],
+      status: 'coming-soon',
+      buttonText: 'Próximamente',
+      buttonVariant: 'outline-light',
+      comingSoonDate: 'Marzo 2025',
+    },
+    {
+      icon: '🏢',
+      title: 'Soluciones Empresariales',
+      description: 'White-label completo, integraciones CRM avanzadas, SSO y herramientas de gestión de equipos para empresas.',
+      features: [
+        'White-label personalizable',
+        'Integraciones CRM/API',
+        'Single Sign-On (SSO)',
+        'Manager dashboard',
+      ],
+      status: 'contact-us',
+      buttonText: 'Consulta Enterprise',
+      buttonVariant: 'outline-warning',
+      link: '/contact', // Assuming a contact page exists
+    },
+    {
+      icon: '🔗',
+      title: 'API & Integraciones',
+      description: 'Conecta nuestra plataforma con tus herramientas favoritas. API RESTful completa con webhooks y SDKs.',
+      features: [
+        'API RESTful completa',
+        'Webhooks en tiempo real',
+        'SDKs JavaScript/Python',
+        'HubSpot, Salesforce, Zapier',
+      ],
+      status: 'contact-us',
+      buttonText: 'Ver Documentación',
+      buttonVariant: 'outline-info',
+      link: '/docs', // Assuming a docs page exists
+    },
+    {
+      icon: '🎨',
+      title: 'Template Marketplace',
+      description: 'Descubre plantillas premium creadas por diseñadores profesionales o vende tus propios diseños.',
+      features: [
+        'Plantillas premium exclusivas',
+        'Diseños por profesionales',
+        'Vende tus creaciones',
+        'Comisiones del 70%',
+      ],
+      status: 'coming-soon',
+      buttonText: 'Próximamente',
+      buttonVariant: 'outline-light',
+      comingSoonDate: 'Abril 2025',
+    },
+  ];
 
   const handleCreateCard = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -120,200 +320,63 @@ export default function HomePage() {
 
           {/* Services Grid */}
           <Row className="justify-content-center text-center w-100">
-            {/* Tarjetas Digitales - Servicio Principal */}
-            <Col lg={4} md={6} className="mb-4">
-              <Card className="h-100 glass-card text-white">
-                <Card.Body className="d-flex flex-column justify-content-between">
-                  <div>
-                    <div className="mb-3">
-                      <span style={{ fontSize: '3rem' }}>💼</span>
+            {services.map((service, index) => (
+              <Col key={index} lg={4} md={6} className="mb-4">
+                <Card className="h-100 glass-card text-white">
+                  <Card.Body className="d-flex flex-column justify-content-between">
+                    <div>
+                      <div className="mb-3">
+                        <span style={{ fontSize: '3rem' }}>{service.icon}</span>
+                      </div>
+                      <Card.Title className="h4 mb-3">{service.title}</Card.Title>
+                      <Card.Text className="mb-4">
+                        {service.description}
+                      </Card.Text>
+                      <div className="mb-3">
+                        <small className="text-white-50">
+                          {service.features.map((feature, idx) => (
+                            <span key={idx}>✓ {feature}<br/></span>
+                          ))}
+                        </small>
+                      </div>
                     </div>
-                    <Card.Title className="h4 mb-3">Tarjetas Digitales Premium</Card.Title>
-                    <Card.Text className="mb-4">
-                      Crea tarjetas de presentación digitales con efectos visuales premium, QR codes integrados y compartir instantáneo por WhatsApp.
-                    </Card.Text>
-                    <div className="mb-3">
-                      <small className="text-white-50">
-                        ✓ Editor visual en tiempo real<br/>
-                        ✓ Efectos glassmorphism y partículas<br/>
-                        ✓ URLs personalizadas<br/>
-                        ✓ Analytics de interacción
-                      </small>
+                    <div>
+                      {service.status === 'available' && service.link === '/create' ? (
+                        <a 
+                          href={service.link}
+                          style={{ 
+                            textDecoration: 'none',
+                            display: 'block',
+                            width: '100%'
+                          }}
+                          onClick={handleCreateCard}
+                        >
+                          <Button 
+                            variant={service.buttonVariant} 
+                            className="btn-modern w-100"
+                            type="button"
+                            as="div"
+                          >
+                            {service.buttonText}
+                          </Button>
+                        </a>
+                      ) : (
+                        <Button 
+                          variant={service.buttonVariant} 
+                          className="w-100" 
+                          disabled={service.status === 'coming-soon'}
+                          href={service.link || undefined}
+                          target={service.link ? "_blank" : undefined}
+                          rel={service.link ? "noopener noreferrer" : undefined}
+                        >
+                          {service.buttonText} {service.comingSoonDate && `- ${service.comingSoonDate}`}
+                        </Button>
+                      )}
                     </div>
-                  </div>
-                  <div>
-                    <a 
-                      href="/create"
-                      style={{ 
-                        textDecoration: 'none',
-                        display: 'block',
-                        width: '100%'
-                      }}
-                      onClick={handleCreateCard}
-                    >
-                      <Button 
-                        variant="primary" 
-                        className="btn-modern w-100"
-                        type="button"
-                        as="div"
-                      >
-                        Crear Mi Tarjeta
-                      </Button>
-                    </a>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            {/* CVs Inteligentes */}
-            <Col lg={4} md={6} className="mb-4">
-              <Card className="h-100 glass-card text-white">
-                <Card.Body className="d-flex flex-column justify-content-between">
-                  <div>
-                    <div className="mb-3">
-                      <span style={{ fontSize: '3rem' }}>🚀</span>
-                    </div>
-                    <Card.Title className="h4 mb-3">CVs Inteligentes</Card.Title>
-                    <Card.Text className="mb-4">
-                      Sube tu CV actual y nuestra IA lo optimiza con diseños modernos, palabras clave relevantes y estructura profesional.
-                    </Card.Text>
-                    <div className="mb-3">
-                      <small className="text-white-50">
-                        ✓ Optimización con IA<br/>
-                        ✓ Plantillas modernas ATS-friendly<br/>
-                        ✓ Análisis de palabras clave<br/>
-                        ✓ Exportación PDF/Word
-                      </small>
-                    </div>
-                  </div>
-                  <div>
-                    <Button variant="outline-light" className="w-100" disabled>
-                      Próximamente - Febrero 2025
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            {/* Presentaciones Inmersivas */}
-            <Col lg={4} md={6} className="mb-4">
-              <Card className="h-100 glass-card text-white">
-                <Card.Body className="d-flex flex-column justify-content-between">
-                  <div>
-                    <div className="mb-3">
-                      <span style={{ fontSize: '3rem' }}>🎯</span>
-                    </div>
-                    <Card.Title className="h4 mb-3">Presentaciones Inmersivas</Card.Title>
-                    <Card.Text className="mb-4">
-                      Crea presentaciones que hipnoticen a tu audiencia con transiciones cinematográficas y contenido interactivo.
-                    </Card.Text>
-                    <div className="mb-3">
-                      <small className="text-white-50">
-                        ✓ Transiciones cinematográficas<br/>
-                        ✓ Elementos interactivos<br/>
-                        ✓ Colaboración en tiempo real<br/>
-                        ✓ Analytics de engagement
-                      </small>
-                    </div>
-                  </div>
-                  <div>
-                    <Button variant="outline-light" className="w-100" disabled>
-                      Próximamente - Marzo 2025
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            {/* Ecosistema Empresarial */}
-            <Col lg={4} md={6} className="mb-4">
-              <Card className="h-100 glass-card text-white">
-                <Card.Body className="d-flex flex-column justify-content-between">
-                  <div>
-                    <div className="mb-3">
-                      <span style={{ fontSize: '3rem' }}>🏢</span>
-                    </div>
-                    <Card.Title className="h4 mb-3">Soluciones Empresariales</Card.Title>
-                    <Card.Text className="mb-4">
-                      White-label completo, integraciones CRM avanzadas, SSO y herramientas de gestión de equipos para empresas.
-                    </Card.Text>
-                    <div className="mb-3">
-                      <small className="text-white-50">
-                        ✓ White-label personalizable<br/>
-                        ✓ Integraciones CRM/API<br/>
-                        ✓ Single Sign-On (SSO)<br/>
-                        ✓ Manager dashboard
-                      </small>
-                    </div>
-                  </div>
-                  <div>
-                    <Button variant="outline-warning" className="w-100">
-                      Consulta Enterprise
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            {/* API & Integraciones */}
-            <Col lg={4} md={6} className="mb-4">
-              <Card className="h-100 glass-card text-white">
-                <Card.Body className="d-flex flex-column justify-content-between">
-                  <div>
-                    <div className="mb-3">
-                      <span style={{ fontSize: '3rem' }}>🔗</span>
-                    </div>
-                    <Card.Title className="h4 mb-3">API & Integraciones</Card.Title>
-                    <Card.Text className="mb-4">
-                      Conecta nuestra plataforma con tus herramientas favoritas. API RESTful completa con webhooks y SDKs.
-                    </Card.Text>
-                    <div className="mb-3">
-                      <small className="text-white-50">
-                        ✓ API RESTful completa<br/>
-                        ✓ Webhooks en tiempo real<br/>
-                        ✓ SDKs JavaScript/Python<br/>
-                        ✓ HubSpot, Salesforce, Zapier
-                      </small>
-                    </div>
-                  </div>
-                  <div>
-                    <Button variant="outline-info" className="w-100">
-                      Ver Documentación
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            {/* Marketplace de Templates */}
-            <Col lg={4} md={6} className="mb-4">
-              <Card className="h-100 glass-card text-white">
-                <Card.Body className="d-flex flex-column justify-content-between">
-                  <div>
-                    <div className="mb-3">
-                      <span style={{ fontSize: '3rem' }}>🎨</span>
-                    </div>
-                    <Card.Title className="h4 mb-3">Template Marketplace</Card.Title>
-                    <Card.Text className="mb-4">
-                      Descubre plantillas premium creadas por diseñadores profesionales o vende tus propios diseños.
-                    </Card.Text>
-                    <div className="mb-3">
-                      <small className="text-white-50">
-                        ✓ Plantillas premium exclusivas<br/>
-                        ✓ Diseños por profesionales<br/>
-                        ✓ Vende tus creaciones<br/>
-                        ✓ Comisiones del 70%
-                      </small>
-                    </div>
-                  </div>
-                  <div>
-                    <Button variant="outline-light" className="w-100" disabled>
-                      Próximamente - Abril 2025
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
           </Row>
 
           {/* CTA Section */}

@@ -33,13 +33,14 @@ export function useCards() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save card');
+        const errorData = await response.json();
+        throw new Error(errorData.message || errorData.error || 'Error desconocido al guardar la tarjeta');
       }
 
       const savedCard = await response.json();
       return savedCard;
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : 'Ocurrió un error inesperado al guardar la tarjeta');
       throw err;
     } finally {
       setLoading(false);
@@ -60,13 +61,14 @@ export function useCards() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update card');
+        const errorData = await response.json();
+        throw new Error(errorData.message || errorData.error || 'Error desconocido al actualizar la tarjeta');
       }
 
       const updatedCard = await response.json();
       return updatedCard;
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : 'Ocurrió un error inesperado al actualizar la tarjeta');
       throw err;
     } finally {
       setLoading(false);

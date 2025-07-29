@@ -49,6 +49,7 @@ model User {
   accounts     Account[]
   sessions     Session[]
   cards        Card[]
+  cvs          SmartCV[]
   subscription Subscription?
   
   createdAt DateTime @default(now())
@@ -76,7 +77,22 @@ model Card {
   twitter         String?
   instagram       String?
   photoUrl        String?
-  customization   Json     // Colors, effects, styles, etc.
+
+  // Customization Fields
+  cardBackgroundColor       String   @default("#1F1F1F")
+  cardTextColor             String   @default("#EAEAEA")
+  buttonSecondaryColor      String   @default("#00F6FF")
+  buttonNormalBackgroundColor String @default("#1F1F1F")
+  buttonSecondaryHoverColor String   @default("#00D1DB")
+  pageBackgroundColor       String   @default("#121212")
+
+  // Premium Effects
+  enableHoverEffect         Boolean  @default(false)
+  enableGlassmorphism       Boolean  @default(false)
+  enableSubtleAnimations    Boolean  @default(false)
+  enableBackgroundPatterns  Boolean  @default(false)
+  enableAIPalette           Boolean  @default(false)
+
   isActive        Boolean  @default(true)
   views           Int      @default(0)
   clicks          Int      @default(0)
@@ -112,4 +128,21 @@ enum Plan {
   PROFESSIONAL
   BUSINESS
   ENTERPRISE
+}
+
+// (FUTURO) Modelo para los CVs Inteligentes
+model SmartCV {
+  id        String @id @default(cuid())
+  userId    String
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // --- Campos específicos del CV ---
+  title     String
+  content   Json // O campos más estructurados
+  template  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }

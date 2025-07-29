@@ -5,12 +5,14 @@ import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import dynamic from 'next/dynamic';
 import { useMockSession } from '@/lib/mock-session';
 import { useCards } from '../hooks/useCards';
-import BusinessCard from '../components/BusinessCard';
+import BusinessCard from './BusinessCard';
+import { PlanLimits, PLAN_LIMITS } from '@/lib/planLimits';
 
 export default function BusinessCardGenerator() {
   const { data: session } = useMockSession();
   const { saveCard, loading: saveLoading, error: saveError } = useCards();
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [planLimits, setPlanLimits] = useState<PlanLimits | null>(null);
   
   const [name, setName] = useState('Alejandro Torres');
   const [photoUrl, setPhotoUrl] = useState('https://randomuser.me/api/portraits/men/75.jpg');
@@ -42,6 +44,12 @@ export default function BusinessCardGenerator() {
   const [facebook, setFacebook] = useState('');
   const [editorTextColor, setEditorTextColor] = useState('#ffffff');
   const [buttonTextColor, setButtonTextColor] = useState('#ffffff');
+
+  useEffect(() => {
+    if (session?.user?.plan) {
+      setPlanLimits(PLAN_LIMITS[session.user.plan]);
+    }
+  }, [session]);
 
   const minimalistPalettes = [
     { name: 'Carbón y Naranja', pageBackgroundColor: '#1a1a1a', cardBackgroundColor: '#2c2c2c', cardTextColor: '#ffffff', buttonSecondaryColor: '#ff6600', buttonSecondaryHoverColor: '#cc5200', buttonNormalBackgroundColor: '#444444' },
@@ -140,19 +148,17 @@ export default function BusinessCardGenerator() {
       twitter: twitter,
       instagram: instagram,
       photoUrl: photoUrl,
-      customization: {
-        cardBackgroundColor,
-        cardTextColor,
-        buttonSecondaryColor,
-        buttonNormalBackgroundColor,
-        buttonSecondaryHoverColor,
-        pageBackgroundColor,
-        enableHoverEffect,
-        enableGlassmorphism,
-        enableSubtleAnimations,
-        enableBackgroundPatterns,
-        enableAIPalette,
-      },
+      cardBackgroundColor,
+      cardTextColor,
+      buttonSecondaryColor,
+      buttonNormalBackgroundColor,
+      buttonSecondaryHoverColor,
+      pageBackgroundColor,
+      enableHoverEffect,
+      enableGlassmorphism,
+      enableSubtleAnimations,
+      enableBackgroundPatterns,
+      enableAIPalette,
     };
 
     try {
@@ -192,7 +198,7 @@ export default function BusinessCardGenerator() {
           )}
           
           <Form>
-            <fieldset>
+            <fieldset disabled={saveLoading}>
               <legend style={{ color: editorTextColor }}>Información Personal</legend>
               <Form.Group className="mb-3">
                 <Form.Label style={{ color: editorTextColor }}>Nombre Completo</Form.Label>
@@ -328,16 +334,48 @@ export default function BusinessCardGenerator() {
               <fieldset className="mt-3 p-3 border rounded">
                 <legend style={{ color: editorTextColor, fontSize: '0.9rem' }}>Efectos Visuales (Premium)</legend>
                 <Form.Group className="mb-3">
-                  <Form.Check type="checkbox" id="hover-effect-toggle" label="Activar Efecto Hover" checked={enableHoverEffect} onChange={(e) => setEnableHoverEffect(e.target.checked)} style={{ color: editorTextColor }} />
+                  <Form.Check 
+                    type="checkbox" 
+                    id="hover-effect-toggle" 
+                    label="Activar Efecto Hover" 
+                    checked={enableHoverEffect} 
+                    onChange={(e) => setEnableHoverEffect(e.target.checked)} 
+                    style={{ color: editorTextColor }} 
+                    disabled={!planLimits?.canUseHoverEffect}
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Check type="checkbox" id="glassmorphism-toggle" label="Activar Glassmorphism" checked={enableGlassmorphism} onChange={(e) => setEnableGlassmorphism(e.target.checked)} style={{ color: editorTextColor }} />
+                  <Form.Check 
+                    type="checkbox" 
+                    id="glassmorphism-toggle" 
+                    label="Activar Glassmorphism" 
+                    checked={enableGlassmorphism} 
+                    onChange={(e) => setEnableGlassmorphism(e.target.checked)} 
+                    style={{ color: editorTextColor }} 
+                    disabled={!planLimits?.canUseGlassmorphism}
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Check type="checkbox" id="subtle-animations-toggle" label="Activar Animaciones Sutiles" checked={enableSubtleAnimations} onChange={(e) => setEnableSubtleAnimations(e.target.checked)} style={{ color: editorTextColor }} />
+                  <Form.Check 
+                    type="checkbox" 
+                    id="subtle-animations-toggle" 
+                    label="Activar Animaciones Sutiles" 
+                    checked={enableSubtleAnimations} 
+                    onChange={(e) => setEnableSubtleAnimations(e.target.checked)} 
+                    style={{ color: editorTextColor }} 
+                    disabled={!planLimits?.canUseSubtleAnimations}
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Check type="checkbox" id="background-patterns-toggle" label="Activar Patrones de Fondo" checked={enableBackgroundPatterns} onChange={(e) => setEnableBackgroundPatterns(e.target.checked)} style={{ color: editorTextColor }} />
+                  <Form.Check 
+                    type="checkbox" 
+                    id="background-patterns-toggle" 
+                    label="Activar Patrones de Fondo" 
+                    checked={enableBackgroundPatterns} 
+                    onChange={(e) => setEnableBackgroundPatterns(e.target.checked)} 
+                    style={{ color: editorTextColor }} 
+                    disabled={!planLimits?.canUseBackgroundPatterns}
+                  />
                 </Form.Group>
               </fieldset>
 
@@ -363,7 +401,9 @@ export default function BusinessCardGenerator() {
                         setButtonSecondaryHoverColor('#00D1DB');
                       }
                     }}
-                    style={{ color: editorTextColor }} />
+                    style={{ color: editorTextColor }} 
+                    disabled={!planLimits?.canUseAIPalette}
+                  />
                 </Form.Group>
                 {enableAIPalette && (
                   <div className="d-grid gap-2">
@@ -382,6 +422,7 @@ export default function BusinessCardGenerator() {
                 </Form.Group>
               </fieldset>
             </fieldset>
+          </fieldset>
           </Form>
         </Col>
         <Col md={6} className="p-4">

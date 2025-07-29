@@ -14,6 +14,7 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
   const [isPublishing, setIsPublishing] = useState(false);
   const [publishStep, setPublishStep] = useState(1); // 1: Publishing, 2: Success
   const [cardUrl, setCardUrl] = useState('');
+  const [publishError, setPublishError] = useState<string | null>(null);
 
   const handlePublish = async () => {
     setIsPublishing(true);
@@ -41,22 +42,20 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
         twitter: cardData.twitter || '',
         instagram: cardData.instagram || '',
         photoUrl: cardData.photo || '',
-        customization: {
-          template: cardData.template || 'modern',
-          cardBackgroundColor: cardData.cardBackgroundColor || '#2c2c2c',
-          cardTextColor: cardData.cardTextColor || '#ffffff',
-          buttonSecondaryColor: cardData.buttonSecondaryColor || '#00F6FF',
-          buttonSecondaryHoverColor: cardData.buttonSecondaryHoverColor || '#00D1DB',
-          buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor || '#1F1F1F',
-          enableHoverEffect: cardData.enableHoverEffect || false,
-          enableGlassmorphism: cardData.enableGlassmorphism || false,
-          enableSubtleAnimations: cardData.enableSubtleAnimations || false,
-          enableBackgroundPatterns: cardData.enableBackgroundPatterns || false,
-          customUrl: cardData.customUrl || '',
-          isPublic: cardData.isPublic !== false,
-          professionalDetails: cardData.professionalDetails || '',
-          location: cardData.location || ''
-        }
+        template: cardData.template || 'modern',
+        cardBackgroundColor: cardData.cardBackgroundColor || '#2c2c2c',
+        cardTextColor: cardData.cardTextColor || '#ffffff',
+        buttonSecondaryColor: cardData.buttonSecondaryColor || '#00F6FF',
+        buttonSecondaryHoverColor: cardData.buttonSecondaryHoverColor || '#00D1DB',
+        buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor || '#1F1F1F',
+        enableHoverEffect: cardData.enableHoverEffect || false,
+        enableGlassmorphism: cardData.enableGlassmorphism || false,
+        enableSubtleAnimations: cardData.enableSubtleAnimations || false,
+        enableBackgroundPatterns: cardData.enableBackgroundPatterns || false,
+        customUrl: cardData.customUrl || '',
+        isPublic: cardData.isPublic !== false,
+        professionalDetails: cardData.professionalDetails || '',
+        location: cardData.location || ''
       };
 
       console.log('Publishing card with data:', cardDataForAPI);
@@ -87,7 +86,7 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
     } catch (error) {
       console.error('Error publishing card:', error);
       const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
-      alert(`Error al crear la tarjeta: ${errorMessage}`);
+      setPublishError(`Error al crear la tarjeta: ${errorMessage}`);
     } finally {
       setIsPublishing(false);
     }
@@ -116,7 +115,13 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
 
   const shareEmail = () => {
     const subject = `Tarjeta Digital de ${cardData.name}`;
-    const body = `Hola,\n\nTe comparto mi tarjeta digital profesional:\n${cardUrl}\n\nSaludos,\n${cardData.name}`;
+    const body = `Hola,
+
+Te comparto mi tarjeta digital profesional:
+${cardUrl}
+
+Saludos,
+${cardData.name}`;
     const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoUrl;
   };
@@ -133,6 +138,11 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
         {publishStep === 1 ? (
           // Publishing Step
           <div className="text-center">
+            {publishError && (
+              <Alert variant="danger" onClose={() => setPublishError(null)} dismissible className="mb-3">
+                {publishError}
+              </Alert>
+            )}
             {isPublishing ? (
               <>
                 <div className="spinner-border text-primary mb-3" role="status">
@@ -247,7 +257,7 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
       </Modal.Body>
       
       {publishStep === 2 && (
-        <Modal.Footer className="bg-dark border-secondary">
+        <Modal.Footer className="bg-dark text-white">
           <Button variant="outline-light" onClick={onHide}>
             Cerrar
           </Button>

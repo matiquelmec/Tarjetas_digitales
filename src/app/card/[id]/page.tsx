@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { Container } from 'react-bootstrap';
-import BusinessCard from '../../../components/BusinessCard';
+import BusinessCard from '@/features/digital-card/components/BusinessCard';
 
 interface CardData {
   id: string;
@@ -18,7 +18,17 @@ interface CardData {
   twitter?: string;
   instagram?: string;
   photoUrl?: string;
-  customization: any;
+  cardBackgroundColor: string;
+  cardTextColor: string;
+  buttonSecondaryColor: string;
+  buttonNormalBackgroundColor: string;
+  buttonSecondaryHoverColor: string;
+  pageBackgroundColor: string;
+  enableHoverEffect: boolean;
+  enableGlassmorphism: boolean;
+  enableSubtleAnimations: boolean;
+  enableBackgroundPatterns: boolean;
+  enableAIPalette: boolean;
   views: number;
   clicks: number;
 }
@@ -82,8 +92,7 @@ export default function PublicCardPage() {
     );
   }
 
-  const customization = card.customization || {};
-  const pageBackgroundColor = customization.pageBackgroundColor || '#121212';
+  const pageBackgroundColor = card.pageBackgroundColor || '#121212';
 
   // Update page title and meta tags
   useEffect(() => {
@@ -118,12 +127,12 @@ export default function PublicCardPage() {
         whatsapp={card.phone || ''}
         email={card.email || ''}
         photoUrl={card.photoUrl || ''}
-        cardBackgroundColor={customization.cardBackgroundColor || '#1F1F1F'}
-        cardTextColor={customization.cardTextColor || '#EAEAEA'}
-        enableHoverEffect={customization.enableHoverEffect || false}
-        enableGlassmorphism={customization.enableGlassmorphism || false}
-        enableSubtleAnimations={customization.enableSubtleAnimations || false}
-        enableBackgroundPatterns={customization.enableBackgroundPatterns || false}
+        cardBackgroundColor={card.cardBackgroundColor || '#1F1F1F'}
+        cardTextColor={card.cardTextColor || '#EAEAEA'}
+        enableHoverEffect={card.enableHoverEffect || false}
+        enableGlassmorphism={card.enableGlassmorphism || false}
+        enableSubtleAnimations={card.enableSubtleAnimations || false}
+        enableBackgroundPatterns={card.enableBackgroundPatterns || false}
         whatsappShareUrl=""
         appointmentLink={card.website || ''}
         professionalDetails=""
@@ -131,9 +140,9 @@ export default function PublicCardPage() {
         instagram={card.instagram || ''}
         twitter={card.twitter || ''}
         facebook=""
-        buttonSecondaryColor={customization.buttonSecondaryColor || '#00F6FF'}
-        buttonNormalBackgroundColor={customization.buttonNormalBackgroundColor || '#1F1F1F'}
-        buttonSecondaryHoverColor={customization.buttonSecondaryHoverColor || '#00D1DB'}
+        buttonSecondaryColor={card.buttonSecondaryColor || '#00F6FF'}
+        buttonNormalBackgroundColor={card.buttonNormalBackgroundColor || '#1F1F1F'}
+        buttonSecondaryHoverColor={card.buttonSecondaryHoverColor || '#00D1DB'}
       />
       </Container>
     </>

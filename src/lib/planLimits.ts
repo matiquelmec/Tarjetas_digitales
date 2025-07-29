@@ -8,6 +8,12 @@ export interface PlanLimits {
   hasCustomDomain: boolean;
   hasExport: boolean;
   hasPrioritySupport: boolean;
+  // Premium visual effects
+  canUseHoverEffect: boolean;
+  canUseGlassmorphism: boolean;
+  canUseSubtleAnimations: boolean;
+  canUseBackgroundPatterns: boolean;
+  canUseAIPalette: boolean;
 }
 
 export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
@@ -18,6 +24,12 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
     hasCustomDomain: false,
     hasExport: false,
     hasPrioritySupport: false,
+    // Premium visual effects
+    canUseHoverEffect: false,
+    canUseGlassmorphism: false,
+    canUseSubtleAnimations: false,
+    canUseBackgroundPatterns: false,
+    canUseAIPalette: false,
   },
   PROFESSIONAL: {
     maxCards: 5,
@@ -26,6 +38,12 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
     hasCustomDomain: true,
     hasExport: true,
     hasPrioritySupport: true,
+    // Premium visual effects
+    canUseHoverEffect: true,
+    canUseGlassmorphism: true,
+    canUseSubtleAnimations: true,
+    canUseBackgroundPatterns: true,
+    canUseAIPalette: true,
   },
   BUSINESS: {
     maxCards: 25,
@@ -34,6 +52,12 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
     hasCustomDomain: true,
     hasExport: true,
     hasPrioritySupport: true,
+    // Premium visual effects
+    canUseHoverEffect: true,
+    canUseGlassmorphism: true,
+    canUseSubtleAnimations: true,
+    canUseBackgroundPatterns: true,
+    canUseAIPalette: true,
   },
   ENTERPRISE: {
     maxCards: -1, // Unlimited
@@ -42,6 +66,12 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
     hasCustomDomain: true,
     hasExport: true,
     hasPrioritySupport: true,
+    // Premium visual effects
+    canUseHoverEffect: true,
+    canUseGlassmorphism: true,
+    canUseSubtleAnimations: true,
+    canUseBackgroundPatterns: true,
+    canUseAIPalette: true,
   },
 };
 

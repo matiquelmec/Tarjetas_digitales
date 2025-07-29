@@ -59,6 +59,27 @@ export async function POST(request: NextRequest) {
     }
 
     const cardData = await request.json();
+
+    // Validate premium features against user's plan
+    const planLimits = await PlanLimitService.getUserPlanLimits(session.user.id);
+    if (planLimits) {
+      if (cardData.enableHoverEffect && !planLimits.canUseHoverEffect) {
+        return NextResponse.json({ error: 'Hover effect is a premium feature.' }, { status: 403 });
+      }
+      if (cardData.enableGlassmorphism && !planLimits.canUseGlassmorphism) {
+        return NextResponse.json({ error: 'Glassmorphism is a premium feature.' }, { status: 403 });
+      }
+      if (cardData.enableSubtleAnimations && !planLimits.canUseSubtleAnimations) {
+        return NextResponse.json({ error: 'Subtle animations are a premium feature.' }, { status: 403 });
+      }
+      if (cardData.enableBackgroundPatterns && !planLimits.canUseBackgroundPatterns) {
+        return NextResponse.json({ error: 'Background patterns are a premium feature.' }, { status: 403 });
+      }
+      if (cardData.enableAIPalette && !planLimits.canUseAIPalette) {
+        return NextResponse.json({ error: 'AI palettes are a premium feature.' }, { status: 403 });
+      }
+    }
+
     const card = await CardService.createCard(session.user.id, cardData);
     
     return NextResponse.json(card, { status: 201 });

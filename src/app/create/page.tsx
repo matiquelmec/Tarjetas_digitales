@@ -10,7 +10,7 @@ import { StepTwo } from '@/components/create/StepTwo';
 import { StepThree } from '@/components/create/StepThree';
 import { StepFour } from '@/components/create/StepFour';
 import { PublishModal } from '@/components/create/PublishModal';
-import BusinessCard from '@/components/BusinessCard';
+import BusinessCard from '@/features/digital-card/components/BusinessCard';
 
 export default function CreateCardPage() {
   const { data: session } = useSession();
