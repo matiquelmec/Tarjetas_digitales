@@ -3,13 +3,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import dynamic from 'next/dynamic';
-import { useMockSession } from '@/lib/mock-session';
-import { useCards } from '../hooks/useCards';
+import { useSession } from 'next-auth/react';
+import { useCards } from '@/hooks/useCards';
 import BusinessCard from './BusinessCard';
 import { PlanLimits, PLAN_LIMITS } from '@/lib/planLimits';
 
 export default function BusinessCardGenerator() {
-  const { data: session } = useMockSession();
+  const { data: session } = useSession();
   const { saveCard, loading: saveLoading, error: saveError } = useCards();
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [planLimits, setPlanLimits] = useState<PlanLimits | null>(null);
@@ -148,17 +148,19 @@ export default function BusinessCardGenerator() {
       twitter: twitter,
       instagram: instagram,
       photoUrl: photoUrl,
-      cardBackgroundColor,
-      cardTextColor,
-      buttonSecondaryColor,
-      buttonNormalBackgroundColor,
-      buttonSecondaryHoverColor,
-      pageBackgroundColor,
-      enableHoverEffect,
-      enableGlassmorphism,
-      enableSubtleAnimations,
-      enableBackgroundPatterns,
-      enableAIPalette,
+      customization: {
+        cardBackgroundColor,
+        cardTextColor,
+        buttonSecondaryColor,
+        buttonNormalBackgroundColor,
+        buttonSecondaryHoverColor,
+        pageBackgroundColor,
+        enableHoverEffect,
+        enableGlassmorphism,
+        enableSubtleAnimations,
+        enableBackgroundPatterns,
+        enableAIPalette,
+      }
     };
 
     try {
@@ -422,7 +424,6 @@ export default function BusinessCardGenerator() {
                 </Form.Group>
               </fieldset>
             </fieldset>
-          </fieldset>
           </Form>
         </Col>
         <Col md={6} className="p-4">
