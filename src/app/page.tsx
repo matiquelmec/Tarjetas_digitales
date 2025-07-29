@@ -67,38 +67,68 @@ export default function HomePage() {
       <div className="animated-gradient-background min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <Container fluid className="py-5">
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h1 className="text-center display-4 fw-bold" style={{ color: '#ffffff', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>Digital Business Cards Platform</h1>
+            <h1 className="text-center display-4 fw-bold" style={{ color: '#ffffff', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>Plataforma Digital Profesional</h1>
             <div>
               <div className="d-flex gap-2">
                 {session ? (
                   <>
                     <Link href="/pricing">
-                      <Button variant="outline-warning">Upgrade</Button>
+                      <Button variant="outline-warning">Actualizar Plan</Button>
                     </Link>
                     <Link href="/dashboard">
-                      <Button variant="outline-light">Dashboard</Button>
+                      <Button variant="outline-light">Mi Panel</Button>
                     </Link>
                     <Button variant="outline-secondary" onClick={() => signOut()}>
-                      Sign Out
+                      Cerrar Sesión
                     </Button>
-                    <span className="text-white align-self-center">Welcome, {session.user?.name}</span>
+                    <span className="text-white align-self-center">Bienvenido, {session.user?.name}</span>
                   </>
                 ) : (
                   <Button variant="outline-light" onClick={() => signIn('google')}>
-                    Sign In with Google
+                    Iniciar Sesión con Google
                   </Button>
                 )}
               </div>
             </div>
           </div>
+          {/* Hero Section */}
+          <Row className="justify-content-center text-center mb-5">
+            <Col lg={8}>
+              <p className="lead text-white mb-4" style={{ fontSize: '1.2rem', fontWeight: '300' }}>
+                Transforma tu identidad profesional en una experiencia digital hipnotizante en menos de 5 minutos
+              </p>
+              <div className="d-flex gap-3 justify-content-center flex-wrap">
+                <span className="badge bg-light text-dark px-3 py-2">✨ Editor Visual en Tiempo Real</span>
+                <span className="badge bg-light text-dark px-3 py-2">🎨 Sugerencias AI-Powered</span>
+                <span className="badge bg-light text-dark px-3 py-2">📱 Mobile-First</span>
+                <span className="badge bg-light text-dark px-3 py-2">📊 Analytics Avanzados</span>
+              </div>
+            </Col>
+          </Row>
+
+          {/* Services Grid */}
           <Row className="justify-content-center text-center w-100">
-            <Col md={4} className="mb-4">
+            {/* Tarjetas Digitales - Servicio Principal */}
+            <Col lg={4} md={6} className="mb-4">
               <Card className="h-100 glass-card text-white">
                 <Card.Body className="d-flex flex-column justify-content-between">
-                  <Card.Title className="h3 mb-3">Business Card Generator</Card.Title>
-                  <Card.Text className="mb-4">
-                    Create and customize your digital business cards with an intuitive editor and modern designs.
-                  </Card.Text>
+                  <div>
+                    <div className="mb-3">
+                      <span style={{ fontSize: '3rem' }}>💼</span>
+                    </div>
+                    <Card.Title className="h4 mb-3">Tarjetas Digitales Premium</Card.Title>
+                    <Card.Text className="mb-4">
+                      Crea tarjetas de presentación digitales con efectos visuales premium, QR codes integrados y compartir instantáneo por WhatsApp.
+                    </Card.Text>
+                    <div className="mb-3">
+                      <small className="text-white-50">
+                        ✓ Editor visual en tiempo real<br/>
+                        ✓ Efectos glassmorphism y partículas<br/>
+                        ✓ URLs personalizadas<br/>
+                        ✓ Analytics de interacción
+                      </small>
+                    </div>
+                  </div>
                   <div>
                     <a 
                       href="/create"
@@ -115,34 +145,190 @@ export default function HomePage() {
                         type="button"
                         as="div"
                       >
-                        Crear Tarjeta
+                        Crear Mi Tarjeta
                       </Button>
                     </a>
                   </div>
                 </Card.Body>
               </Card>
             </Col>
-            <Col md={4} className="mb-4">
+
+            {/* CVs Inteligentes */}
+            <Col lg={4} md={6} className="mb-4">
               <Card className="h-100 glass-card text-white">
                 <Card.Body className="d-flex flex-column justify-content-between">
-                  <Card.Title className="h3 mb-3">Generador de Currículums</Card.Title>
-                  <Card.Text className="mb-4">
-                    Sube tus CVs antiguos y mejóralos con nuestra IA, controlando el diseño y las funciones.
-                  </Card.Text>
-                  <Button variant="secondary" disabled className="btn-disabled w-100">Próximamente</Button>
+                  <div>
+                    <div className="mb-3">
+                      <span style={{ fontSize: '3rem' }}>🚀</span>
+                    </div>
+                    <Card.Title className="h4 mb-3">CVs Inteligentes</Card.Title>
+                    <Card.Text className="mb-4">
+                      Sube tu CV actual y nuestra IA lo optimiza con diseños modernos, palabras clave relevantes y estructura profesional.
+                    </Card.Text>
+                    <div className="mb-3">
+                      <small className="text-white-50">
+                        ✓ Optimización con IA<br/>
+                        ✓ Plantillas modernas ATS-friendly<br/>
+                        ✓ Análisis de palabras clave<br/>
+                        ✓ Exportación PDF/Word
+                      </small>
+                    </div>
+                  </div>
+                  <div>
+                    <Button variant="outline-light" className="w-100" disabled>
+                      Próximamente - Febrero 2025
+                    </Button>
+                  </div>
                 </Card.Body>
               </Card>
             </Col>
-            <Col md={4} className="mb-4">
+
+            {/* Presentaciones Inmersivas */}
+            <Col lg={4} md={6} className="mb-4">
               <Card className="h-100 glass-card text-white">
                 <Card.Body className="d-flex flex-column justify-content-between">
-                  <Card.Title className="h3 mb-3">Creador de Presentaciones</Card.Title>
-                  <Card.Text className="mb-4">
-                    Diseña presentaciones impactantes con herramientas intuitivas y plantillas profesionales.
-                  </Card.Text>
-                  <Button variant="secondary" disabled className="btn-disabled w-100">Próximamente</Button>
+                  <div>
+                    <div className="mb-3">
+                      <span style={{ fontSize: '3rem' }}>🎯</span>
+                    </div>
+                    <Card.Title className="h4 mb-3">Presentaciones Inmersivas</Card.Title>
+                    <Card.Text className="mb-4">
+                      Crea presentaciones que hipnoticen a tu audiencia con transiciones cinematográficas y contenido interactivo.
+                    </Card.Text>
+                    <div className="mb-3">
+                      <small className="text-white-50">
+                        ✓ Transiciones cinematográficas<br/>
+                        ✓ Elementos interactivos<br/>
+                        ✓ Colaboración en tiempo real<br/>
+                        ✓ Analytics de engagement
+                      </small>
+                    </div>
+                  </div>
+                  <div>
+                    <Button variant="outline-light" className="w-100" disabled>
+                      Próximamente - Marzo 2025
+                    </Button>
+                  </div>
                 </Card.Body>
               </Card>
+            </Col>
+
+            {/* Ecosistema Empresarial */}
+            <Col lg={4} md={6} className="mb-4">
+              <Card className="h-100 glass-card text-white">
+                <Card.Body className="d-flex flex-column justify-content-between">
+                  <div>
+                    <div className="mb-3">
+                      <span style={{ fontSize: '3rem' }}>🏢</span>
+                    </div>
+                    <Card.Title className="h4 mb-3">Soluciones Empresariales</Card.Title>
+                    <Card.Text className="mb-4">
+                      White-label completo, integraciones CRM avanzadas, SSO y herramientas de gestión de equipos para empresas.
+                    </Card.Text>
+                    <div className="mb-3">
+                      <small className="text-white-50">
+                        ✓ White-label personalizable<br/>
+                        ✓ Integraciones CRM/API<br/>
+                        ✓ Single Sign-On (SSO)<br/>
+                        ✓ Manager dashboard
+                      </small>
+                    </div>
+                  </div>
+                  <div>
+                    <Button variant="outline-warning" className="w-100">
+                      Consulta Enterprise
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            {/* API & Integraciones */}
+            <Col lg={4} md={6} className="mb-4">
+              <Card className="h-100 glass-card text-white">
+                <Card.Body className="d-flex flex-column justify-content-between">
+                  <div>
+                    <div className="mb-3">
+                      <span style={{ fontSize: '3rem' }}>🔗</span>
+                    </div>
+                    <Card.Title className="h4 mb-3">API & Integraciones</Card.Title>
+                    <Card.Text className="mb-4">
+                      Conecta nuestra plataforma con tus herramientas favoritas. API RESTful completa con webhooks y SDKs.
+                    </Card.Text>
+                    <div className="mb-3">
+                      <small className="text-white-50">
+                        ✓ API RESTful completa<br/>
+                        ✓ Webhooks en tiempo real<br/>
+                        ✓ SDKs JavaScript/Python<br/>
+                        ✓ HubSpot, Salesforce, Zapier
+                      </small>
+                    </div>
+                  </div>
+                  <div>
+                    <Button variant="outline-info" className="w-100">
+                      Ver Documentación
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            {/* Marketplace de Templates */}
+            <Col lg={4} md={6} className="mb-4">
+              <Card className="h-100 glass-card text-white">
+                <Card.Body className="d-flex flex-column justify-content-between">
+                  <div>
+                    <div className="mb-3">
+                      <span style={{ fontSize: '3rem' }}>🎨</span>
+                    </div>
+                    <Card.Title className="h4 mb-3">Template Marketplace</Card.Title>
+                    <Card.Text className="mb-4">
+                      Descubre plantillas premium creadas por diseñadores profesionales o vende tus propios diseños.
+                    </Card.Text>
+                    <div className="mb-3">
+                      <small className="text-white-50">
+                        ✓ Plantillas premium exclusivas<br/>
+                        ✓ Diseños por profesionales<br/>
+                        ✓ Vende tus creaciones<br/>
+                        ✓ Comisiones del 70%
+                      </small>
+                    </div>
+                  </div>
+                  <div>
+                    <Button variant="outline-light" className="w-100" disabled>
+                      Próximamente - Abril 2025
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+
+          {/* CTA Section */}
+          <Row className="justify-content-center text-center mt-5">
+            <Col lg={8}>
+              <div className="glass-card p-4">
+                <h3 className="text-white mb-3">¿Listo para transformar tu presencia digital?</h3>
+                <p className="text-white-75 mb-4">
+                  Únete a miles de profesionales que ya están utilizando nuestra plataforma para destacar en el mundo digital.
+                </p>
+                <div className="d-flex gap-3 justify-content-center flex-wrap">
+                  {session ? (
+                    <Button variant="primary" size="lg" href="/dashboard">
+                      Ir a Mi Panel
+                    </Button>
+                  ) : (
+                    <>
+                      <Button variant="primary" size="lg" onClick={() => signIn('google')}>
+                        Comenzar Gratis
+                      </Button>
+                      <Button variant="outline-light" size="lg" href="/pricing">
+                        Ver Planes
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </div>
             </Col>
           </Row>
         </Container>

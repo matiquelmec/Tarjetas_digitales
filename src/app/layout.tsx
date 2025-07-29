@@ -5,8 +5,8 @@ import './custom.css';
 import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
-  title: "Digital Business Cards - Professional Card Generator",
-  description: "Create professional digital business cards with our advanced visual editor. Modern designs, instant sharing, and powerful customization.",
+  title: "Plataforma Digital Profesional - Tarjetas, CVs y Presentaciones",
+  description: "Transforma tu identidad profesional en una experiencia digital hipnotizante. Tarjetas digitales premium, CVs inteligentes y presentaciones inmersivas.",
 };
 
 export default function RootLayout({
