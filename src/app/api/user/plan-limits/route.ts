@@ -9,20 +9,20 @@ export async function GET() {
     const session = await getServerSession(authOptionsSafe);
     
     console.log("Plan limits session data:", {
-      hasSession: \!\!session,
-      hasUser: \!\!session?.user,
+      hasSession: !!session,
+      hasUser: !!session?.user,
       userId: session?.user?.id,
       userEmail: session?.user?.email
     });
     
-    if (\!session?.user?.id) {
+    if (!session?.user?.id) {
       console.log("Plan limits - Authorization failed - no session or user ID");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const planLimits = await PlanLimitService.getUserPlanLimits(session.user.id);
     
-    if (\!planLimits) {
+    if (!planLimits) {
       console.log("Plan limits - User not found:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
