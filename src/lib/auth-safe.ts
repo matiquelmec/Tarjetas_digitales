@@ -75,9 +75,30 @@ export const authOptionsSafe: NextAuthOptions = {
       console.log('Session callback - session:', !!session, 'token:', !!token);
       
       if (token && session.user) {
-        session.user.id = token.userId as string;
-        session.user.plan = token.plan || Plan.FREE;
-        console.log('Session user ID set to:', session.user.id);
+        // Ensure we always use the database ID, not the OAuth ID
+        if (session.user.email) {
+          try {
+            const dbUser = await prisma.user.findUnique({
+              where: { email: session.user.email }
+            });
+            if (dbUser) {
+              session.user.id = dbUser.id; // Use database ID
+              session.user.plan = dbUser.plan;
+              console.log('Session user ID set to database ID:', dbUser.id);
+            } else {
+              session.user.id = token.userId as string;
+              session.user.plan = token.plan || Plan.FREE;
+              console.log('Session user ID set to token ID:', token.userId);
+            }
+          } catch (error) {
+            console.error('Error fetching user in session callback:', error);
+            session.user.id = token.userId as string;
+            session.user.plan = token.plan || Plan.FREE;
+          }
+        } else {
+          session.user.id = token.userId as string;
+          session.user.plan = token.plan || Plan.FREE;
+        }
       }
       
       return session;
