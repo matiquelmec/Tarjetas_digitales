@@ -77,13 +77,53 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
 
 export class PlanLimitService {
   static async canCreateCard(userId: string): Promise<{ allowed: boolean; reason?: string }> {
+    console.log('PlanLimitService.canCreateCard - Starting with userId:', userId);
+    
     const user = await prisma.user.findUnique({
       where: { id: userId },
       include: { _count: { select: { cards: true } } }
     });
 
+    console.log('PlanLimitService.canCreateCard - User lookup result:', {
+      found: !!user,
+      userId: userId,
+      userPlan: user?.plan,
+      cardCount: user?._count?.cards
+    });
+
     if (!user) {
-      return { allowed: false, reason: 'User not found' };
+      console.error('PlanLimitService.canCreateCard - User not found:', userId);
+      
+      // Intentar buscar por email si userId podría ser un email
+      if (userId.includes('@')) {
+        console.log('PlanLimitService - Attempting to find user by email:', userId);
+        const userByEmail = await prisma.user.findUnique({
+          where: { email: userId },
+          include: { _count: { select: { cards: true } } }
+        });
+        
+        if (userByEmail) {
+          console.log('PlanLimitService - Found user by email:', userByEmail.id);
+          // Continuar con la lógica usando el usuario encontrado por email
+          const limits = PLAN_LIMITS[userByEmail.plan];
+          const currentCardCount = userByEmail._count.cards;
+
+          if (limits.maxCards === -1) {
+            return { allowed: true };
+          }
+
+          if (currentCardCount >= limits.maxCards) {
+            return { 
+              allowed: false, 
+              reason: `Your ${userByEmail.plan} plan allows a maximum of ${limits.maxCards} card${limits.maxCards > 1 ? 's' : ''}. Please upgrade to create more cards.`
+            };
+          }
+
+          return { allowed: true };
+        }
+      }
+      
+      return { allowed: false, reason: 'User not found in database. Please try logging out and logging back in.' };
     }
 
     const limits = PLAN_LIMITS[user.plan];

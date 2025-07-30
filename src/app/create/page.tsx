@@ -39,10 +39,10 @@ export default function CreateCardPage() {
     buttonSecondaryHoverColor: '#00D1DB',
     buttonNormalBackgroundColor: '#1F1F1F',
     
-    // Efectos visuales - Algunos activados para mejor demo
-    enableHoverEffect: true,
-    enableGlassmorphism: true,
-    enableSubtleAnimations: true,
+    // Efectos visuales - Desactivados para usuarios FREE
+    enableHoverEffect: false,
+    enableGlassmorphism: false,
+    enableSubtleAnimations: false,
     enableBackgroundPatterns: false,
     
     // Redes sociales - Con datos de ejemplo
