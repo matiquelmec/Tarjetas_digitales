@@ -22,3 +22,179 @@
   max-width: 400px; /* Ancho máximo de la tarjeta */
   margin: auto; /* Centrar la tarjeta horizontalmente */
 }
+
+/* ============================================ */
+/* SISTEMA DE CONTRASTE UNIFICADO */
+/* ============================================ */
+
+/* Clases de texto para fondos con gradiente/glass */
+.text-gradient-primary {
+  color: #ffffff !important;
+}
+
+.text-gradient-secondary {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.text-gradient-muted {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.text-gradient-hint {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* Clases de texto para fondos sólidos claros */
+.text-solid-light-primary {
+  color: #1a1a1a !important;
+}
+
+.text-solid-light-secondary {
+  color: #2d2d2d !important;
+}
+
+.text-solid-light-muted {
+  color: #6c757d !important;
+}
+
+.text-solid-light-hint {
+  color: #9ca3af !important;
+}
+
+/* Clases de texto para fondos sólidos oscuros */
+.text-solid-dark-primary {
+  color: #ffffff !important;
+}
+
+.text-solid-dark-secondary {
+  color: #f8f9fa !important;
+}
+
+.text-solid-dark-muted {
+  color: #dee2e6 !important;
+}
+
+.text-solid-dark-hint {
+  color: #adb5bd !important;
+}
+
+/* Estilos para glass cards con mejor contraste */
+.glass-card .text-dark {
+  color: #ffffff !important;
+}
+
+.glass-card .text-muted {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.glass-card .text-secondary {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Botones con contraste automático */
+.btn-auto-contrast {
+  transition: all 0.3s ease;
+}
+
+.btn-auto-contrast:focus,
+.btn-auto-contrast:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+/* Inputs con mejor contraste */
+.form-control-glass {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(5px);
+}
+
+.form-control-glass::placeholder {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.form-control-glass:focus {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
+/* Alerts con mejor contraste */
+.alert-glass {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(10px);
+  color: #ffffff !important;
+}
+
+.alert-glass .alert-heading {
+  color: #ffffff !important;
+}
+
+/* Badges con contraste automático */
+.badge-auto-contrast {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+}
+
+.badge-light-contrast {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #1a1a1a !important;
+}
+
+.badge-dark-contrast {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  color: #ffffff !important;
+}
+
+/* Estados de hover con contraste mejorado */
+.glass-card:hover .text-dark {
+  color: #ffffff !important;
+}
+
+.glass-card:hover .text-muted {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Accesibilidad: Focus indicators */
+.focus-visible-white:focus,
+.focus-visible-white:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8) !important;
+  outline-offset: 2px !important;
+}
+
+.focus-visible-dark:focus,
+.focus-visible-dark:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.8) !important;
+  outline-offset: 2px !important;
+}
+
+/* Loading states con contraste */
+.spinner-border-contrast-light {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.spinner-border-contrast-dark {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Media queries para mejor accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .text-gradient-muted {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+  
+  .text-gradient-hint {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+}

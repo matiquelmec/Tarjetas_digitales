@@ -3,6 +3,7 @@
 import { Card, Stack, Button } from 'react-bootstrap';
 import { useEffect, useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { getBestTextColor, getContrastRatio, isAccessible } from '@/lib/contrast';
 
 const QrCodeDisplay = dynamic(() => import('./QrCodeDisplay'), { ssr: false });
 
@@ -95,13 +96,29 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
     }
   }, []);
 
-  const getContrastTextColor = (hexcolor: string) => {
-    if (!hexcolor || hexcolor.toLowerCase() === 'transparent') return '#000000';
-    const r = parseInt(hexcolor.substring(1, 3), 16);
-    const g = parseInt(hexcolor.substring(3, 5), 16);
-    const b = parseInt(hexcolor.substring(5, 7), 16);
-    const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-    return luminance > 0.5 ? '#000000' : '#ffffff';
+  // Validar contraste al cargar la tarjeta
+  useEffect(() => {
+    if (cardBackgroundColor && cardTextColor) {
+      validateContrast(cardTextColor, cardBackgroundColor);
+    }
+    if (buttonSecondaryColor && buttonNormalBackgroundColor) {
+      validateContrast(buttonSecondaryColor, buttonNormalBackgroundColor);
+    }
+  }, [cardBackgroundColor, cardTextColor, buttonSecondaryColor, buttonNormalBackgroundColor]);
+
+  // Usar la utilidad de contraste mejorada
+  const getContrastTextColor = (hexcolor: string) => getBestTextColor(hexcolor);
+  
+  // Función para validar accesibilidad
+  const validateContrast = (textColor: string, bgColor: string) => {
+    const ratio = getContrastRatio(textColor, bgColor);
+    const accessible = isAccessible(textColor, bgColor, 'AA', 'normal');
+    
+    if (!accessible) {
+      console.warn(`Contraste insuficiente: ${ratio.toFixed(2)}:1 entre ${textColor} y ${bgColor}`);
+    }
+    
+    return { ratio, accessible };
   };
 
   // Function to properly format social media URLs

@@ -240,7 +240,7 @@ export default function HomePage() {
                         {service.description}
                       </Card.Text>
                       <div className="mb-3">
-                        <small className="text-white-50">
+                        <small className="text-white opacity-75">
                           {service.features.map((feature, idx) => (
                             <span key={idx}>✓ {feature}<br/></span>
                           ))}
@@ -291,7 +291,7 @@ export default function HomePage() {
             <Col lg={8}>
               <div className="glass-card p-4">
                 <h3 className="text-white mb-3">¿Listo para transformar tu presencia digital?</h3>
-                <p className="text-white-75 mb-4">
+                <p className="text-white opacity-75 mb-4">
                   Únete a miles de profesionales que ya están utilizando nuestra plataforma para destacar en el mundo digital.
                 </p>
                 <div className="d-flex gap-3 justify-content-center flex-wrap">
