@@ -91,6 +91,22 @@
   color: rgba(255, 255, 255, 0.9) !important;
 }
 
+/* Excepción: elementos con fondo sólido blanco mantienen colores oscuros */
+.glass-card .stat-badge .text-dark,
+.glass-card .card-item .text-dark {
+  color: #1a1a1a !important;
+}
+
+.glass-card .stat-badge .text-muted,
+.glass-card .card-item .text-muted {
+  color: #6c757d !important;
+}
+
+.glass-card .stat-badge .text-secondary,
+.glass-card .card-item .text-secondary {
+  color: #2d2d2d !important;
+}
+
 /* Botones con contraste automático */
 .btn-auto-contrast {
   transition: all 0.3s ease;
