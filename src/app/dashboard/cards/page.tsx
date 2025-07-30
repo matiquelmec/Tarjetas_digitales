@@ -2,7 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Table, Alert, ProgressBar } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Table, Alert, ProgressBar, Breadcrumb, Form, InputGroup } from 'react-bootstrap';
 import Link from 'next/link';
 import { PlanLimits, PLAN_LIMITS } from '@/lib/planLimits'; // Assuming this import is needed
 
@@ -26,6 +26,8 @@ export default function DashboardCardsPage() {
   const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
   const [welcomeMessage, setWelcomeMessage] = useState('');
   const [deletingCardId, setDeletingCardId] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortBy, setSortBy] = useState<'name' | 'views' | 'clicks' | 'date'>('date');
 
   useEffect(() => {
     if (session?.user?.id) {
@@ -119,6 +121,26 @@ export default function DashboardCardsPage() {
       setDeletingCardId(null);
     }
   };
+
+  // Filtrar y ordenar tarjetas
+  const filteredAndSortedCards = cards
+    .filter(card => 
+      card.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      card.profession.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'views':
+          return b.views - a.views;
+        case 'clicks':
+          return b.clicks - a.clicks;
+        case 'date':
+        default:
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      }
+    });
 
   return (
     <>
@@ -308,31 +330,143 @@ export default function DashboardCardsPage() {
         .info-gradient {
           background: linear-gradient(135deg, #06b6d4, #0891b2);
         }
+        
+        /* Mejoras de navegación y header */
+        .breadcrumb-custom {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          padding: 0.75rem 1.25rem;
+          margin-bottom: 1.5rem;
+        }
+        
+        .breadcrumb-custom .breadcrumb-item a {
+          color: rgba(255, 255, 255, 0.8);
+          text-decoration: none;
+          font-weight: 500;
+          transition: color 0.2s ease;
+        }
+        
+        .breadcrumb-custom .breadcrumb-item a:hover {
+          color: rgba(255, 255, 255, 1);
+        }
+        
+        .breadcrumb-custom .breadcrumb-item.active {
+          color: rgba(255, 255, 255, 0.9);
+          font-weight: 600;
+        }
+        
+        .back-button {
+          background: rgba(255, 255, 255, 0.1) !important;
+          border: 1px solid rgba(255, 255, 255, 0.2) !important;
+          backdrop-filter: blur(10px) !important;
+          color: rgba(255, 255, 255, 0.9) !important;
+          transition: all 0.3s ease !important;
+        }
+        
+        .back-button:hover {
+          background: rgba(255, 255, 255, 0.2) !important;
+          border-color: rgba(255, 255, 255, 0.3) !important;
+          color: rgba(255, 255, 255, 1) !important;
+          transform: translateX(-3px) !important;
+        }
+        
+        /* Controles de búsqueda y filtros */
+        .search-controls {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 16px;
+          padding: 1.5rem;
+        }
+        
+        .form-control-glass {
+          background: rgba(255, 255, 255, 0.1) !important;
+          border: 1px solid rgba(255, 255, 255, 0.2) !important;
+          backdrop-filter: blur(5px);
+          color: #ffffff !important;
+          border-radius: 12px !important;
+        }
+        
+        .form-control-glass::placeholder {
+          color: rgba(255, 255, 255, 0.6) !important;
+        }
+        
+        .form-control-glass:focus {
+          background: rgba(255, 255, 255, 0.15) !important;
+          border-color: rgba(255, 255, 255, 0.4) !important;
+          box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25) !important;
+          color: #ffffff !important;
+        }
+        
+        .form-select-glass {
+          background: rgba(255, 255, 255, 0.1) !important;
+          border: 1px solid rgba(255, 255, 255, 0.2) !important;
+          backdrop-filter: blur(5px);
+          color: #ffffff !important;
+          border-radius: 12px !important;
+        }
+        
+        .form-select-glass:focus {
+          background: rgba(255, 255, 255, 0.15) !important;
+          border-color: rgba(255, 255, 255, 0.4) !important;
+          box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25) !important;
+          color: #ffffff !important;
+        }
+        
+        /* Header compacto mejorado */
+        .header-content-compact {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(20px);
+          border-radius: 20px;
+          padding: 1.5rem 2rem;
+          margin-bottom: 1.5rem;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
       `}</style>
       <div className="animated-gradient-background">
-        <Container className="py-5">
-          {/* Header */}
-          <div className="header-content mb-4">
+        <Container className="py-4">
+          {/* Navegación mejorada */}
+          <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-sm-center gap-3 mb-4">
+            <div className="d-flex align-items-center gap-3">
+              <Link href="/dashboard">
+                <Button size="sm" className="back-button">
+                  ← Dashboard
+                </Button>
+              </Link>
+              <Breadcrumb className="breadcrumb-custom mb-0">
+                <Breadcrumb.Item>
+                  <Link href="/dashboard" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none' }}>
+                    🏠 Dashboard
+                  </Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>💼 Mis Tarjetas</Breadcrumb.Item>
+              </Breadcrumb>
+            </div>
+          </div>
+
+          {/* Header compacto */}
+          <div className="header-content-compact mb-4">
             <Row className="align-items-center">
               <Col lg={8}>
                 <div>
-                  <h1 className="text-white mb-2 fw-bold" style={{ fontSize: '2.5rem' }}>
+                  <h1 className="text-white mb-2 fw-bold" style={{ fontSize: '2rem' }}>
                     💼 Mis Tarjetas Digitales
                   </h1>
-                  <p className="text-white opacity-75 mb-0 fs-5">
-                    Gestiona y edita todas tus tarjetas profesionales
+                  <p className="text-white opacity-75 mb-0">
+                    Gestiona, edita y analiza todas tus tarjetas profesionales
                   </p>
                 </div>
               </Col>
               <Col lg={4}>
-                <div className="d-flex justify-content-end">
+                <div className="d-flex justify-content-end gap-2">
                   {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 ? (
                     <Link href="/pricing">
                       <Button 
                         className="btn-premium-gold px-4"
                         style={{ borderRadius: '12px', border: 'none' }}
                       >
-                        ⭐ Actualizar para Crear Más
+                        ⭐ Actualizar Plan
                       </Button>
                     </Link>
                   ) : (
@@ -342,7 +476,7 @@ export default function DashboardCardsPage() {
                         className="fw-semibold px-4"
                         style={{ borderRadius: '12px' }}
                       >
-                        ✨ Crear Nueva Tarjeta
+                        ✨ Crear Nueva
                       </Button>
                     </Link>
                   )}
@@ -377,6 +511,48 @@ export default function DashboardCardsPage() {
                       </Button>
                     </div>
                   </div>
+                </div>
+              </Col>
+            </Row>
+          )}
+
+          {/* Controles de búsqueda y filtros */}
+          {!loading && cards.length > 0 && (
+            <Row className="mb-4">
+              <Col>
+                <div className="search-controls">
+                  <Row className="align-items-center">
+                    <Col md={6}>
+                      <InputGroup>
+                        <Form.Control
+                          type="text"
+                          placeholder="🔍 Buscar por nombre o profesión..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="form-control-glass"
+                        />
+                      </InputGroup>
+                    </Col>
+                    <Col md={3}>
+                      <Form.Select
+                        value={sortBy}
+                        onChange={(e) => setSortBy(e.target.value as 'name' | 'views' | 'clicks' | 'date')}
+                        className="form-select-glass"
+                      >
+                        <option value="date">📅 Más recientes</option>
+                        <option value="name">🔤 Por nombre</option>
+                        <option value="views">👁️ Más vistas</option>
+                        <option value="clicks">🔗 Más clics</option>
+                      </Form.Select>
+                    </Col>
+                    <Col md={3}>
+                      <div className="text-white opacity-75 text-center">
+                        <small>
+                          {filteredAndSortedCards.length} de {cards.length} tarjetas
+                        </small>
+                      </div>
+                    </Col>
+                  </Row>
                 </div>
               </Col>
             </Row>
@@ -504,23 +680,64 @@ export default function DashboardCardsPage() {
               ) : cards.length === 0 ? (
                 <div className="glass-card border-0">
                   <div className="p-5 text-center">
-                    <div className="icon-wrapper primary-gradient text-white mx-auto mb-4" style={{ width: '80px', height: '80px', fontSize: '2.5rem' }}>
-                      💼
+                    <div className="mb-4">
+                      <div className="icon-wrapper primary-gradient text-white mx-auto mb-3" style={{ width: '80px', height: '80px', fontSize: '2.5rem' }}>
+                        💼
+                      </div>
+                      <div className="d-flex justify-content-center gap-2 mb-3">
+                        <span className="badge bg-info bg-opacity-10 text-info fw-semibold px-3 py-2">
+                          ⚡ Setup rápido
+                        </span>
+                        <span className="badge bg-success bg-opacity-10 text-success fw-semibold px-3 py-2">
+                          🎨 Efectos premium
+                        </span>
+                      </div>
                     </div>
-                    <h3 className="fw-bold text-dark mb-3">¡Comienza creando tu primera tarjeta!</h3>
-                    <p className="text-muted mb-4 fs-5">
-                      Diseña una tarjeta digital profesional con efectos únicos en menos de 5 minutos
+                    <h3 className="fw-bold text-dark mb-3">¡Crea tu primera tarjeta digital!</h3>
+                    <p className="text-muted mb-4" style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
+                      Diseña una tarjeta profesional con efectos únicos, QR codes automáticos 
+                      y compartir instantáneo por WhatsApp. <strong>Todo en menos de 5 minutos.</strong>
                     </p>
-                    <Link href="/create">
+                    <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                      <Link href="/create">
+                        <Button 
+                          variant="primary" 
+                          size="lg" 
+                          className="fw-semibold px-5 py-3"
+                          style={{ borderRadius: '16px' }}
+                        >
+                          ✨ Crear Mi Primera Tarjeta
+                        </Button>
+                      </Link>
                       <Button 
-                        variant="primary" 
-                        size="lg" 
-                        className="fw-semibold px-5 py-3"
+                        variant="outline-info" 
+                        size="lg"
+                        className="fw-semibold px-4 py-3"
                         style={{ borderRadius: '16px' }}
+                        onClick={() => window.open('https://example.com/demo', '_blank')}
                       >
-                        ✨ Crear Mi Primera Tarjeta
+                        👁️ Ver Demo
                       </Button>
-                    </Link>
+                    </div>
+                  </div>
+                </div>
+              ) : filteredAndSortedCards.length === 0 ? (
+                <div className="glass-card border-0">
+                  <div className="p-5 text-center">
+                    <div className="icon-wrapper primary-gradient text-white mx-auto mb-4" style={{ width: '80px', height: '80px', fontSize: '2.5rem' }}>
+                      🔍
+                    </div>
+                    <h3 className="fw-bold text-dark mb-3">No se encontraron tarjetas</h3>
+                    <p className="text-muted mb-4 fs-5">
+                      No hay tarjetas que coincidan con "{searchTerm}". Intenta con otros términos de búsqueda.
+                    </p>
+                    <Button 
+                      variant="outline-secondary" 
+                      onClick={() => setSearchTerm('')}
+                      className="fw-semibold"
+                    >
+                      🔄 Limpiar búsqueda
+                    </Button>
                   </div>
                 </div>
               ) : (
@@ -529,15 +746,20 @@ export default function DashboardCardsPage() {
                     <div className="p-4">
                       <div className="d-flex align-items-center justify-content-between mb-3">
                         <div>
-                          <h4 className="fw-bold text-dark mb-1">Tus Tarjetas Digitales</h4>
-                          <p className="text-muted mb-0">{cards.length} tarjeta{cards.length !== 1 ? 's' : ''} creada{cards.length !== 1 ? 's' : ''}</p>
+                          <h4 className="fw-bold text-dark mb-1">
+                            {searchTerm ? `Resultados para "${searchTerm}"` : 'Tus Tarjetas Digitales'}
+                          </h4>
+                          <p className="text-muted mb-0">
+                            {filteredAndSortedCards.length} de {cards.length} tarjeta{cards.length !== 1 ? 's' : ''}
+                            {searchTerm && ' encontradas'}
+                          </p>
                         </div>
                         <div className="d-flex gap-2">
                           <span className="badge bg-primary bg-opacity-10 text-primary fw-semibold px-3 py-2">
-                            📊 {cards.reduce((sum, card) => sum + card.views, 0)} visualizaciones
+                            📊 {filteredAndSortedCards.reduce((sum, card) => sum + card.views, 0)} visualizaciones
                           </span>
                           <span className="badge bg-success bg-opacity-10 text-success fw-semibold px-3 py-2">
-                            🔗 {cards.reduce((sum, card) => sum + card.clicks, 0)} clics
+                            🔗 {filteredAndSortedCards.reduce((sum, card) => sum + card.clicks, 0)} clics
                           </span>
                         </div>
                       </div>
@@ -545,7 +767,7 @@ export default function DashboardCardsPage() {
                   </div>
 
                   <Row className="g-4">
-                    {cards.map((card) => (
+                    {filteredAndSortedCards.map((card) => (
                       <Col key={card.id} lg={6} xl={4}>
                         <div className="card-item">
                           <div className="d-flex justify-content-between align-items-start mb-3">
