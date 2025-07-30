@@ -13,6 +13,7 @@ export interface CardData {
   twitter?: string;
   instagram?: string;
   photoUrl?: string;
+  customUrl?: string;
   customization: any;
 }
 

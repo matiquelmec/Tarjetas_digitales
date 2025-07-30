@@ -93,6 +93,7 @@ model Card {
   enableBackgroundPatterns  Boolean  @default(false)
   enableAIPalette           Boolean  @default(false)
 
+  customUrl       String?  @unique
   isActive        Boolean  @default(true)
   views           Int      @default(0)
   clicks          Int      @default(0)
