@@ -104,6 +104,69 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
     return luminance > 0.5 ? '#000000' : '#ffffff';
   };
 
+  // Function to properly format social media URLs
+  const formatSocialUrl = (input: string, platform: string): string => {
+    if (!input) return '';
+    
+    // Remove leading @ symbol if present
+    let cleanInput = input.replace(/^@/, '');
+    
+    // If already a complete URL, return as is
+    if (cleanInput.startsWith('http://') || cleanInput.startsWith('https://')) {
+      return cleanInput;
+    }
+    
+    // Remove platform domain if user included it
+    const platformDomains = {
+      instagram: /^(instagram\.com\/|www\.instagram\.com\/)/i,
+      linkedin: /^(linkedin\.com\/in\/|www\.linkedin\.com\/in\/)/i,
+      twitter: /^(twitter\.com\/|www\.twitter\.com\/|x\.com\/|www\.x\.com\/)/i,
+      facebook: /^(facebook\.com\/|www\.facebook\.com\/)/i
+    };
+    
+    if (platformDomains[platform as keyof typeof platformDomains]) {
+      cleanInput = cleanInput.replace(platformDomains[platform as keyof typeof platformDomains], '');
+    }
+    
+    // Build proper URL based on platform
+    switch (platform) {
+      case 'instagram':
+        return `https://instagram.com/${cleanInput}`;
+      case 'linkedin':
+        return `https://linkedin.com/in/${cleanInput}`;
+      case 'twitter':
+        return `https://x.com/${cleanInput}`;
+      case 'facebook':
+        return `https://facebook.com/${cleanInput}`;
+      default:
+        return cleanInput.startsWith('http') ? cleanInput : `https://${cleanInput}`;
+    }
+  };
+
+  // Function to format WhatsApp numbers
+  const formatWhatsAppUrl = (phoneNumber: string): string => {
+    if (!phoneNumber) return '';
+    
+    // Remove all non-numeric characters
+    let cleanNumber = phoneNumber.replace(/\D/g, '');
+    
+    // If number doesn't start with country code, assume Chile (+56)
+    if (!cleanNumber.startsWith('56') && cleanNumber.length >= 8) {
+      cleanNumber = '56' + cleanNumber;
+    }
+    
+    return `https://wa.me/${cleanNumber}`;
+  };
+
+  // Function to ensure URLs have proper protocol
+  const ensureHttps = (url: string): string => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  };
+
   const cardStyles: React.CSSProperties = {
     width: '100%',
     maxWidth: '480px',
@@ -187,12 +250,12 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
               marginTop: '20px'
             }}>
               {appointmentLink && (
-                <Button href={appointmentLink} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
+                <Button href={ensureHttps(appointmentLink)} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
                   Agendar una Cita
                 </Button>
               )}
               {whatsapp && (
-                <Button href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
+                <Button href={formatWhatsAppUrl(whatsapp)} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
                   Contactar por WhatsApp
                 </Button>
               )}
@@ -202,22 +265,22 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
                 </Button>
               )}
               {linkedin && (
-                <Button href={linkedin} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
+                <Button href={formatSocialUrl(linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
                   LinkedIn
                 </Button>
               )}
               {instagram && (
-                <Button href={instagram} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
+                <Button href={formatSocialUrl(instagram, 'instagram')} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
                   Instagram
                 </Button>
               )}
               {twitter && (
-                <Button href={twitter} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
+                <Button href={formatSocialUrl(twitter, 'twitter')} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
                   X (Twitter)
                 </Button>
               )}
               {facebook && (
-                <Button href={facebook} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
+                <Button href={formatSocialUrl(facebook, 'facebook')} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
                   Facebook
                 </Button>
               )}
