@@ -105,6 +105,7 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
   };
 
   const cardStyles: React.CSSProperties = {
+    width: '100%',
     maxWidth: '480px',
     borderRadius: '20px',
     backgroundColor: cardBackgroundColor,
@@ -128,7 +129,7 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
     cardStyles.backgroundColor = 'rgba(255, 255, 255, 0.15)';
     cardStyles.backdropFilter = 'blur(10px)';
     cardStyles.border = '1px solid rgba(255, 255, 255, 0.2)';
-    cardStyles.borderRadius = '10px';
+    // Mantener borderRadius consistente en 20px
   }
 
   if (enableSubtleAnimations) {
