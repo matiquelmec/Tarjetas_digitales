@@ -15,6 +15,7 @@ interface CardData {
   clicks: number;
   isActive: boolean;
   createdAt: string;
+  customUrl?: string;
 }
 
 export default function DashboardCardsPage() {
@@ -480,7 +481,11 @@ export default function DashboardCardsPage() {
                           </div>
 
                           <div className="d-flex gap-2">
-                            <Link href={`/card/${card.id}`} target="_blank" className="flex-fill">
+                            <Link 
+                              href={card.customUrl ? `/c/${card.customUrl}` : `/card/${card.id}`} 
+                              target="_blank" 
+                              className="flex-fill"
+                            >
                               <Button 
                                 variant="outline-primary" 
                                 size="sm" 
