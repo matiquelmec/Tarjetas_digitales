@@ -199,52 +199,33 @@ export default function CreateCardPage() {
             </Row>
           )}
 
-          <Row>
-            {/* Steps Sidebar */}
-            <Col lg={3} className="mb-4">
+          {/* Progress Bar */}
+          <Row className="mb-4">
+            <Col>
               <Card className="glass-card text-white">
-                <Card.Header>
-                  <h5 className="mb-0">Progreso</h5>
+                <Card.Body className="p-3">
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h5 className="mb-0">Progreso: {steps[currentStep - 1].title}</h5>
+                    <small className="text-light">Paso {currentStep} de 4</small>
+                  </div>
                   <ProgressBar 
                     now={(currentStep / 4) * 100} 
-                    className="mt-2"
                     variant="info"
+                    style={{ height: '8px' }}
                   />
-                </Card.Header>
-                <Card.Body>
-                  {steps.map((step) => (
-                    <div
-                      key={step.id}
-                      className={`step-indicator ${
-                        step.id === currentStep ? 'active' : 
-                        step.id < currentStep ? 'completed' : ''
-                      }`}
-                      onClick={() => step.id <= currentStep && setCurrentStep(step.id)}
-                    >
-                      <div className="d-flex align-items-center">
-                        <div className={`rounded-circle d-flex align-items-center justify-content-center me-3 ${
-                          step.id <= currentStep ? 'bg-info' : 'bg-secondary'
-                        }`} style={{ width: '30px', height: '30px' }}>
-                          {step.id < currentStep ? '✓' : step.id}
-                        </div>
-                        <div>
-                          <div className="fw-bold">{step.title}</div>
-                          <small className="text-light">{step.description}</small>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
                 </Card.Body>
               </Card>
             </Col>
+          </Row>
 
-            {/* Main Content */}
+          <Row>
+            {/* Formulario - 50% */}
             <Col lg={6}>
-              <Card className="glass-card text-white">
+              <Card className="glass-card text-white" style={{ height: 'fit-content' }}>
                 <Card.Header>
                   <h4 className="mb-0">{steps[currentStep - 1].title}</h4>
                 </Card.Header>
-                <Card.Body>
+                <Card.Body style={{ maxHeight: '80vh', overflowY: 'auto' }}>
                   {renderStep()}
                 </Card.Body>
                 <Card.Footer className="d-flex justify-content-between">
@@ -266,20 +247,19 @@ export default function CreateCardPage() {
               </Card>
             </Col>
 
-            {/* Preview */}
-            <Col lg={3}>
+            {/* Preview - 50% con tamaño real */}
+            <Col lg={6}>
               <div style={{ position: 'sticky', top: '20px' }}>
                 <Card className="glass-card text-white">
-                  <Card.Header>
-                    <h6 className="mb-0">👁️ Preview</h6>
+                  <Card.Header className="text-center">
+                    <h6 className="mb-0">👁️ Vista Previa - Tamaño Real</h6>
+                    <small className="text-light">480px × Auto</small>
                   </Card.Header>
-                  <Card.Body className="p-2" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+                  <Card.Body className="p-3" style={{ maxHeight: '85vh', overflowY: 'auto' }}>
                     <div style={{ 
                       width: '100%',
-                      maxWidth: '350px', 
-                      margin: '0 auto',
-                      transform: 'scale(0.8)',
-                      transformOrigin: 'top center'
+                      maxWidth: '480px', 
+                      margin: '0 auto'
                     }}>
                       <BusinessCard
                         name={cardData.name || 'Tu Nombre'}
