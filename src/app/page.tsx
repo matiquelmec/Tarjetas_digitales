@@ -38,7 +38,7 @@ export default function HomePage() {
       status: 'available',
       buttonText: 'Comenzar Ahora',
       buttonVariant: 'primary',
-      link: '/create',
+      link: '/dashboard',
     },
     {
       icon: '🚀',
@@ -140,6 +140,29 @@ export default function HomePage() {
       console.error('Router push failed:', error);
       // Fallback to window.location
       window.location.href = '/create';
+    }
+  };
+
+  const handleDashboardAccess = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Dashboard access button clicked');
+    
+    // Check if user is authenticated
+    if (!session) {
+      // Store user intention for after login
+      sessionStorage.setItem('userIntention', 'accessDashboard');
+      signIn('google');
+      return;
+    }
+    
+    // User is authenticated, go to dashboard
+    try {
+      router.push('/dashboard');
+    } catch (error) {
+      console.error('Router push failed:', error);
+      // Fallback to window.location
+      window.location.href = '/dashboard';
     }
   };
   
@@ -292,7 +315,7 @@ export default function HomePage() {
                       </div>
                     </div>
                     <div>
-                      {service.status === 'available' && service.link === '/create' ? (
+                      {service.status === 'available' && (service.link === '/create' || service.link === '/dashboard') ? (
                         <a 
                           href={service.link}
                           style={{ 
@@ -300,7 +323,7 @@ export default function HomePage() {
                             display: 'block',
                             width: '100%'
                           }}
-                          onClick={handleCreateCard}
+                          onClick={service.link === '/create' ? handleCreateCard : handleDashboardAccess}
                         >
                           <Button 
                             variant={service.buttonVariant} 

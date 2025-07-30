@@ -64,6 +64,15 @@ export default function Dashboard() {
           }
         }, 1000);
         break;
+      case 'accessDashboard':
+        setWelcomeMessage('¡Bienvenido a tu dashboard! Desde aquí puedes gestionar todas tus tarjetas digitales, ver estadísticas y crear nuevas.');
+        setShowWelcomeMessage(true);
+        
+        // Auto-hide message after 6 seconds (un poco más tiempo para leer)
+        setTimeout(() => {
+          setShowWelcomeMessage(false);
+        }, 6000);
+        break;
       default:
         // Keep default overview tab
         break;
