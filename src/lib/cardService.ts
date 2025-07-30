@@ -41,19 +41,51 @@ export class CardService {
   }
 
   static async createCard(userId: string, cardData: CardData): Promise<Card> {
+    console.log('CardService.createCard - Starting with userId:', userId);
+    
     // First, ensure the user exists in the database
     const user = await prisma.user.findUnique({
       where: { id: userId }
     });
 
+    console.log('CardService.createCard - User lookup result:', {
+      found: !!user,
+      userId: userId,
+      userEmail: user?.email
+    });
+
     if (!user) {
-      throw new Error('User not found');
+      console.error('CardService.createCard - User not found in database:', userId);
+      // Intentar buscar por email si userId podría ser un email
+      if (userId.includes('@')) {
+        console.log('Attempting to find user by email:', userId);
+        const userByEmail = await prisma.user.findUnique({
+          where: { email: userId }
+        });
+        if (userByEmail) {
+          console.log('Found user by email, using correct ID:', userByEmail.id);
+          userId = userByEmail.id;
+        } else {
+          throw new Error(`User not found by ID or email: ${userId}`);
+        }
+      } else {
+        throw new Error(`User not found with ID: ${userId}`);
+      }
     }
 
     // Generar URL única si se proporciona customUrl
     if (cardData.customUrl) {
+      console.log('Generating unique URL for:', cardData.customUrl);
       cardData.customUrl = await this.generateUniqueUrl(cardData.customUrl);
+      console.log('Final URL generated:', cardData.customUrl);
     }
+
+    console.log('CardService.createCard - Creating card with data:', {
+      userId,
+      title: cardData.title,
+      name: cardData.name,
+      customUrl: cardData.customUrl
+    });
 
     return await prisma.card.create({
       data: {
