@@ -768,7 +768,10 @@ export default function DashboardCardsPage() {
                               <h5 className="fw-bold text-dark mb-1">{card.name}</h5>
                               <p className="text-muted mb-2">{card.profession}</p>
                               <div className="d-flex align-items-center gap-2">
-                                <span className={`badge ${card.isActive ? 'bg-success' : 'bg-secondary'} bg-opacity-15 ${card.isActive ? 'text-success' : 'text-secondary'} fw-semibold`}>
+                                <span className={`badge ${card.isActive ? 'bg-success' : 'bg-secondary'} ${card.isActive ? 'text-white' : 'text-white'} fw-semibold px-3 py-2`} style={{
+                                  backgroundColor: card.isActive ? '#198754' : '#6c757d',
+                                  color: '#ffffff'
+                                }}>
                                   {card.isActive ? '🟢 Activa' : '🔴 Inactiva'}
                                 </span>
                                 <small className="text-muted">
