@@ -294,6 +294,7 @@ export default function CreateCardPage() {
                         buttonSecondaryColor={cardData.buttonSecondaryColor}
                         buttonNormalBackgroundColor={cardData.buttonNormalBackgroundColor}
                         buttonSecondaryHoverColor={cardData.buttonSecondaryHoverColor}
+                        template={cardData.template}
                       />
                     </div>
                   </Card.Body>

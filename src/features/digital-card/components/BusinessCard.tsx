@@ -32,6 +32,7 @@ interface BusinessCardProps {
   buttonSecondaryColor: string;
   buttonNormalBackgroundColor: string;
   buttonSecondaryHoverColor: string;
+  template?: string; // Nueva prop para la plantilla visual
 }
 
 const staticStyles = `
@@ -88,7 +89,7 @@ const staticStyles = `
   }
 `;
 
-export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, whatsappShareUrl, appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor }: BusinessCardProps) {
+export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, whatsappShareUrl, appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, template = 'modern' }: BusinessCardProps) {
   const [qrCodeValue, setQrCodeValue] = useState('');
 
   useEffect(() => {
@@ -183,6 +184,139 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
       return url;
     }
     return `https://${url}`;
+  };
+
+  // Definir estilos de plantillas visuales
+  const getTemplateStyles = (templateId: string) => {
+    const templates = {
+      modern: {
+        cardStyle: {
+          borderRadius: '20px',
+          boxShadow: '0 8px 32px rgba(31, 38, 135, 0.37)',
+          border: '1px solid rgba(255, 255, 255, 0.18)',
+        },
+        headerStyle: {
+          textAlign: 'center' as const,
+          marginBottom: '1.5rem',
+        },
+        nameStyle: {
+          fontSize: '1.8rem',
+          fontWeight: '700',
+          marginBottom: '0.5rem',
+          textShadow: '0 2px 4px rgba(0,0,0,0.1)',
+        },
+        titleStyle: {
+          fontSize: '1.1rem',
+          fontWeight: '500',
+          opacity: 0.9,
+          marginBottom: '1rem',
+        },
+        photoStyle: {
+          borderRadius: '50%',
+          border: '4px solid rgba(255,255,255,0.2)',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+        },
+      },
+      elegant: {
+        cardStyle: {
+          borderRadius: '12px',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+        },
+        headerStyle: {
+          textAlign: 'left' as const,
+          marginBottom: '2rem',
+          borderBottom: '2px solid',
+          paddingBottom: '1rem',
+        },
+        nameStyle: {
+          fontSize: '2rem',
+          fontWeight: '300',
+          marginBottom: '0.25rem',
+          letterSpacing: '1px',
+        },
+        titleStyle: {
+          fontSize: '1rem',
+          fontWeight: '400',
+          opacity: 0.8,
+          fontStyle: 'italic',
+          marginBottom: '1.5rem',
+        },
+        photoStyle: {
+          borderRadius: '8px',
+          border: '2px solid rgba(255,255,255,0.1)',
+          boxShadow: '0 2px 12px rgba(0,0,0,0.1)',
+        },
+      },
+      creative: {
+        cardStyle: {
+          borderRadius: '25px',
+          boxShadow: '0 12px 40px rgba(31, 38, 135, 0.4)',
+          border: '2px solid rgba(255, 255, 255, 0.3)',
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
+        },
+        headerStyle: {
+          textAlign: 'center' as const,
+          marginBottom: '2rem',
+          position: 'relative' as const,
+        },
+        nameStyle: {
+          fontSize: '2.2rem',
+          fontWeight: '800',
+          marginBottom: '0.5rem',
+          background: 'linear-gradient(45deg, #00F6FF, #0072ff)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        },
+        titleStyle: {
+          fontSize: '1.2rem',
+          fontWeight: '600',
+          opacity: 1,
+          marginBottom: '1rem',
+          textTransform: 'uppercase' as const,
+          letterSpacing: '2px',
+        },
+        photoStyle: {
+          borderRadius: '50%',
+          border: '6px solid',
+          borderImage: 'linear-gradient(45deg, #00F6FF, #0072ff) 1',
+          boxShadow: '0 8px 24px rgba(0,246,255,0.3)',
+        },
+      },
+      classic: {
+        cardStyle: {
+          borderRadius: '8px',
+          boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+          border: '1px solid rgba(0, 0, 0, 0.1)',
+        },
+        headerStyle: {
+          textAlign: 'center' as const,
+          marginBottom: '1.5rem',
+          padding: '1rem 0',
+          borderBottom: '1px solid rgba(255,255,255,0.1)',
+        },
+        nameStyle: {
+          fontSize: '1.6rem',
+          fontWeight: '600',
+          marginBottom: '0.5rem',
+          fontFamily: 'serif',
+        },
+        titleStyle: {
+          fontSize: '1rem',
+          fontWeight: '400',
+          opacity: 0.85,
+          marginBottom: '1rem',
+        },
+        photoStyle: {
+          borderRadius: '4px',
+          border: '1px solid rgba(255,255,255,0.2)',
+          boxShadow: '0 1px 8px rgba(0,0,0,0.1)',
+        },
+      },
+    };
+    
+    return templates[templateId as keyof typeof templates] || templates.modern;
   };
 
   // Function to generate professional WhatsApp share messages based on profession
@@ -325,13 +459,14 @@ ${formattedAbout ? `${formattedAbout}
     }
   };
 
-  const cardStyles: React.CSSProperties = {
+  // Obtener estilos de la plantilla seleccionada
+  const templateStyles = getTemplateStyles(template);
+  
+  const cardStyles = {
     width: '100%',
     maxWidth: '480px',
-    borderRadius: '20px',
     backgroundColor: cardBackgroundColor,
     color: cardTextColor,
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     transition: 'all 0.3s ease-in-out',
     padding: '40px',
     margin: '0 auto',
@@ -339,7 +474,9 @@ ${formattedAbout ? `${formattedAbout}
     '--button-normal-bg-color': buttonNormalBackgroundColor,
     '--button-secondary-hover-color': buttonSecondaryHoverColor,
     '--button-hover-text-color': getContrastTextColor(buttonSecondaryHoverColor),
-  } as React.CSSProperties;
+    // Aplicar estilos de plantilla
+    ...templateStyles.cardStyle,
+  } as React.CSSProperties & Record<string, string>;
 
   if (enableHoverEffect) {
     cardStyles.transform = 'translateY(-5px)';
@@ -363,15 +500,15 @@ ${formattedAbout ? `${formattedAbout}
       <Card className={`text-center business-card-custom ${enableBackgroundPatterns ? 'animated-gradient-background' : ''}`} style={cardStyles}>
         <Card.Body style={{ padding: 0 }}>
           <Stack gap={3}>
-            <div className="header-section text-center">
+            <div className="header-section" style={templateStyles.headerStyle}>
               <div style={{ 
                 position: 'relative',
                 width: '120px', 
                 height: '120px',
                 margin: '0 auto 20px auto',
-                borderRadius: '50%',
-                border: `4px solid ${cardTextColor}33`,
-                overflow: 'hidden'
+                overflow: 'hidden',
+                ...templateStyles.photoStyle,
+                borderColor: `${cardTextColor}33`,
               }}>
                 <Image
                   src={photoUrl}
@@ -384,10 +521,17 @@ ${formattedAbout ? `${formattedAbout}
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                 />
               </div>
-              <Card.Title as="h1" className="mb-2" style={{ fontSize: '2.2em', fontWeight: 700, lineHeight: 1.2 }}>
+              <Card.Title as="h1" className="mb-2" style={{
+                lineHeight: 1.2,
+                color: cardTextColor,
+                ...templateStyles.nameStyle
+              }}>
                 {name}
               </Card.Title>
-              <Card.Subtitle as="h2" style={{ fontSize: '1.3em', fontWeight: 400, opacity: 0.9, marginBottom: '0' }}>
+              <Card.Subtitle as="h2" style={{
+                color: cardTextColor,
+                ...templateStyles.titleStyle
+              }}>
                 {title}
               </Card.Subtitle>
             </div>
