@@ -167,141 +167,110 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
     return `https://${url}`;
   };
 
-  // Function to generate creative WhatsApp share messages based on profession
+  // Function to generate professional WhatsApp share messages based on profession
   const generateCreativeWhatsAppMessage = (name: string, profession: string, about: string): string => {
     const baseUrl = typeof window !== 'undefined' ? window.location.href : '';
     
-    // Profession-specific templates with emojis and modern language
+    // Clean and format the about text for better presentation
+    const formatAbout = (text: string) => {
+      if (!text) return '';
+      // Clean up the text and limit to reasonable length
+      return text.length > 200 ? text.substring(0, 200) + '...' : text;
+    };
+
+    const formattedAbout = formatAbout(about);
+    
+    // Professional templates following the Andrés Astorga format
     const templates = {
       // Medical professionals
-      doctor: `🩺 ¡Conoce a ${name}! 
-${profession} con años de experiencia cuidando tu salud 💙
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      doctor: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Mira su perfil completo: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#SaludDigital #Medicina #Profesional`,
+` : ''}Encontrarás toda la información para agendar una cita y contactarlo aquí: ${baseUrl}`,
 
-      medico: `🩺 ¡Conoce a ${name}! 
-${profession} comprometido/a con tu bienestar 💙
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      psicologo: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Perfil profesional: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#Salud #MedicinaModerna #Cuidado`,
+` : ''}Encontrarás toda la información para agendar una cita y contactarlo aquí: ${baseUrl}`,
 
       // Legal professionals  
-      abogado: `⚖️ Te presento a ${name}
-${profession} - Tu aliado legal de confianza 🛡️
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      abogado: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Conoce más: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#DerechoDigital #JusticiaModerna #Legal`,
+` : ''}Encontrarás toda la información para contactarlo y conocer sus servicios legales aquí: ${baseUrl}`,
 
       // Tech professionals
-      desarrollador: `💻 ¡Check this out! ${name}
-${profession} creando el futuro digital 🚀
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      desarrollador: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Portfolio: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#TechLife #Desarrollo #Innovación`,
+` : ''}Encontrarás toda la información sobre sus servicios y proyectos aquí: ${baseUrl}`,
 
-      ingeniero: `🔧 Te comparto el perfil de ${name}
-${profession} - Innovación que transforma 🚀
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      ingeniero: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Conecta aquí: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#Ingeniería #Innovación #Tecnología`,
+` : ''}Encontrarás toda la información sobre sus servicios profesionales aquí: ${baseUrl}`,
 
       // Business professionals
-      consultor: `📊 ¡Descubre a ${name}!
-${profession} - Estrategias que generan resultados 📈
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      consultor: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Conoce su experiencia: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#Consultoría #Negocios #Estrategia`,
+` : ''}Encontrarás toda la información sobre sus servicios de consultoría aquí: ${baseUrl}`,
 
-      contador: `💰 Te presento a ${name}
-${profession} - Tu socio financiero estratégico 📊
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      contador: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Perfil profesional: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#Finanzas #Contabilidad #Negocios`,
+` : ''}Encontrarás toda la información sobre sus servicios contables y financieros aquí: ${baseUrl}`,
 
       // Creative professionals
-      diseñador: `🎨 ¡Talento creativo alert! ${name}
-${profession} transformando ideas en realidad ✨
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      diseñador: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Ve su work: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#Diseño #Creatividad #Arte`,
+` : ''}Encontrarás todo su portafolio y información de contacto aquí: ${baseUrl}`,
 
-      arquitecto: `🏗️ Te comparto a ${name}
-${profession} - Creando espacios que inspiran 🏡
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      arquitecto: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Proyectos: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#Arquitectura #Diseño #Construcción`,
+` : ''}Encontrarás toda la información sobre sus proyectos y servicios aquí: ${baseUrl}`,
 
-      // More professions
-      psicologo: `🧠 Conoce a ${name}
-${profession} - Acompañando tu bienestar mental 💚
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      chef: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Perfil profesional: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#SaludMental #Bienestar #Psicología`,
+` : ''}Encontrarás toda la información sobre sus servicios culinarios aquí: ${baseUrl}`,
 
-      chef: `👨‍🍳 ¡Descubre a ${name}!
-${profession} - Creando experiencias gastronómicas únicas 🍽️
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      profesor: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Su mundo culinario: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#Gastronomía #Chef #Cocina`,
+` : ''}Encontrarás toda la información sobre sus servicios educativos aquí: ${baseUrl}`,
 
-      profesor: `📚 Te presento a ${name}
-${profession} - Inspirando mentes, transformando futuros 🌟
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      fotografo: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Conoce más: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#Educación #Enseñanza #Aprendizaje`,
+` : ''}Encontrarás todo su portafolio y información para sesiones aquí: ${baseUrl}`,
 
-      fotografo: `📸 ¡Check this! ${name}
-${profession} - Capturando momentos, creando recuerdos ✨
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      marketing: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Portfolio: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#Fotografía #Arte #Momentos`,
+` : ''}Encontrarás toda la información sobre sus servicios de marketing aquí: ${baseUrl}`,
 
-      marketing: `🚀 Descubre a ${name}
-${profession} - Conectando marcas con audiencias 📱
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
+      // Default professional template
+      default: `Te comparto la tarjeta de presentación digital de ${name}, ${profession}.
 
-🔗 Su expertise: ${baseUrl}
+${formattedAbout ? `${formattedAbout}
 
-#Marketing #Digital #Estrategia`,
-
-      // Default modern template
-      default: `✨ ¡Te comparto algo genial!
-
-Conoce a ${name} - ${profession} 🚀
-${about ? `\n"${about.substring(0, 80)}..."` : ''}
-
-Una persona increíble con servicios profesionales que pueden interesarte 💫
-
-🔗 Su tarjeta digital: ${baseUrl}
-
-#Networking #Profesionales #Conecta`
+` : ''}Encontrarás toda la información para contactarlo y conocer sus servicios aquí: ${baseUrl}`
     };
 
     // Detect profession type
@@ -523,7 +492,7 @@ Una persona increíble con servicios profesionales que pueden interesarte 💫
                   e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                💬 Compartir Perfil
+                Compartir por WhatsApp
               </Button>
             </div>
           </Stack>
