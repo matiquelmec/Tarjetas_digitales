@@ -18,6 +18,15 @@ export interface CardData {
 
 export class CardService {
   static async createCard(userId: string, cardData: CardData): Promise<Card> {
+    // First, ensure the user exists in the database
+    const user = await prisma.user.findUnique({
+      where: { id: userId }
+    });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
     return await prisma.card.create({
       data: {
         ...cardData,

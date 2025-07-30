@@ -26,7 +26,7 @@ export const authOptionsSafe: NextAuthOptions = {
           });
 
           if (!dbUser) {
-            console.log('Creating new user in database');
+            console.log('Creating new user in database for email:', user.email);
             dbUser = await prisma.user.create({
               data: {
                 email: user.email!,
@@ -35,15 +35,37 @@ export const authOptionsSafe: NextAuthOptions = {
                 plan: Plan.FREE,
               },
             });
-            console.log('User created:', dbUser.id);
+            console.log('User created successfully:', dbUser.id);
           } else {
             console.log('User found in database:', dbUser.id);
           }
 
           token.userId = dbUser.id;
           token.plan = dbUser.plan;
+          console.log('Token updated with userId:', dbUser.id, 'plan:', dbUser.plan);
         } catch (error) {
           console.error('Error in JWT callback:', error);
+          // Even if there's an error, don't fail the login completely
+          if (user.email) {
+            token.userId = user.email; // Fallback to email as ID
+            token.plan = Plan.FREE;
+          }
+        }
+      }
+      
+      // Always ensure we have userId from token in subsequent calls
+      if (!token.userId && user?.email) {
+        try {
+          const dbUser = await prisma.user.findUnique({
+            where: { email: user.email },
+          });
+          if (dbUser) {
+            token.userId = dbUser.id;
+            token.plan = dbUser.plan;
+            console.log('Retrieved existing user from token refresh:', dbUser.id);
+          }
+        } catch (error) {
+          console.error('Error retrieving user in token refresh:', error);
         }
       }
       
