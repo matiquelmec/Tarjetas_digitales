@@ -13,11 +13,13 @@ export async function POST(request: NextRequest) {
     console.log('Session data:', {
       hasSession: !!session,
       hasUser: !!session?.user,
+      userId: session?.user?.id,
       userEmail: session?.user?.email,
       userName: session?.user?.name
     });
     
     if (!session?.user?.email) {
+      console.log('No authenticated user found');
       return NextResponse.json({ error: 'No authenticated user found' }, { status: 401 });
     }
 
@@ -83,9 +85,16 @@ export async function POST(request: NextRequest) {
     }
   } catch (error) {
     console.error('Error in /api/user/ensure:', error);
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack');
     return NextResponse.json({ 
       error: 'Internal Server Error',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: error instanceof Error ? error.message : 'Unknown error',
+      stack: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.stack : null) : null
     }, { status: 500 });
   }
+}
+
+// Also allow GET for testing
+export async function GET() {
+  return POST({} as NextRequest);
 }
