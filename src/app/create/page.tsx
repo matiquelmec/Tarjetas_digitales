@@ -10,7 +10,16 @@ import { StepTwo } from '@/components/create/StepTwo';
 import { StepThree } from '@/components/create/StepThree';
 import { StepFour } from '@/components/create/StepFour';
 import { PublishModal } from '@/components/create/PublishModal';
-import BusinessCard from '@/features/digital-card/components/BusinessCard';
+import dynamic from 'next/dynamic';
+
+const BusinessCard = dynamic(() => import('@/features/digital-card/components/BusinessCard'), {
+  loading: () => <div className="d-flex justify-content-center align-items-center" style={{ height: '400px' }}>
+    <div className="spinner-border text-light" role="status">
+      <span className="visually-hidden">Cargando vista previa...</span>
+    </div>
+  </div>,
+  ssr: false
+});
 
 export default function CreateCardPage() {
   const { data: session } = useSession();

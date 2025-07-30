@@ -36,7 +36,7 @@ export default function HomePage() {
         'Analytics de interacción',
       ],
       status: 'available',
-      buttonText: 'Crear Mi Tarjeta',
+      buttonText: 'Comenzar Ahora',
       buttonVariant: 'primary',
       link: '/create',
     },
@@ -198,9 +198,9 @@ export default function HomePage() {
                         ⭐ Actualizar Plan
                       </Button>
                     </Link>
-                    <Link href="/dashboard">
+                    <Link href="/dashboard/cards">
                       <Button variant="outline-light" size="sm" className="px-3">
-                        📊 Mi Panel
+                        💼 Mis Tarjetas
                       </Button>
                     </Link>
                     <Button variant="outline-secondary" size="sm" onClick={() => signOut()} className="px-3">
@@ -298,22 +298,27 @@ export default function HomePage() {
           <Row className="justify-content-center text-center mt-5">
             <Col lg={8}>
               <div className="glass-card p-4">
-                <h3 className="text-white mb-3">¿Listo para transformar tu presencia digital?</h3>
+                <h3 className="text-white mb-3">🎯 Transforma tu networking profesional en 5 minutos</h3>
                 <p className="text-white opacity-75 mb-4">
-                  Únete a miles de profesionales que ya están utilizando nuestra plataforma para destacar en el mundo digital.
+                  Únete a más de 10,000 profesionales que ya utilizan nuestra plataforma para destacar y generar más oportunidades de negocio.
                 </p>
                 <div className="d-flex gap-3 justify-content-center flex-wrap">
                   {session ? (
-                    <Button variant="primary" size="lg" href="/dashboard">
-                      Ir a Mi Panel
-                    </Button>
+                    <>
+                      <Button variant="primary" size="lg" href="/create">
+                        ✨ Crear Mi Primera Tarjeta
+                      </Button>
+                      <Button variant="outline-light" size="lg" href="/dashboard">
+                        📊 Ver Mi Panel
+                      </Button>
+                    </>
                   ) : (
                     <>
-                      <Button variant="primary" size="lg" onClick={() => signIn('google')}>
-                        Comenzar Gratis
+                      <Button variant="primary" size="lg" onClick={handleCreateCard}>
+                        🚀 Crear Mi Tarjeta Gratis
                       </Button>
                       <Button variant="outline-light" size="lg" href="/pricing">
-                        Ver Planes
+                        💰 Ver Planes Premium
                       </Button>
                     </>
                   )}

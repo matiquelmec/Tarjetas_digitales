@@ -3,6 +3,7 @@
 import { Card, Stack, Button } from 'react-bootstrap';
 import { useEffect, useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { getBestTextColor, getContrastRatio, isAccessible } from '@/lib/contrast';
 
 const QrCodeDisplay = dynamic(() => import('./QrCodeDisplay'), { ssr: false });
@@ -363,20 +364,26 @@ ${formattedAbout ? `${formattedAbout}
         <Card.Body style={{ padding: 0 }}>
           <Stack gap={3}>
             <div className="header-section text-center">
-              <img
-                src={photoUrl}
-                alt="Foto del Profesional"
-                className="mb-3"
-                style={{ 
-                  width: '120px', 
-                  height: '120px', 
-                  objectFit: 'cover', 
-                  borderRadius: '50%', 
-                  border: `4px solid ${cardTextColor}33`,
-                  display: 'block',
-                  margin: '0 auto 20px auto'
-                }}
-              />
+              <div style={{ 
+                position: 'relative',
+                width: '120px', 
+                height: '120px',
+                margin: '0 auto 20px auto',
+                borderRadius: '50%',
+                border: `4px solid ${cardTextColor}33`,
+                overflow: 'hidden'
+              }}>
+                <Image
+                  src={photoUrl}
+                  alt="Foto del Profesional"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="120px"
+                  priority={false}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                />
+              </div>
               <Card.Title as="h1" className="mb-2" style={{ fontSize: '2.2em', fontWeight: 700, lineHeight: 1.2 }}>
                 {name}
               </Card.Title>
