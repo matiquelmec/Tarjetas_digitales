@@ -60,7 +60,24 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
 
       console.log('Publishing card with data:', cardDataForAPI);
 
-      // Call the real API
+      // Ensure user exists in database before creating card
+      console.log('Ensuring user exists in database...');
+      const ensureUserResponse = await fetch('/api/user/ensure', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'same-origin',
+      });
+
+      const ensureUserData = await ensureUserResponse.json();
+      console.log('User ensure response:', ensureUserData);
+
+      if (!ensureUserResponse.ok) {
+        throw new Error(`Failed to ensure user exists: ${ensureUserData.error || 'Unknown error'}`);
+      }
+
+      // Now call the real API to create the card
       const response = await fetch('/api/cards', {
         method: 'POST',
         headers: {
