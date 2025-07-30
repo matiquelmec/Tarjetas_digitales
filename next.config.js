@@ -5,7 +5,7 @@ const nextConfig = {
   
   // Optimize images
   images: {
-    domains: ['randomuser.me', 'lh3.googleusercontent.com'],
+    domains: ['randomuser.me', 'lh3.googleusercontent.com', 'images.unsplash.com'],
   },
 
   // For Netlify deployment
