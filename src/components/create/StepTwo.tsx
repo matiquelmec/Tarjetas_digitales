@@ -2,6 +2,7 @@
 
 import { Form, Row, Col, Card, Button } from 'react-bootstrap';
 import { useState, useRef } from 'react';
+import Image from 'next/image';
 
 interface StepTwoProps {
   cardData: any;
@@ -164,11 +165,13 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
         >
           {cardData.photo ? (
             <div>
-              <img 
+              <Image 
                 src={cardData.photo} 
                 alt="Preview" 
+                width={100}
+                height={100}
                 className="rounded-circle mb-2"
-                style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                style={{ objectFit: 'cover' }}
               />
               <p className="mb-2">✅ Foto cargada</p>
               <Button variant="outline-info" size="sm">

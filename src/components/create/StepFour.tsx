@@ -2,6 +2,7 @@
 
 import { Form, Row, Col, Alert, Badge } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface StepFourProps {
   cardData: any;
@@ -93,11 +94,13 @@ export function StepFour({ cardData, updateCardData }: StepFourProps) {
                 <div className="fw-bold text-info">{completionPercentage()}%</div>
               </div>
               {cardData.photo && (
-                <img 
+                <Image 
                   src={cardData.photo} 
                   alt="Preview" 
+                  width={80}
+                  height={80}
                   className="rounded-circle"
-                  style={{ width: '80px', height: '80px', objectFit: 'cover' }}
+                  style={{ objectFit: 'cover' }}
                 />
               )}
             </Col>

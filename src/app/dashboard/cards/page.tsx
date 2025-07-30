@@ -46,7 +46,7 @@ export default function DashboardCardsPage() {
   const handleUserIntention = (intention: string) => {
     switch (intention) {
       case 'createCard':
-        setWelcomeMessage('¡Perfecto! Aquí puedes crear tu nueva tarjeta digital. Haz clic en "Crear Nueva Tarjeta" para comenzar.');
+        setWelcomeMessage('¡Perfecto! Aquí puedes crear tu nueva tarjeta digital. Haz clic en &ldquo;Crear Nueva Tarjeta&rdquo; para comenzar.');
         setShowWelcomeMessage(true);
         
         // Auto-hide message after 5 seconds
@@ -729,7 +729,7 @@ export default function DashboardCardsPage() {
                     </div>
                     <h3 className="fw-bold text-dark mb-3">No se encontraron tarjetas</h3>
                     <p className="text-muted mb-4 fs-5">
-                      No hay tarjetas que coincidan con "{searchTerm}". Intenta con otros términos de búsqueda.
+                      No hay tarjetas que coincidan con &ldquo;{searchTerm}&rdquo;. Intenta con otros términos de búsqueda.
                     </p>
                     <Button 
                       variant="outline-secondary" 
@@ -747,7 +747,7 @@ export default function DashboardCardsPage() {
                       <div className="d-flex align-items-center justify-content-between mb-3">
                         <div>
                           <h4 className="fw-bold text-dark mb-1">
-                            {searchTerm ? `Resultados para "${searchTerm}"` : 'Tus Tarjetas Digitales'}
+                            {searchTerm ? `Resultados para &ldquo;${searchTerm}&rdquo;` : 'Tus Tarjetas Digitales'}
                           </h4>
                           <p className="text-muted mb-0">
                             {filteredAndSortedCards.length} de {cards.length} tarjeta{cards.length !== 1 ? 's' : ''}
