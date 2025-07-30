@@ -124,27 +124,41 @@ export default function DashboardCardsPage() {
     <>
       <style jsx global>{`
         body {
-          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+          background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
+          background-size: 400% 400%;
+          animation: gradientAnimation 15s ease infinite;
           min-height: 100vh;
           margin: 0;
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        .dashboard-container {
-          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        .animated-gradient-background {
+          background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
+          background-size: 400% 400%;
+          animation: gradientAnimation 15s ease infinite;
           min-height: 100vh;
-          padding: 0;
+        }
+        @keyframes gradientAnimation {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
         .glass-card {
-          background: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          border-radius: 16px;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 15px;
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
           transition: all 0.3s ease;
         }
         .glass-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+          transform: translateY(-5px);
+          box-shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.5);
+        }
+        .glass-card .text-dark {
+          color: #ffffff !important;
+        }
+        .glass-card .text-muted {
+          color: rgba(255, 255, 255, 0.7) !important;
         }
         .card-item {
           background: white;
@@ -200,7 +214,7 @@ export default function DashboardCardsPage() {
           background: linear-gradient(135deg, #06b6d4, #0891b2);
         }
       `}</style>
-      <div className="dashboard-container">
+      <div className="animated-gradient-background">
         <Container className="py-5">
           {/* Header */}
           <div className="header-content mb-4">
