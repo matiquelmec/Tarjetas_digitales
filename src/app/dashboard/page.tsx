@@ -103,98 +103,202 @@ export default function Dashboard() {
   return (
     <AuthWrapper>
       <style jsx global>{`
-        .animated-gradient-background {
-          background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
-          background-size: 400% 400%;
-          animation: gradientAnimation 15s ease infinite;
+        body {
+          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
           min-height: 100vh;
+          margin: 0;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        @keyframes gradientAnimation {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
+        .dashboard-container {
+          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+          min-height: 100vh;
+          padding: 0;
         }
         .glass-card {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: 16px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+        .stat-card {
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 16px;
+          padding: 2rem;
+          text-align: center;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease;
+          height: 100%;
+        }
+        .stat-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+        }
+        .nav-pills .nav-link {
+          border-radius: 12px;
+          margin: 0 4px;
+          transition: all 0.3s ease;
+          color: #64748b !important;
+          font-weight: 500;
+        }
+        .nav-pills .nav-link.active {
+          background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+          color: white !important;
+          box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        }
+        .nav-pills .nav-link:hover {
+          background: rgba(59, 130, 246, 0.1);
+          color: #3b82f6 !important;
+        }
+        .action-card {
+          background: white;
+          border-radius: 16px;
+          padding: 2rem;
+          text-align: center;
+          border: 1px solid #e2e8f0;
+          transition: all 0.3s ease;
+          height: 100%;
+        }
+        .action-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+          border-color: #3b82f6;
+        }
+        .header-content {
           background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
+          backdrop-filter: blur(20px);
+          border-radius: 20px;
+          padding: 2rem;
+          margin-bottom: 2rem;
           border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 15px;
-          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .icon-wrapper {
+          width: 64px;
+          height: 64px;
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 1rem;
+          font-size: 2rem;
+        }
+        .primary-gradient {
+          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+        .success-gradient {
+          background: linear-gradient(135deg, #10b981, #059669);
+        }
+        .warning-gradient {
+          background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        .info-gradient {
+          background: linear-gradient(135deg, #06b6d4, #0891b2);
         }
         @keyframes pulse {
-          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7); }
-          50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
-          100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+          50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+          100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
         }
       `}</style>
-      <div className="animated-gradient-background">
+      <div className="dashboard-container">
         <Container className="py-5">
           {/* Header */}
-          <Row className="mb-4">
-            <Col>
-              <div className="d-flex justify-content-between align-items-center">
+          <div className="header-content">
+            <Row className="align-items-center">
+              <Col lg={8}>
                 <div>
-                  <h1 className="text-white mb-1">Mi Panel Digital</h1>
-                  <p className="text-white-50 mb-0">Gestiona tu identidad profesional digital</p>
+                  <h1 className="text-white mb-2 fw-bold" style={{ fontSize: '2.5rem' }}>
+                    Mi Panel Digital
+                  </h1>
+                  <p className="text-white opacity-75 mb-0 fs-5">
+                    Gestiona tu identidad profesional digital
+                  </p>
                 </div>
-                <div className="d-flex align-items-center gap-3">
-                  <Link href="/pricing">
-                    <Button variant="outline-warning" size="sm">
-                      Actualizar Plan
+              </Col>
+              <Col lg={4}>
+                <div className="d-flex flex-column align-items-end gap-3">
+                  <div className="d-flex align-items-center gap-3">
+                    <Link href="/pricing">
+                      <Button 
+                        variant="warning" 
+                        size="sm"
+                        className="fw-semibold px-3"
+                        style={{ borderRadius: '12px' }}
+                      >
+                        ⭐ Actualizar Plan
+                      </Button>
+                    </Link>
+                    <Button 
+                      variant="outline-light" 
+                      size="sm" 
+                      onClick={() => signOut()}
+                      style={{ borderRadius: '12px' }}
+                    >
+                      Cerrar Sesión
                     </Button>
-                  </Link>
-                  <div className="text-white text-end">
-                    <div>Bienvenido, {session?.user?.name}</div>
-                    <small className="text-white-50">Plan: {session?.user?.plan || 'GRATUITO'}</small>
                   </div>
-                  <Button variant="outline-light" size="sm" onClick={() => signOut()}>
-                    Cerrar Sesión
-                  </Button>
+                  <div className="text-white text-end">
+                    <div className="fw-semibold">Bienvenido, {session?.user?.name?.split(' ')[0] || 'Usuario'}</div>
+                    <small className="text-white opacity-75">
+                      Plan: <span className="fw-semibold">{session?.user?.plan || 'GRATUITO'}</span>
+                    </small>
+                  </div>
                 </div>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </div>
 
           {/* Navigation Tabs */}
-          <Row className="mb-4">
+          <Row className="mb-5">
             <Col>
-              <Card className="glass-card">
-                <Card.Body className="p-0">
+              <Card className="glass-card border-0">
+                <Card.Body className="p-3">
                   <Nav variant="pills" className="nav-fill">
-                    <Nav.Item>
+                    <Nav.Item className="px-1">
                       <Link href="/dashboard" passHref legacyBehavior>
                         <Nav.Link 
                           active={pathname === '/dashboard'} 
-                          className={`text-white border-0 ${pathname === '/dashboard' ? 'bg-primary' : ''}`}>
+                          className={`border-0 py-3 fw-semibold ${pathname === '/dashboard' ? 'active' : ''}`}
+                        >
                           📊 Resumen General
                         </Nav.Link>
                       </Link>
                     </Nav.Item>
-                    <Nav.Item>
+                    <Nav.Item className="px-1">
                       <Link href="/dashboard/cards" passHref legacyBehavior>
                         <Nav.Link 
                           active={pathname === '/dashboard/cards'} 
-                          className={`text-white border-0 ${pathname === '/dashboard/cards' ? 'bg-primary' : ''}`}>
-                          💼 Tarjetas Digitales
+                          className={`border-0 py-3 fw-semibold ${pathname === '/dashboard/cards' ? 'active' : ''}`}
+                        >
+                          💼 Mis Tarjetas
                         </Nav.Link>
                       </Link>
                     </Nav.Item>
-                    <Nav.Item>
+                    <Nav.Item className="px-1">
                       <Link href="/dashboard/cv" passHref legacyBehavior>
                         <Nav.Link 
                           active={pathname === '/dashboard/cv'} 
-                          className={`text-white border-0 ${pathname === '/dashboard/cv' ? 'bg-primary' : ''}`}>
+                          className={`border-0 py-3 fw-semibold ${pathname === '/dashboard/cv' ? 'active' : ''}`}
+                        >
                           🚀 CVs Inteligentes
                         </Nav.Link>
                       </Link>
                     </Nav.Item>
-                    <Nav.Item>
+                    <Nav.Item className="px-1">
                       <Nav.Link 
                         href="#"
-                        className={`text-white-50 border-0`}
+                        className="border-0 py-3 text-muted"
                         style={{ cursor: 'not-allowed' }}
                       >
-                        🎯 Presentaciones <small>(Próximamente)</small>
+                        🎯 Presentaciones
+                        <br />
+                        <small className="text-muted">(Próximamente)</small>
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>
@@ -207,91 +311,142 @@ export default function Dashboard() {
           {pathname === '/dashboard' && (
             <>
               {/* Stats Overview */}
-              <Row className="mb-4">
-                <Col md={3}>
-                  <Card className="glass-card text-white text-center">
-                    <Card.Body>
-                      <div style={{ fontSize: '2rem' }} className="mb-2">💼</div>
-                      <h3>{cards.length}</h3>
-                      <p className="mb-0">Tarjetas Creadas</p>
-                    </Card.Body>
-                  </Card>
+              <Row className="mb-5 g-4">
+                <Col md={6} lg={3}>
+                  <div className="stat-card">
+                    <div className="icon-wrapper primary-gradient text-white">
+                      💼
+                    </div>
+                    <h2 className="fw-bold text-dark mb-1">{cards.length}</h2>
+                    <p className="text-muted mb-2">Tarjetas Creadas</p>
+                    <div className="d-flex justify-content-center">
+                      <span className="badge bg-primary bg-opacity-10 text-primary fw-semibold">
+                        Activas: {cards.filter(card => card.isActive).length}
+                      </span>
+                    </div>
+                  </div>
                 </Col>
-                <Col md={3}>
-                  <Card className="glass-card text-white text-center">
-                    <Card.Body>
-                      <div style={{ fontSize: '2rem' }} className="mb-2">👁️</div>
-                      <h3>{cards.reduce((sum, card) => sum + card.views, 0)}</h3>
-                      <p className="mb-0">Visualizaciones</p>
-                    </Card.Body>
-                  </Card>
+                <Col md={6} lg={3}>
+                  <div className="stat-card">
+                    <div className="icon-wrapper success-gradient text-white">
+                      👁️
+                    </div>
+                    <h2 className="fw-bold text-dark mb-1">{cards.reduce((sum, card) => sum + card.views, 0)}</h2>
+                    <p className="text-muted mb-2">Visualizaciones</p>
+                    <div className="d-flex justify-content-center">
+                      <span className="badge bg-success bg-opacity-10 text-success fw-semibold">
+                        Este mes
+                      </span>
+                    </div>
+                  </div>
                 </Col>
-                <Col md={3}>
-                  <Card className="glass-card text-white text-center">
-                    <Card.Body>
-                      <div style={{ fontSize: '2rem' }} className="mb-2">🚀</div>
-                      <h3>0</h3>
-                      <p className="mb-0">CVs Optimizados</p>
-                      <small className="text-white-50">(Próximamente)</small>
-                    </Card.Body>
-                  </Card>
+                <Col md={6} lg={3}>
+                  <div className="stat-card">
+                    <div className="icon-wrapper warning-gradient text-white">
+                      🚀
+                    </div>
+                    <h2 className="fw-bold text-muted mb-1">0</h2>
+                    <p className="text-muted mb-2">CVs Optimizados</p>
+                    <div className="d-flex justify-content-center">
+                      <span className="badge bg-warning bg-opacity-10 text-warning fw-semibold">
+                        Feb 2025
+                      </span>
+                    </div>
+                  </div>
                 </Col>
-                <Col md={3}>
-                  <Card className="glass-card text-white text-center">
-                    <Card.Body>
-                      <div style={{ fontSize: '2rem' }} className="mb-2">🎯</div>
-                      <h3>0</h3>
-                      <p className="mb-0">Presentaciones</p>
-                      <small className="text-white-50">(Próximamente)</small>
-                    </Card.Body>
-                  </Card>
+                <Col md={6} lg={3}>
+                  <div className="stat-card">
+                    <div className="icon-wrapper info-gradient text-white">
+                      🎯
+                    </div>
+                    <h2 className="fw-bold text-muted mb-1">0</h2>
+                    <p className="text-muted mb-2">Presentaciones</p>
+                    <div className="d-flex justify-content-center">
+                      <span className="badge bg-info bg-opacity-10 text-info fw-semibold">
+                        Mar 2025
+                      </span>
+                    </div>
+                  </div>
                 </Col>
               </Row>
 
               {/* Quick Actions */}
-              <Row className="mb-4">
+              <Row className="mb-5">
                 <Col>
-                  <Card className="glass-card">
-                    <Card.Header>
-                      <h5 className="text-white mb-0">🚀 Acciones Rápidas</h5>
-                    </Card.Header>
-                    <Card.Body>
-                      <Row>
-                        <Col md={4}>
-                          <div className="text-center p-3">
-                            <div style={{ fontSize: '3rem' }} className="mb-3">💼</div>
-                            <h6 className="text-white">Crear Tarjeta Digital</h6>
-                            <p className="text-white-50 small mb-3">Diseña tu tarjeta profesional en 5 minutos</p>
+                  <div className="glass-card border-0">
+                    <div className="p-4">
+                      <div className="d-flex align-items-center mb-4">
+                        <div className="icon-wrapper primary-gradient text-white me-3" style={{ width: '48px', height: '48px' }}>
+                          🚀
+                        </div>
+                        <div>
+                          <h4 className="fw-bold text-dark mb-1">Acciones Rápidas</h4>
+                          <p className="text-muted mb-0">Crea contenido profesional en minutos</p>
+                        </div>
+                      </div>
+                      
+                      <Row className="g-4">
+                        <Col lg={4}>
+                          <div className="action-card">
+                            <div className="icon-wrapper primary-gradient text-white">
+                              💼
+                            </div>
+                            <h5 className="fw-bold text-dark mb-2">Crear Tarjeta Digital</h5>
+                            <p className="text-muted mb-4">
+                              Diseña tu tarjeta profesional con efectos visuales únicos en solo 5 minutos
+                            </p>
                             <Link href="/create">
-                              <Button variant="primary" className="w-100">
+                              <Button 
+                                variant="primary" 
+                                className="w-100 fw-semibold py-2"
+                                style={{ borderRadius: '12px' }}
+                              >
                                 Crear Nueva Tarjeta
                               </Button>
                             </Link>
                           </div>
                         </Col>
-                        <Col md={4}>
-                          <div className="text-center p-3">
-                            <div style={{ fontSize: '3rem' }} className="mb-3">🚀</div>
-                            <h6 className="text-white-50">Optimizar CV con IA</h6>
-                            <p className="text-white-50 small mb-3">Mejora tu CV con inteligencia artificial</p>
-                            <Button variant="outline-light" className="w-100" disabled>
-                              Próximamente - Feb 2025
+                        <Col lg={4}>
+                          <div className="action-card">
+                            <div className="icon-wrapper warning-gradient text-white">
+                              🚀
+                            </div>
+                            <h5 className="fw-bold text-muted mb-2">Optimizar CV con IA</h5>
+                            <p className="text-muted mb-4">
+                              Mejora tu CV con inteligencia artificial y análisis ATS automático
+                            </p>
+                            <Button 
+                              variant="outline-secondary" 
+                              className="w-100 fw-semibold py-2" 
+                              disabled
+                              style={{ borderRadius: '12px' }}
+                            >
+                              Febrero 2025
                             </Button>
                           </div>
                         </Col>
-                        <Col md={4}>
-                          <div className="text-center p-3">
-                            <div style={{ fontSize: '3rem' }} className="mb-3">🎯</div>
-                            <h6 className="text-white-50">Crear Presentación</h6>
-                            <p className="text-white-50 small mb-3">Presenta con impacto visual</p>
-                            <Button variant="outline-light" className="w-100" disabled>
-                              Próximamente - Mar 2025
+                        <Col lg={4}>
+                          <div className="action-card">
+                            <div className="icon-wrapper info-gradient text-white">
+                              🎯
+                            </div>
+                            <h5 className="fw-bold text-muted mb-2">Crear Presentación</h5>
+                            <p className="text-muted mb-4">
+                              Presenta con transiciones cinematográficas y elementos interactivos
+                            </p>
+                            <Button 
+                              variant="outline-secondary" 
+                              className="w-100 fw-semibold py-2" 
+                              disabled
+                              style={{ borderRadius: '12px' }}
+                            >
+                              Marzo 2025
                             </Button>
                           </div>
                         </Col>
                       </Row>
-                    </Card.Body>
-                  </Card>
+                    </div>
+                  </div>
                 </Col>
               </Row>
             </>
