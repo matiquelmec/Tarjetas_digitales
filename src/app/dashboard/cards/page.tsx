@@ -249,7 +249,58 @@ export default function DashboardCardsPage() {
           background: linear-gradient(135deg, #10b981, #059669);
         }
         .warning-gradient {
-          background: linear-gradient(135deg, #f59e0b, #d97706);
+          background: linear-gradient(135deg, #D4A017, #B8860B);
+        }
+        
+        /* Sistema de colores premium mejorado */
+        .btn-premium-gold {
+          background: linear-gradient(135deg, #D4A017, #B8860B) !important;
+          border-color: #B8860B !important;
+          color: #ffffff !important;
+          font-weight: 600 !important;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+          box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3) !important;
+          transition: all 0.3s ease !important;
+        }
+        
+        .btn-premium-gold:hover {
+          background: linear-gradient(135deg, #E5B41F, #CD950C) !important;
+          border-color: #CD950C !important;
+          color: #ffffff !important;
+          transform: translateY(-2px) !important;
+          box-shadow: 0 6px 16px rgba(212, 160, 23, 0.4) !important;
+        }
+        
+        .btn-premium-gold:focus,
+        .btn-premium-gold:active {
+          background: linear-gradient(135deg, #D4A017, #B8860B) !important;
+          border-color: #B8860B !important;
+          color: #ffffff !important;
+          box-shadow: 0 0 0 0.2rem rgba(212, 160, 23, 0.5) !important;
+        }
+        
+        /* Alert premium mejorado */
+        .alert-premium {
+          background: linear-gradient(135deg, rgba(212, 160, 23, 0.1), rgba(184, 134, 11, 0.1)) !important;
+          border: 2px solid #D4A017 !important;
+          border-radius: 16px !important;
+          color: #8B4513 !important;
+        }
+        
+        .alert-premium .text-premium {
+          color: #8B4513 !important;
+          font-weight: 600 !important;
+        }
+        
+        .alert-premium .text-premium-link {
+          color: #D4A017 !important;
+          font-weight: 700 !important;
+          text-decoration: none !important;
+        }
+        
+        .alert-premium .text-premium-link:hover {
+          color: #B8860B !important;
+          text-decoration: underline !important;
         }
         .danger-gradient {
           background: linear-gradient(135deg, #ef4444, #dc2626);
@@ -278,9 +329,8 @@ export default function DashboardCardsPage() {
                   {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 ? (
                     <Link href="/pricing">
                       <Button 
-                        variant="warning" 
-                        className="fw-semibold px-4"
-                        style={{ borderRadius: '12px' }}
+                        className="btn-premium-gold px-4"
+                        style={{ borderRadius: '12px', border: 'none' }}
                       >
                         ⭐ Actualizar para Crear Más
                       </Button>
@@ -351,10 +401,9 @@ export default function DashboardCardsPage() {
                       <div className="ms-auto">
                         <Link href="/pricing">
                           <Button 
-                            variant="warning" 
                             size="sm"
-                            className="fw-semibold"
-                            style={{ borderRadius: '12px' }}
+                            className="btn-premium-gold"
+                            style={{ borderRadius: '12px', border: 'none' }}
                           >
                             ⭐ Actualizar Plan
                           </Button>
@@ -416,18 +465,19 @@ export default function DashboardCardsPage() {
 
                     {cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 && (
                       <div className="mt-4">
-                        <div 
-                          className="alert alert-warning border-0 d-flex align-items-center"
-                          style={{ borderRadius: '12px' }}
-                        >
-                          <div className="icon-wrapper warning-gradient text-white me-3" style={{ width: '40px', height: '40px' }}>
-                            ⚠️
+                        <div className="alert-premium border-0 d-flex align-items-center p-4">
+                          <div className="icon-wrapper warning-gradient text-white me-3" style={{ width: '48px', height: '48px', fontSize: '1.5rem' }}>
+                            ⭐
                           </div>
-                          <div>
-                            <strong className="text-warning">¡Límite del plan alcanzado!</strong>
-                            <p className="mb-0 text-muted">
-                              Has usado todas las {planLimits.maxCards} tarjetas disponibles en tu plan {session?.user?.plan || 'GRATUITO'}. 
-                              <Link href="/pricing" className="text-warning fw-semibold text-decoration-none"> Actualiza para crear más tarjetas.</Link>
+                          <div className="flex-grow-1">
+                            <strong className="text-premium d-block mb-2" style={{ fontSize: '1.1rem' }}>
+                              🚀 ¡Desbloquea tu potencial premium!
+                            </strong>
+                            <p className="mb-0" style={{ color: '#5D4E37', lineHeight: '1.5' }}>
+                              Has usado todas las <strong>{planLimits.maxCards}</strong> tarjetas de tu plan <strong>{session?.user?.plan || 'GRATUITO'}</strong>. 
+                              <Link href="/pricing" className="text-premium-link ms-1">
+                                Actualiza ahora y crea tarjetas ilimitadas con efectos premium
+                              </Link>
                             </p>
                           </div>
                         </div>

@@ -82,7 +82,7 @@ export default function HomePage() {
       ],
       status: 'contact-us',
       buttonText: 'Consulta Enterprise',
-      buttonVariant: 'outline-warning',
+      buttonVariant: 'btn-premium-gold-outline',
       link: '/contact', // Assuming a contact page exists
     },
     {
@@ -182,6 +182,42 @@ export default function HomePage() {
           border-color: #6c757d !important;
           cursor: not-allowed;
         }
+        
+        /* Botones premium dorados mejorados */
+        .btn-premium-gold-outline {
+          background: transparent !important;
+          border: 2px solid #D4A017 !important;
+          color: #D4A017 !important;
+          font-weight: 600 !important;
+          transition: all 0.3s ease !important;
+          box-shadow: 0 2px 8px rgba(212, 160, 23, 0.2) !important;
+        }
+        
+        .btn-premium-gold-outline:hover {
+          background: linear-gradient(135deg, #D4A017, #B8860B) !important;
+          border-color: #B8860B !important;
+          color: #ffffff !important;
+          transform: translateY(-2px) !important;
+          box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3) !important;
+        }
+        
+        .btn-premium-gold {
+          background: linear-gradient(135deg, #D4A017, #B8860B) !important;
+          border-color: #B8860B !important;
+          color: #ffffff !important;
+          font-weight: 600 !important;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+          box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3) !important;
+          transition: all 0.3s ease !important;
+        }
+        
+        .btn-premium-gold:hover {
+          background: linear-gradient(135deg, #E5B41F, #CD950C) !important;
+          border-color: #CD950C !important;  
+          color: #ffffff !important;
+          transform: translateY(-2px) !important;
+          box-shadow: 0 6px 16px rgba(212, 160, 23, 0.4) !important;
+        }
       `}</style>
       <div className="animated-gradient-background min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <Container fluid className="py-5">
@@ -194,7 +230,7 @@ export default function HomePage() {
                 <>
                   <div className="d-flex flex-wrap gap-2 justify-content-center">
                     <Link href="/pricing">
-                      <Button variant="outline-warning" size="sm" className="px-3">
+                      <Button size="sm" className="btn-premium-gold-outline px-3">
                         ⭐ Actualizar Plan
                       </Button>
                     </Link>
@@ -277,8 +313,8 @@ export default function HomePage() {
                         </a>
                       ) : (
                         <Button 
-                          variant={service.buttonVariant} 
-                          className="w-100" 
+                          variant={service.buttonVariant.startsWith('btn-') ? undefined : service.buttonVariant}
+                          className={`w-100 ${service.buttonVariant.startsWith('btn-') ? service.buttonVariant : ''}`} 
                           disabled={service.status === 'coming-soon'}
                           href={service.link || undefined}
                           target={service.link ? "_blank" : undefined}
