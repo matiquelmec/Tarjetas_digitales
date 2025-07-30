@@ -214,3 +214,107 @@
     color: rgba(255, 255, 255, 0.85) !important;
   }
 }
+
+/* ========================================================== */
+/* CORRECCIÓN CRÍTICA: STAT-BADGE HOVER VISIBILITY ISSUE */
+/* ========================================================== */
+
+/* NIVEL 1: Protección base para stat-badge */
+.stat-badge,
+.stat-badge * {
+  background-color: white !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* NIVEL 2: Protección específica de colores */
+.stat-badge .text-dark,
+.stat-badge h6.text-dark,
+.stat-badge .fw-semibold {
+  color: #1a1a1a !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.stat-badge .text-muted,
+.stat-badge small.text-muted {
+  color: #6c757d !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.stat-badge .text-primary,
+.stat-badge .fw-bold.text-primary {
+  color: #0d6efd !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* NIVEL 3: Protección durante hover del contenedor padre */
+.glass-card:hover .stat-badge,
+.glass-card:hover .stat-badge *,
+.glass-card:focus .stat-badge,
+.glass-card:focus .stat-badge * {
+  background-color: white !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+.glass-card:hover .stat-badge .text-dark,
+.glass-card:hover .stat-badge h6.text-dark,
+.glass-card:hover .stat-badge .fw-semibold,
+.glass-card:focus .stat-badge .text-dark,
+.glass-card:focus .stat-badge h6.text-dark,
+.glass-card:focus .stat-badge .fw-semibold {
+  color: #1a1a1a !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: none !important;
+}
+
+.glass-card:hover .stat-badge .text-muted,
+.glass-card:hover .stat-badge small.text-muted,
+.glass-card:focus .stat-badge .text-muted,
+.glass-card:focus .stat-badge small.text-muted {
+  color: #6c757d !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: none !important;
+}
+
+.glass-card:hover .stat-badge .text-primary,
+.glass-card:hover .stat-badge .fw-bold.text-primary,
+.glass-card:focus .stat-badge .text-primary,
+.glass-card:focus .stat-badge .fw-bold.text-primary {
+  color: #0d6efd !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: none !important;
+}
+
+/* NIVEL 4: Protección para elementos específicos mencionados por el usuario */
+.stat-badge h6:contains("📈 Uso de Tarjetas"),
+.stat-badge [class*="text-"]:contains("📈"),
+.stat-badge [class*="text-"]:contains("Uso de Tarjetas") {
+  color: #1a1a1a !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  font-weight: 600 !important;
+}
+
+/* NIVEL 5: Protección adicional con z-index y positioning */
+.stat-badge {
+  position: relative !important;
+  z-index: 100 !important;
+  background: white !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Debugging: En caso de problemas, esto hará visible cualquier elemento oculto */
+.debug-visibility .stat-badge * {
+  background: rgba(255, 0, 0, 0.1) !important;
+  border: 1px dashed red !important;
+}

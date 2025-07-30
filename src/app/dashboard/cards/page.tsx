@@ -160,6 +160,50 @@ export default function DashboardCardsPage() {
         .glass-card .text-muted {
           color: rgba(255, 255, 255, 0.7) !important;
         }
+        
+        /* PROTECCIÓN ROBUSTA PARA STAT-BADGE */
+        .stat-badge .text-dark,
+        .stat-badge .fw-semibold {
+          color: #1f2937 !important;
+          opacity: 1 !important;
+        }
+        .stat-badge .text-muted {
+          color: #6b7280 !important;
+          opacity: 1 !important;
+        }
+        .stat-badge .text-primary {
+          color: #3b82f6 !important;
+          opacity: 1 !important;
+        }
+        
+        /* PROTECCIÓN DURANTE HOVER DE GLASS-CARD */
+        .glass-card:hover .stat-badge .text-dark,
+        .glass-card:hover .stat-badge .fw-semibold {
+          color: #1f2937 !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+        .glass-card:hover .stat-badge .text-muted {
+          color: #6b7280 !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+        .glass-card:hover .stat-badge .text-primary {
+          color: #3b82f6 !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+        
+        /* PROTECCIÓN ADICIONAL PARA ELEMENTOS INTERNOS */
+        .stat-badge * {
+          transition: none !important;
+        }
+        .stat-badge {
+          background: white !important;
+          border: 1px solid #e2e8f0 !important;
+          z-index: 10;
+          position: relative;
+        }
         .card-item {
           background: white;
           border-radius: 16px;
