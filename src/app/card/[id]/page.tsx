@@ -17,7 +17,11 @@ interface CardData {
   linkedin?: string;
   twitter?: string;
   instagram?: string;
+  facebook?: string;
   photoUrl?: string;
+  location?: string;
+  appointmentLink?: string;
+  professionalDetails?: string;
   cardBackgroundColor: string;
   cardTextColor: string;
   buttonSecondaryColor: string;
@@ -121,9 +125,9 @@ export default function PublicCardPage() {
       <Container fluid className="d-flex justify-content-center align-items-center min-vh-100" style={{ background: pageBackgroundColor }}>
       <BusinessCard
         name={card.name}
-        title={card.profession}
+        title={card.title}
         about={card.about || ''}
-        location=""
+        location={card.location || ''}
         whatsapp={card.phone || ''}
         email={card.email || ''}
         photoUrl={card.photoUrl || ''}
@@ -133,13 +137,13 @@ export default function PublicCardPage() {
         enableGlassmorphism={card.enableGlassmorphism || false}
         enableSubtleAnimations={card.enableSubtleAnimations || false}
         enableBackgroundPatterns={card.enableBackgroundPatterns || false}
-        whatsappShareUrl=""
-        appointmentLink={card.website || ''}
-        professionalDetails=""
+        whatsappShareUrl={`https://wa.me/?text=${encodeURIComponent(`Mira la tarjeta digital de ${card.name}: ${typeof window !== 'undefined' ? window.location.href : ''}`)}`}
+        appointmentLink={card.appointmentLink || card.website || ''}
+        professionalDetails={card.professionalDetails || ''}
         linkedin={card.linkedin || ''}
         instagram={card.instagram || ''}
         twitter={card.twitter || ''}
-        facebook=""
+        facebook={card.facebook || ''}
         buttonSecondaryColor={card.buttonSecondaryColor || '#00F6FF'}
         buttonNormalBackgroundColor={card.buttonNormalBackgroundColor || '#1F1F1F'}
         buttonSecondaryHoverColor={card.buttonSecondaryHoverColor || '#00D1DB'}

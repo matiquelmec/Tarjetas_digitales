@@ -76,7 +76,11 @@ model Card {
   linkedin        String?
   twitter         String?
   instagram       String?
+  facebook        String?
   photoUrl        String?
+  location        String?
+  appointmentLink String?
+  professionalDetails String?
 
   // Customization Fields
   cardBackgroundColor       String   @default("#1F1F1F")

@@ -12,7 +12,11 @@ export interface CardData {
   linkedin?: string;
   twitter?: string;
   instagram?: string;
+  facebook?: string;
   photoUrl?: string;
+  location?: string;
+  appointmentLink?: string;
+  professionalDetails?: string;
   customUrl?: string;
   // Visual customization fields (exactly matching Prisma schema)
   cardBackgroundColor?: string;
@@ -27,8 +31,6 @@ export interface CardData {
   enableBackgroundPatterns?: boolean;
   enableAIPalette?: boolean;
   isActive?: boolean;
-  // Note: professionalDetails and location are NOT in the Card schema
-  // They might be stored differently or need to be added to schema
 }
 
 export class CardService {

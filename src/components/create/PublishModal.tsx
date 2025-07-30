@@ -29,7 +29,7 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
         throw new Error('El título/profesión es requerido para crear la tarjeta');
       }
 
-      // Create card data for API (only fields that exist in Prisma Card schema)
+      // Create card data for API (all fields now exist in Prisma Card schema)
       const cardDataForAPI = {
         title: cardData.name || 'Untitled Card',
         name: cardData.name || '',
@@ -37,11 +37,15 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
         about: cardData.about || '',
         email: cardData.email || '',
         phone: cardData.whatsapp || cardData.phone || '',
-        website: cardData.appointmentLink || cardData.website || '',
+        website: cardData.website || '',
         linkedin: cardData.linkedin || '',
         twitter: cardData.twitter || '',
         instagram: cardData.instagram || '',
+        facebook: cardData.facebook || '',
         photoUrl: cardData.photo || '',
+        location: cardData.location || '',
+        appointmentLink: cardData.appointmentLink || '',
+        professionalDetails: cardData.professionalDetails || '',
         cardBackgroundColor: cardData.cardBackgroundColor || '#2c2c2c',
         cardTextColor: cardData.cardTextColor || '#ffffff',
         buttonSecondaryColor: cardData.buttonSecondaryColor || '#00F6FF',
@@ -55,11 +59,6 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
         enableAIPalette: cardData.enableAIPalette || false,
         customUrl: cardData.customUrl || '',
         isActive: true
-        // Removed fields that don't exist in Card schema:
-        // - template (not in schema)
-        // - isPublic (not in schema, only isActive exists)
-        // - professionalDetails (not in schema)
-        // - location (not in schema)
       };
 
       console.log('Publishing card with data:', cardDataForAPI);
