@@ -426,23 +426,16 @@ export default function DashboardCardsPage() {
       `}</style>
       <div className="animated-gradient-background">
         <Container className="py-4">
-          {/* Navegación mejorada */}
-          <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-sm-center gap-3 mb-4">
-            <div className="d-flex align-items-center gap-3">
-              <Link href="/dashboard">
-                <Button size="sm" className="back-button">
-                  ← Dashboard
-                </Button>
-              </Link>
-              <Breadcrumb className="breadcrumb-custom mb-0">
-                <Breadcrumb.Item>
-                  <Link href="/dashboard" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none' }}>
-                    🏠 Dashboard
-                  </Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item active>💼 Mis Tarjetas</Breadcrumb.Item>
-              </Breadcrumb>
-            </div>
+          {/* Navegación */}
+          <div className="mb-4">
+            <Breadcrumb className="breadcrumb-custom mb-0">
+              <Breadcrumb.Item>
+                <Link href="/dashboard" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none' }}>
+                  🏠 Dashboard
+                </Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item active>💼 Mis Tarjetas</Breadcrumb.Item>
+            </Breadcrumb>
           </div>
 
           {/* Header compacto */}
