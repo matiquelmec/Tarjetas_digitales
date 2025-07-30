@@ -120,157 +120,390 @@ export default function DashboardCardsPage() {
   };
 
   return (
-    <Container fluid>
-      {/* Welcome Message */}
-      {showWelcomeMessage && (
-        <Row className="mb-4">
-          <Col>
-            <Alert variant="success" className="d-flex justify-content-between align-items-center">
-              <div>
-                <strong>👋 ¡Bienvenido!</strong> {welcomeMessage}
-              </div>
-              <Button 
-                variant="outline-success" 
-                size="sm"
-                onClick={() => setShowWelcomeMessage(false)}
-              >
-                ✕
-              </Button>
-            </Alert>
-          </Col>
-        </Row>
-      )}
-
-      {/* Plan Usage Section */}
-      {planLimits && (
-        <Row className="mb-4">
-          <Col>
-            <Card className="glass-card">
-              <Card.Header>
-                <div className="d-flex justify-content-between align-items-center">
-                  <h5 className="text-white mb-0">Plan: {session?.user?.plan || 'GRATUITO'}</h5>
-                  <Link href="/pricing">
-                    <Button variant="outline-warning" size="sm">Actualizar Plan</Button>
-                  </Link>
+    <>
+      <style jsx global>{`
+        body {
+          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+          min-height: 100vh;
+          margin: 0;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .dashboard-container {
+          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+          min-height: 100vh;
+          padding: 0;
+        }
+        .glass-card {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: 16px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+        .card-item {
+          background: white;
+          border-radius: 16px;
+          padding: 1.5rem;
+          border: 1px solid #e2e8f0;
+          transition: all 0.3s ease;
+          height: 100%;
+        }
+        .card-item:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+          border-color: #3b82f6;
+        }
+        .header-content {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(20px);
+          border-radius: 20px;
+          padding: 2rem;
+          margin-bottom: 2rem;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .stat-badge {
+          background: white;
+          border-radius: 12px;
+          padding: 1rem;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+          border: 1px solid #e2e8f0;
+        }
+        .icon-wrapper {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 0.75rem;
+          font-size: 1.5rem;
+        }
+        .primary-gradient {
+          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+        .success-gradient {
+          background: linear-gradient(135deg, #10b981, #059669);
+        }
+        .warning-gradient {
+          background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        .danger-gradient {
+          background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+        .info-gradient {
+          background: linear-gradient(135deg, #06b6d4, #0891b2);
+        }
+      `}</style>
+      <div className="dashboard-container">
+        <Container className="py-5">
+          {/* Header */}
+          <div className="header-content mb-4">
+            <Row className="align-items-center">
+              <Col lg={8}>
+                <div>
+                  <h1 className="text-white mb-2 fw-bold" style={{ fontSize: '2.5rem' }}>
+                    💼 Mis Tarjetas Digitales
+                  </h1>
+                  <p className="text-white opacity-75 mb-0 fs-5">
+                    Gestiona y edita todas tus tarjetas profesionales
+                  </p>
                 </div>
-              </Card.Header>
-              <Card.Body>
-                <Row>
-                  <Col md={6}>
-                    <div className="text-white mb-3">
-                      <strong>Uso de Tarjetas:</strong>
-                      <ProgressBar 
-                        now={planLimits.maxCards === -1 ? 0 : (cards.length / planLimits.maxCards) * 100}
-                        label={planLimits.maxCards === -1 ? `${cards.length} / Ilimitadas` : `${cards.length} / ${planLimits.maxCards}`}
-                        variant={cards.length >= planLimits.maxCards ? "danger" : "success"}
-                        className="mt-2"
-                      />
+              </Col>
+              <Col lg={4}>
+                <div className="d-flex justify-content-end">
+                  {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 ? (
+                    <Link href="/pricing">
+                      <Button 
+                        variant="warning" 
+                        className="fw-semibold px-4"
+                        style={{ borderRadius: '12px' }}
+                      >
+                        ⭐ Actualizar para Crear Más
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link href="/create">
+                      <Button 
+                        variant="primary" 
+                        className="fw-semibold px-4"
+                        style={{ borderRadius: '12px' }}
+                      >
+                        ✨ Crear Nueva Tarjeta
+                      </Button>
+                    </Link>
+                  )}
+                </div>
+              </Col>
+            </Row>
+          </div>
+
+          {/* Welcome Message */}
+          {showWelcomeMessage && (
+            <Row className="mb-4">
+              <Col>
+                <div className="glass-card border-0">
+                  <div className="p-4">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div className="d-flex align-items-center">
+                        <div className="icon-wrapper success-gradient text-white me-3">
+                          👋
+                        </div>
+                        <div>
+                          <h5 className="fw-bold text-dark mb-1">¡Bienvenido!</h5>
+                          <p className="text-muted mb-0">{welcomeMessage}</p>
+                        </div>
+                      </div>
+                      <Button 
+                        variant="outline-secondary" 
+                        size="sm"
+                        onClick={() => setShowWelcomeMessage(false)}
+                        style={{ borderRadius: '8px' }}
+                      >
+                        ✕
+                      </Button>
                     </div>
-                  </Col>
-                  <Col md={6}>
-                    <div className="text-white">
-                      <strong>Características del Plan:</strong>
-                      <ul className="mt-2 mb-0" style={{ fontSize: '0.9rem' }}>
-                        <li>{planLimits.hasWatermark ? '❌ Incluye marca de agua' : '✅ Sin marca de agua'}</li>
-                        <li>{planLimits.hasAnalytics ? '✅ Analytics avanzados' : '❌ Solo analytics básicos'}</li>
-                        <li>{planLimits.hasExport ? '✅ Exportar PDF/Imagen' : '❌ Sin exportación'}</li>
-                        <li>{planLimits.hasPrioritySupport ? '✅ Soporte prioritario' : '❌ Soporte comunidad'}</li>
-                      </ul>
-                    </div>
-                  </Col>
-                </Row>
-                {cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 && (
-                  <Alert variant="warning" className="mt-3 mb-0">
-                    <strong>¡Límite del plan alcanzado!</strong> Has usado todas las {planLimits.maxCards} tarjetas disponibles en tu plan {session?.user?.plan || 'GRATUITO'}. 
-                    <Link href="/pricing" className="alert-link"> Actualiza para crear más tarjetas.</Link>
-                  </Alert>
-                )}
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      )}
-      <Row>
-        <Col>
-          <Card className="glass-card">
-            <Card.Header className="d-flex justify-content-between align-items-center">
-              <h3 className="text-white mb-0">💼 Mis Tarjetas Digitales</h3>
-              {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 ? (
-                <Link href="/pricing">
-                  <Button variant="warning">Actualizar para Crear Más</Button>
-                </Link>
-              ) : (
-                <Link href="/create">
-                  <Button variant="primary">Crear Nueva Tarjeta</Button>
-                </Link>
-              )}
-            </Card.Header>
-            <Card.Body>
-              {loading ? (
-                <div className="text-white text-center py-5">
-                  <div className="spinner-border text-light" role="status">
-                    <span className="visually-hidden">Cargando...</span>
                   </div>
-                  <p className="mt-3">Cargando tus tarjetas...</p>
+                </div>
+              </Col>
+            </Row>
+          )}
+
+          {/* Plan Usage Section */}
+          {planLimits && (
+            <Row className="mb-5">
+              <Col>
+                <div className="glass-card border-0">
+                  <div className="p-4">
+                    <div className="d-flex align-items-center mb-4">
+                      <div className="icon-wrapper primary-gradient text-white me-3">
+                        📊
+                      </div>
+                      <div>
+                        <h4 className="fw-bold text-dark mb-1">
+                          Plan: {session?.user?.plan || 'GRATUITO'}
+                        </h4>
+                        <p className="text-muted mb-0">Estado de tu suscripción actual</p>
+                      </div>
+                      <div className="ms-auto">
+                        <Link href="/pricing">
+                          <Button 
+                            variant="warning" 
+                            size="sm"
+                            className="fw-semibold"
+                            style={{ borderRadius: '12px' }}
+                          >
+                            ⭐ Actualizar Plan
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+
+                    <Row className="g-4">
+                      <Col md={6}>
+                        <div className="stat-badge">
+                          <h6 className="fw-semibold text-dark mb-2">📈 Uso de Tarjetas</h6>
+                          <div className="d-flex justify-content-between align-items-center mb-2">
+                            <span className="text-muted">
+                              {planLimits.maxCards === -1 ? `${cards.length} / Ilimitadas` : `${cards.length} / ${planLimits.maxCards}`}
+                            </span>
+                            <span className="fw-bold text-primary">
+                              {planLimits.maxCards === -1 ? '∞' : Math.round((cards.length / planLimits.maxCards) * 100)}%
+                            </span>
+                          </div>
+                          <ProgressBar 
+                            now={planLimits.maxCards === -1 ? 0 : (cards.length / planLimits.maxCards) * 100}
+                            variant={cards.length >= planLimits.maxCards ? "danger" : "success"}
+                            style={{ height: '8px', borderRadius: '8px' }}
+                          />
+                        </div>
+                      </Col>
+                      <Col md={6}>
+                        <div className="stat-badge">
+                          <h6 className="fw-semibold text-dark mb-3">🎯 Características del Plan</h6>
+                          <div className="row g-2">
+                            <div className="col-6">
+                              <div className="d-flex align-items-center">
+                                <span className="me-2">{planLimits.hasWatermark ? '❌' : '✅'}</span>
+                                <small className="text-muted">Marca de agua</small>
+                              </div>
+                            </div>
+                            <div className="col-6">
+                              <div className="d-flex align-items-center">
+                                <span className="me-2">{planLimits.hasAnalytics ? '✅' : '❌'}</span>
+                                <small className="text-muted">Analytics</small>
+                              </div>
+                            </div>
+                            <div className="col-6">
+                              <div className="d-flex align-items-center">
+                                <span className="me-2">{planLimits.hasExport ? '✅' : '❌'}</span>
+                                <small className="text-muted">Exportar PDF</small>
+                              </div>
+                            </div>
+                            <div className="col-6">
+                              <div className="d-flex align-items-center">
+                                <span className="me-2">{planLimits.hasPrioritySupport ? '✅' : '❌'}</span>
+                                <small className="text-muted">Soporte</small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>
+
+                    {cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 && (
+                      <div className="mt-4">
+                        <div 
+                          className="alert alert-warning border-0 d-flex align-items-center"
+                          style={{ borderRadius: '12px' }}
+                        >
+                          <div className="icon-wrapper warning-gradient text-white me-3" style={{ width: '40px', height: '40px' }}>
+                            ⚠️
+                          </div>
+                          <div>
+                            <strong className="text-warning">¡Límite del plan alcanzado!</strong>
+                            <p className="mb-0 text-muted">
+                              Has usado todas las {planLimits.maxCards} tarjetas disponibles en tu plan {session?.user?.plan || 'GRATUITO'}. 
+                              <Link href="/pricing" className="text-warning fw-semibold text-decoration-none"> Actualiza para crear más tarjetas.</Link>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          )}
+          {/* Cards Section */}
+          <Row>
+            <Col>
+              {loading ? (
+                <div className="glass-card border-0">
+                  <div className="p-5 text-center">
+                    <div className="spinner-border text-primary" role="status" style={{ width: '3rem', height: '3rem' }}>
+                      <span className="visually-hidden">Cargando...</span>
+                    </div>
+                    <h5 className="mt-3 text-dark">Cargando tus tarjetas...</h5>
+                    <p className="text-muted">Un momento por favor</p>
+                  </div>
                 </div>
               ) : cards.length === 0 ? (
-                <div className="text-white text-center py-5">
-                  <div style={{ fontSize: '4rem' }} className="mb-3">💼</div>
-                  <h4>¡Comienza creando tu primera tarjeta!</h4>
-                  <p className="text-white-75 mb-4">Diseña una tarjeta digital profesional en menos de 5 minutos</p>
-                  <Link href="/create">
-                    <Button variant="primary" size="lg">Crear Mi Primera Tarjeta</Button>
-                  </Link>
+                <div className="glass-card border-0">
+                  <div className="p-5 text-center">
+                    <div className="icon-wrapper primary-gradient text-white mx-auto mb-4" style={{ width: '80px', height: '80px', fontSize: '2.5rem' }}>
+                      💼
+                    </div>
+                    <h3 className="fw-bold text-dark mb-3">¡Comienza creando tu primera tarjeta!</h3>
+                    <p className="text-muted mb-4 fs-5">
+                      Diseña una tarjeta digital profesional con efectos únicos en menos de 5 minutos
+                    </p>
+                    <Link href="/create">
+                      <Button 
+                        variant="primary" 
+                        size="lg" 
+                        className="fw-semibold px-5 py-3"
+                        style={{ borderRadius: '16px' }}
+                      >
+                        ✨ Crear Mi Primera Tarjeta
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               ) : (
-                <Table className="text-white" hover>
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Título</th>
-                      <th>Visualizaciones</th>
-                      <th>Clics</th>
-                      <th>Estado</th>
-                      <th>Creada</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cards.map((card) => (
-                      <tr key={card.id}>
-                        <td>{card.name}</td>
-                        <td>{card.profession}</td>
-                        <td>
-                          <span className="badge bg-info">{card.views}</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-success">{card.clicks}</span>
-                        </td>
-                        <td>
-                          <span className={`badge ${card.isActive ? 'bg-success' : 'bg-secondary'}`}>
-                            {card.isActive ? 'Activa' : 'Inactiva'}
+                <>
+                  <div className="glass-card border-0 mb-4">
+                    <div className="p-4">
+                      <div className="d-flex align-items-center justify-content-between mb-3">
+                        <div>
+                          <h4 className="fw-bold text-dark mb-1">Tus Tarjetas Digitales</h4>
+                          <p className="text-muted mb-0">{cards.length} tarjeta{cards.length !== 1 ? 's' : ''} creada{cards.length !== 1 ? 's' : ''}</p>
+                        </div>
+                        <div className="d-flex gap-2">
+                          <span className="badge bg-primary bg-opacity-10 text-primary fw-semibold px-3 py-2">
+                            📊 {cards.reduce((sum, card) => sum + card.views, 0)} visualizaciones
                           </span>
-                        </td>
-                        <td>{new Date(card.createdAt).toLocaleDateString('es-ES')}</td>
-                        <td>
-                          <div className="d-flex gap-1">
-                            <Link href={`/card/${card.id}`} target="_blank">
-                              <Button variant="outline-light" size="sm" title="Ver tarjeta">
-                                👁️
+                          <span className="badge bg-success bg-opacity-10 text-success fw-semibold px-3 py-2">
+                            🔗 {cards.reduce((sum, card) => sum + card.clicks, 0)} clics
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <Row className="g-4">
+                    {cards.map((card) => (
+                      <Col key={card.id} lg={6} xl={4}>
+                        <div className="card-item">
+                          <div className="d-flex justify-content-between align-items-start mb-3">
+                            <div className="flex-grow-1">
+                              <h5 className="fw-bold text-dark mb-1">{card.name}</h5>
+                              <p className="text-muted mb-2">{card.profession}</p>
+                              <div className="d-flex align-items-center gap-2">
+                                <span className={`badge ${card.isActive ? 'bg-success' : 'bg-secondary'} bg-opacity-15 ${card.isActive ? 'text-success' : 'text-secondary'} fw-semibold`}>
+                                  {card.isActive ? '🟢 Activa' : '🔴 Inactiva'}
+                                </span>
+                                <small className="text-muted">
+                                  {new Date(card.createdAt).toLocaleDateString('es-ES')}
+                                </small>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="row g-3 mb-4">
+                            <div className="col-6">
+                              <div className="d-flex align-items-center">
+                                <div className="icon-wrapper info-gradient text-white me-2" style={{ width: '32px', height: '32px', fontSize: '0.75rem' }}>
+                                  👁️
+                                </div>
+                                <div>
+                                  <div className="fw-bold text-dark">{card.views}</div>
+                                  <small className="text-muted">Vistas</small>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-6">
+                              <div className="d-flex align-items-center">
+                                <div className="icon-wrapper success-gradient text-white me-2" style={{ width: '32px', height: '32px', fontSize: '0.75rem' }}>
+                                  🔗
+                                </div>
+                                <div>
+                                  <div className="fw-bold text-dark">{card.clicks}</div>
+                                  <small className="text-muted">Clics</small>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="d-flex gap-2">
+                            <Link href={`/card/${card.id}`} target="_blank" className="flex-fill">
+                              <Button 
+                                variant="outline-primary" 
+                                size="sm" 
+                                className="w-100 fw-semibold"
+                                style={{ borderRadius: '8px' }}
+                              >
+                                👁️ Ver
                               </Button>
                             </Link>
                             <Button 
                               variant="outline-info" 
                               size="sm"
-                              title="Editar"
+                              className="fw-semibold flex-fill"
+                              style={{ borderRadius: '8px' }}
                               onClick={() => window.open(`/create?edit=${card.id}`, '_self')}
                             >
-                              ✏️
+                              ✏️ Editar
                             </Button>
                             <Button 
                               variant="outline-danger" 
                               size="sm"
-                              title="Eliminar"
+                              className="fw-semibold"
+                              style={{ borderRadius: '8px', minWidth: '60px' }}
                               onClick={() => deleteCard(card.id)}
                               disabled={deletingCardId === card.id}
                             >
@@ -281,16 +514,16 @@ export default function DashboardCardsPage() {
                               )}
                             </Button>
                           </div>
-                        </td>
-                      </tr>
+                        </div>
+                      </Col>
                     ))}
-                  </tbody>
-                </Table>
+                  </Row>
+                </>
               )}
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </>
   );
 }
