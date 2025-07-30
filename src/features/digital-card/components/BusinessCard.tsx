@@ -167,6 +167,177 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
     return `https://${url}`;
   };
 
+  // Function to generate creative WhatsApp share messages based on profession
+  const generateCreativeWhatsAppMessage = (name: string, profession: string, about: string): string => {
+    const baseUrl = typeof window !== 'undefined' ? window.location.href : '';
+    
+    // Profession-specific templates with emojis and modern language
+    const templates = {
+      // Medical professionals
+      doctor: `🩺 ¡Conoce a ${name}! 
+${profession} con años de experiencia cuidando tu salud 💙
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Mira su perfil completo: ${baseUrl}
+
+#SaludDigital #Medicina #Profesional`,
+
+      medico: `🩺 ¡Conoce a ${name}! 
+${profession} comprometido/a con tu bienestar 💙
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Perfil profesional: ${baseUrl}
+
+#Salud #MedicinaModerna #Cuidado`,
+
+      // Legal professionals  
+      abogado: `⚖️ Te presento a ${name}
+${profession} - Tu aliado legal de confianza 🛡️
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Conoce más: ${baseUrl}
+
+#DerechoDigital #JusticiaModerna #Legal`,
+
+      // Tech professionals
+      desarrollador: `💻 ¡Check this out! ${name}
+${profession} creando el futuro digital 🚀
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Portfolio: ${baseUrl}
+
+#TechLife #Desarrollo #Innovación`,
+
+      ingeniero: `🔧 Te comparto el perfil de ${name}
+${profession} - Innovación que transforma 🚀
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Conecta aquí: ${baseUrl}
+
+#Ingeniería #Innovación #Tecnología`,
+
+      // Business professionals
+      consultor: `📊 ¡Descubre a ${name}!
+${profession} - Estrategias que generan resultados 📈
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Conoce su experiencia: ${baseUrl}
+
+#Consultoría #Negocios #Estrategia`,
+
+      contador: `💰 Te presento a ${name}
+${profession} - Tu socio financiero estratégico 📊
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Perfil profesional: ${baseUrl}
+
+#Finanzas #Contabilidad #Negocios`,
+
+      // Creative professionals
+      diseñador: `🎨 ¡Talento creativo alert! ${name}
+${profession} transformando ideas en realidad ✨
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Ve su work: ${baseUrl}
+
+#Diseño #Creatividad #Arte`,
+
+      arquitecto: `🏗️ Te comparto a ${name}
+${profession} - Creando espacios que inspiran 🏡
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Proyectos: ${baseUrl}
+
+#Arquitectura #Diseño #Construcción`,
+
+      // More professions
+      psicologo: `🧠 Conoce a ${name}
+${profession} - Acompañando tu bienestar mental 💚
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Perfil profesional: ${baseUrl}
+
+#SaludMental #Bienestar #Psicología`,
+
+      chef: `👨‍🍳 ¡Descubre a ${name}!
+${profession} - Creando experiencias gastronómicas únicas 🍽️
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Su mundo culinario: ${baseUrl}
+
+#Gastronomía #Chef #Cocina`,
+
+      profesor: `📚 Te presento a ${name}
+${profession} - Inspirando mentes, transformando futuros 🌟
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Conoce más: ${baseUrl}
+
+#Educación #Enseñanza #Aprendizaje`,
+
+      fotografo: `📸 ¡Check this! ${name}
+${profession} - Capturando momentos, creando recuerdos ✨
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Portfolio: ${baseUrl}
+
+#Fotografía #Arte #Momentos`,
+
+      marketing: `🚀 Descubre a ${name}
+${profession} - Conectando marcas con audiencias 📱
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+🔗 Su expertise: ${baseUrl}
+
+#Marketing #Digital #Estrategia`,
+
+      // Default modern template
+      default: `✨ ¡Te comparto algo genial!
+
+Conoce a ${name} - ${profession} 🚀
+${about ? `\n"${about.substring(0, 80)}..."` : ''}
+
+Una persona increíble con servicios profesionales que pueden interesarte 💫
+
+🔗 Su tarjeta digital: ${baseUrl}
+
+#Networking #Profesionales #Conecta`
+    };
+
+    // Detect profession type
+    const professionLower = profession.toLowerCase();
+    
+    if (professionLower.includes('doctor') || professionLower.includes('médico') || professionLower.includes('dra') || professionLower.includes('dr.')) {
+      return templates.doctor;
+    } else if (professionLower.includes('abogado') || professionLower.includes('legal') || professionLower.includes('derecho')) {
+      return templates.abogado;
+    } else if (professionLower.includes('desarrollador') || professionLower.includes('developer') || professionLower.includes('programador')) {
+      return templates.desarrollador;
+    } else if (professionLower.includes('ingeniero') || professionLower.includes('engineer')) {
+      return templates.ingeniero;
+    } else if (professionLower.includes('consultor') || professionLower.includes('consultant')) {
+      return templates.consultor;
+    } else if (professionLower.includes('contador') || professionLower.includes('contable') || professionLower.includes('financiero')) {
+      return templates.contador;
+    } else if (professionLower.includes('diseñador') || professionLower.includes('designer')) {
+      return templates.diseñador;
+    } else if (professionLower.includes('arquitecto') || professionLower.includes('architect')) {
+      return templates.arquitecto;
+    } else if (professionLower.includes('psicólogo') || professionLower.includes('psicologo') || professionLower.includes('psychologist')) {
+      return templates.psicologo;
+    } else if (professionLower.includes('chef') || professionLower.includes('cocinero') || professionLower.includes('gastronom')) {
+      return templates.chef;
+    } else if (professionLower.includes('profesor') || professionLower.includes('teacher') || professionLower.includes('educador') || professionLower.includes('docente')) {
+      return templates.profesor;
+    } else if (professionLower.includes('fotógrafo') || professionLower.includes('fotografo') || professionLower.includes('photographer')) {
+      return templates.fotografo;
+    } else if (professionLower.includes('marketing') || professionLower.includes('publicista') || professionLower.includes('community manager')) {
+      return templates.marketing;
+    } else {
+      return templates.default;
+    }
+  };
+
   const cardStyles: React.CSSProperties = {
     width: '100%',
     maxWidth: '480px',
@@ -331,7 +502,7 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
                 <QrCodeDisplay value={qrCodeValue} size={140} level="H" />
               </div>
               <Button 
-                href={whatsappShareUrl} 
+                href={`https://wa.me/?text=${encodeURIComponent(generateCreativeWhatsAppMessage(name, title, about))}`}
                 target="_blank" 
                 rel="noopener noreferrer" 
                 style={{ 
@@ -352,7 +523,7 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
                   e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                Compartir por WhatsApp
+                💬 Compartir Perfil
               </Button>
             </div>
           </Stack>

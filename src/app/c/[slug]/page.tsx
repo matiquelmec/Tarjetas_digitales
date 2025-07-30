@@ -137,7 +137,7 @@ export default function PublicCardSlugPage() {
         enableGlassmorphism={card.enableGlassmorphism || false}
         enableSubtleAnimations={card.enableSubtleAnimations || false}
         enableBackgroundPatterns={card.enableBackgroundPatterns || false}
-        whatsappShareUrl={`https://wa.me/?text=${encodeURIComponent(`Mira la tarjeta digital de ${card.name}: ${typeof window !== 'undefined' ? window.location.href : ''}`)}`}
+        whatsappShareUrl=""
         appointmentLink={card.appointmentLink || card.website || ''}
         professionalDetails={card.professionalDetails || ''}
         linkedin={card.linkedin || ''}
