@@ -241,6 +241,92 @@ export default function HomePage() {
           transform: translateY(-2px) !important;
           box-shadow: 0 6px 16px rgba(212, 160, 23, 0.4) !important;
         }
+        
+        /* Estilos para homepage minimalista */
+        .hero-content {
+          padding: 2rem 0;
+        }
+        
+        .cta-hero {
+          transition: all 0.3s ease !important;
+          transform-origin: center;
+        }
+        
+        .cta-hero:hover {
+          transform: translateY(-3px) scale(1.02) !important;
+          box-shadow: 0 12px 40px rgba(0, 246, 255, 0.4) !important;
+        }
+        
+        .main-service-card {
+          max-width: 600px;
+          margin: 0 auto;
+          transform: translateY(0);
+          transition: all 0.4s ease;
+        }
+        
+        .main-service-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 16px 64px 0 rgba(31, 38, 135, 0.6);
+        }
+        
+        .btn-cta-secondary {
+          transition: all 0.3s ease !important;
+        }
+        
+        .btn-cta-secondary:hover {
+          background: #00F6FF !important;
+          color: #ffffff !important;
+          transform: translateY(-2px) !important;
+          box-shadow: 0 8px 24px rgba(0, 246, 255, 0.3) !important;
+        }
+        
+        .future-services {
+          margin-top: 4rem;
+          padding: 2rem 0;
+        }
+        
+        .future-item {
+          text-align: center;
+          padding: 1rem;
+          transition: all 0.3s ease;
+          border-radius: 12px;
+        }
+        
+        .future-item:hover {
+          background: rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
+        }
+        
+        .future-icon {
+          font-size: 2rem;
+          display: block;
+          margin-bottom: 0.5rem;
+        }
+        
+        .feature-item {
+          padding: 0.5rem;
+          text-align: center;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+          .hero-content h2 {
+            font-size: 2.2rem !important;
+          }
+          
+          .cta-hero {
+            font-size: 1.1rem !important;
+            padding: 1rem 2rem !important;
+          }
+          
+          .future-services {
+            margin-top: 2rem;
+          }
+          
+          .future-item {
+            margin-bottom: 1rem;
+          }
+        }
       `}</style>
       <div className="animated-gradient-background min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <Container fluid className="py-5">
@@ -277,114 +363,144 @@ export default function HomePage() {
               )}
             </div>
           </div>
-          {/* Hero Section */}
+          {/* Hero Section Minimalista */}
           <Row className="justify-content-center text-center mb-5">
-            <Col lg={8}>
-              <p className="lead text-white mb-4" style={{ fontSize: '1.2rem', fontWeight: '300' }}>
-                Transforma tu identidad profesional en una experiencia digital hipnotizante en menos de 5 minutos
-              </p>
-              <div className="d-flex gap-3 justify-content-center flex-wrap">
-                <span className="badge bg-light text-dark px-3 py-2">✨ Editor Visual en Tiempo Real</span>
-                <span className="badge bg-light text-dark px-3 py-2">🎨 Sugerencias AI-Powered</span>
-                <span className="badge bg-light text-dark px-3 py-2">📱 Mobile-First</span>
-                <span className="badge bg-light text-dark px-3 py-2">📊 Analytics Avanzados</span>
-              </div>
-            </Col>
-          </Row>
-
-          {/* Services Grid */}
-          <Row className="justify-content-center text-center w-100">
-            {services.map((service, index) => (
-              <Col key={index} lg={4} md={6} className="mb-4">
-                <Card className="h-100 glass-card text-white">
-                  <Card.Body className="d-flex flex-column justify-content-between">
-                    <div>
-                      <div className="mb-3">
-                        <span style={{ fontSize: '3rem' }}>{service.icon}</span>
-                      </div>
-                      <Card.Title className="h4 mb-3">{service.title}</Card.Title>
-                      <Card.Text className="mb-4">
-                        {service.description}
-                      </Card.Text>
-                      <div className="mb-3">
-                        <small className="text-white opacity-75">
-                          {service.features.map((feature, idx) => (
-                            <span key={idx}>✓ {feature}<br/></span>
-                          ))}
-                        </small>
-                      </div>
-                    </div>
-                    <div>
-                      {service.status === 'available' && (service.link === '/create' || service.link === '/dashboard') ? (
-                        <a 
-                          href={service.link}
-                          style={{ 
-                            textDecoration: 'none',
-                            display: 'block',
-                            width: '100%'
-                          }}
-                          onClick={service.link === '/create' ? handleCreateCard : handleDashboardAccess}
-                        >
-                          <Button 
-                            variant={service.buttonVariant} 
-                            className="btn-modern w-100"
-                            type="button"
-                            as="div"
-                          >
-                            {service.buttonText}
-                          </Button>
-                        </a>
-                      ) : (
-                        <Button 
-                          variant={service.buttonVariant.startsWith('btn-') ? undefined : service.buttonVariant}
-                          className={`w-100 ${service.buttonVariant.startsWith('btn-') ? service.buttonVariant : ''}`} 
-                          disabled={service.status === 'coming-soon'}
-                          href={service.link || undefined}
-                          target={service.link ? "_blank" : undefined}
-                          rel={service.link ? "noopener noreferrer" : undefined}
-                        >
-                          {service.buttonText} {service.comingSoonDate && `- ${service.comingSoonDate}`}
-                        </Button>
-                      )}
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-
-          {/* CTA Section */}
-          <Row className="justify-content-center text-center mt-5">
-            <Col lg={8}>
-              <div className="glass-card p-4">
-                <h3 className="text-white mb-3">🎯 Transforma tu networking profesional en 5 minutos</h3>
-                <p className="text-white opacity-75 mb-4">
-                  Únete a más de 10,000 profesionales que ya utilizan nuestra plataforma para destacar y generar más oportunidades de negocio.
+            <Col lg={10} xl={8}>
+              <div className="hero-content">
+                <h2 className="display-4 fw-bold text-white mb-4" style={{ lineHeight: '1.1' }}>
+                  Crea tu tarjeta digital<br />
+                  <span style={{ color: '#00F6FF' }}>profesional en 5 minutos</span>
+                </h2>
+                <p className="lead text-white mb-4 opacity-90" style={{ fontSize: '1.3rem', fontWeight: '400' }}>
+                  QR automático • Analytics en vivo • Sin marca de agua • Compartir por WhatsApp
                 </p>
-                <div className="d-flex gap-3 justify-content-center flex-wrap">
-                  {session ? (
-                    <>
-                      <Button variant="primary" size="lg" href="/create">
-                        ✨ Crear Mi Primera Tarjeta
-                      </Button>
-                      <Button variant="outline-light" size="lg" href="/dashboard">
-                        📊 Ver Mi Panel
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Button variant="primary" size="lg" onClick={handleCreateCard}>
-                        🚀 Crear Mi Tarjeta Gratis
-                      </Button>
-                      <Button variant="outline-light" size="lg" href="/pricing">
-                        💰 Ver Planes Premium
-                      </Button>
-                    </>
-                  )}
+                
+                {/* CTA Principal Gigante */}
+                <div className="mb-4">
+                  <Button 
+                    size="lg"
+                    className="cta-hero px-5 py-3"
+                    onClick={handleDashboardAccess}
+                    style={{
+                      fontSize: '1.3rem',
+                      fontWeight: '700',
+                      borderRadius: '16px',
+                      background: 'linear-gradient(135deg, #00F6FF, #0072ff)',
+                      border: 'none',
+                      color: '#ffffff',
+                      boxShadow: '0 8px 32px rgba(0, 246, 255, 0.3)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.5px'
+                    }}
+                  >
+                    🚀 Crear Mi Tarjeta Gratis
+                  </Button>
+                </div>
+                
+                {/* Social Proof Simple */}
+                <div className="social-proof-mini">
+                  <small className="text-white opacity-75">
+                    ✨ Únete a cientos de profesionales que ya digitalizaron su networking
+                  </small>
                 </div>
               </div>
             </Col>
           </Row>
+
+          {/* Servicio Principal - Tarjetas Digitales */}
+          <Row className="justify-content-center mb-5">
+            <Col lg={8} xl={6}>
+              <Card className="glass-card text-white main-service-card">
+                <Card.Body className="p-4 text-center">
+                  <div className="service-icon mb-3" style={{ fontSize: '3rem' }}>
+                    💼
+                  </div>
+                  <Card.Title as="h3" className="mb-3 fw-bold" style={{ fontSize: '1.8rem' }}>
+                    Tarjetas Digitales Premium
+                  </Card.Title>
+                  <Card.Text className="mb-4 opacity-90" style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
+                    Diseña tarjetas profesionales con efectos visuales únicos, QR integrado y compartir instantáneo
+                  </Card.Text>
+                  
+                  {/* Features destacadas */}
+                  <div className="features-grid mb-4">
+                    <Row className="g-3">
+                      <Col sm={6}>
+                        <div className="feature-item">
+                          <small className="text-white opacity-75">
+                            ✨ Editor visual en tiempo real
+                          </small>
+                        </div>
+                      </Col>
+                      <Col sm={6}>
+                        <div className="feature-item">
+                          <small className="text-white opacity-75">
+                            🎨 Efectos glassmorphism
+                          </small>
+                        </div>
+                      </Col>
+                      <Col sm={6}>
+                        <div className="feature-item">
+                          <small className="text-white opacity-75">
+                            📊 Analytics de interacción
+                          </small>
+                        </div>
+                      </Col>
+                      <Col sm={6}>
+                        <div className="feature-item">
+                          <small className="text-white opacity-75">
+                            📱 URLs personalizadas
+                          </small>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                  
+                  <Button 
+                    className="btn-cta-secondary px-4 py-2"
+                    onClick={handleDashboardAccess}
+                    style={{
+                      fontSize: '1.1rem',
+                      fontWeight: '600',
+                      borderRadius: '12px',
+                      background: 'rgba(0, 246, 255, 0.2)',
+                      border: '2px solid #00F6FF',
+                      color: '#00F6FF'
+                    }}
+                  >
+                    ✨ Comenzar Ahora - Es Gratis
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+
+          {/* Servicios Futuros - Colapsados */}
+          <Row className="justify-content-center">
+            <Col lg={10}>
+              <div className="future-services text-center">
+                <h4 className="text-white mb-4 opacity-75">Próximamente en nuestra plataforma</h4>
+                <div className="d-flex gap-4 justify-content-center flex-wrap">
+                  <div className="future-item">
+                    <span className="future-icon">🚀</span>
+                    <small className="text-white opacity-60 d-block">CVs Inteligentes</small>
+                    <small className="text-white opacity-40">Feb 2025</small>
+                  </div>
+                  <div className="future-item">
+                    <span className="future-icon">🎯</span>
+                    <small className="text-white opacity-60 d-block">Presentaciones</small>
+                    <small className="text-white opacity-40">Mar 2025</small>
+                  </div>
+                  <div className="future-item">
+                    <span className="future-icon">🎨</span>
+                    <small className="text-white opacity-60 d-block">Template Store</small>
+                    <small className="text-white opacity-40">Abr 2025</small>
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+
         </Container>
       </div>
     </>
