@@ -20,41 +20,41 @@ export default function CreateCardPage() {
   const [planLimits, setPlanLimits] = useState<any>(null);
   const [limitError, setLimitError] = useState<string | null>(null);
   const [cardData, setCardData] = useState({
-    // Datos básicos
-    name: '',
-    title: '',
-    about: '',
-    company: '',
-    email: '',
-    phone: '',
-    location: '',
-    whatsapp: '',
+    // Datos básicos - Prellenado con datos realistas
+    name: 'Dr. María Elena Rodríguez',
+    title: 'Especialista en Cardiología Clínica',
+    about: 'Con más de 15 años de experiencia en cardiología clínica, me especializo en el diagnóstico y tratamiento de enfermedades cardiovasculares. Comprometida con brindar atención médica integral y de calidad a cada paciente.',
+    company: 'Hospital Clínico Universidad de Chile',
+    email: 'dra.rodriguez@clinica.cl',
+    phone: '+56 9 8765 4321',
+    location: 'Providencia, Santiago, Chile',
+    whatsapp: '56987654321',
     
     // Diseño
     template: 'modern',
-    photo: '',
+    photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face',
     cardBackgroundColor: '#2c2c2c',
     cardTextColor: '#ffffff',
     buttonSecondaryColor: '#00F6FF',
     buttonSecondaryHoverColor: '#00D1DB',
     buttonNormalBackgroundColor: '#1F1F1F',
     
-    // Efectos visuales
-    enableHoverEffect: false,
-    enableGlassmorphism: false,
-    enableSubtleAnimations: false,
+    // Efectos visuales - Algunos activados para mejor demo
+    enableHoverEffect: true,
+    enableGlassmorphism: true,
+    enableSubtleAnimations: true,
     enableBackgroundPatterns: false,
     
-    // Redes sociales
-    linkedin: '',
+    // Redes sociales - Con datos de ejemplo
+    linkedin: 'https://linkedin.com/in/dra-maria-rodriguez',
     twitter: '',
-    instagram: '',
-    website: '',
+    instagram: '@dra.mariaelena',
+    website: 'https://drarodriguez.cl',
     facebook: '',
-    appointmentLink: '',
+    appointmentLink: 'https://calendly.com/dra-rodriguez',
     
     // Detalles profesionales
-    professionalDetails: '',
+    professionalDetails: 'Médico Cirujano, Universidad de Chile\nEspecialista en Cardiología, Hospital Johns Hopkins\nMiembro del Colegio Médico de Chile\nCertificación en Ecocardiografía Avanzada\n\nHorarios de Atención:\nLunes a Viernes: 9:00 - 18:00\nSábados: 9:00 - 13:00',
     
     // Configuración
     customUrl: '',
@@ -268,7 +268,7 @@ export default function CreateCardPage() {
                         location={cardData.location || 'Tu ubicación'}
                         whatsapp={cardData.whatsapp || '56912345678'}
                         email={cardData.email || 'tu@email.com'}
-                        photoUrl={cardData.photo || 'https://via.placeholder.com/150'}
+                        photoUrl={cardData.photo || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'}
                         cardBackgroundColor={cardData.cardBackgroundColor}
                         cardTextColor={cardData.cardTextColor}
                         enableHoverEffect={cardData.enableHoverEffect}
