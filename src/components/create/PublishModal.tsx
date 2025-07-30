@@ -29,7 +29,7 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
         throw new Error('El título/profesión es requerido para crear la tarjeta');
       }
 
-      // Create card data for API
+      // Create card data for API (only fields that exist in Prisma Card schema)
       const cardDataForAPI = {
         title: cardData.name || 'Untitled Card',
         name: cardData.name || '',
@@ -42,20 +42,24 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
         twitter: cardData.twitter || '',
         instagram: cardData.instagram || '',
         photoUrl: cardData.photo || '',
-        template: cardData.template || 'modern',
         cardBackgroundColor: cardData.cardBackgroundColor || '#2c2c2c',
         cardTextColor: cardData.cardTextColor || '#ffffff',
         buttonSecondaryColor: cardData.buttonSecondaryColor || '#00F6FF',
         buttonSecondaryHoverColor: cardData.buttonSecondaryHoverColor || '#00D1DB',
         buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor || '#1F1F1F',
+        pageBackgroundColor: cardData.pageBackgroundColor || '#121212',
         enableHoverEffect: cardData.enableHoverEffect || false,
         enableGlassmorphism: cardData.enableGlassmorphism || false,
         enableSubtleAnimations: cardData.enableSubtleAnimations || false,
         enableBackgroundPatterns: cardData.enableBackgroundPatterns || false,
+        enableAIPalette: cardData.enableAIPalette || false,
         customUrl: cardData.customUrl || '',
-        isPublic: cardData.isPublic !== false,
-        professionalDetails: cardData.professionalDetails || '',
-        location: cardData.location || ''
+        isActive: true
+        // Removed fields that don't exist in Card schema:
+        // - template (not in schema)
+        // - isPublic (not in schema, only isActive exists)
+        // - professionalDetails (not in schema)
+        // - location (not in schema)
       };
 
       console.log('Publishing card with data:', cardDataForAPI);

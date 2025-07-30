@@ -80,8 +80,8 @@ export async function GET() {
       enableGlassmorphism: false,
       enableSubtleAnimations: false,
       enableBackgroundPatterns: false,
-      isActive: true,
-      isPublic: true
+      isActive: true
+      // Removed isPublic - this field doesn't exist in the Card schema
     };
 
     console.log('Testing CardService.createCard... (This will create a real test card)');
