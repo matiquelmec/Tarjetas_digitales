@@ -414,6 +414,11 @@ export default function DashboardCardsPage() {
           color: #ffffff !important;
         }
         
+        .form-select-glass option {
+          background: #1f2937 !important;
+          color: #ffffff !important;
+        }
+        
         /* Header compacto mejorado */
         .header-content-compact {
           background: rgba(255, 255, 255, 0.1);
@@ -490,8 +495,8 @@ export default function DashboardCardsPage() {
                           👋
                         </div>
                         <div>
-                          <h5 className="fw-bold text-dark mb-1">¡Bienvenido!</h5>
-                          <p className="text-muted mb-0">{welcomeMessage}</p>
+                          <h5 className="fw-bold text-white mb-1">¡Bienvenido!</h5>
+                          <p className="text-white opacity-75 mb-0">{welcomeMessage}</p>
                         </div>
                       </div>
                       <Button 
@@ -562,10 +567,10 @@ export default function DashboardCardsPage() {
                         📊
                       </div>
                       <div>
-                        <h4 className="fw-bold text-dark mb-1">
+                        <h4 className="fw-bold text-white mb-1">
                           Plan: {session?.user?.plan || 'GRATUITO'}
                         </h4>
-                        <p className="text-muted mb-0">Estado de tu suscripción actual</p>
+                        <p className="text-white opacity-75 mb-0">Estado de tu suscripción actual</p>
                       </div>
                       <div className="ms-auto">
                         <Link href="/pricing">
@@ -666,8 +671,8 @@ export default function DashboardCardsPage() {
                     <div className="spinner-border text-primary" role="status" style={{ width: '3rem', height: '3rem' }}>
                       <span className="visually-hidden">Cargando...</span>
                     </div>
-                    <h5 className="mt-3 text-dark">Cargando tus tarjetas...</h5>
-                    <p className="text-muted">Un momento por favor</p>
+                    <h5 className="mt-3 text-white">Cargando tus tarjetas...</h5>
+                    <p className="text-white opacity-75">Un momento por favor</p>
                   </div>
                 </div>
               ) : cards.length === 0 ? (
@@ -686,8 +691,8 @@ export default function DashboardCardsPage() {
                         </span>
                       </div>
                     </div>
-                    <h3 className="fw-bold text-dark mb-3">¡Crea tu primera tarjeta digital!</h3>
-                    <p className="text-muted mb-4" style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
+                    <h3 className="fw-bold text-white mb-3">¡Crea tu primera tarjeta digital!</h3>
+                    <p className="text-white opacity-75 mb-4" style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
                       Diseña una tarjeta profesional con efectos únicos, QR codes automáticos 
                       y compartir instantáneo por WhatsApp. <strong>Todo en menos de 5 minutos.</strong>
                     </p>
@@ -720,8 +725,8 @@ export default function DashboardCardsPage() {
                     <div className="icon-wrapper primary-gradient text-white mx-auto mb-4" style={{ width: '80px', height: '80px', fontSize: '2.5rem' }}>
                       🔍
                     </div>
-                    <h3 className="fw-bold text-dark mb-3">No se encontraron tarjetas</h3>
-                    <p className="text-muted mb-4 fs-5">
+                    <h3 className="fw-bold text-white mb-3">No se encontraron tarjetas</h3>
+                    <p className="text-white opacity-75 mb-4 fs-5">
                       No hay tarjetas que coincidan con &ldquo;{searchTerm}&rdquo;. Intenta con otros términos de búsqueda.
                     </p>
                     <Button 
@@ -739,10 +744,10 @@ export default function DashboardCardsPage() {
                     <div className="p-4">
                       <div className="d-flex align-items-center justify-content-between mb-3">
                         <div>
-                          <h4 className="fw-bold text-dark mb-1">
+                          <h4 className="fw-bold text-white mb-1">
                             {searchTerm ? `Resultados para &ldquo;${searchTerm}&rdquo;` : 'Tus Tarjetas Digitales'}
                           </h4>
-                          <p className="text-muted mb-0">
+                          <p className="text-white opacity-75 mb-0">
                             {filteredAndSortedCards.length} de {cards.length} tarjeta{cards.length !== 1 ? 's' : ''}
                             {searchTerm && ' encontradas'}
                           </p>
