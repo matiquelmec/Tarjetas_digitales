@@ -18,6 +18,28 @@ export interface CardData {
 }
 
 export class CardService {
+  static async generateUniqueUrl(baseUrl: string): Promise<string> {
+    // Verificar si la URL base está disponible
+    const existingCard = await prisma.card.findFirst({
+      where: { customUrl: baseUrl }
+    });
+
+    if (!existingCard) {
+      return baseUrl; // URL base disponible
+    }
+
+    // Si hay conflicto, agregar número secuencial
+    let counter = 2;
+    let uniqueUrl = `${baseUrl}-${counter}`;
+    
+    while (await prisma.card.findFirst({ where: { customUrl: uniqueUrl } })) {
+      counter++;
+      uniqueUrl = `${baseUrl}-${counter}`;
+    }
+
+    return uniqueUrl;
+  }
+
   static async createCard(userId: string, cardData: CardData): Promise<Card> {
     // First, ensure the user exists in the database
     const user = await prisma.user.findUnique({
@@ -26,6 +48,11 @@ export class CardService {
 
     if (!user) {
       throw new Error('User not found');
+    }
+
+    // Generar URL única si se proporciona customUrl
+    if (cardData.customUrl) {
+      cardData.customUrl = await this.generateUniqueUrl(cardData.customUrl);
     }
 
     return await prisma.card.create({

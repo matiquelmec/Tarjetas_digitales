@@ -11,11 +11,17 @@ interface StepFourProps {
 export function StepFour({ cardData, updateCardData }: StepFourProps) {
   const [generatedUrl, setGeneratedUrl] = useState('');
 
-  // Generate simple URL from name
+  // Generate clean URL from name
   useEffect(() => {
     if (cardData.name) {
-      // Crear slug simple: solo primeros nombres y apellidos
-      const nameParts = cardData.name.trim().split(' ');
+      // Limpiar y procesar el nombre
+      const cleanName = cardData.name
+        .trim()
+        .replace(/dr\.|dra\.|ing\.|lic\.|prof\./gi, '') // Remover títulos
+        .replace(/\s+/g, ' ') // Normalizar espacios
+        .trim();
+      
+      const nameParts = cleanName.split(' ');
       let simpleName = '';
       
       // Tomar primer nombre y primer apellido si existe
@@ -27,13 +33,14 @@ export function StepFour({ cardData, updateCardData }: StepFourProps) {
       
       const slug = simpleName
         .toLowerCase()
+        .normalize('NFD') // Descomponer caracteres acentuados
+        .replace(/[\u0300-\u036f]/g, '') // Remover acentos
         .replace(/[^a-z0-9]/g, '-')
         .replace(/-+/g, '-')
         .replace(/^-|-$/g, '');
       
-      // Agregar número aleatorio corto para unicidad
-      const randomSuffix = Math.floor(Math.random() * 9999);
-      const defaultUrl = `${slug}-${randomSuffix}`;
+      // URL limpia sin número (se agregará solo si hay conflicto en el servidor)
+      const defaultUrl = slug;
       
       setGeneratedUrl(defaultUrl);
       
