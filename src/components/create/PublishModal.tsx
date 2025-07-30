@@ -101,7 +101,11 @@ export function PublishModal({ show, onHide, cardData }: PublishModalProps) {
 
       const newCard = responseData;
       const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://tarjetasdigitales.netlify.app';
-      const finalUrl = `${baseUrl}/card/${newCard.id}`;
+      
+      // Use custom URL (slug) instead of ID for prettier URLs
+      const finalUrl = newCard.customUrl 
+        ? `${baseUrl}/c/${newCard.customUrl}`
+        : `${baseUrl}/card/${newCard.id}`;
       setCardUrl(finalUrl);
       setPublishStep(2);
     } catch (error) {
