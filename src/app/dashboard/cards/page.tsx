@@ -428,6 +428,96 @@ export default function DashboardCardsPage() {
           margin-bottom: 1.5rem;
           border: 1px solid rgba(255, 255, 255, 0.2);
         }
+        
+        /* Cards modernas mejoradas */
+        .card-item-modern {
+          background: white;
+          border-radius: 16px;
+          padding: 1.5rem;
+          border: 1px solid #e2e8f0;
+          transition: all 0.3s ease;
+          height: 100%;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-item-modern:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+          border-color: #3b82f6;
+        }
+        
+        .card-title-modern {
+          font-size: 1.1rem;
+          color: #1f2937;
+          line-height: 1.3;
+        }
+        
+        .card-subtitle-modern {
+          font-size: 0.9rem;
+          color: #6b7280;
+        }
+        
+        .card-stats-modern {
+          text-align: right;
+        }
+        
+        .stat-item-modern {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 2px;
+        }
+        
+        .stat-number-modern {
+          font-weight: 700;
+          font-size: 1.1rem;
+          color: #1f2937;
+        }
+        
+        .stat-label-modern {
+          font-size: 0.8rem;
+          opacity: 0.7;
+        }
+        
+        .status-badge-modern {
+          font-size: 0.75rem;
+          padding: 0.4rem 0.8rem;
+          border-radius: 8px;
+          font-weight: 600;
+        }
+        
+        .status-active {
+          background-color: #198754 !important;
+          color: white !important;
+        }
+        
+        .status-inactive {
+          background-color: #6c757d !important;
+          color: white !important;
+        }
+        
+        .card-actions-modern {
+          display: grid;
+          grid-template-columns: 1fr 1fr auto;
+          gap: 0.5rem;
+          margin-top: 1rem;
+        }
+        
+        .btn-action-modern {
+          border-radius: 8px !important;
+          font-weight: 500 !important;
+          font-size: 0.85rem !important;
+          padding: 0.5rem 1rem !important;
+          border-width: 1px !important;
+        }
+        
+        .btn-icon-modern {
+          width: 42px !important;
+          padding: 0.5rem !important;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
       `}</style>
       <div className="animated-gradient-background">
         <Container className="py-4">
@@ -443,21 +533,26 @@ export default function DashboardCardsPage() {
             </Breadcrumb>
           </div>
 
-          {/* Header compacto */}
-          <div className="header-content-compact mb-4">
-            <Row className="align-items-center">
-              <Col lg={8}>
-                <div>
-                  <h1 className="text-white mb-2 fw-bold" style={{ fontSize: '2rem' }}>
-                    💼 Mis Tarjetas Digitales
-                  </h1>
-                  <p className="text-white opacity-75 mb-0">
-                    Gestiona, edita y analiza todas tus tarjetas profesionales
-                  </p>
+          {/* Hero Section Ultra Compacta */}
+          <Row className="align-items-center mb-4">
+            <Col>
+              <div className="header-content-compact d-flex justify-content-between align-items-center py-3">
+                <div className="d-flex align-items-center gap-4">
+                  <div>
+                    <h1 className="text-white mb-1 fw-bold h3">💼 Mis Tarjetas ({cards.length})</h1>
+                  </div>
+                  {!loading && cards.length > 0 && (
+                    <div className="d-flex gap-3">
+                      <span className="badge bg-primary bg-opacity-20 text-white fw-semibold px-3 py-2">
+                        📊 {cards.reduce((sum, card) => sum + card.views, 0)} vistas
+                      </span>
+                      <span className="badge bg-success bg-opacity-20 text-white fw-semibold px-3 py-2">
+                        🔗 {cards.reduce((sum, card) => sum + card.clicks, 0)} clics
+                      </span>
+                    </div>
+                  )}
                 </div>
-              </Col>
-              <Col lg={4}>
-                <div className="d-flex justify-content-end gap-2">
+                <div className="d-flex gap-2">
                   {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 ? (
                     <Link href="/pricing">
                       <Button 
@@ -471,17 +566,18 @@ export default function DashboardCardsPage() {
                     <Link href="/create">
                       <Button 
                         variant="primary" 
-                        className="fw-semibold px-4"
+                        size="lg"
+                        className="fw-semibold px-5"
                         style={{ borderRadius: '12px' }}
                       >
-                        ✨ Crear Nueva
+                        ✨ Crear Nueva Tarjeta
                       </Button>
                     </Link>
                   )}
                 </div>
-              </Col>
-            </Row>
-          </div>
+              </div>
+            </Col>
+          </Row>
 
           {/* Welcome Message */}
           {showWelcomeMessage && (
@@ -556,107 +652,23 @@ export default function DashboardCardsPage() {
             </Row>
           )}
 
-          {/* Plan Usage Section */}
-          {planLimits && (
-            <Row className="mb-5">
+          {/* Plan Limit Warning - Solo si está en el límite */}
+          {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 && (
+            <Row className="mb-4">
               <Col>
-                <div className="glass-card border-0">
-                  <div className="p-4">
-                    <div className="d-flex align-items-center mb-4">
-                      <div className="icon-wrapper primary-gradient text-white me-3">
-                        📊
-                      </div>
-                      <div>
-                        <h4 className="fw-bold text-white mb-1">
-                          Plan: {session?.user?.plan || 'GRATUITO'}
-                        </h4>
-                        <p className="text-white opacity-75 mb-0">Estado de tu suscripción actual</p>
-                      </div>
-                      <div className="ms-auto">
-                        <Link href="/pricing">
-                          <Button 
-                            size="sm"
-                            className="btn-premium-gold"
-                            style={{ borderRadius: '12px', border: 'none' }}
-                          >
-                            ⭐ Actualizar Plan
-                          </Button>
-                        </Link>
-                      </div>
-                    </div>
-
-                    <Row className="g-4">
-                      <Col md={6}>
-                        <div className="stat-badge">
-                          <h6 className="fw-semibold text-dark mb-2">📈 Uso de Tarjetas</h6>
-                          <div className="d-flex justify-content-between align-items-center mb-2">
-                            <span className="text-muted">
-                              {planLimits.maxCards === -1 ? `${cards.length} / Ilimitadas` : `${cards.length} / ${planLimits.maxCards}`}
-                            </span>
-                            <span className="fw-bold text-primary">
-                              {planLimits.maxCards === -1 ? '∞' : Math.round((cards.length / planLimits.maxCards) * 100)}%
-                            </span>
-                          </div>
-                          <ProgressBar 
-                            now={planLimits.maxCards === -1 ? 0 : (cards.length / planLimits.maxCards) * 100}
-                            variant={cards.length >= planLimits.maxCards ? "danger" : "success"}
-                            style={{ height: '8px', borderRadius: '8px' }}
-                          />
-                        </div>
-                      </Col>
-                      <Col md={6}>
-                        <div className="stat-badge">
-                          <h6 className="fw-semibold text-dark mb-3">🎯 Características del Plan</h6>
-                          <div className="row g-2">
-                            <div className="col-6">
-                              <div className="d-flex align-items-center">
-                                <span className="me-2">{planLimits.hasWatermark ? '❌' : '✅'}</span>
-                                <small className="text-muted">Marca de agua</small>
-                              </div>
-                            </div>
-                            <div className="col-6">
-                              <div className="d-flex align-items-center">
-                                <span className="me-2">{planLimits.hasAnalytics ? '✅' : '❌'}</span>
-                                <small className="text-muted">Analytics</small>
-                              </div>
-                            </div>
-                            <div className="col-6">
-                              <div className="d-flex align-items-center">
-                                <span className="me-2">{planLimits.hasExport ? '✅' : '❌'}</span>
-                                <small className="text-muted">Exportar PDF</small>
-                              </div>
-                            </div>
-                            <div className="col-6">
-                              <div className="d-flex align-items-center">
-                                <span className="me-2">{planLimits.hasPrioritySupport ? '✅' : '❌'}</span>
-                                <small className="text-muted">Soporte</small>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-
-                    {cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 && (
-                      <div className="mt-4">
-                        <div className="alert-premium border-0 d-flex align-items-center p-4">
-                          <div className="icon-wrapper warning-gradient text-white me-3" style={{ width: '48px', height: '48px', fontSize: '1.5rem' }}>
-                            ⭐
-                          </div>
-                          <div className="flex-grow-1">
-                            <strong className="text-premium d-block mb-2" style={{ fontSize: '1.1rem' }}>
-                              🚀 ¡Desbloquea tu potencial premium!
-                            </strong>
-                            <p className="mb-0" style={{ color: '#5D4E37', lineHeight: '1.5' }}>
-                              Has usado todas las <strong>{planLimits.maxCards}</strong> tarjetas de tu plan <strong>{session?.user?.plan || 'GRATUITO'}</strong>. 
-                              <Link href="/pricing" className="text-premium-link ms-1">
-                                Actualiza ahora y crea tarjetas ilimitadas con efectos premium
-                              </Link>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
+                <div className="alert-premium border-0 d-flex align-items-center p-3">
+                  <div className="icon-wrapper warning-gradient text-white me-3" style={{ width: '40px', height: '40px', fontSize: '1.2rem' }}>
+                    ⭐
+                  </div>
+                  <div className="flex-grow-1">
+                    <strong className="text-premium d-block mb-1">
+                      🚀 Has alcanzado el límite de tu plan {session?.user?.plan || 'GRATUITO'}
+                    </strong>
+                    <p className="mb-0" style={{ color: '#5D4E37', fontSize: '0.9rem' }}>
+                      <Link href="/pricing" className="text-premium-link">
+                        Actualiza para crear tarjetas ilimitadas con efectos premium
+                      </Link>
+                    </p>
                   </div>
                 </div>
               </Col>
@@ -739,107 +751,57 @@ export default function DashboardCardsPage() {
                   </div>
                 </div>
               ) : (
-                <>
-                  <div className="glass-card border-0 mb-4">
-                    <div className="p-4">
-                      <div className="d-flex align-items-center justify-content-between mb-3">
-                        <div>
-                          <h4 className="fw-bold text-white mb-1">
-                            {searchTerm ? `Resultados para &ldquo;${searchTerm}&rdquo;` : 'Tus Tarjetas Digitales'}
-                          </h4>
-                          <p className="text-white opacity-75 mb-0">
-                            {filteredAndSortedCards.length} de {cards.length} tarjeta{cards.length !== 1 ? 's' : ''}
-                            {searchTerm && ' encontradas'}
-                          </p>
-                        </div>
-                        <div className="d-flex gap-2">
-                          <span className="badge bg-primary bg-opacity-10 text-primary fw-semibold px-3 py-2">
-                            📊 {filteredAndSortedCards.reduce((sum, card) => sum + card.views, 0)} visualizaciones
-                          </span>
-                          <span className="badge bg-success bg-opacity-10 text-success fw-semibold px-3 py-2">
-                            🔗 {filteredAndSortedCards.reduce((sum, card) => sum + card.clicks, 0)} clics
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <Row className="g-4">
+                <Row className="g-3">
                     {filteredAndSortedCards.map((card) => (
                       <Col key={card.id} lg={6} xl={4}>
-                        <div className="card-item">
-                          <div className="d-flex justify-content-between align-items-start mb-3">
-                            <div className="flex-grow-1">
-                              <h5 className="fw-bold text-dark mb-1">{card.name}</h5>
-                              <p className="text-muted mb-2">{card.profession}</p>
-                              <div className="d-flex align-items-center gap-2">
-                                <span className={`badge ${card.isActive ? 'bg-success' : 'bg-secondary'} ${card.isActive ? 'text-white' : 'text-white'} fw-semibold px-3 py-2`} style={{
-                                  backgroundColor: card.isActive ? '#198754' : '#6c757d',
-                                  color: '#ffffff'
-                                }}>
-                                  {card.isActive ? '🟢 Activa' : '🔴 Inactiva'}
-                                </span>
-                                <small className="text-muted">
-                                  {new Date(card.createdAt).toLocaleDateString('es-ES')}
-                                </small>
+                        <div className="card-item-modern">
+                          <div className="card-header-modern mb-3">
+                            <div className="d-flex justify-content-between align-items-start">
+                              <div className="flex-grow-1">
+                                <h5 className="fw-bold text-dark mb-1 card-title-modern">{card.name}</h5>
+                                <p className="text-muted mb-2 card-subtitle-modern">{card.profession}</p>
                               </div>
+                              <div className="card-stats-modern">
+                                <div className="d-flex gap-3 mb-2">
+                                  <div className="stat-item-modern">
+                                    <span className="stat-number-modern">{card.views}</span>
+                                    <span className="stat-label-modern">👁️</span>
+                                  </div>
+                                  <div className="stat-item-modern">
+                                    <span className="stat-number-modern">{card.clicks}</span>
+                                    <span className="stat-label-modern">🔗</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <span className={`badge status-badge-modern ${card.isActive ? 'status-active' : 'status-inactive'}`}>
+                                {card.isActive ? '🟢 Activa' : '🔴 Inactiva'}
+                              </span>
+                              <small className="text-muted">
+                                {new Date(card.createdAt).toLocaleDateString('es-ES')}
+                              </small>
                             </div>
                           </div>
 
-                          <div className="row g-3 mb-4">
-                            <div className="col-6">
-                              <div className="d-flex align-items-center">
-                                <div className="icon-wrapper info-gradient text-white me-2" style={{ width: '32px', height: '32px', fontSize: '0.75rem' }}>
-                                  👁️
-                                </div>
-                                <div>
-                                  <div className="fw-bold text-dark">{card.views}</div>
-                                  <small className="text-muted">Vistas</small>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-6">
-                              <div className="d-flex align-items-center">
-                                <div className="icon-wrapper success-gradient text-white me-2" style={{ width: '32px', height: '32px', fontSize: '0.75rem' }}>
-                                  🔗
-                                </div>
-                                <div>
-                                  <div className="fw-bold text-dark">{card.clicks}</div>
-                                  <small className="text-muted">Clics</small>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="d-flex gap-2">
+                          <div className="card-actions-modern">
                             <Link 
                               href={card.customUrl ? `/c/${card.customUrl}` : `/card/${card.id}`} 
                               target="_blank" 
-                              className="flex-fill"
+                              className="btn btn-primary btn-action-modern"
                             >
-                              <Button 
-                                variant="outline-primary" 
-                                size="sm" 
-                                className="w-100 fw-semibold"
-                                style={{ borderRadius: '8px' }}
-                              >
-                                👁️ Ver
-                              </Button>
+                              👁️ Ver
                             </Link>
                             <Button 
                               variant="outline-info" 
-                              size="sm"
-                              className="fw-semibold flex-fill"
-                              style={{ borderRadius: '8px' }}
+                              className="btn-action-modern"
                               onClick={() => window.open(`/create?edit=${card.id}`, '_self')}
                             >
                               ✏️ Editar
                             </Button>
                             <Button 
                               variant="outline-danger" 
-                              size="sm"
-                              className="fw-semibold"
-                              style={{ borderRadius: '8px', minWidth: '60px' }}
+                              className="btn-action-modern btn-icon-modern"
                               onClick={() => deleteCard(card.id)}
                               disabled={deletingCardId === card.id}
                             >
@@ -854,7 +816,6 @@ export default function DashboardCardsPage() {
                       </Col>
                     ))}
                   </Row>
-                </>
               )}
             </Col>
           </Row>
