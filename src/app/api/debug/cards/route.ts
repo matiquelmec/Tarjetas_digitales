@@ -74,14 +74,14 @@ export async function GET() {
       about: 'Test description',
       email: 'test@example.com',
       customUrl: 'test-card-debug',
-      customization: {
-        cardBackgroundColor: '#2c2c2c',
-        cardTextColor: '#ffffff',
-        enableHoverEffect: false,
-        enableGlassmorphism: false,
-        enableSubtleAnimations: false,
-        enableBackgroundPatterns: false
-      }
+      cardBackgroundColor: '#2c2c2c',
+      cardTextColor: '#ffffff',
+      enableHoverEffect: false,
+      enableGlassmorphism: false,
+      enableSubtleAnimations: false,
+      enableBackgroundPatterns: false,
+      isActive: true,
+      isPublic: true
     };
 
     console.log('Testing CardService.createCard... (This will create a real test card)');

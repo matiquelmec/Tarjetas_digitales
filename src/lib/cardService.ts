@@ -14,7 +14,23 @@ export interface CardData {
   instagram?: string;
   photoUrl?: string;
   customUrl?: string;
-  customization: any;
+  // Visual customization fields (individual fields, not nested object)
+  cardBackgroundColor?: string;
+  cardTextColor?: string;
+  buttonSecondaryColor?: string;
+  buttonNormalBackgroundColor?: string;
+  buttonSecondaryHoverColor?: string;
+  pageBackgroundColor?: string;
+  enableHoverEffect?: boolean;
+  enableGlassmorphism?: boolean;
+  enableSubtleAnimations?: boolean;
+  enableBackgroundPatterns?: boolean;
+  enableAIPalette?: boolean;
+  isActive?: boolean;
+  professionalDetails?: string;
+  location?: string;
+  template?: string;
+  isPublic?: boolean;
 }
 
 export class CardService {
