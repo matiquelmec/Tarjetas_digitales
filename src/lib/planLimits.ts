@@ -120,6 +120,42 @@ export class PlanLimitService {
           }
 
           return { allowed: true };
+        } else {
+          // Si no encontramos por email, intentar crear el usuario
+          console.log('PlanLimitService - User not found by email, attempting to create:', userId);
+          try {
+            const newUser = await prisma.user.create({
+              data: {
+                email: userId,
+                name: '',
+                image: '',
+                plan: 'FREE' as any,
+              },
+              include: { _count: { select: { cards: true } } }
+            });
+            
+            console.log('PlanLimitService - User created successfully:', newUser.id);
+            
+            // Continuar con la lógica para el nuevo usuario
+            const limits = PLAN_LIMITS[newUser.plan];
+            const currentCardCount = newUser._count.cards;
+
+            if (limits.maxCards === -1) {
+              return { allowed: true };
+            }
+
+            if (currentCardCount >= limits.maxCards) {
+              return { 
+                allowed: false, 
+                reason: `Your ${newUser.plan} plan allows a maximum of ${limits.maxCards} card${limits.maxCards > 1 ? 's' : ''}. Please upgrade to create more cards.`
+              };
+            }
+
+            return { allowed: true };
+          } catch (createError) {
+            console.error('PlanLimitService - Failed to create user:', createError);
+            return { allowed: false, reason: 'Unable to create user account. Please try logging out and logging back in.' };
+          }
         }
       }
       
