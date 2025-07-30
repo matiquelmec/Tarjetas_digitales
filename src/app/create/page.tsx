@@ -174,10 +174,10 @@ export default function CreateCardPage() {
           {/* Header */}
           <Row className="mb-4">
             <Col>
-              <div className="d-flex justify-content-between align-items-center">
-                <h1 className="text-white">Crear Nueva Tarjeta Digital</h1>
-                <Button variant="outline-light" href="/dashboard">
-                  ← Volver al Dashboard
+              <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-sm-center gap-3">
+                <h1 className="text-white h2 h-sm-1 mb-0">Crear Nueva Tarjeta Digital</h1>
+                <Button variant="outline-light" href="/dashboard" size="sm" className="align-self-start">
+                  ← Volver
                 </Button>
               </div>
             </Col>

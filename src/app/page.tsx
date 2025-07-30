@@ -185,29 +185,37 @@ export default function HomePage() {
       `}</style>
       <div className="animated-gradient-background min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <Container fluid className="py-5">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h1 className="text-center display-4 fw-bold" style={{ color: '#ffffff', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>Plataforma Digital Profesional</h1>
-            <div>
-              <div className="d-flex gap-2">
-                {session ? (
-                  <>
+          <div className="d-flex flex-column flex-lg-row justify-content-between align-items-center mb-4 gap-3">
+            <h1 className="display-6 display-lg-4 fw-bold text-center text-lg-start" style={{ color: '#ffffff', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+              Plataforma Digital Profesional
+            </h1>
+            <div className="d-flex flex-column flex-sm-row gap-2 align-items-center">
+              {session ? (
+                <>
+                  <div className="d-flex flex-wrap gap-2 justify-content-center">
                     <Link href="/pricing">
-                      <Button variant="outline-warning">Actualizar Plan</Button>
+                      <Button variant="outline-warning" size="sm" className="px-3">
+                        ⭐ Actualizar Plan
+                      </Button>
                     </Link>
                     <Link href="/dashboard">
-                      <Button variant="outline-light">Mi Panel</Button>
+                      <Button variant="outline-light" size="sm" className="px-3">
+                        📊 Mi Panel
+                      </Button>
                     </Link>
-                    <Button variant="outline-secondary" onClick={() => signOut()}>
-                      Cerrar Sesión
+                    <Button variant="outline-secondary" size="sm" onClick={() => signOut()} className="px-3">
+                      👋 Salir
                     </Button>
-                    <span className="text-white align-self-center">Bienvenido, {session.user?.name}</span>
-                  </>
-                ) : (
-                  <Button variant="outline-light" onClick={() => signIn('google')}>
-                    Iniciar Sesión con Google
-                  </Button>
-                )}
-              </div>
+                  </div>
+                  <div className="text-white text-center mt-2 mt-sm-0">
+                    <small>Hola, {session.user?.name?.split(' ')[0] || 'Usuario'}</small>
+                  </div>
+                </>
+              ) : (
+                <Button variant="outline-light" onClick={() => signIn('google')} className="px-4 py-2">
+                  🚀 Iniciar Sesión con Google
+                </Button>
+              )}
             </div>
           </div>
           {/* Hero Section */}

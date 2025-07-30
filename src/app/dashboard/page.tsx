@@ -2,7 +2,7 @@
 
 import { useSession, signOut } from 'next-auth/react';
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Nav } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AuthWrapper } from '../../components/AuthWrapper';
@@ -267,7 +267,29 @@ export default function Dashboard() {
             <Col>
               <Card className="glass-card border-0">
                 <Card.Body className="p-3">
-                  <Nav variant="pills" className="nav-fill">
+                  <div className="d-block d-lg-none mb-3">
+                    {/* Mobile: Dropdown navigation */}
+                    <div className="dropdown">
+                      <button 
+                        className="btn btn-outline-light dropdown-toggle w-100 text-start" 
+                        type="button" 
+                        data-bs-toggle="dropdown"
+                      >
+                        {pathname === '/dashboard' && '📊 Resumen General'}
+                        {pathname === '/dashboard/cards' && '💼 Mis Tarjetas'}
+                        {pathname === '/dashboard/cv' && '🚀 CVs Inteligentes'}
+                      </button>
+                      <ul className="dropdown-menu w-100">
+                        <li><Link href="/dashboard" className="dropdown-item">📊 Resumen General</Link></li>
+                        <li><Link href="/dashboard/cards" className="dropdown-item">💼 Mis Tarjetas</Link></li>
+                        <li><Link href="/dashboard/cv" className="dropdown-item">🚀 CVs Inteligentes</Link></li>
+                        <li><span className="dropdown-item text-muted">🎯 Presentaciones (Próximamente)</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  {/* Desktop: Tab navigation */}
+                  <Nav variant="pills" className="nav-fill d-none d-lg-flex">
                     <Nav.Item className="px-1">
                       <Link href="/dashboard" passHref legacyBehavior>
                         <Nav.Link 
@@ -299,15 +321,22 @@ export default function Dashboard() {
                       </Link>
                     </Nav.Item>
                     <Nav.Item className="px-1">
-                      <Nav.Link 
-                        href="#"
-                        className="border-0 py-3 text-muted"
-                        style={{ cursor: 'not-allowed' }}
+                      <OverlayTrigger
+                        placement="top"
+                        overlay={<Tooltip>Disponible en Marzo 2025. Crea presentaciones cinematográficas con IA.</Tooltip>}
                       >
-                        🎯 Presentaciones
-                        <br />
-                        <small className="text-muted">(Próximamente)</small>
-                      </Nav.Link>
+                        <div>
+                          <Nav.Link 
+                            href="#"
+                            className="border-0 py-3 text-muted"
+                            style={{ cursor: 'not-allowed' }}
+                          >
+                            🎯 Presentaciones
+                            <br />
+                            <small className="text-muted">(Próximamente)</small>
+                          </Nav.Link>
+                        </div>
+                      </OverlayTrigger>
                     </Nav.Item>
                   </Nav>
                 </Card.Body>
