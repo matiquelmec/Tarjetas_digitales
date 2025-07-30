@@ -11,23 +11,37 @@ interface StepFourProps {
 export function StepFour({ cardData, updateCardData }: StepFourProps) {
   const [generatedUrl, setGeneratedUrl] = useState('');
 
-  // Generate URL from name
+  // Generate simple URL from name
   useEffect(() => {
     if (cardData.name) {
-      const slug = cardData.name
+      // Crear slug simple: solo primeros nombres y apellidos
+      const nameParts = cardData.name.trim().split(' ');
+      let simpleName = '';
+      
+      // Tomar primer nombre y primer apellido si existe
+      if (nameParts.length >= 2) {
+        simpleName = `${nameParts[0]}-${nameParts[nameParts.length - 1]}`;
+      } else {
+        simpleName = nameParts[0];
+      }
+      
+      const slug = simpleName
         .toLowerCase()
         .replace(/[^a-z0-9]/g, '-')
         .replace(/-+/g, '-')
         .replace(/^-|-$/g, '');
       
-      const defaultUrl = `${slug}-${cardData.title?.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'professional'}`;
+      // Agregar número aleatorio corto para unicidad
+      const randomSuffix = Math.floor(Math.random() * 9999);
+      const defaultUrl = `${slug}-${randomSuffix}`;
+      
       setGeneratedUrl(defaultUrl);
       
       if (!cardData.customUrl) {
         updateCardData('customUrl', defaultUrl);
       }
     }
-  }, [cardData.name, cardData.title, cardData.customUrl, updateCardData]);
+  }, [cardData.name, cardData.customUrl, updateCardData]);
 
   const fullUrl = `https://tarjetasdigitales.netlify.app/card/[id]`;
 
