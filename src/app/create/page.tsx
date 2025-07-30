@@ -273,8 +273,14 @@ export default function CreateCardPage() {
                   <Card.Header>
                     <h6 className="mb-0">👁️ Preview</h6>
                   </Card.Header>
-                  <Card.Body className="p-2">
-                    <div style={{ transform: 'scale(0.7)', transformOrigin: 'top center' }}>
+                  <Card.Body className="p-2" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+                    <div style={{ 
+                      width: '100%',
+                      maxWidth: '350px', 
+                      margin: '0 auto',
+                      transform: 'scale(0.8)',
+                      transformOrigin: 'top center'
+                    }}>
                       <BusinessCard
                         name={cardData.name || 'Tu Nombre'}
                         title={cardData.title || 'Tu Título'}
