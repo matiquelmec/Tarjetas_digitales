@@ -7,9 +7,10 @@ import Image from 'next/image';
 interface StepTwoProps {
   cardData: any;
   updateCardData: (field: string, value: any) => void;
+  applyThemeData?: (themeColors: Record<string, any>) => void;
 }
 
-export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
+export function StepTwo({ cardData, updateCardData, applyThemeData }: StepTwoProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
 
@@ -357,19 +358,16 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                     buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor
                   });
                   
-                  Object.entries(theme.colors).forEach(([key, value]) => {
-                    console.log(`  ↳ ${key}: ${value}`);
-                    updateCardData(key, value);
-                  });
-                  
-                  // Log después de aplicar para debug
-                  setTimeout(() => {
-                    console.log('📊 Estado DESPUÉS:', {
-                      cardBackgroundColor: cardData.cardBackgroundColor,
-                      buttonSecondaryColor: cardData.buttonSecondaryColor,
-                      buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor
+                  // Usar nueva función robusta para aplicar tema completo
+                  if (applyThemeData) {
+                    applyThemeData(theme.colors);
+                  } else {
+                    // Fallback al método anterior si no está disponible
+                    Object.entries(theme.colors).forEach(([key, value]) => {
+                      console.log(`  ↳ ${key}: ${value}`);
+                      updateCardData(key, value);
                     });
-                  }, 100);
+                  }
                   
                   // Visual feedback
                   const element = document.querySelector(`[data-theme="${theme.name}"]`) as HTMLElement;
@@ -496,19 +494,16 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                     buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor
                   });
                   
-                  Object.entries(theme.colors).forEach(([key, value]) => {
-                    console.log(`  ↳ ${key}: ${value}`);
-                    updateCardData(key, value);
-                  });
-                  
-                  // Log después de aplicar para debug
-                  setTimeout(() => {
-                    console.log('📊 Estado DESPUÉS:', {
-                      cardBackgroundColor: cardData.cardBackgroundColor,
-                      buttonSecondaryColor: cardData.buttonSecondaryColor,
-                      buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor
+                  // Usar nueva función robusta para aplicar tema completo
+                  if (applyThemeData) {
+                    applyThemeData(theme.colors);
+                  } else {
+                    // Fallback al método anterior si no está disponible
+                    Object.entries(theme.colors).forEach(([key, value]) => {
+                      console.log(`  ↳ ${key}: ${value}`);
+                      updateCardData(key, value);
                     });
-                  }, 100);
+                  }
                   
                   // Visual feedback
                   const element = document.querySelector(`[data-theme="${theme.name}"]`) as HTMLElement;

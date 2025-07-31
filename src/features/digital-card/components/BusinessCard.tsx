@@ -152,14 +152,6 @@ const staticStyles = `
 export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, whatsappShareUrl, appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, template = 'modern' }: BusinessCardProps) {
   const [qrCodeValue, setQrCodeValue] = useState('');
 
-  // DEBUG: Log para verificar los valores recibidos
-  console.log('🎯 BusinessCard received props:', {
-    cardBackgroundColor,
-    cardTextColor,
-    buttonSecondaryColor,
-    buttonNormalBackgroundColor,
-    buttonSecondaryHoverColor
-  });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -668,12 +660,6 @@ ${formattedAbout ? `${formattedAbout}
     patterns: enableBackgroundPatterns
   });
 
-  // DEBUG: Log de estilos finales aplicados
-  console.log('🎨 Final card styles:', {
-    backgroundColor: cardStyles.backgroundColor,
-    backdropFilter: cardStyles.backdropFilter,
-    originalCardBackgroundColor: cardBackgroundColor
-  });
 
   // Generar clases CSS dinámicas para efectos combinados
   const getCardClasses = () => {

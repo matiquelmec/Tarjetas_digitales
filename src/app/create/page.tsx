@@ -130,12 +130,28 @@ export default function CreateCardPage() {
     });
   };
 
+  // Nueva función para aplicar tema completo de una vez
+  const applyThemeData = (themeColors: Record<string, any>) => {
+    console.log(`🎨 Applying complete theme:`, themeColors);
+    setCardData(prev => {
+      const newData = { ...prev, ...themeColors };
+      console.log(`📊 Complete new cardData:`, {
+        cardBackgroundColor: newData.cardBackgroundColor,
+        cardTextColor: newData.cardTextColor,
+        buttonSecondaryColor: newData.buttonSecondaryColor,
+        buttonNormalBackgroundColor: newData.buttonNormalBackgroundColor,
+        buttonSecondaryHoverColor: newData.buttonSecondaryHoverColor
+      });
+      return newData;
+    });
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 1:
         return <StepOne cardData={cardData} updateCardData={updateCardData} />;
       case 2:
-        return <StepTwo cardData={cardData} updateCardData={updateCardData} />;
+        return <StepTwo cardData={cardData} updateCardData={updateCardData} applyThemeData={applyThemeData} />;
       case 3:
         return <StepThree cardData={cardData} updateCardData={updateCardData} />;
       case 4:
