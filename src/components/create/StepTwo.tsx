@@ -351,7 +351,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   });
                   
                   // Visual feedback
-                  const element = document.querySelector(`[data-theme="${theme.name}"]`);
+                  const element = document.querySelector(`[data-theme="${theme.name}"]`) as HTMLElement;
                   if (element) {
                     element.style.transform = 'scale(0.95)';
                     setTimeout(() => {
@@ -475,7 +475,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   });
                   
                   // Visual feedback
-                  const element = document.querySelector(`[data-theme="${theme.name}"]`);
+                  const element = document.querySelector(`[data-theme="${theme.name}"]`) as HTMLElement;
                   if (element) {
                     element.style.transform = 'scale(0.95)';
                     setTimeout(() => {
