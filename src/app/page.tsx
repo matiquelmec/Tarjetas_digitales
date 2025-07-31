@@ -1,6 +1,7 @@
 'use client';
 
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession, signIn, signOut } from 'next-auth/react';
@@ -331,9 +332,12 @@ export default function HomePage() {
       <div className="animated-gradient-background min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <Container fluid className="py-5">
           <div className="d-flex flex-column flex-lg-row justify-content-between align-items-center mb-4 gap-3">
-            <h1 className="display-6 display-lg-4 fw-bold text-center text-lg-start" style={{ color: '#ffffff', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
-              Plataforma Digital Profesional
-            </h1>
+            <div className="d-flex align-items-center gap-3">
+              <Image src="/logo.png" alt="Indi Logo" width={60} height={60} />
+              <h1 className="display-6 display-lg-4 fw-bold text-center text-lg-start" style={{ color: '#ffffff', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+                Indi
+              </h1>
+            </div>
             <div className="d-flex flex-column flex-sm-row gap-2 align-items-center">
               {session ? (
                 <>
@@ -368,8 +372,9 @@ export default function HomePage() {
             <Col lg={10} xl={8}>
               <div className="hero-content">
                 <h2 className="display-4 fw-bold text-white mb-4" style={{ lineHeight: '1.1' }}>
-                  Crea tu tarjeta digital<br />
-                  <span style={{ color: '#00F6FF' }}>profesional en 5 minutos</span>
+                  INDI: Eleva tu identidad digital.
+                  <br />
+                  <span style={{ color: '#00F6FF' }}>Profesionalismo al siguiente nivel.</span>
                 </h2>
                 <p className="lead text-white mb-4 opacity-90" style={{ fontSize: '1.3rem', fontWeight: '400' }}>
                   QR automático • Analytics en vivo • Sin marca de agua • Compartir por WhatsApp
