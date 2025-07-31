@@ -91,8 +91,15 @@ const staticStyles = `
     animation: fadeIn 1s ease-out forwards;
   }
   
+  /* Para patterns, fadeIn se aplica via style, gradient via class */
   .fade-in-with-patterns {
-    animation: fadeIn 1.2s ease-out forwards, gradientAnimation 15s ease infinite;
+    /* Solo el fadeIn inicial, gradientAnimation viene de animated-gradient-background */
+    animation: fadeIn 1.2s ease-out forwards;
+  }
+  
+  /* Cuando se combinan patterns + animations, el gradiente continúa después del fadeIn */
+  .animated-gradient-background.fade-in-with-patterns {
+    animation: fadeIn 1.2s ease-out forwards, gradientAnimation 15s ease infinite 1.2s;
   }
   .btn-outline-secondary-custom {
     color: var(--button-secondary-color) !important;
@@ -570,12 +577,14 @@ ${formattedAbout ? `${formattedAbout}
       transform = 'translateY(-8px) scale(1.02)';
     }
 
-    // Animaciones inteligentes
+    // Animaciones inteligentes - evitar duplicación con background patterns
     let animation = 'none';
-    if (effects.animations) {
-      animation = effects.patterns 
-        ? 'fadeIn 1.2s ease-out, gradientAnimation 15s ease infinite' 
-        : 'fadeIn 1s ease-out';
+    if (effects.animations && !effects.patterns) {
+      // Solo fadeIn si no hay patterns (patterns ya tienen su propia animación)
+      animation = 'fadeIn 1s ease-out';
+    } else if (effects.animations && effects.patterns) {
+      // Para patterns, solo agregamos fadeIn inicial, gradientAnimation viene de la clase CSS
+      animation = 'fadeIn 1.2s ease-out';
     }
 
     // Combinar borderRadius - prioridad: glass > template
@@ -639,7 +648,7 @@ ${formattedAbout ? `${formattedAbout}
   const getCardClasses = () => {
     let classes = ['text-center', 'business-card-custom'];
     
-    // Agregar clases según efectos activos
+    // Agregar clases según efectos activos - orden importa para CSS specificity
     if (enableBackgroundPatterns) {
       classes.push('animated-gradient-background');
     }
@@ -652,8 +661,14 @@ ${formattedAbout ? `${formattedAbout}
       classes.push('enhanced-hover');
     }
     
+    // Lógica mejorada para animaciones
     if (enableSubtleAnimations) {
-      classes.push(enableBackgroundPatterns ? 'fade-in-with-patterns' : 'fade-in-active');
+      if (enableBackgroundPatterns) {
+        classes.push('fade-in-with-patterns');
+        // La combinación específica se maneja en CSS con .animated-gradient-background.fade-in-with-patterns
+      } else {
+        classes.push('fade-in-active');
+      }
     }
     
     return classes.join(' ');
