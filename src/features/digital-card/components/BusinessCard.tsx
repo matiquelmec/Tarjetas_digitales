@@ -546,15 +546,24 @@ ${formattedAbout ? `${formattedAbout}
     let border = baseTemplate.cardStyle.border || 'none';
     
     if (effects.glass) {
-      // Glassmorphism: hacer transparente el fondo manteniendo visibilidad
-      const rgb = cardBackgroundColor.startsWith('#') 
-        ? hexToRgb(cardBackgroundColor) 
-        : parseRgb(cardBackgroundColor);
-      
-      if (rgb) {
-        backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.25)`;
+      // Glassmorphism: manejar tanto colores sólidos como gradientes
+      if (cardBackgroundColor.startsWith('linear-gradient')) {
+        // Para gradientes, crear efecto glassmorphism con overlay transparente
+        backgroundColor = `${cardBackgroundColor}, rgba(255, 255, 255, 0.1)`;
+        backgroundColor = `linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)), ${cardBackgroundColor}`;
         backdropFilter = 'blur(12px) saturate(1.8)';
-        border = `1px solid rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
+        border = '1px solid rgba(255, 255, 255, 0.2)';
+      } else {
+        // Para colores sólidos, aplicar transparencia
+        const rgb = cardBackgroundColor.startsWith('#') 
+          ? hexToRgb(cardBackgroundColor) 
+          : parseRgb(cardBackgroundColor);
+        
+        if (rgb) {
+          backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.25)`;
+          backdropFilter = 'blur(12px) saturate(1.8)';
+          border = `1px solid rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
+        }
       }
     }
 

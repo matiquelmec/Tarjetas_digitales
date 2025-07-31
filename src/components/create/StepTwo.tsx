@@ -314,7 +314,9 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
             ].map((bg, index) => (
               <div
                 key={index}
-                className="preset-bg-option d-flex flex-column align-items-center"
+                className={`preset-bg-option d-flex flex-column align-items-center ${
+                  cardData.cardBackgroundColor === bg.gradient ? 'active' : ''
+                }`}
                 style={{
                   width: '60px',
                   height: '60px',
@@ -326,7 +328,10 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   position: 'relative',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
                 }}
-                onClick={() => updateCardData('cardBackgroundColor', bg.gradient)}
+                onClick={() => {
+                  console.log('Aplicando fondo:', bg.gradient); // Debug
+                  updateCardData('cardBackgroundColor', bg.gradient);
+                }}
                 title={bg.name}
               >
                 <div
