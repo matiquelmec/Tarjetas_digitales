@@ -262,7 +262,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   cardBackgroundColor: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
                   cardTextColor: '#ffffff',
                   buttonSecondaryColor: '#4a90e2',
-                  buttonSecondaryHoverColor: '#357abd'
+                  buttonSecondaryHoverColor: '#357abd',
+                  buttonNormalBackgroundColor: '#1a2f5c'
                 }
               },
               {
@@ -272,7 +273,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   cardBackgroundColor: 'linear-gradient(135deg, #134e5e 0%, #71b280 100%)',
                   cardTextColor: '#ffffff',
                   buttonSecondaryColor: '#27ae60',
-                  buttonSecondaryHoverColor: '#229954'
+                  buttonSecondaryHoverColor: '#229954',
+                  buttonNormalBackgroundColor: '#0f3d4a'
                 }
               },
               {
@@ -282,7 +284,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   cardBackgroundColor: 'linear-gradient(135deg, #f12711 0%, #f5af19 100%)',
                   cardTextColor: '#ffffff',
                   buttonSecondaryColor: '#e67e22',
-                  buttonSecondaryHoverColor: '#d35400'
+                  buttonSecondaryHoverColor: '#d35400',
+                  buttonNormalBackgroundColor: '#b8570e'
                 }
               },
               {
@@ -292,7 +295,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   cardBackgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                   cardTextColor: '#ffffff',
                   buttonSecondaryColor: '#9b59b6',
-                  buttonSecondaryHoverColor: '#8e44ad'
+                  buttonSecondaryHoverColor: '#8e44ad',
+                  buttonNormalBackgroundColor: '#5a3e7a'
                 }
               },
               {
@@ -302,7 +306,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   cardBackgroundColor: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%)',
                   cardTextColor: '#00ff88',
                   buttonSecondaryColor: '#00ff88',
-                  buttonSecondaryHoverColor: '#00cc6a'
+                  buttonSecondaryHoverColor: '#00cc6a',
+                  buttonNormalBackgroundColor: '#0a0a0a'
                 }
               }
             ].map((theme, index) => (
@@ -363,7 +368,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   cardBackgroundColor: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
                   cardTextColor: '#2c3e50',
                   buttonSecondaryColor: '#e74c3c',
-                  buttonSecondaryHoverColor: '#c0392b'
+                  buttonSecondaryHoverColor: '#c0392b',
+                  buttonNormalBackgroundColor: '#f4d7d3'
                 }
               },
               {
@@ -373,7 +379,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   cardBackgroundColor: 'linear-gradient(135deg, #667db6 0%, #0082c8, #0082c8, #667db6 100%)',
                   cardTextColor: '#ffffff',
                   buttonSecondaryColor: '#3498db',
-                  buttonSecondaryHoverColor: '#2980b9'
+                  buttonSecondaryHoverColor: '#2980b9',
+                  buttonNormalBackgroundColor: '#4a6ba3'
                 }
               },
               {
@@ -383,7 +390,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   cardBackgroundColor: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
                   cardTextColor: '#ffffff',
                   buttonSecondaryColor: '#f39c12',
-                  buttonSecondaryHoverColor: '#e67e22'
+                  buttonSecondaryHoverColor: '#e67e22',
+                  buttonNormalBackgroundColor: '#d4486b'
                 }
               },
               {
@@ -393,7 +401,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   cardBackgroundColor: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
                   cardTextColor: '#ecf0f1',
                   buttonSecondaryColor: '#1abc9c',
-                  buttonSecondaryHoverColor: '#16a085'
+                  buttonSecondaryHoverColor: '#16a085',
+                  buttonNormalBackgroundColor: '#2a3d4f'
                 }
               },
               {
@@ -403,7 +412,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   cardBackgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
                   cardTextColor: '#ffffff',
                   buttonSecondaryColor: '#9b59b6',
-                  buttonSecondaryHoverColor: '#8e44ad'
+                  buttonSecondaryHoverColor: '#8e44ad',
+                  buttonNormalBackgroundColor: '#6a4c93'
                 }
               }
             ].map((theme, index) => (
@@ -599,6 +609,41 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   >
                     Hover Estado
                   </div>
+                </div>
+              </div>
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col md={6}>
+            <Form.Group className="mb-3">
+              <Form.Label className="d-flex align-items-center gap-2">
+                <span>⬜</span> Color de Fondo de Botones
+              </Form.Label>
+              <div className="d-flex gap-2 align-items-center">
+                <Form.Control
+                  type="color"
+                  value={cardData.buttonNormalBackgroundColor || '#1F1F1F'}
+                  onChange={(e) => updateCardData('buttonNormalBackgroundColor', e.target.value)}
+                  style={{ width: '60px', height: '40px', cursor: 'pointer' }}
+                />
+                <div className="flex-grow-1">
+                  <button
+                    style={{
+                      height: '40px',
+                      width: '100%',
+                      background: cardData.buttonNormalBackgroundColor || '#1F1F1F',
+                      border: 'none',
+                      borderRadius: '6px',
+                      color: cardData.cardTextColor || '#ffffff',
+                      fontSize: '12px',
+                      fontWeight: '500',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Botón Fondo
+                  </button>
                 </div>
               </div>
             </Form.Group>
