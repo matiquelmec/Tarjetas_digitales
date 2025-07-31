@@ -122,7 +122,12 @@ export default function CreateCardPage() {
   };
 
   const updateCardData = (field: string, value: any) => {
-    setCardData(prev => ({ ...prev, [field]: value }));
+    console.log(`🔄 updateCardData called: ${field} = ${value}`);
+    setCardData(prev => {
+      const newData = { ...prev, [field]: value };
+      console.log(`📊 New cardData for ${field}:`, newData[field]);
+      return newData;
+    });
   };
 
   const renderStep = () => {

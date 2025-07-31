@@ -350,10 +350,25 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 }}
                 onClick={() => {
                   console.log(`🎨 Aplicando tema: ${theme.name}`);
+                  console.log('📊 Estado ANTES:', {
+                    cardBackgroundColor: cardData.cardBackgroundColor,
+                    buttonSecondaryColor: cardData.buttonSecondaryColor,
+                    buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor
+                  });
+                  
                   Object.entries(theme.colors).forEach(([key, value]) => {
                     console.log(`  ↳ ${key}: ${value}`);
                     updateCardData(key, value);
                   });
+                  
+                  // Log después de aplicar para debug
+                  setTimeout(() => {
+                    console.log('📊 Estado DESPUÉS:', {
+                      cardBackgroundColor: cardData.cardBackgroundColor,
+                      buttonSecondaryColor: cardData.buttonSecondaryColor,
+                      buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor
+                    });
+                  }, 100);
                   
                   // Visual feedback
                   const element = document.querySelector(`[data-theme="${theme.name}"]`) as HTMLElement;
@@ -474,10 +489,25 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 }}
                 onClick={() => {
                   console.log(`🎨 Aplicando tema: ${theme.name}`);
+                  console.log('📊 Estado ANTES:', {
+                    cardBackgroundColor: cardData.cardBackgroundColor,
+                    buttonSecondaryColor: cardData.buttonSecondaryColor,
+                    buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor
+                  });
+                  
                   Object.entries(theme.colors).forEach(([key, value]) => {
                     console.log(`  ↳ ${key}: ${value}`);
                     updateCardData(key, value);
                   });
+                  
+                  // Log después de aplicar para debug
+                  setTimeout(() => {
+                    console.log('📊 Estado DESPUÉS:', {
+                      cardBackgroundColor: cardData.cardBackgroundColor,
+                      buttonSecondaryColor: cardData.buttonSecondaryColor,
+                      buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor
+                    });
+                  }, 100);
                   
                   // Visual feedback
                   const element = document.querySelector(`[data-theme="${theme.name}"]`) as HTMLElement;
