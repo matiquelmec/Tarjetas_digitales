@@ -296,6 +296,103 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
         </Row>
       </div>
 
+      {/* Premium Backgrounds for Glassmorphism */}
+      <div className="mb-4">
+        <h5 className="mb-3">🌈 Fondos Premium para Glassmorphism</h5>
+        
+        {/* Background Presets */}
+        <div className="mb-3">
+          <Form.Label className="fw-bold">Fondos Optimizados</Form.Label>
+          <div className="d-flex gap-2 flex-wrap mb-3">
+            {[
+              { name: 'Sunset', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', preview: '#667eea' },
+              { name: 'Ocean', gradient: 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)', preview: '#74b9ff' },
+              { name: 'Forest', gradient: 'linear-gradient(135deg, #00b894 0%, #00a085 100%)', preview: '#00b894' },
+              { name: 'Aurora', gradient: 'linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%)', preview: '#a29bfe' },
+              { name: 'Rose', gradient: 'linear-gradient(135deg, #fd79a8 0%, #e84393 100%)', preview: '#fd79a8' },
+              { name: 'Gold', gradient: 'linear-gradient(135deg, #fdcb6e 0%, #e17055 100%)', preview: '#fdcb6e' }
+            ].map((bg, index) => (
+              <div
+                key={index}
+                className="preset-bg-option d-flex flex-column align-items-center"
+                style={{
+                  width: '60px',
+                  height: '60px',
+                  background: bg.gradient,
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  border: cardData.cardBackgroundColor === bg.gradient ? '3px solid #007bff' : '2px solid #dee2e6',
+                  transition: 'all 0.2s ease',
+                  position: 'relative',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                }}
+                onClick={() => updateCardData('cardBackgroundColor', bg.gradient)}
+                title={bg.name}
+              >
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '-20px',
+                    fontSize: '10px',
+                    fontWeight: '500',
+                    color: '#6c757d',
+                    textAlign: 'center',
+                    width: '100%'
+                  }}
+                >
+                  {bg.name}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Custom Color Picker */}
+        <Row>
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label className="fw-bold">Color Personalizado</Form.Label>
+              <Form.Control
+                type="color"
+                value={typeof cardData.cardBackgroundColor === 'string' && cardData.cardBackgroundColor.startsWith('#') 
+                  ? cardData.cardBackgroundColor 
+                  : '#6c63ff'}
+                onChange={(e) => updateCardData('cardBackgroundColor', e.target.value)}
+                style={{ height: '45px', cursor: 'pointer' }}
+              />
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label className="fw-bold">Vista Previa</Form.Label>
+              <div
+                style={{
+                  height: '45px',
+                  background: cardData.cardBackgroundColor || '#6c63ff',
+                  borderRadius: '8px',
+                  border: '1px solid #dee2e6',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                  fontWeight: '500',
+                  textShadow: '0 1px 2px rgba(0,0,0,0.5)'
+                }}
+              >
+                Fondo Actual
+              </div>
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <div className="bg-info bg-opacity-10 p-2 rounded mt-3">
+          <small className="text-info">
+            <strong>💡 Tip:</strong> Los fondos con gradiente realzan el efecto Glassmorphism. 
+            Prueba combinarlo con efectos visuales para resultados hipnotizantes.
+          </small>
+        </div>
+      </div>
+
       {/* Visual Effects */}
       <div className="mb-4">
         <h5 className="mb-3">✨ Efectos Visuales (Premium)</h5>

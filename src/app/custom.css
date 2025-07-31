@@ -318,3 +318,35 @@
   background: rgba(255, 0, 0, 0.1) !important;
   border: 1px dashed red !important;
 }
+
+/* ========================================================== */
+/* FONDOS PREMIUM PARA GLASSMORPHISM */
+/* ========================================================== */
+
+/* Hover effects for background presets */
+.preset-bg-option:hover {
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+  border-color: #007bff !important;
+}
+
+/* Active state for selected background */
+.preset-bg-option.active {
+  border-color: #007bff !important;
+  border-width: 3px !important;
+  transform: scale(1.1) !important;
+}
+
+/* Responsive spacing for mobile */
+@media (max-width: 576px) {
+  .preset-bg-option {
+    width: 50px !important;
+    height: 50px !important;
+    margin-bottom: 25px !important;
+  }
+  
+  .preset-bg-option div {
+    font-size: 9px !important;
+    bottom: -18px !important;
+  }
+}
