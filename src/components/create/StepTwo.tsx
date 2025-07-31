@@ -119,6 +119,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
     updateCardData('cardTextColor', palette.cardTextColor);
     updateCardData('buttonSecondaryColor', palette.buttonSecondaryColor);
     updateCardData('buttonSecondaryHoverColor', palette.buttonSecondaryHoverColor);
+    updateCardData('buttonNormalBackgroundColor', palette.buttonNormalBackgroundColor);
   };
 
   return (
