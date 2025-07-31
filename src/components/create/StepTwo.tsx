@@ -250,6 +250,17 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
         <h5 className="mb-3">🎨 Temas Inteligentes</h5>
         <p className="text-muted mb-3">Cada tema transmite una personalidad visual coherente y profesional</p>
         
+        <div className="bg-info bg-opacity-10 p-3 rounded mb-4">
+          <div className="d-flex align-items-center gap-2 mb-2">
+            <span style={{ fontSize: '1.1rem' }}>💡</span>
+            <strong className="text-info">Sistema de 5 Colores Coherente</strong>
+          </div>
+          <small className="text-info">
+            Al seleccionar un tema, se actualizan automáticamente <strong>todos los 5 colores</strong> en los controles manuales: 
+            fondo, texto, botones, hover y fondo de botones. Puedes personalizar individualmente después.
+          </small>
+        </div>
+        
         {/* Professional Themes */}
         <div className="mb-4">
           <h6 className="mb-3">💼 Temas Profesionales</h6>
@@ -262,9 +273,9 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#3f51b5',
-                  buttonSecondaryHoverColor: '#303f9f',
-                  buttonNormalBackgroundColor: '#1a237e'
+                  buttonSecondaryColor: '#5c6bc0',
+                  buttonSecondaryHoverColor: '#3f51b5',
+                  buttonNormalBackgroundColor: 'rgba(92,107,192,0.15)'
                 }
               },
               {
@@ -274,9 +285,9 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #43a047 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#4caf50',
-                  buttonSecondaryHoverColor: '#388e3c',
-                  buttonNormalBackgroundColor: '#1b5e20'
+                  buttonSecondaryColor: '#81c784',
+                  buttonSecondaryHoverColor: '#66bb6a',
+                  buttonNormalBackgroundColor: 'rgba(129,199,132,0.15)'
                 }
               },
               {
@@ -286,9 +297,9 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #8e24aa 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#9c27b0',
-                  buttonSecondaryHoverColor: '#7b1fa2',
-                  buttonNormalBackgroundColor: '#4a148c'
+                  buttonSecondaryColor: '#ba68c8',
+                  buttonSecondaryHoverColor: '#9c27b0',
+                  buttonNormalBackgroundColor: 'rgba(186,104,200,0.15)'
                 }
               },
               {
@@ -298,9 +309,9 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #e65100 0%, #f57900 50%, #ff9800 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#ff9800',
-                  buttonSecondaryHoverColor: '#f57c00',
-                  buttonNormalBackgroundColor: '#e65100'
+                  buttonSecondaryColor: '#ffb74d',
+                  buttonSecondaryHoverColor: '#ffa726',
+                  buttonNormalBackgroundColor: 'rgba(255,183,77,0.2)'
                 }
               },
               {
@@ -309,15 +320,16 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 description: 'Futuro, precisión e innovación',
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #0d1421 0%, #1a252f 50%, #263238 100%)',
-                  cardTextColor: '#00ff88',
-                  buttonSecondaryColor: '#00e676',
-                  buttonSecondaryHoverColor: '#00c853',
-                  buttonNormalBackgroundColor: '#0d1421'
+                  cardTextColor: '#00e676',
+                  buttonSecondaryColor: '#4fc3f7',
+                  buttonSecondaryHoverColor: '#29b6f6',
+                  buttonNormalBackgroundColor: 'rgba(0,230,118,0.1)'
                 }
               }
             ].map((theme, index) => (
               <div
                 key={index}
+                data-theme={theme.name}
                 className="theme-card d-flex flex-column align-items-center text-center"
                 style={{
                   width: '120px',
@@ -332,9 +344,20 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
                 }}
                 onClick={() => {
+                  console.log(`🎨 Aplicando tema: ${theme.name}`);
                   Object.entries(theme.colors).forEach(([key, value]) => {
+                    console.log(`  ↳ ${key}: ${value}`);
                     updateCardData(key, value);
                   });
+                  
+                  // Visual feedback
+                  const element = document.querySelector(`[data-theme="${theme.name}"]`);
+                  if (element) {
+                    element.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                      element.style.transform = 'scale(1)';
+                    }, 150);
+                  }
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-5px)';
@@ -348,16 +371,15 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               >
                 <div style={{ fontSize: '1.8rem', marginBottom: '8px' }}>{theme.emoji}</div>
                 <small style={{ fontSize: '11px', fontWeight: '600', lineHeight: '1.2' }}>{theme.name}</small>
-                <div
-                  style={{
-                    width: '30px',
-                    height: '4px',
-                    background: theme.colors.buttonSecondaryColor,
-                    borderRadius: '2px',
-                    marginTop: '8px',
-                    boxShadow: `0 0 8px ${theme.colors.buttonSecondaryColor}40`
-                  }}
-                />
+                
+                {/* 5-Color Preview Bar */}
+                <div style={{ marginTop: '8px', display: 'flex', gap: '2px', justifyContent: 'center' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: theme.colors.buttonSecondaryColor }}></div>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: theme.colors.buttonSecondaryHoverColor }}></div>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: theme.colors.buttonNormalBackgroundColor || 'rgba(255,255,255,0.3)' }}></div>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: theme.colors.cardTextColor }}></div>
+                  <div style={{ width: '8px', height: '6px', borderRadius: '3px', background: 'linear-gradient(90deg, transparent 0%, ' + (theme.colors.cardBackgroundColor.includes('gradient') ? theme.colors.buttonSecondaryColor : theme.colors.cardBackgroundColor) + ' 100%)' }}></div>
+                </div>
               </div>
             ))}
           </div>
@@ -373,11 +395,11 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 emoji: '🎨',
                 description: 'Creatividad, inspiración y expresión artística',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #d1c4e9 0%, #f8bbd9 50%, #ffccbc 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #f8bbd9 0%, #e1bee7 100%)',
                   cardTextColor: '#4a148c',
                   buttonSecondaryColor: '#e91e63',
                   buttonSecondaryHoverColor: '#c2185b',
-                  buttonNormalBackgroundColor: '#d1c4e9'
+                  buttonNormalBackgroundColor: 'rgba(74,20,140,0.1)'
                 }
               },
               {
@@ -385,11 +407,11 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 emoji: '🌿',
                 description: 'Naturaleza, equilibrio y sostenibilidad',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #1b5e20 0%, #388e3c 50%, #66bb6a 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#4caf50',
-                  buttonSecondaryHoverColor: '#388e3c',
-                  buttonNormalBackgroundColor: '#1b5e20'
+                  buttonSecondaryColor: '#a5d6a7',
+                  buttonSecondaryHoverColor: '#81c784',
+                  buttonNormalBackgroundColor: 'rgba(255,255,255,0.15)'
                 }
               },
               {
@@ -397,11 +419,11 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 emoji: '🌊',
                 description: 'Profundidad, calma y fluidez oceánica',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #0d47a1 0%, #1976d2 50%, #42a5f5 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #0277bd 0%, #29b6f6 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#2196f3',
-                  buttonSecondaryHoverColor: '#1976d2',
-                  buttonNormalBackgroundColor: '#0d47a1'
+                  buttonSecondaryColor: '#81d4fa',
+                  buttonSecondaryHoverColor: '#4fc3f7',
+                  buttonNormalBackgroundColor: 'rgba(255,255,255,0.15)'
                 }
               },
               {
@@ -409,11 +431,11 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 emoji: '🌅',
                 description: 'Calidez, energía y optimismo radiante',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #e65100 0%, #ff7043 50%, #ffab91 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #f57c00 0%, #ffab40 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#ff5722',
-                  buttonSecondaryHoverColor: '#e64a19',
-                  buttonNormalBackgroundColor: '#e65100'
+                  buttonSecondaryColor: '#ffcc02',
+                  buttonSecondaryHoverColor: '#ffb300',
+                  buttonNormalBackgroundColor: 'rgba(255,255,255,0.2)'
                 }
               },
               {
@@ -421,16 +443,17 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 emoji: '🌙',
                 description: 'Sofisticación, misterio y elegancia nocturna',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #212121 0%, #424242 50%, #616161 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #263238 0%, #37474f 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#9c27b0',
-                  buttonSecondaryHoverColor: '#7b1fa2',
-                  buttonNormalBackgroundColor: '#212121'
+                  buttonSecondaryColor: '#ba68c8',
+                  buttonSecondaryHoverColor: '#9c27b0',
+                  buttonNormalBackgroundColor: 'rgba(186,104,200,0.15)'
                 }
               }
             ].map((theme, index) => (
               <div
                 key={index}
+                data-theme={theme.name}
                 className="theme-card d-flex flex-column align-items-center text-center"
                 style={{
                   width: '120px',
@@ -445,9 +468,20 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
                 }}
                 onClick={() => {
+                  console.log(`🎨 Aplicando tema: ${theme.name}`);
                   Object.entries(theme.colors).forEach(([key, value]) => {
+                    console.log(`  ↳ ${key}: ${value}`);
                     updateCardData(key, value);
                   });
+                  
+                  // Visual feedback
+                  const element = document.querySelector(`[data-theme="${theme.name}"]`);
+                  if (element) {
+                    element.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                      element.style.transform = 'scale(1)';
+                    }, 150);
+                  }
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-5px)';
@@ -461,16 +495,15 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               >
                 <div style={{ fontSize: '1.8rem', marginBottom: '8px' }}>{theme.emoji}</div>
                 <small style={{ fontSize: '11px', fontWeight: '600', lineHeight: '1.2' }}>{theme.name}</small>
-                <div
-                  style={{
-                    width: '30px',
-                    height: '4px',
-                    background: theme.colors.buttonSecondaryColor,
-                    borderRadius: '2px',
-                    marginTop: '8px',
-                    boxShadow: `0 0 8px ${theme.colors.buttonSecondaryColor}40`
-                  }}
-                />
+                
+                {/* 5-Color Preview Bar */}
+                <div style={{ marginTop: '8px', display: 'flex', gap: '2px', justifyContent: 'center' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: theme.colors.buttonSecondaryColor }}></div>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: theme.colors.buttonSecondaryHoverColor }}></div>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: theme.colors.buttonNormalBackgroundColor || 'rgba(255,255,255,0.3)' }}></div>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: theme.colors.cardTextColor }}></div>
+                  <div style={{ width: '8px', height: '6px', borderRadius: '3px', background: 'linear-gradient(90deg, transparent 0%, ' + (theme.colors.cardBackgroundColor.includes('gradient') ? theme.colors.buttonSecondaryColor : theme.colors.cardBackgroundColor) + ' 100%)' }}></div>
+                </div>
               </div>
             ))}
           </div>
