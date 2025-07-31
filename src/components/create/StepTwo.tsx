@@ -572,7 +572,15 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               <div className="d-flex gap-2 align-items-center">
                 <Form.Control
                   type="color"
-                  value={cardData.cardTextColor || '#ffffff'}
+                  value={(() => {
+                    const color = cardData.cardTextColor || '#ffffff';
+                    if (color.startsWith('#')) return color;
+                    if (color.includes('gradient') || color.startsWith('rgba') || color.startsWith('rgb')) {
+                      const match = color.match(/#[0-9a-fA-F]{6}/);
+                      return match ? match[0] : '#ffffff';
+                    }
+                    return '#ffffff';
+                  })()}
                   onChange={(e) => updateCardData('cardTextColor', e.target.value)}
                   style={{ width: '60px', height: '40px', cursor: 'pointer' }}
                 />

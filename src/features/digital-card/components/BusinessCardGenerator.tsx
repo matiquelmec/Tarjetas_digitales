@@ -309,11 +309,33 @@ export default function BusinessCardGenerator() {
                 <legend style={{ color: editorTextColor, fontSize: '0.9rem' }}>Colores de la Tarjeta</legend>
                 <Form.Group className="mb-3">
                   <Form.Label style={{ color: editorTextColor }}>Color de Fondo de la Tarjeta</Form.Label>
-                  <Form.Control type="color" value={cardBackgroundColor} onChange={(e) => setCardBackgroundColor(e.target.value)} />
+                  <Form.Control 
+                    type="color" 
+                    value={(() => {
+                      if (cardBackgroundColor.startsWith('#')) return cardBackgroundColor;
+                      if (cardBackgroundColor.includes('gradient') || cardBackgroundColor.startsWith('rgba')) {
+                        const match = cardBackgroundColor.match(/#[0-9a-fA-F]{6}/);
+                        return match ? match[0] : '#2c2c2c';
+                      }
+                      return '#2c2c2c';
+                    })()} 
+                    onChange={(e) => setCardBackgroundColor(e.target.value)} 
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label style={{ color: editorTextColor }}>Color del Texto de la Tarjeta</Form.Label>
-                  <Form.Control type="color" value={cardTextColor} onChange={(e) => setCardTextColor(e.target.value)} />
+                  <Form.Control 
+                    type="color" 
+                    value={(() => {
+                      if (cardTextColor.startsWith('#')) return cardTextColor;
+                      if (cardTextColor.includes('gradient') || cardTextColor.startsWith('rgba') || cardTextColor.startsWith('rgb')) {
+                        const match = cardTextColor.match(/#[0-9a-fA-F]{6}/);
+                        return match ? match[0] : '#ffffff';
+                      }
+                      return '#ffffff';
+                    })()} 
+                    onChange={(e) => setCardTextColor(e.target.value)} 
+                  />
                 </Form.Group>
               </fieldset>
 
@@ -321,15 +343,48 @@ export default function BusinessCardGenerator() {
                 <legend style={{ color: editorTextColor, fontSize: '0.9rem' }}>Colores de Botones</legend>
                 <Form.Group className="mb-3">
                   <Form.Label style={{ color: editorTextColor }}>Color Secundario de Botón</Form.Label>
-                  <Form.Control type="color" value={buttonSecondaryColor} onChange={(e) => setButtonSecondaryColor(e.target.value)} />
+                  <Form.Control 
+                    type="color" 
+                    value={(() => {
+                      if (buttonSecondaryColor.startsWith('#')) return buttonSecondaryColor;
+                      if (buttonSecondaryColor.includes('gradient') || buttonSecondaryColor.startsWith('rgba')) {
+                        const match = buttonSecondaryColor.match(/#[0-9a-fA-F]{6}/);
+                        return match ? match[0] : '#00F6FF';
+                      }
+                      return '#00F6FF';
+                    })()} 
+                    onChange={(e) => setButtonSecondaryColor(e.target.value)} 
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label style={{ color: editorTextColor }}>Color de Fondo de Botón (Normal)</Form.Label>
-                  <Form.Control type="color" value={buttonNormalBackgroundColor} onChange={(e) => setButtonNormalBackgroundColor(e.target.value)} />
+                  <Form.Control 
+                    type="color" 
+                    value={(() => {
+                      if (buttonNormalBackgroundColor.startsWith('#')) return buttonNormalBackgroundColor;
+                      if (buttonNormalBackgroundColor.includes('gradient') || buttonNormalBackgroundColor.startsWith('rgba')) {
+                        const match = buttonNormalBackgroundColor.match(/#[0-9a-fA-F]{6}/);
+                        return match ? match[0] : '#1F1F1F';
+                      }
+                      return '#1F1F1F';
+                    })()} 
+                    onChange={(e) => setButtonNormalBackgroundColor(e.target.value)} 
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label style={{ color: editorTextColor }}>Color Hover Secundario de Botón</Form.Label>
-                  <Form.Control type="color" value={buttonSecondaryHoverColor} onChange={(e) => setButtonSecondaryHoverColor(e.target.value)} />
+                  <Form.Control 
+                    type="color" 
+                    value={(() => {
+                      if (buttonSecondaryHoverColor.startsWith('#')) return buttonSecondaryHoverColor;
+                      if (buttonSecondaryHoverColor.includes('gradient') || buttonSecondaryHoverColor.startsWith('rgba')) {
+                        const match = buttonSecondaryHoverColor.match(/#[0-9a-fA-F]{6}/);
+                        return match ? match[0] : '#00D1DB';
+                      }
+                      return '#00D1DB';
+                    })()} 
+                    onChange={(e) => setButtonSecondaryHoverColor(e.target.value)} 
+                  />
                 </Form.Group>
               </fieldset>
 
@@ -420,7 +475,18 @@ export default function BusinessCardGenerator() {
                 <legend style={{ color: editorTextColor, fontSize: '0.9rem' }}>Fondo de la Página</legend>
                 <Form.Group className="mb-3">
                   <Form.Label style={{ color: editorTextColor }}>Color de Fondo de la Página</Form.Label>
-                  <Form.Control type="color" value={pageBackgroundColor} onChange={(e) => setPageBackgroundColor(e.target.value)} />
+                  <Form.Control 
+                    type="color" 
+                    value={(() => {
+                      if (pageBackgroundColor.startsWith('#')) return pageBackgroundColor;
+                      if (pageBackgroundColor.includes('gradient') || pageBackgroundColor.startsWith('rgba')) {
+                        const match = pageBackgroundColor.match(/#[0-9a-fA-F]{6}/);
+                        return match ? match[0] : '#121212';
+                      }
+                      return '#121212';
+                    })()} 
+                    onChange={(e) => setPageBackgroundColor(e.target.value)} 
+                  />
                 </Form.Group>
               </fieldset>
             </fieldset>
