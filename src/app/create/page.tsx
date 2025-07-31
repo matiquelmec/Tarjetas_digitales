@@ -125,7 +125,7 @@ export default function CreateCardPage() {
     console.log(`🔄 updateCardData called: ${field} = ${value}`);
     setCardData(prev => {
       const newData = { ...prev, [field]: value };
-      console.log(`📊 New cardData for ${field}:`, newData[field]);
+      console.log(`📊 New cardData for ${field}:`, (newData as any)[field]);
       return newData;
     });
   };
