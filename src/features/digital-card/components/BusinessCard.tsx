@@ -54,10 +54,17 @@ const staticStyles = `
     100% { background-position: 200% 0; }
   }
   
-  /* Animación combinada para patterns */
-  .animated-gradient-background {
+  /* Animación combinada para patterns - solo aplica si no hay background inline */
+  .animated-gradient-background:not([style*="background"]) {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    position: relative;
+  }
+  
+  /* Para elementos con background inline, solo animar el gradiente existente */
+  .animated-gradient-background[style*="linear-gradient"] {
+    background-size: 400% 400% !important;
     animation: gradientAnimation 15s ease infinite;
     position: relative;
   }
@@ -548,10 +555,9 @@ ${formattedAbout ? `${formattedAbout}
     if (effects.glass) {
       // Glassmorphism: manejar tanto colores sólidos como gradientes
       if (cardBackgroundColor.startsWith('linear-gradient')) {
-        // Para gradientes, crear efecto glassmorphism con overlay transparente
-        backgroundColor = `${cardBackgroundColor}, rgba(255, 255, 255, 0.1)`;
-        backgroundColor = `linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)), ${cardBackgroundColor}`;
-        backdropFilter = 'blur(12px) saturate(1.8)';
+        // Para gradientes, mantener el gradiente original con ligero overlay
+        backgroundColor = cardBackgroundColor;
+        backdropFilter = 'blur(8px) saturate(1.2)';
         border = '1px solid rgba(255, 255, 255, 0.2)';
       } else {
         // Para colores sólidos, aplicar transparencia
