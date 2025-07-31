@@ -256,8 +256,13 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
             <strong className="text-info">Sistema de 5 Colores Coherente</strong>
           </div>
           <small className="text-info">
-            Al seleccionar un tema, se actualizan automáticamente <strong>todos los 5 colores</strong> en los controles manuales: 
-            fondo, texto, botones, hover y fondo de botones. Puedes personalizar individualmente después.
+            Al seleccionar un tema, se actualizan automáticamente <strong>todos los 5 colores</strong> en los controles manuales:<br/>
+            🎨 <strong>Fondo:</strong> Gradientes se muestran como color principal extraído<br/>
+            📝 <strong>Texto:</strong> Color optimizado para contraste<br/>  
+            🔘 <strong>Botones:</strong> Colores complementarios al tema<br/>
+            ✨ <strong>Hover:</strong> Variación más oscura para interactividad<br/>
+            ⬜ <strong>Fondo de botones:</strong> Transparencias y acentos sutiles<br/>
+            <em>Puedes personalizar cada color individualmente después de aplicar un tema.</em>
           </small>
         </div>
         
@@ -524,9 +529,16 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               <div className="d-flex gap-2 align-items-center">
                 <Form.Control
                   type="color"
-                  value={typeof cardData.cardBackgroundColor === 'string' && cardData.cardBackgroundColor.startsWith('#') 
-                    ? cardData.cardBackgroundColor 
-                    : '#2c2c2c'}
+                  value={(() => {
+                    // Extract hex color from gradient or use direct hex value
+                    const bgColor = cardData.cardBackgroundColor || '#2c2c2c';
+                    if (bgColor.startsWith('#')) return bgColor;
+                    if (bgColor.includes('gradient')) {
+                      const match = bgColor.match(/#[0-9a-fA-F]{6}/);
+                      return match ? match[0] : '#2c2c2c';
+                    }
+                    return '#2c2c2c';
+                  })()}
                   onChange={(e) => updateCardData('cardBackgroundColor', e.target.value)}
                   style={{ width: '60px', height: '40px', cursor: 'pointer' }}
                 />
@@ -596,7 +608,15 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               <div className="d-flex gap-2 align-items-center">
                 <Form.Control
                   type="color"
-                  value={cardData.buttonSecondaryColor || '#00F6FF'}
+                  value={(() => {
+                    const color = cardData.buttonSecondaryColor || '#00F6FF';
+                    if (color.startsWith('#')) return color;
+                    if (color.includes('gradient') || color.startsWith('rgba')) {
+                      const match = color.match(/#[0-9a-fA-F]{6}/);
+                      return match ? match[0] : '#00F6FF';
+                    }
+                    return '#00F6FF';
+                  })()} 
                   onChange={(e) => updateCardData('buttonSecondaryColor', e.target.value)}
                   style={{ width: '60px', height: '40px', cursor: 'pointer' }}
                 />
@@ -635,7 +655,15 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               <div className="d-flex gap-2 align-items-center">
                 <Form.Control
                   type="color"
-                  value={cardData.buttonSecondaryHoverColor || '#00D1DB'}
+                  value={(() => {
+                    const color = cardData.buttonSecondaryHoverColor || '#00D1DB';
+                    if (color.startsWith('#')) return color;
+                    if (color.includes('gradient') || color.startsWith('rgba')) {
+                      const match = color.match(/#[0-9a-fA-F]{6}/);
+                      return match ? match[0] : '#00D1DB';
+                    }
+                    return '#00D1DB';
+                  })()} 
                   onChange={(e) => updateCardData('buttonSecondaryHoverColor', e.target.value)}
                   style={{ width: '60px', height: '40px', cursor: 'pointer' }}
                 />
@@ -671,7 +699,15 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               <div className="d-flex gap-2 align-items-center">
                 <Form.Control
                   type="color"
-                  value={cardData.buttonNormalBackgroundColor || '#1F1F1F'}
+                  value={(() => {
+                    const color = cardData.buttonNormalBackgroundColor || '#1F1F1F';
+                    if (color.startsWith('#')) return color;
+                    if (color.includes('gradient') || color.startsWith('rgba')) {
+                      const match = color.match(/#[0-9a-fA-F]{6}/);
+                      return match ? match[0] : '#1F1F1F';
+                    }
+                    return '#1F1F1F';
+                  })()} 
                   onChange={(e) => updateCardData('buttonNormalBackgroundColor', e.target.value)}
                   style={{ width: '60px', height: '40px', cursor: 'pointer' }}
                 />
