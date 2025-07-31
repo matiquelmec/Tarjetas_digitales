@@ -530,13 +530,26 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 <Form.Control
                   type="color"
                   value={(() => {
-                    // Extract hex color from gradient or use direct hex value
-                    const bgColor = cardData.cardBackgroundColor || '#2c2c2c';
-                    if (bgColor.startsWith('#')) return bgColor;
-                    if (bgColor.includes('gradient')) {
-                      const match = bgColor.match(/#[0-9a-fA-F]{6}/);
+                    const color = cardData.cardBackgroundColor || '#2c2c2c';
+                    if (color.startsWith('#')) return color;
+                    
+                    // Convert rgba to hex
+                    if (color.startsWith('rgba')) {
+                      const rgbaMatch = color.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*[\d.]+\)/);
+                      if (rgbaMatch) {
+                        const r = parseInt(rgbaMatch[1]).toString(16).padStart(2, '0');
+                        const g = parseInt(rgbaMatch[2]).toString(16).padStart(2, '0');
+                        const b = parseInt(rgbaMatch[3]).toString(16).padStart(2, '0');
+                        return `#${r}${g}${b}`;
+                      }
+                    }
+                    
+                    // Extract from gradient
+                    if (color.includes('gradient')) {
+                      const match = color.match(/#[0-9a-fA-F]{6}/);
                       return match ? match[0] : '#2c2c2c';
                     }
+                    
                     return '#2c2c2c';
                   })()}
                   onChange={(e) => updateCardData('cardBackgroundColor', e.target.value)}
@@ -710,10 +723,24 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   value={(() => {
                     const color = cardData.buttonNormalBackgroundColor || '#1F1F1F';
                     if (color.startsWith('#')) return color;
-                    if (color.includes('gradient') || color.startsWith('rgba')) {
+                    
+                    // Convert rgba to hex approximation
+                    if (color.startsWith('rgba')) {
+                      const rgbaMatch = color.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*[\d.]+\)/);
+                      if (rgbaMatch) {
+                        const r = parseInt(rgbaMatch[1]).toString(16).padStart(2, '0');
+                        const g = parseInt(rgbaMatch[2]).toString(16).padStart(2, '0');
+                        const b = parseInt(rgbaMatch[3]).toString(16).padStart(2, '0');
+                        return `#${r}${g}${b}`;
+                      }
+                    }
+                    
+                    // Extract hex from gradient
+                    if (color.includes('gradient')) {
                       const match = color.match(/#[0-9a-fA-F]{6}/);
                       return match ? match[0] : '#1F1F1F';
                     }
+                    
                     return '#1F1F1F';
                   })()} 
                   onChange={(e) => updateCardData('buttonNormalBackgroundColor', e.target.value)}
