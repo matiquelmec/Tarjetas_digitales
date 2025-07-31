@@ -248,7 +248,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
       {/* Smart Theme System */}
       <div className="mb-4">
         <h5 className="mb-3">🎨 Temas Inteligentes</h5>
-        <p className="text-muted mb-3">Selecciona un tema cohesivo que ajuste todos los colores automáticamente</p>
+        <p className="text-muted mb-3">Cada tema transmite una personalidad visual coherente y profesional</p>
         
         {/* Professional Themes */}
         <div className="mb-4">
@@ -256,58 +256,63 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
           <div className="d-flex gap-3 flex-wrap">
             {[
               {
-                name: 'Corporate Blue',
+                name: 'Corporate Executive',
                 emoji: '💼',
+                description: 'Autoridad y confianza institucional',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#4a90e2',
-                  buttonSecondaryHoverColor: '#357abd',
-                  buttonNormalBackgroundColor: '#1a2f5c'
+                  buttonSecondaryColor: '#3f51b5',
+                  buttonSecondaryHoverColor: '#303f9f',
+                  buttonNormalBackgroundColor: '#1a237e'
                 }
               },
               {
-                name: 'Nature Green',
-                emoji: '🌿',
+                name: 'Medical Trust',
+                emoji: '🏥',
+                description: 'Salud, tranquilidad y profesionalismo médico',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #134e5e 0%, #71b280 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #43a047 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#27ae60',
-                  buttonSecondaryHoverColor: '#229954',
-                  buttonNormalBackgroundColor: '#0f3d4a'
+                  buttonSecondaryColor: '#4caf50',
+                  buttonSecondaryHoverColor: '#388e3c',
+                  buttonNormalBackgroundColor: '#1b5e20'
                 }
               },
               {
-                name: 'Creative Orange',
-                emoji: '🔥',
+                name: 'Legal Authority',
+                emoji: '⚖️',
+                description: 'Justicia, seriedad y tradición',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #f12711 0%, #f5af19 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #8e24aa 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#e67e22',
-                  buttonSecondaryHoverColor: '#d35400',
-                  buttonNormalBackgroundColor: '#b8570e'
+                  buttonSecondaryColor: '#9c27b0',
+                  buttonSecondaryHoverColor: '#7b1fa2',
+                  buttonNormalBackgroundColor: '#4a148c'
                 }
               },
               {
-                name: 'Luxury Purple',
-                emoji: '💜',
+                name: 'Financial Gold',
+                emoji: '💰',
+                description: 'Prosperidad, estabilidad y valor',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #e65100 0%, #f57900 50%, #ff9800 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#9b59b6',
-                  buttonSecondaryHoverColor: '#8e44ad',
-                  buttonNormalBackgroundColor: '#5a3e7a'
+                  buttonSecondaryColor: '#ff9800',
+                  buttonSecondaryHoverColor: '#f57c00',
+                  buttonNormalBackgroundColor: '#e65100'
                 }
               },
               {
-                name: 'Tech Neon',
+                name: 'Tech Innovation',
                 emoji: '⚡',
+                description: 'Futuro, precisión e innovación',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #0d1421 0%, #1a252f 50%, #263238 100%)',
                   cardTextColor: '#00ff88',
-                  buttonSecondaryColor: '#00ff88',
-                  buttonSecondaryHoverColor: '#00cc6a',
-                  buttonNormalBackgroundColor: '#0a0a0a'
+                  buttonSecondaryColor: '#00e676',
+                  buttonSecondaryHoverColor: '#00c853',
+                  buttonNormalBackgroundColor: '#0d1421'
                 }
               }
             ].map((theme, index) => (
@@ -315,8 +320,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 key={index}
                 className="theme-card d-flex flex-column align-items-center text-center"
                 style={{
-                  width: '90px',
-                  padding: '10px',
+                  width: '120px',
+                  padding: '12px',
                   borderRadius: '12px',
                   cursor: 'pointer',
                   border: '2px solid transparent',
@@ -339,16 +344,18 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
                 }}
+                title={theme.description || theme.name}
               >
-                <div style={{ fontSize: '1.5rem', marginBottom: '5px' }}>{theme.emoji}</div>
-                <small style={{ fontSize: '10px', fontWeight: '600' }}>{theme.name}</small>
+                <div style={{ fontSize: '1.8rem', marginBottom: '8px' }}>{theme.emoji}</div>
+                <small style={{ fontSize: '11px', fontWeight: '600', lineHeight: '1.2' }}>{theme.name}</small>
                 <div
                   style={{
-                    width: '20px',
-                    height: '3px',
+                    width: '30px',
+                    height: '4px',
                     background: theme.colors.buttonSecondaryColor,
                     borderRadius: '2px',
-                    marginTop: '5px'
+                    marginTop: '8px',
+                    boxShadow: `0 0 8px ${theme.colors.buttonSecondaryColor}40`
                   }}
                 />
               </div>
@@ -362,58 +369,63 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
           <div className="d-flex gap-3 flex-wrap">
             {[
               {
-                name: 'Cherry Blossom',
-                emoji: '🌸',
+                name: 'Artist Canvas',
+                emoji: '🎨',
+                description: 'Creatividad, inspiración y expresión artística',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
-                  cardTextColor: '#2c3e50',
-                  buttonSecondaryColor: '#e74c3c',
-                  buttonSecondaryHoverColor: '#c0392b',
-                  buttonNormalBackgroundColor: '#f4d7d3'
+                  cardBackgroundColor: 'linear-gradient(135deg, #d1c4e9 0%, #f8bbd9 50%, #ffccbc 100%)',
+                  cardTextColor: '#4a148c',
+                  buttonSecondaryColor: '#e91e63',
+                  buttonSecondaryHoverColor: '#c2185b',
+                  buttonNormalBackgroundColor: '#d1c4e9'
                 }
               },
               {
-                name: 'Deep Ocean',
+                name: 'Nature Harmony',
+                emoji: '🌿',
+                description: 'Naturaleza, equilibrio y sostenibilidad',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #1b5e20 0%, #388e3c 50%, #66bb6a 100%)',
+                  cardTextColor: '#ffffff',
+                  buttonSecondaryColor: '#4caf50',
+                  buttonSecondaryHoverColor: '#388e3c',
+                  buttonNormalBackgroundColor: '#1b5e20'
+                }
+              },
+              {
+                name: 'Ocean Depth',
                 emoji: '🌊',
+                description: 'Profundidad, calma y fluidez oceánica',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #667db6 0%, #0082c8, #0082c8, #667db6 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #0d47a1 0%, #1976d2 50%, #42a5f5 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#3498db',
-                  buttonSecondaryHoverColor: '#2980b9',
-                  buttonNormalBackgroundColor: '#4a6ba3'
+                  buttonSecondaryColor: '#2196f3',
+                  buttonSecondaryHoverColor: '#1976d2',
+                  buttonNormalBackgroundColor: '#0d47a1'
                 }
               },
               {
-                name: 'Golden Hour',
-                emoji: '🍯',
+                name: 'Sunset Warmth',
+                emoji: '🌅',
+                description: 'Calidez, energía y optimismo radiante',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #e65100 0%, #ff7043 50%, #ffab91 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#f39c12',
-                  buttonSecondaryHoverColor: '#e67e22',
-                  buttonNormalBackgroundColor: '#d4486b'
+                  buttonSecondaryColor: '#ff5722',
+                  buttonSecondaryHoverColor: '#e64a19',
+                  buttonNormalBackgroundColor: '#e65100'
                 }
               },
               {
-                name: 'Midnight',
-                emoji: '🎭',
+                name: 'Midnight Elegance',
+                emoji: '🌙',
+                description: 'Sofisticación, misterio y elegancia nocturna',
                 colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
-                  cardTextColor: '#ecf0f1',
-                  buttonSecondaryColor: '#1abc9c',
-                  buttonSecondaryHoverColor: '#16a085',
-                  buttonNormalBackgroundColor: '#2a3d4f'
-                }
-              },
-              {
-                name: 'Rainbow',
-                emoji: '🌈',
-                colors: {
-                  cardBackgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+                  cardBackgroundColor: 'linear-gradient(135deg, #212121 0%, #424242 50%, #616161 100%)',
                   cardTextColor: '#ffffff',
-                  buttonSecondaryColor: '#9b59b6',
-                  buttonSecondaryHoverColor: '#8e44ad',
-                  buttonNormalBackgroundColor: '#6a4c93'
+                  buttonSecondaryColor: '#9c27b0',
+                  buttonSecondaryHoverColor: '#7b1fa2',
+                  buttonNormalBackgroundColor: '#212121'
                 }
               }
             ].map((theme, index) => (
@@ -421,8 +433,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 key={index}
                 className="theme-card d-flex flex-column align-items-center text-center"
                 style={{
-                  width: '90px',
-                  padding: '10px',
+                  width: '120px',
+                  padding: '12px',
                   borderRadius: '12px',
                   cursor: 'pointer',
                   border: '2px solid transparent',
@@ -445,16 +457,18 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
                 }}
+                title={theme.description || theme.name}
               >
-                <div style={{ fontSize: '1.5rem', marginBottom: '5px' }}>{theme.emoji}</div>
-                <small style={{ fontSize: '10px', fontWeight: '600' }}>{theme.name}</small>
+                <div style={{ fontSize: '1.8rem', marginBottom: '8px' }}>{theme.emoji}</div>
+                <small style={{ fontSize: '11px', fontWeight: '600', lineHeight: '1.2' }}>{theme.name}</small>
                 <div
                   style={{
-                    width: '20px',
-                    height: '3px',
+                    width: '30px',
+                    height: '4px',
                     background: theme.colors.buttonSecondaryColor,
                     borderRadius: '2px',
-                    marginTop: '5px'
+                    marginTop: '8px',
+                    boxShadow: `0 0 8px ${theme.colors.buttonSecondaryColor}40`
                   }}
                 />
               </div>
@@ -717,6 +731,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   e.currentTarget.style.transform = 'translateY(0) scale(1)';
                   e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.1)';
                 }}
+                title={bg.description || bg.name}
               >
                 <div
                   style={{
@@ -811,6 +826,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   e.currentTarget.style.transform = 'translateY(0) scale(1)';
                   e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.1)';
                 }}
+                title={bg.description || bg.name}
               >
                 <div
                   style={{
@@ -905,6 +921,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   e.currentTarget.style.transform = 'translateY(0) scale(1)';
                   e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.1)';
                 }}
+                title={bg.description || bg.name}
               >
                 <div
                   style={{
