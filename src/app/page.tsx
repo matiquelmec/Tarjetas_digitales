@@ -331,53 +331,50 @@ export default function HomePage() {
       `}</style>
       <div className="animated-gradient-background min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <Container fluid className="py-5">
-          <div className="d-flex flex-column flex-lg-row justify-content-between align-items-center mb-4 gap-3">
-            <div className="d-flex align-items-center gap-3">
-              <Image src="/logo.png" alt="Indi Logo" width={60} height={60} />
-              <h1 className="display-6 display-lg-4 fw-bold text-center text-lg-start" style={{ color: '#ffffff', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
-                Indi
-              </h1>
-            </div>
-            <div className="d-flex flex-column flex-sm-row gap-2 align-items-center">
-              {session ? (
-                <>
-                  <div className="d-flex flex-wrap gap-2 justify-content-center">
-                    <Link href="/pricing">
-                      <Button size="sm" className="btn-premium-gold-outline px-3">
-                        ⭐ Actualizar Plan
+          {/* Top-right navigation */}
+          <Row className="justify-content-end mb-4">
+            <Col xs="auto">
+              <div className="d-flex flex-column flex-sm-row gap-2 align-items-center">
+                {session ? (
+                  <>
+                    <div className="d-flex flex-wrap gap-2 justify-content-center">
+                      <Link href="/pricing">
+                        <Button size="sm" className="btn-premium-gold-outline px-3">
+                          ⭐ Actualizar Plan
+                        </Button>
+                      </Link>
+                      <Link href="/dashboard/cards">
+                        <Button variant="outline-light" size="sm" className="px-3">
+                          💼 Mis Tarjetas
+                        </Button>
+                      </Link>
+                      <Button variant="outline-secondary" size="sm" onClick={() => signOut()} className="px-3">
+                        👋 Salir
                       </Button>
-                    </Link>
-                    <Link href="/dashboard/cards">
-                      <Button variant="outline-light" size="sm" className="px-3">
-                        💼 Mis Tarjetas
-                      </Button>
-                    </Link>
-                    <Button variant="outline-secondary" size="sm" onClick={() => signOut()} className="px-3">
-                      👋 Salir
-                    </Button>
-                  </div>
-                  <div className="text-white text-center mt-2 mt-sm-0">
-                    <small>Hola, {session.user?.name?.split(' ')[0] || 'Usuario'}</small>
-                  </div>
-                </>
-              ) : (
-                <Button variant="outline-light" onClick={() => signIn('google')} className="px-4 py-2">
-                  🚀 Iniciar Sesión con Google
-                </Button>
-              )}
-            </div>
-          </div>
-          {/* Hero Section Minimalista */}
+                    </div>
+                    <div className="text-white text-center mt-2 mt-sm-0">
+                      <small>Hola, {session.user?.name?.split(' ')[0] || 'Usuario'}</small>
+                    </div>
+                  </>
+                ) : (
+                  <Button variant="outline-light" onClick={() => signIn('google')} className="px-4 py-2">
+                    🚀 Iniciar Sesión con Google
+                  </Button>
+                )}
+              </div>
+            </Col>
+          </Row>
+          
+          {/* New Centered Hero Section */}
           <Row className="justify-content-center text-center mb-5">
             <Col lg={10} xl={8}>
               <div className="hero-content">
-                <h2 className="display-4 fw-bold text-white mb-4" style={{ lineHeight: '1.1' }}>
-                  INDI: Eleva tu identidad digital.
-                  <br />
-                  <span style={{ color: '#00F6FF' }}>Profesionalismo al siguiente nivel.</span>
-                </h2>
-                <p className="lead text-white mb-4 opacity-90" style={{ fontSize: '1.3rem', fontWeight: '400' }}>
-                  QR automático • Analytics en vivo • Sin marca de agua • Compartir por WhatsApp
+                <Image src="/logo.png" alt="Indi Logo" width={150} height={150} priority />
+                <h1 className="text-white fw-light" style={{ fontSize: '4.5rem', textTransform: 'lowercase', letterSpacing: '1px', marginTop: '-10px' }}>
+                  indi
+                </h1>
+                <p className="lead text-white mt-3 mb-4 opacity-90" style={{ fontSize: '1.3rem', fontWeight: '400' }}>
+                  Eleva tu identidad digital. Profesionalismo al siguiente nivel.
                 </p>
                 
                 {/* CTA Principal Gigante */}
