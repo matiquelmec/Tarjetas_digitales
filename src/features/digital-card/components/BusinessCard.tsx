@@ -47,7 +47,7 @@ const staticStyles = `
   }
   @keyframes gentleFloat {
     0%, 100% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-3px) scale(1.005); }
+    50% { transform: translateY(-5px) scale(1.02); }
   }
   @keyframes glassShimmer {
     0% { background-position: -200% 0; }
@@ -79,11 +79,13 @@ const staticStyles = `
   
   /* Hover mejorado que respeta otros efectos */
   .enhanced-hover {
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
   }
   
   .enhanced-hover:hover {
     animation: gentleFloat 2s ease-in-out infinite;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15) !important;
   }
   
   /* Corrección para animaciones combinadas */
@@ -571,11 +573,9 @@ ${formattedAbout ? `${formattedAbout}
       boxShadow = templateShadow || '0 8px 32px rgba(31, 38, 135, 0.3)';
     }
 
-    // Combinar transform de hover con template
+    // Transform base - hover se maneja via CSS :hover pseudo-class
     let transform = 'translateY(0)';
-    if (effects.hover) {
-      transform = 'translateY(-8px) scale(1.02)';
-    }
+    // NO aplicamos transform permanente para hover - se maneja en CSS
 
     // Animaciones inteligentes - evitar duplicación con background patterns
     let animation = 'none';
