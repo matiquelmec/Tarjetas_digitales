@@ -45,10 +45,54 @@ const staticStyles = `
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
+  @keyframes gentleFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-3px) scale(1.005); }
+  }
+  @keyframes glassShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+  /* Animación combinada para patterns */
   .animated-gradient-background {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
     animation: gradientAnimation 15s ease infinite;
+    position: relative;
+  }
+  
+  /* Efecto shimmer para glassmorphism */
+  .glass-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    background-size: 200% 100%;
+    animation: glassShimmer 3s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  
+  /* Hover mejorado que respeta otros efectos */
+  .enhanced-hover {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .enhanced-hover:hover {
+    animation: gentleFloat 2s ease-in-out infinite;
+  }
+  
+  /* Corrección para animaciones combinadas */
+  .fade-in-active {
+    animation: fadeIn 1s ease-out forwards;
+  }
+  
+  .fade-in-with-patterns {
+    animation: fadeIn 1.2s ease-out forwards, gradientAnimation 15s ease infinite;
   }
   .btn-outline-secondary-custom {
     color: var(--button-secondary-color) !important;
@@ -268,6 +312,8 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
+          // Fallback para cuando hay glassmorphism
+          color: 'transparent',
         },
         titleStyle: {
           fontSize: '1.2rem',
@@ -459,45 +505,164 @@ ${formattedAbout ? `${formattedAbout}
     }
   };
 
+  // Sistema inteligente de combinación de efectos sin conflictos
+  const getCombinedEffectsStyles = (
+    template: string,
+    effects: {
+      hover: boolean;
+      glass: boolean;
+      animations: boolean;
+      patterns: boolean;
+    }
+  ) => {
+    const baseTemplate = getTemplateStyles(template);
+    
+    // Base styles siempre aplicados
+    const baseStyles = {
+      width: '100%',
+      maxWidth: '480px',
+      color: cardTextColor,
+      transition: 'all 0.3s ease-in-out',
+      padding: '40px',
+      margin: '0 auto',
+      '--button-secondary-color': buttonSecondaryColor,
+      '--button-normal-bg-color': buttonNormalBackgroundColor,
+      '--button-secondary-hover-color': buttonSecondaryHoverColor,
+      '--button-hover-text-color': getContrastTextColor(buttonSecondaryHoverColor),
+    };
+
+    // Determinar color de fondo inteligentemente
+    let backgroundColor = cardBackgroundColor;
+    let backdropFilter = 'none';
+    let border = baseTemplate.cardStyle.border || 'none';
+    
+    if (effects.glass) {
+      // Glassmorphism: hacer transparente el fondo manteniendo visibilidad
+      const rgb = cardBackgroundColor.startsWith('#') 
+        ? hexToRgb(cardBackgroundColor) 
+        : parseRgb(cardBackgroundColor);
+      
+      if (rgb) {
+        backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.25)`;
+        backdropFilter = 'blur(12px) saturate(1.8)';
+        border = `1px solid rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
+      }
+    }
+
+    // Combinar box-shadow de template, hover y glass
+    let boxShadow = baseTemplate.cardStyle.boxShadow || '0 2px 8px rgba(0, 0, 0, 0.1)';
+    
+    if (effects.hover && effects.glass) {
+      // Combinación hover + glass
+      boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15), 0 8px 32px rgba(31, 38, 135, 0.4)';
+    } else if (effects.hover) {
+      // Solo hover
+      boxShadow = '0 12px 24px rgba(0, 0, 0, 0.2)';
+    } else if (effects.glass) {
+      // Solo glass - mantener sombra de template pero más sutil
+      const templateShadow = baseTemplate.cardStyle.boxShadow;
+      boxShadow = templateShadow || '0 8px 32px rgba(31, 38, 135, 0.3)';
+    }
+
+    // Combinar transform de hover con template
+    let transform = 'translateY(0)';
+    if (effects.hover) {
+      transform = 'translateY(-8px) scale(1.02)';
+    }
+
+    // Animaciones inteligentes
+    let animation = 'none';
+    if (effects.animations) {
+      animation = effects.patterns 
+        ? 'fadeIn 1.2s ease-out, gradientAnimation 15s ease infinite' 
+        : 'fadeIn 1s ease-out';
+    }
+
+    // Combinar borderRadius - prioridad: glass > template
+    let borderRadius = baseTemplate.cardStyle.borderRadius || '12px';
+    if (effects.glass) {
+      // Glass effect funciona mejor con bordes más redondeados
+      const templateRadius = parseInt(baseTemplate.cardStyle.borderRadius || '12');
+      borderRadius = `${Math.max(templateRadius, 16)}px`;
+    }
+
+    return {
+      ...baseStyles,
+      backgroundColor,
+      backdropFilter,
+      border,
+      borderRadius,
+      boxShadow,
+      transform,
+      animation,
+      // Mantener propiedades específicas de template que no conflictúan
+      ...Object.fromEntries(
+        Object.entries(baseTemplate.cardStyle).filter(([key]) => 
+          !['backgroundColor', 'backdropFilter', 'border', 'borderRadius', 'boxShadow', 'transform', 'animation'].includes(key)
+        )
+      ),
+    } as React.CSSProperties & Record<string, string>;
+  };
+
+  // Función helper para convertir hex a rgb
+  const hexToRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  };
+
+  // Función helper para parsear rgb
+  const parseRgb = (rgb: string) => {
+    const match = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    return match ? {
+      r: parseInt(match[1]),
+      g: parseInt(match[2]),
+      b: parseInt(match[3])
+    } : null;
+  };
+
   // Obtener estilos de la plantilla seleccionada
   const templateStyles = getTemplateStyles(template);
-  
-  const cardStyles = {
-    width: '100%',
-    maxWidth: '480px',
-    backgroundColor: cardBackgroundColor,
-    color: cardTextColor,
-    transition: 'all 0.3s ease-in-out',
-    padding: '40px',
-    margin: '0 auto',
-    '--button-secondary-color': buttonSecondaryColor,
-    '--button-normal-bg-color': buttonNormalBackgroundColor,
-    '--button-secondary-hover-color': buttonSecondaryHoverColor,
-    '--button-hover-text-color': getContrastTextColor(buttonSecondaryHoverColor),
-    // Aplicar estilos de plantilla
-    ...templateStyles.cardStyle,
-  } as React.CSSProperties & Record<string, string>;
 
-  if (enableHoverEffect) {
-    cardStyles.transform = 'translateY(-5px)';
-    cardStyles.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.2)';
-  }
+  // Aplicar sistema inteligente de efectos
+  const cardStyles = getCombinedEffectsStyles(template, {
+    hover: enableHoverEffect,
+    glass: enableGlassmorphism,
+    animations: enableSubtleAnimations,
+    patterns: enableBackgroundPatterns
+  });
 
-  if (enableGlassmorphism) {
-    cardStyles.backgroundColor = 'rgba(255, 255, 255, 0.15)';
-    cardStyles.backdropFilter = 'blur(10px)';
-    cardStyles.border = '1px solid rgba(255, 255, 255, 0.2)';
-    // Mantener borderRadius consistente en 20px
-  }
-
-  if (enableSubtleAnimations) {
-    cardStyles.animation = 'fadeIn 1s ease-out';
-  }
+  // Generar clases CSS dinámicas para efectos combinados
+  const getCardClasses = () => {
+    let classes = ['text-center', 'business-card-custom'];
+    
+    // Agregar clases según efectos activos
+    if (enableBackgroundPatterns) {
+      classes.push('animated-gradient-background');
+    }
+    
+    if (enableGlassmorphism) {
+      classes.push('glass-shimmer');
+    }
+    
+    if (enableHoverEffect) {
+      classes.push('enhanced-hover');
+    }
+    
+    if (enableSubtleAnimations) {
+      classes.push(enableBackgroundPatterns ? 'fade-in-with-patterns' : 'fade-in-active');
+    }
+    
+    return classes.join(' ');
+  };
 
   return (
     <>
       <style>{staticStyles}</style>
-      <Card className={`text-center business-card-custom ${enableBackgroundPatterns ? 'animated-gradient-background' : ''}`} style={cardStyles}>
+      <Card className={getCardClasses()} style={cardStyles}>
         <Card.Body style={{ padding: 0 }}>
           <Stack gap={3}>
             <div className="header-section" style={templateStyles.headerStyle}>
@@ -523,7 +688,8 @@ ${formattedAbout ? `${formattedAbout}
               </div>
               <Card.Title as="h1" className="mb-2" style={{
                 lineHeight: 1.2,
-                color: cardTextColor,
+                // Para template creative, no aplicar cardTextColor para preservar gradiente
+                color: template === 'creative' ? 'transparent' : cardTextColor,
                 ...templateStyles.nameStyle
               }}>
                 {name}
