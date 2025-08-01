@@ -142,61 +142,7 @@ const staticStyles = `
   }
   
   /* Animación combinada para patterns - solo aplica si no hay background inline */
-  .animated-gradient-background:not([style*="background"]) {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
-    position: relative;
-  }
-  
-  /* Para elementos con background inline, solo animar el gradiente existente */
-  .animated-gradient-background[style*="linear-gradient"] {
-    background-size: 400% 400% !important;
-    animation: gradientAnimation 15s ease infinite;
-    position: relative;
-  }
-  
-  /* Efecto shimmer para glassmorphism */
-  .glass-shimmer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-    background-size: 200% 100%;
-    animation: glassShimmer 3s ease-in-out infinite;
-    pointer-events: none;
-    border-radius: inherit;
-  }
-  
-  /* Hover mejorado que respeta otros efectos */
-  .enhanced-hover {
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
-  }
-  
-  .enhanced-hover:hover {
-    animation: gentleFloat 2s ease-in-out infinite;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15) !important;
-  }
-  
-  /* Corrección para animaciones combinadas */
-  .fade-in-active {
-    animation: fadeIn 1s ease-out forwards;
-  }
-  
-  /* Para patterns, fadeIn se aplica via style, gradient via class */
-  .fade-in-with-patterns {
-    /* Solo el fadeIn inicial, gradientAnimation viene de animated-gradient-background */
-    animation: fadeIn 1.2s ease-out forwards;
-  }
-  
-  /* Cuando se combinan patterns + animations, el gradiente continúa después del fadeIn */
-  .animated-gradient-background.fade-in-with-patterns {
-    animation: fadeIn 1.2s ease-out forwards, gradientAnimation 15s ease infinite 1.2s;
-  }
+  /* CSS legacy removido - ahora se maneja con el nuevo sistema modular */
   .btn-outline-secondary-custom {
     color: var(--button-secondary-color) !important;
     border-color: var(--button-secondary-color) !important;
@@ -884,40 +830,16 @@ ${formattedAbout ? `${formattedAbout}
 
 
   // Generar clases CSS dinámicas para efectos combinados
-  const getCardClasses = () => {
-    let classes = ['text-center', 'business-card-custom'];
-    
-    // Agregar clases según efectos activos - orden importa para CSS specificity
-    if (enableBackgroundPatterns) {
-      classes.push('animated-gradient-background');
-    }
-    
-    if (enableGlassmorphism) {
-      classes.push('glass-shimmer');
-    }
-    
-    if (enableHoverEffect) {
-      classes.push('enhanced-hover');
-    }
-    
-    // Lógica mejorada para animaciones
-    if (enableSubtleAnimations) {
-      if (enableBackgroundPatterns) {
-        classes.push('fade-in-with-patterns');
-        // La combinación específica se maneja en CSS con .animated-gradient-background.fade-in-with-patterns
-      } else {
-        classes.push('fade-in-active');
-      }
-    }
-    
-    return classes.join(' ');
+  // Sistema de clases base (sin efectos - el nuevo sistema los maneja)
+  const getBaseCardClasses = () => {
+    return ['text-center', 'business-card-custom'].join(' ');
   };
 
   return (
     <>
       <style>{staticStyles}</style>
       <style>{dynamicStyles}</style>
-      <Card className={`${getCardClasses()} ${cssClasses}`} style={cardStyles}>
+      <Card className={`${getBaseCardClasses()} ${cssClasses}`} style={cardStyles}>
         {renderParticles()}
         <Card.Body style={{ padding: 0 }}>
           <Stack gap={3}>

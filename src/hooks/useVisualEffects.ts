@@ -103,20 +103,11 @@ export function useVisualEffects({
     return classes.join(' ');
   }, [effectsState]);
 
-  // Función para aplicar efectos a un elemento
+  // Función helper para aplicar efectos (opcional - principalmente para testing)
   const applyEffectsToElement = useCallback((element: HTMLElement) => {
-    // Aplicar classes CSS
-    element.className = cssClasses;
-    
-    // Insertar estilos dinámicos
-    let styleElement = document.getElementById('dynamic-effects-styles');
-    if (!styleElement) {
-      styleElement = document.createElement('style');
-      styleElement.id = 'dynamic-effects-styles';
-      document.head.appendChild(styleElement);
-    }
-    styleElement.innerHTML = dynamicStyles;
-  }, [cssClasses, dynamicStyles]);
+    // Aplicar solo classes CSS (los estilos se manejan via JSX)
+    element.className = `${element.className} ${cssClasses}`.trim();
+  }, [cssClasses]);
 
   // Información de debug mejorada
   const debugInfo = useMemo(() => {
