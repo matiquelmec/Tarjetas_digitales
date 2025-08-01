@@ -146,12 +146,15 @@ export default function Dashboard() {
         .stat-card {
           background: rgba(255, 255, 255, 0.95);
           border-radius: 16px;
-          padding: 2rem;
+          padding: 1.5rem;
           text-align: center;
           border: 1px solid rgba(255, 255, 255, 0.3);
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
           transition: all 0.3s ease;
           height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
         
         .alien-stat-card {
@@ -196,6 +199,65 @@ export default function Dashboard() {
           padding: 4px 12px;
           font-size: 0.85rem;
           font-weight: 600;
+        }
+        
+        /* Botones de Creación Alienígena */
+        .alien-create-btn {
+          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          border: none;
+          color: white;
+          padding: 8px 20px;
+          border-radius: 20px;
+          font-weight: 700;
+          font-size: 0.85rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 12px rgba(0, 246, 255, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .alien-create-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 246, 255, 0.5);
+          background: linear-gradient(135deg, #00d4e7, #0056cc);
+          color: white;
+        }
+        
+        .alien-create-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+          transition: left 0.5s ease;
+        }
+        
+        .alien-create-btn:hover::before {
+          left: 100%;
+        }
+        
+        .alien-create-btn-disabled {
+          background: linear-gradient(135deg, #6c757d, #495057);
+          border: none;
+          color: rgba(255, 255, 255, 0.6);
+          padding: 8px 20px;
+          border-radius: 20px;
+          font-weight: 600;
+          font-size: 0.85rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+        
+        .create-icon {
+          margin-right: 6px;
+          font-size: 1em;
+          filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
         }
         .alien-nav-link {
           border-radius: 16px;
@@ -612,10 +674,21 @@ export default function Dashboard() {
                     </div>
                     <h2 className="fw-bold text-dark mb-1">{cards.length}</h2>
                     <p className="text-muted mb-2">Tarjetas de Otro Mundo</p>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-center mb-3">
                       <span className="alien-badge bg-primary bg-opacity-10 text-primary fw-semibold">
                         En órbita: {cards.filter(card => card.isActive).length}
                       </span>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                      <Link href="/create">
+                        <Button 
+                          className="alien-create-btn"
+                          size="sm"
+                        >
+                          <span className="create-icon">🛸</span>
+                          CREAR
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </Col>
@@ -627,10 +700,20 @@ export default function Dashboard() {
                     </div>
                     <h2 className="fw-bold text-muted mb-1">0</h2>
                     <p className="text-muted mb-2">CVs Inteligentes</p>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-center mb-3">
                       <span className="alien-badge bg-warning bg-opacity-10 text-warning fw-semibold">
                         Próximamente
                       </span>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                      <Button 
+                        className="alien-create-btn-disabled"
+                        size="sm"
+                        disabled
+                      >
+                        <span className="create-icon">🚀</span>
+                        PRÓXIMAMENTE
+                      </Button>
                     </div>
                   </div>
                 </Col>
@@ -642,10 +725,20 @@ export default function Dashboard() {
                     </div>
                     <h2 className="fw-bold text-muted mb-1">0</h2>
                     <p className="text-muted mb-2">Presentaciones Intergalácticas</p>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-center mb-3">
                       <span className="alien-badge bg-info bg-opacity-10 text-info fw-semibold">
                         Próximamente
                       </span>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                      <Button 
+                        className="alien-create-btn-disabled"
+                        size="sm"
+                        disabled
+                      >
+                        <span className="create-icon">📡</span>
+                        PRÓXIMAMENTE
+                      </Button>
                     </div>
                   </div>
                 </Col>
