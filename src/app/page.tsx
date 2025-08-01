@@ -680,55 +680,50 @@ export default function HomePage() {
           padding: 2rem 0;
         }
         
-        /* Visual Showcase Decorativa */
-        .visual-showcase {
-          position: relative;
-          min-height: 300px;
+        /* CTA Final */
+        .final-cta {
+          background: rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(0, 246, 255, 0.2);
+          border-radius: 24px;
+          margin: 2rem 0;
         }
         
-        .spaceship-container-bottom {
+        .cta-final-button {
+          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          border: none;
+          padding: 18px 40px;
+          border-radius: 20px;
+          font-weight: 800;
+          font-size: 1.3rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          transition: all 0.4s ease;
           position: relative;
-          height: 300px;
+          overflow: hidden;
+          box-shadow: 0 12px 40px rgba(0, 246, 255, 0.4);
         }
         
-        .alien-decorations-bottom {
+        .cta-final-button:hover {
+          transform: translateY(-4px) scale(1.05);
+          box-shadow: 0 20px 60px rgba(0, 246, 255, 0.6);
+          background: linear-gradient(135deg, #00d4e7, #0056cc);
+          color: white;
+        }
+        
+        .cta-final-button::before {
+          content: '';
           position: absolute;
           top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          pointer-events: none;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+          transition: left 0.6s ease;
         }
         
-        .alien-bottom-1 {
-          top: 20%;
-          left: 15%;
-          font-size: 3rem;
-          animation: alienFloat1 8s ease-in-out infinite;
-        }
-        
-        .alien-bottom-2 {
-          top: 40%;
-          right: 20%;
-          font-size: 2.5rem;
-          animation: alienFloat2 10s ease-in-out infinite;
-          animation-delay: -2s;
-        }
-        
-        .alien-bottom-3 {
-          bottom: 30%;
-          left: 25%;
-          font-size: 2rem;
-          animation: alienFloat3 7s ease-in-out infinite;
-          animation-delay: -4s;
-        }
-        
-        .alien-bottom-4 {
-          bottom: 20%;
-          right: 15%;
-          font-size: 3.5rem;
-          animation: alienFloat1 9s ease-in-out infinite;
-          animation-delay: -6s;
+        .cta-final-button:hover::before {
+          left: 100%;
         }
         
         .capability-card {
@@ -804,12 +799,11 @@ export default function HomePage() {
             margin-bottom: 1.5rem;
           }
           
-          .visual-showcase {
-            min-height: 200px;
-          }
-          
-          .spaceship-container-bottom {
-            height: 200px;
+          .cta-final-button {
+            width: 100%;
+            max-width: 320px;
+            font-size: 1.1rem;
+            padding: 16px 32px;
           }
         }
       `}</style>
@@ -1009,19 +1003,25 @@ export default function HomePage() {
             </Col>
           </Row>
 
-          {/* Sección Visual Decorativa */}
+          {/* CTA Final */}
           <Row className="justify-content-center">
-            <Col lg={10}>
-              <div className="visual-showcase text-center py-5">
-                <div className="spaceship-container-bottom">
-                  {/* Elementos decorativos alienígenas */}
-                  <div className="alien-decorations-bottom">
-                    <div className="decoration alien-bottom-1">🌌</div>
-                    <div className="decoration alien-bottom-2">⭐</div>
-                    <div className="decoration alien-bottom-3">🌟</div>
-                    <div className="decoration alien-bottom-4">🛸</div>
-                  </div>
-                </div>
+            <Col lg={8} xl={6}>
+              <div className="final-cta text-center py-5">
+                <h3 className="text-white mb-4" style={{ fontSize: '2rem', fontWeight: '700' }}>
+                  ¿Listo para Transformar tu <span className="hero-highlight-alien">Networking</span>?
+                </h3>
+                <p className="text-white opacity-85 mb-4" style={{ fontSize: '1.1rem' }}>
+                  Únete a cientos de profesionales que ya elevaron su presencia digital
+                </p>
+                <Button 
+                  size="lg"
+                  className="cta-final-button"
+                  onClick={handleDashboardAccess}
+                >
+                  <span className="cta-icon">🚀</span>
+                  Comenzar Gratis
+                  <span className="cta-arrow">→</span>
+                </Button>
               </div>
             </Col>
           </Row>
