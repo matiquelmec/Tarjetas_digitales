@@ -538,7 +538,7 @@ ${formattedAbout ? `${formattedAbout}
     const baseStyles = {
       width: '100%',
       maxWidth: '480px',
-      color: 'var(--card-text-color)',
+      color: cardTextColor,
       transition: 'all 0.3s ease-in-out',
       padding: '40px',
       margin: '0 auto',
@@ -551,8 +551,8 @@ ${formattedAbout ? `${formattedAbout}
       '--button-hover-text-color': getContrastTextColor(buttonSecondaryHoverColor),
     };
 
-    // Determinar color de fondo inteligentemente - Usando CSS custom property
-    let backgroundColor = 'var(--card-background-color)';
+    // Determinar color de fondo inteligentemente
+    let backgroundColor = cardBackgroundColor;
     let backdropFilter = 'none';
     let border = baseTemplate.cardStyle.border || 'none';
     
@@ -560,7 +560,7 @@ ${formattedAbout ? `${formattedAbout}
       // Glassmorphism: manejar tanto colores sólidos como gradientes
       if (cardBackgroundColor.startsWith('linear-gradient')) {
         // Para gradientes, mantener el gradiente original con ligero overlay
-        backgroundColor = 'var(--card-background-color)';
+        backgroundColor = cardBackgroundColor;
         backdropFilter = 'blur(8px) saturate(1.2)';
         border = '1px solid rgba(255, 255, 255, 0.2)';
       } else {
