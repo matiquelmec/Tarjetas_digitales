@@ -619,16 +619,16 @@ export default function Dashboard() {
               <Col lg={7}>
                 <div className="hero-content">
                   <div className="hero-badge mb-3">
-                    <span className="badge-text">🚀 Plataforma Digital Profesional</span>
+                    <span className="badge-text">👽 Diseños de Otro Mundo</span>
                   </div>
                   <h1 className="hero-title text-white mb-3">
-                    Tu Identidad Digital
+                    Eleva tu Imagen Profesional
                     <br />
-                    <span className="hero-highlight">Hipnotizante</span>
+                    <span className="hero-highlight">a Otro Nivel</span>
                   </h1>
                   <p className="hero-subtitle text-white opacity-90 mb-4 fs-5">
-                    Crea tarjetas digitales, CVs inteligentes y presentaciones cinematográficas 
-                    que <strong>elevan tu imagen profesional</strong> a otro nivel
+                    Tecnología intergaláctica para crear tarjetas digitales, CVs y presentaciones 
+                    que <strong>transportan tu profesionalismo</strong> más allá de este mundo
                   </p>
                   
                   {/* CTA Principal Mejorado */}
@@ -638,8 +638,8 @@ export default function Dashboard() {
                         className="hero-cta-primary me-3 mb-2"
                         size="lg"
                       >
-                        <span className="cta-icon">💼</span>
-                        Crear Mi Primera Tarjeta
+                        <span className="cta-icon">🛸</span>
+                        Iniciar Transmisión
                         <span className="cta-arrow">→</span>
                       </Button>
                     </Link>
@@ -648,8 +648,8 @@ export default function Dashboard() {
                         className="hero-cta-secondary mb-2"
                         size="lg"
                       >
-                        <span className="cta-icon">⭐</span>
-                        Ver Planes Premium
+                        <span className="cta-icon">🌌</span>
+                        Explorar Galaxia Premium
                       </Button>
                     </Link>
                   </div>
@@ -706,9 +706,9 @@ export default function Dashboard() {
                     </div>
                     
                     {/* Elementos decorativos */}
-                    <div className="decoration decoration-1">💼</div>
-                    <div className="decoration decoration-2">✨</div>
-                    <div className="decoration decoration-3">🚀</div>
+                    <div className="decoration decoration-1">🛸</div>
+                    <div className="decoration decoration-2">👽</div>
+                    <div className="decoration decoration-3">🌌</div>
                   </div>
                 </div>
               </Col>
