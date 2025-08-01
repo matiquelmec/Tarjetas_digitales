@@ -153,25 +153,86 @@ export default function Dashboard() {
           transition: all 0.3s ease;
           height: 100%;
         }
-        .stat-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+        
+        .alien-stat-card {
+          position: relative;
+          overflow: hidden;
         }
-        .nav-pills .nav-link {
+        
+        .alien-stat-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 
+            0 16px 48px rgba(0, 0, 0, 0.2),
+            0 0 32px rgba(0, 246, 255, 0.3);
+        }
+        
+        .alien-glow-effect {
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          right: -2px;
+          bottom: -2px;
+          background: linear-gradient(45deg, transparent, #00f6ff, transparent, #8e2de2, transparent);
+          background-size: 200% 200%;
+          border-radius: inherit;
+          z-index: -1;
+          opacity: 0;
+          filter: blur(8px);
+          transition: opacity 0.3s ease;
+          animation: alienGlowRotate 3s linear infinite;
+        }
+        
+        .alien-stat-card:hover .alien-glow-effect {
+          opacity: 0.6;
+        }
+        
+        @keyframes alienGlowRotate {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
+        }
+        
+        .alien-badge {
           border-radius: 12px;
+          padding: 4px 12px;
+          font-size: 0.85rem;
+          font-weight: 600;
+        }
+        .alien-nav-link {
+          border-radius: 16px;
           margin: 0 4px;
           transition: all 0.3s ease;
-          color: #64748b !important;
-          font-weight: 500;
+          color: rgba(255, 255, 255, 0.7) !important;
+          font-weight: 600;
+          position: relative;
+          overflow: hidden;
         }
-        .nav-pills .nav-link.active {
-          background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+        
+        .alien-nav-link::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(0, 246, 255, 0.3), transparent);
+          transition: left 0.5s ease;
+        }
+        
+        .alien-nav-link:hover::before {
+          left: 100%;
+        }
+        
+        .alien-nav-link.active {
+          background: linear-gradient(135deg, #00f6ff, #0072ff) !important;
           color: white !important;
-          box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+          box-shadow: 0 4px 20px rgba(0, 246, 255, 0.4);
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
-        .nav-pills .nav-link:hover {
-          background: rgba(59, 130, 246, 0.1);
-          color: #3b82f6 !important;
+        
+        .alien-nav-link:hover:not(.active) {
+          background: rgba(0, 246, 255, 0.1);
+          color: #00f6ff !important;
+          border: 1px solid rgba(0, 246, 255, 0.3);
         }
         .action-card {
           background: white;
@@ -205,17 +266,21 @@ export default function Dashboard() {
           margin: 0 auto 1rem;
           font-size: 2rem;
         }
-        .primary-gradient {
-          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        .alien-primary-gradient {
+          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          box-shadow: 0 4px 16px rgba(0, 246, 255, 0.3);
         }
-        .success-gradient {
-          background: linear-gradient(135deg, #10b981, #059669);
+        .alien-success-gradient {
+          background: linear-gradient(135deg, #00ff88, #00cc6a);
+          box-shadow: 0 4px 16px rgba(0, 255, 136, 0.3);
         }
-        .warning-gradient {
-          background: linear-gradient(135deg, #f59e0b, #d97706);
+        .alien-warning-gradient {
+          background: linear-gradient(135deg, #ffaa00, #ff8800);
+          box-shadow: 0 4px 16px rgba(255, 170, 0, 0.3);
         }
-        .info-gradient {
-          background: linear-gradient(135deg, #06b6d4, #0891b2);
+        .alien-info-gradient {
+          background: linear-gradient(135deg, #8e2de2, #4a00e0);
+          box-shadow: 0 4px 16px rgba(142, 45, 226, 0.3);
         }
         @keyframes pulse {
           0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
@@ -223,14 +288,72 @@ export default function Dashboard() {
           100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
         }
 
-        /* Dashboard Header Simplificado */
-        .dashboard-header-minimal {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(10px);
-          border-radius: 20px;
-          padding: 2rem;
+        /* Centro de Comando Intergaláctico */
+        .alien-command-center {
+          position: relative;
+          background: linear-gradient(135deg, rgba(15, 12, 41, 0.6), rgba(48, 43, 99, 0.4));
+          backdrop-filter: blur(20px);
+          border-radius: 24px;
+          padding: 2.5rem;
           margin-bottom: 2rem;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border: 2px solid rgba(0, 246, 255, 0.2);
+          overflow: hidden;
+          box-shadow: 
+            0 8px 32px rgba(0, 246, 255, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        /* Partículas espaciales del dashboard */
+        .dashboard-particles {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .space-particle {
+          position: absolute;
+          font-size: 1.2rem;
+          animation: particleDrift 20s linear infinite;
+          opacity: 0.3;
+        }
+
+        .particle-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .particle-2 { top: 60%; left: 90%; animation-delay: -5s; }
+        .particle-3 { bottom: 10%; left: 50%; animation-delay: -10s; }
+        .particle-4 { top: 40%; right: 10%; animation-delay: -15s; }
+
+        @keyframes particleDrift {
+          0% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0; }
+          10% { opacity: 0.3; }
+          90% { opacity: 0.3; }
+          100% { transform: translateX(100px) translateY(-50px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Badge de estado alienígena */
+        .alien-status-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(0, 246, 255, 0.1);
+          border: 1px solid rgba(0, 246, 255, 0.3);
+          padding: 6px 16px;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          color: #00f6ff;
+        }
+
+        .signal-indicator {
+          font-size: 1em;
+          animation: signalPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes signalPulse {
+          0%, 100% { opacity: 0.6; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.1); }
         }
 
         .dashboard-welcome {
@@ -245,23 +368,42 @@ export default function Dashboard() {
           font-family: 'Montserrat', sans-serif;
         }
 
+        .alien-glow-text {
+          background: linear-gradient(135deg, #00f6ff, #0072ff, #8e2de2);
+          background-size: 200% 200%;
+          animation: alienTextGlow 3s ease-in-out infinite;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        @keyframes alienTextGlow {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+
         .dashboard-subtitle {
           font-size: 1.1rem;
           margin: 0;
         }
 
-        .user-highlight {
+        .commander-name {
           color: #00f6ff;
-          font-weight: 600;
+          font-weight: 700;
+          text-shadow: 0 0 10px rgba(0, 246, 255, 0.5);
         }
 
-        /* Quick Stats Bar Compacto */
+        /* Quick Stats Bar Alienígena */
         .quick-stats-bar {
           display: flex;
           align-items: center;
           justify-content: flex-end;
           gap: 1.5rem;
           height: 100%;
+        }
+
+        .alien-stat {
+          position: relative;
         }
 
         .stat-compact {
@@ -271,31 +413,42 @@ export default function Dashboard() {
           text-align: center;
         }
 
+        .stat-icon {
+          font-size: 1.5rem;
+          margin-bottom: 4px;
+          filter: drop-shadow(0 0 8px rgba(0, 246, 255, 0.6));
+        }
+
         .stat-value {
           font-size: 1.8rem;
           font-weight: 800;
           color: #ffffff;
           line-height: 1;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .stat-label-compact {
           font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: rgba(255, 255, 255, 0.7);
           text-transform: uppercase;
           letter-spacing: 0.5px;
           margin-top: 4px;
         }
 
         .stat-divider-compact {
-          color: rgba(255, 255, 255, 0.3);
-          font-size: 1.5rem;
+          color: #00f6ff;
+          font-size: 1.2rem;
+          filter: drop-shadow(0 0 6px rgba(0, 246, 255, 0.8));
         }
 
-        .plan-badge {
-          background: linear-gradient(135deg, #00f6ff, #0072ff);
-          padding: 4px 12px;
-          border-radius: 12px;
-          font-size: 0.9rem;
+        .plan-badge-alien {
+          background: linear-gradient(135deg, #ffd700, #ffb347);
+          padding: 6px 14px;
+          border-radius: 14px;
+          font-size: 0.85rem;
+          font-weight: 700;
+          color: #1a1a1a;
+          box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
         }
 
         /* Responsive */
@@ -320,33 +473,50 @@ export default function Dashboard() {
       `}</style>
       <div className="animated-gradient-background">
         <Container className="py-5">
-          {/* Header Simplificado del Dashboard */}
-          <div className="dashboard-header-minimal">
+          {/* Centro de Comando Intergaláctico */}
+          <div className="alien-command-center">
+            {/* Partículas espaciales sutiles */}
+            <div className="dashboard-particles">
+              <span className="space-particle particle-1">✨</span>
+              <span className="space-particle particle-2">🌟</span>
+              <span className="space-particle particle-3">⭐</span>
+              <span className="space-particle particle-4">💫</span>
+            </div>
+            
             <Row className="align-items-center">
               <Col lg={8}>
                 <div className="dashboard-welcome">
+                  <div className="alien-status-badge mb-2">
+                    <span className="signal-indicator">📡</span>
+                    <small>Conectado al Sistema Intergaláctico</small>
+                  </div>
                   <h1 className="dashboard-title text-white mb-2">
-                    Panel de Control
+                    Centro de Comando <span className="alien-glow-text">Intergaláctico</span>
                   </h1>
-                  <p className="dashboard-subtitle text-white opacity-75">
-                    Bienvenido de vuelta, <span className="user-highlight">{session?.user?.name?.split(' ')[0] || 'Usuario'}</span>
+                  <p className="dashboard-subtitle text-white opacity-90">
+                    Transmisión recibida, <span className="commander-name">Comandante {session?.user?.name?.split(' ')[0] || 'Usuario'}</span>
                   </p>
                 </div>
               </Col>
               <Col lg={4}>
                 <div className="quick-stats-bar">
-                  <div className="stat-compact">
+                  <div className="stat-compact alien-stat">
+                    <span className="stat-icon">🛸</span>
                     <span className="stat-value">{cards.length}</span>
-                    <span className="stat-label-compact">Tarjetas</span>
+                    <span className="stat-label-compact">Perfiles Activos</span>
                   </div>
-                  <div className="stat-divider-compact">|</div>
-                  <div className="stat-compact">
+                  <div className="stat-divider-compact">⚡</div>
+                  <div className="stat-compact alien-stat">
+                    <span className="stat-icon">📡</span>
                     <span className="stat-value">{cards.reduce((sum, card) => sum + card.views, 0)}</span>
-                    <span className="stat-label-compact">Vistas</span>
+                    <span className="stat-label-compact">Escaneos</span>
                   </div>
-                  <div className="stat-divider-compact">|</div>
-                  <div className="stat-compact">
-                    <span className="stat-value plan-badge">{session?.user?.plan || 'FREE'}</span>
+                  <div className="stat-divider-compact">⚡</div>
+                  <div className="stat-compact alien-stat">
+                    <span className="stat-icon">🌟</span>
+                    <span className="stat-value plan-badge-alien">
+                      {session?.user?.plan === 'premium' ? 'COMANDANTE' : 'EXPLORADOR'}
+                    </span>
                   </div>
                 </div>
               </Col>
@@ -385,9 +555,9 @@ export default function Dashboard() {
                       <Link href="/dashboard" passHref legacyBehavior>
                         <Nav.Link 
                           active={pathname === '/dashboard'} 
-                          className={`border-0 py-3 fw-semibold ${pathname === '/dashboard' ? 'active' : ''}`}
+                          className={`alien-nav-link border-0 py-3 fw-semibold ${pathname === '/dashboard' ? 'active' : ''}`}
                         >
-                          📊 Resumen General
+                          🌌 Centro de Comando
                         </Nav.Link>
                       </Link>
                     </Nav.Item>
@@ -395,9 +565,9 @@ export default function Dashboard() {
                       <Link href="/dashboard/cards" passHref legacyBehavior>
                         <Nav.Link 
                           active={pathname === '/dashboard/cards'} 
-                          className={`border-0 py-3 fw-semibold ${pathname === '/dashboard/cards' ? 'active' : ''}`}
+                          className={`alien-nav-link border-0 py-3 fw-semibold ${pathname === '/dashboard/cards' ? 'active' : ''}`}
                         >
-                          💼 Mis Tarjetas
+                          🛸 Perfiles Dimensionales
                         </Nav.Link>
                       </Link>
                     </Nav.Item>
@@ -405,26 +575,26 @@ export default function Dashboard() {
                       <Link href="/dashboard/cv" passHref legacyBehavior>
                         <Nav.Link 
                           active={pathname === '/dashboard/cv'} 
-                          className={`border-0 py-3 fw-semibold ${pathname === '/dashboard/cv' ? 'active' : ''}`}
+                          className={`alien-nav-link border-0 py-3 fw-semibold ${pathname === '/dashboard/cv' ? 'active' : ''}`}
                         >
-                          🚀 CVs Inteligentes
+                          🚀 Archivos Inteligentes
                         </Nav.Link>
                       </Link>
                     </Nav.Item>
                     <Nav.Item className="px-1">
                       <OverlayTrigger
                         placement="top"
-                        overlay={<Tooltip>Disponible en Marzo 2025. Crea presentaciones cinematográficas con IA.</Tooltip>}
+                        overlay={<Tooltip>Transmisión programada para Marzo 2025. Presentaciones holográficas con IA.</Tooltip>}
                       >
                         <div>
                           <Nav.Link 
                             href="#"
-                            className="border-0 py-3 text-muted"
+                            className="alien-nav-link border-0 py-3 text-muted"
                             style={{ cursor: 'not-allowed' }}
                           >
-                            🎯 Presentaciones
+                            📡 Transmisiones Inmersivas
                             <br />
-                            <small className="text-muted">(Próximamente)</small>
+                            <small className="text-muted">(En desarrollo)</small>
                           </Nav.Link>
                         </div>
                       </OverlayTrigger>
@@ -438,60 +608,64 @@ export default function Dashboard() {
           {/* Tab Content */}
           {pathname === '/dashboard' && (
             <>
-              {/* Stats Overview */}
+              {/* Estadísticas Intergalácticas */}
               <Row className="mb-5 g-4">
                 <Col md={6} lg={3}>
-                  <div className="stat-card">
-                    <div className="icon-wrapper primary-gradient text-white">
-                      💼
+                  <div className="stat-card alien-stat-card">
+                    <div className="alien-glow-effect"></div>
+                    <div className="icon-wrapper alien-primary-gradient text-white">
+                      🛸
                     </div>
                     <h2 className="fw-bold text-dark mb-1">{cards.length}</h2>
-                    <p className="text-muted mb-2">Tarjetas Creadas</p>
+                    <p className="text-muted mb-2">Perfiles Dimensionales</p>
                     <div className="d-flex justify-content-center">
-                      <span className="badge bg-primary bg-opacity-10 text-primary fw-semibold">
-                        Activas: {cards.filter(card => card.isActive).length}
+                      <span className="alien-badge bg-primary bg-opacity-10 text-primary fw-semibold">
+                        En órbita: {cards.filter(card => card.isActive).length}
                       </span>
                     </div>
                   </div>
                 </Col>
                 <Col md={6} lg={3}>
-                  <div className="stat-card">
-                    <div className="icon-wrapper success-gradient text-white">
-                      👁️
+                  <div className="stat-card alien-stat-card">
+                    <div className="alien-glow-effect"></div>
+                    <div className="icon-wrapper alien-success-gradient text-white">
+                      📡
                     </div>
                     <h2 className="fw-bold text-dark mb-1">{cards.reduce((sum, card) => sum + card.views, 0)}</h2>
-                    <p className="text-muted mb-2">Visualizaciones</p>
+                    <p className="text-muted mb-2">Escaneos Recibidos</p>
                     <div className="d-flex justify-content-center">
-                      <span className="badge bg-success bg-opacity-10 text-success fw-semibold">
-                        Este mes
+                      <span className="alien-badge bg-success bg-opacity-10 text-success fw-semibold">
+                        Señales activas
                       </span>
                     </div>
                   </div>
                 </Col>
                 <Col md={6} lg={3}>
-                  <div className="stat-card">
-                    <div className="icon-wrapper warning-gradient text-white">
+                  <div className="stat-card alien-stat-card">
+                    <div className="alien-glow-effect"></div>
+                    <div className="icon-wrapper alien-warning-gradient text-white">
                       🚀
                     </div>
                     <h2 className="fw-bold text-muted mb-1">0</h2>
-                    <p className="text-muted mb-2">CVs Optimizados</p>
+                    <p className="text-muted mb-2">Archivos Optimizados</p>
                     <div className="d-flex justify-content-center">
-                      <span className="badge bg-warning bg-opacity-10 text-warning fw-semibold">
-                        Feb 2025
+                      <span className="alien-badge bg-warning bg-opacity-10 text-warning fw-semibold">
+                        Llegada: Feb 2025
                       </span>
                     </div>
                   </div>
                 </Col>
                 <Col md={6} lg={3}>
-                  <div className="stat-card">
-                    <div className="icon-wrapper info-gradient text-white">
-                      🎯
+                  <div className="stat-card alien-stat-card">
+                    <div className="alien-glow-effect"></div>
+                    <div className="icon-wrapper alien-info-gradient text-white">
+                      📡
                     </div>
                     <h2 className="fw-bold text-muted mb-1">0</h2>
-                    <p className="text-muted mb-2">Presentaciones</p>
+                    <p className="text-muted mb-2">Transmisiones</p>
                     <div className="d-flex justify-content-center">
-                      <span className="badge bg-info bg-opacity-10 text-info fw-semibold">
-                        Mar 2025
+                      <span className="alien-badge bg-info bg-opacity-10 text-info fw-semibold">
+                        Llegada: Mar 2025
                       </span>
                     </div>
                   </div>
@@ -504,12 +678,12 @@ export default function Dashboard() {
                   <div className="glass-card border-0">
                     <div className="p-4">
                       <div className="d-flex align-items-center mb-4">
-                        <div className="icon-wrapper primary-gradient text-white me-3" style={{ width: '48px', height: '48px' }}>
-                          🚀
+                        <div className="icon-wrapper alien-primary-gradient text-white me-3" style={{ width: '48px', height: '48px' }}>
+                          ⚡
                         </div>
                         <div>
-                          <h4 className="fw-bold text-dark mb-1">Acciones Rápidas</h4>
-                          <p className="text-muted mb-0">Crea contenido profesional en minutos</p>
+                          <h4 className="fw-bold text-dark mb-1">Misiones Disponibles</h4>
+                          <p className="text-muted mb-0">Inicia tu próxima misión intergaláctica</p>
                         </div>
                       </div>
                       
@@ -519,9 +693,9 @@ export default function Dashboard() {
                             <div className="icon-wrapper primary-gradient text-white">
                               💼
                             </div>
-                            <h5 className="fw-bold text-dark mb-2">Crear Tarjeta Digital</h5>
+                            <h5 className="fw-bold text-dark mb-2">Crear Perfil Dimensional</h5>
                             <p className="text-muted mb-4">
-                              Diseña tu tarjeta profesional con efectos visuales únicos en solo 5 minutos
+                              Diseña tu identidad intergaláctica con efectos de otro mundo
                             </p>
                             <Link href="/create">
                               <Button 
@@ -529,7 +703,7 @@ export default function Dashboard() {
                                 className="w-100 fw-semibold py-2"
                                 style={{ borderRadius: '12px' }}
                               >
-                                Crear Nueva Tarjeta
+                                Iniciar Transmisión 🛸
                               </Button>
                             </Link>
                           </div>
@@ -539,9 +713,9 @@ export default function Dashboard() {
                             <div className="icon-wrapper warning-gradient text-white">
                               🚀
                             </div>
-                            <h5 className="fw-bold text-muted mb-2">Optimizar CV con IA</h5>
+                            <h5 className="fw-bold text-muted mb-2">Archivo Inteligente IA</h5>
                             <p className="text-muted mb-4">
-                              Mejora tu CV con inteligencia artificial y análisis ATS automático
+                              Optimiza tu archivo profesional con tecnología alienígena avanzada
                             </p>
                             <Button 
                               variant="outline-secondary" 
@@ -549,7 +723,7 @@ export default function Dashboard() {
                               disabled
                               style={{ borderRadius: '12px' }}
                             >
-                              Febrero 2025
+                              Llegada: Feb 2025 🚀
                             </Button>
                           </div>
                         </Col>
@@ -558,9 +732,9 @@ export default function Dashboard() {
                             <div className="icon-wrapper info-gradient text-white">
                               🎯
                             </div>
-                            <h5 className="fw-bold text-muted mb-2">Crear Presentación</h5>
+                            <h5 className="fw-bold text-muted mb-2">Transmisión Holográfica</h5>
                             <p className="text-muted mb-4">
-                              Presenta con transiciones cinematográficas y elementos interactivos
+                              Proyecta presentaciones holográficas con efectos intergalácticos
                             </p>
                             <Button 
                               variant="outline-secondary" 
@@ -568,7 +742,7 @@ export default function Dashboard() {
                               disabled
                               style={{ borderRadius: '12px' }}
                             >
-                              Marzo 2025
+                              Llegada: Mar 2025 📡
                             </Button>
                           </div>
                         </Col>
