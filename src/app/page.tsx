@@ -317,8 +317,8 @@ export default function HomePage() {
           overflow: hidden;
         }
         
-        .min-vh-80 {
-          min-height: 80vh;
+        .min-vh-60 {
+          min-height: 60vh;
         }
         
         /* Partículas espaciales */
@@ -677,7 +677,58 @@ export default function HomePage() {
         
         /* Capabilities Section */
         .platform-capabilities {
-          padding: 3rem 0;
+          padding: 2rem 0;
+        }
+        
+        /* Visual Showcase Decorativa */
+        .visual-showcase {
+          position: relative;
+          min-height: 300px;
+        }
+        
+        .spaceship-container-bottom {
+          position: relative;
+          height: 300px;
+        }
+        
+        .alien-decorations-bottom {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+        }
+        
+        .alien-bottom-1 {
+          top: 20%;
+          left: 15%;
+          font-size: 3rem;
+          animation: alienFloat1 8s ease-in-out infinite;
+        }
+        
+        .alien-bottom-2 {
+          top: 40%;
+          right: 20%;
+          font-size: 2.5rem;
+          animation: alienFloat2 10s ease-in-out infinite;
+          animation-delay: -2s;
+        }
+        
+        .alien-bottom-3 {
+          bottom: 30%;
+          left: 25%;
+          font-size: 2rem;
+          animation: alienFloat3 7s ease-in-out infinite;
+          animation-delay: -4s;
+        }
+        
+        .alien-bottom-4 {
+          bottom: 20%;
+          right: 15%;
+          font-size: 3.5rem;
+          animation: alienFloat1 9s ease-in-out infinite;
+          animation-delay: -6s;
         }
         
         .capability-card {
@@ -720,19 +771,23 @@ export default function HomePage() {
             padding: 2rem 1rem;
           }
           
+          .min-vh-60 {
+            min-height: 50vh;
+          }
+          
           .spaceship-container {
-            height: 350px;
-            margin-top: 2rem;
+            height: 300px;
+            margin-top: 1rem;
           }
           
           .card-hologram {
-            width: 280px;
-            height: 180px;
-            padding: 20px;
+            width: 260px;
+            height: 160px;
+            padding: 16px;
           }
           
           .spaceship {
-            font-size: 3rem;
+            font-size: 2.5rem;
           }
           
           .hero-ctas {
@@ -740,10 +795,21 @@ export default function HomePage() {
             align-items: center;
           }
           
-          .cta-abduction-primary,
-          .cta-abduction-secondary {
+          .cta-abduction-primary {
             width: 100%;
             max-width: 300px;
+          }
+          
+          .capability-card {
+            margin-bottom: 1.5rem;
+          }
+          
+          .visual-showcase {
+            min-height: 200px;
+          }
+          
+          .spaceship-container-bottom {
+            height: 200px;
           }
         }
       `}</style>
@@ -795,7 +861,7 @@ export default function HomePage() {
               <div className="particle space-particle-6"></div>
             </div>
             
-            <Row className="align-items-center min-vh-80">
+            <Row className="align-items-center min-vh-60">
               <Col lg={7}>
                 <div className="hero-content text-center text-lg-start">
                   <div className="alien-badge mb-3">
@@ -875,9 +941,9 @@ export default function HomePage() {
           </div>
 
           {/* ¿Qué Puedes Hacer en Nuestra Plataforma? */}
-          <Row className="justify-content-center">
+          <Row className="justify-content-center mb-5">
             <Col lg={10} xl={8}>
-              <div className="platform-capabilities text-center mb-5">
+              <div className="platform-capabilities text-center">
                 <h2 className="text-white mb-5" style={{ fontSize: '2.5rem', fontWeight: '800' }}>
                   ¿Qué Puedes Hacer en Nuestra <span className="hero-highlight-alien">Plataforma</span>?
                 </h2>
@@ -939,6 +1005,23 @@ export default function HomePage() {
                     </div>
                   </Col>
                 </Row>
+              </div>
+            </Col>
+          </Row>
+
+          {/* Sección Visual Decorativa */}
+          <Row className="justify-content-center">
+            <Col lg={10}>
+              <div className="visual-showcase text-center py-5">
+                <div className="spaceship-container-bottom">
+                  {/* Elementos decorativos alienígenas */}
+                  <div className="alien-decorations-bottom">
+                    <div className="decoration alien-bottom-1">🌌</div>
+                    <div className="decoration alien-bottom-2">⭐</div>
+                    <div className="decoration alien-bottom-3">🌟</div>
+                    <div className="decoration alien-bottom-4">🛸</div>
+                  </div>
+                </div>
               </div>
             </Col>
           </Row>
