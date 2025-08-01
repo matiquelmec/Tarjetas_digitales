@@ -350,6 +350,33 @@ export default function Dashboard() {
           100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
         }
 
+        /* Cards clicables con hover effects */
+        .clickable-stat-card {
+          cursor: pointer;
+          transition: all 0.3s ease;
+          position: relative;
+        }
+
+        .clickable-stat-card:hover {
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-hover-text {
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          margin-top: 8px;
+        }
+
+        .clickable-stat-card:hover .card-hover-text {
+          opacity: 1;
+        }
+
+        .clickable-stat-card:hover .alien-glow-effect {
+          opacity: 0.8;
+          transform: scale(1.1);
+        }
+
         /* Centro de Comando Intergaláctico */
         .alien-command-center {
           position: relative;
@@ -579,79 +606,6 @@ export default function Dashboard() {
             </Row>
           </div>
 
-          {/* Navigation Tabs */}
-          <Row className="mb-5">
-            <Col>
-              <Card className="glass-card border-0">
-                <Card.Body className="p-3">
-                  <div className="d-block d-lg-none mb-3">
-                    {/* Mobile: Dropdown navigation */}
-                    <div className="dropdown">
-                      <button 
-                        className="btn btn-outline-light dropdown-toggle w-100 text-start" 
-                        type="button" 
-                        data-bs-toggle="dropdown"
-                      >
-                        {pathname === '/dashboard' && '📊 Resumen General'}
-                        {pathname === '/dashboard/cards' && '💼 Mis Tarjetas'}
-                        {pathname === '/dashboard/cv' && '🚀 CVs Inteligentes'}
-                      </button>
-                      <ul className="dropdown-menu w-100">
-                        <li><Link href="/dashboard" className="dropdown-item">📊 Resumen General</Link></li>
-                        <li><Link href="/dashboard/cards" className="dropdown-item">💼 Mis Tarjetas</Link></li>
-                        <li><Link href="/dashboard/cv" className="dropdown-item">🚀 CVs Inteligentes</Link></li>
-                        <li><span className="dropdown-item text-muted">🎯 Presentaciones (Próximamente)</span></li>
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  {/* Desktop: Tab navigation */}
-                  <Nav variant="pills" className="nav-fill d-none d-lg-flex">
-                    <Nav.Item className="px-1">
-                      <Link href="/dashboard" passHref legacyBehavior>
-                        <Nav.Link 
-                          active={pathname === '/dashboard'} 
-                          className={`alien-nav-link border-0 py-3 fw-semibold ${pathname === '/dashboard' ? 'active' : ''}`}
-                        >
-                          🌌 Centro de Comando
-                        </Nav.Link>
-                      </Link>
-                    </Nav.Item>
-                    <Nav.Item className="px-1">
-                      <Link href="/dashboard/cards" passHref legacyBehavior>
-                        <Nav.Link 
-                          active={pathname === '/dashboard/cards'} 
-                          className={`alien-nav-link border-0 py-3 fw-semibold ${pathname === '/dashboard/cards' ? 'active' : ''}`}
-                        >
-                          🛸 Tarjetas de Otro Mundo
-                        </Nav.Link>
-                      </Link>
-                    </Nav.Item>
-                    <Nav.Item className="px-1">
-                      <Link href="/dashboard/cv" passHref legacyBehavior>
-                        <Nav.Link 
-                          active={pathname === '/dashboard/cv'} 
-                          className={`alien-nav-link border-0 py-3 fw-semibold ${pathname === '/dashboard/cv' ? 'active' : ''}`}
-                        >
-                          🚀 CVs Inteligentes
-                        </Nav.Link>
-                      </Link>
-                    </Nav.Item>
-                    <Nav.Item className="px-1">
-                      <Link href="/dashboard/presentations" passHref legacyBehavior>
-                        <Nav.Link 
-                          active={pathname === '/dashboard/presentations'} 
-                          className={`alien-nav-link border-0 py-3 fw-semibold ${pathname === '/dashboard/presentations' ? 'active' : ''}`}
-                        >
-                          📡 Presentaciones Intergalácticas
-                        </Nav.Link>
-                      </Link>
-                    </Nav.Item>
-                  </Nav>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
 
           {/* Tab Content */}
           {pathname === '/dashboard' && (
@@ -659,82 +613,64 @@ export default function Dashboard() {
               {/* Estadísticas Intergalácticas */}
               <Row className="mb-5 g-4">
                 <Col md={6} lg={4}>
-                  <div className="stat-card alien-stat-card">
-                    <div className="alien-glow-effect"></div>
-                    <div className="icon-wrapper alien-primary-gradient text-white">
-                      🛸
+                  <Link href="/dashboard/cards" className="text-decoration-none">
+                    <div className="stat-card alien-stat-card clickable-stat-card">
+                      <div className="alien-glow-effect"></div>
+                      <div className="icon-wrapper alien-primary-gradient text-white">
+                        🛸
+                      </div>
+                      <h2 className="fw-bold text-dark mb-1">{cards.length}</h2>
+                      <p className="text-muted mb-2">Tarjetas de Otro Mundo</p>
+                      <div className="d-flex justify-content-center mb-3">
+                        <span className="alien-badge bg-primary bg-opacity-10 text-primary fw-semibold">
+                          En órbita: {cards.filter(card => card.isActive).length}
+                        </span>
+                      </div>
+                      <div className="card-hover-text">
+                        <small className="text-primary fw-semibold">Click para gestionar →</small>
+                      </div>
                     </div>
-                    <h2 className="fw-bold text-dark mb-1">{cards.length}</h2>
-                    <p className="text-muted mb-2">Tarjetas de Otro Mundo</p>
-                    <div className="d-flex justify-content-center mb-3">
-                      <span className="alien-badge bg-primary bg-opacity-10 text-primary fw-semibold">
-                        En órbita: {cards.filter(card => card.isActive).length}
-                      </span>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                      <Link href="/create">
-                        <Button 
-                          className="alien-create-btn"
-                          size="sm"
-                        >
-                          <span className="create-icon">🛸</span>
-                          CREAR
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
+                  </Link>
                 </Col>
                 <Col md={6} lg={4}>
-                  <div className="stat-card alien-stat-card">
-                    <div className="alien-glow-effect"></div>
-                    <div className="icon-wrapper alien-warning-gradient text-white">
-                      🚀
+                  <Link href="/dashboard/cv" className="text-decoration-none">
+                    <div className="stat-card alien-stat-card clickable-stat-card">
+                      <div className="alien-glow-effect"></div>
+                      <div className="icon-wrapper alien-warning-gradient text-white">
+                        🚀
+                      </div>
+                      <h2 className="fw-bold text-muted mb-1">0</h2>
+                      <p className="text-muted mb-2">CVs Inteligentes</p>
+                      <div className="d-flex justify-content-center mb-3">
+                        <span className="alien-badge bg-warning bg-opacity-10 text-warning fw-semibold">
+                          Próximamente
+                        </span>
+                      </div>
+                      <div className="card-hover-text">
+                        <small className="text-warning fw-semibold">Click para crear →</small>
+                      </div>
                     </div>
-                    <h2 className="fw-bold text-muted mb-1">0</h2>
-                    <p className="text-muted mb-2">CVs Inteligentes</p>
-                    <div className="d-flex justify-content-center mb-3">
-                      <span className="alien-badge bg-warning bg-opacity-10 text-warning fw-semibold">
-                        Próximamente
-                      </span>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                      <Link href="/dashboard/cv">
-                        <Button 
-                          className="alien-create-btn"
-                          size="sm"
-                        >
-                          <span className="create-icon">🚀</span>
-                          CREAR
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
+                  </Link>
                 </Col>
                 <Col md={6} lg={4}>
-                  <div className="stat-card alien-stat-card">
-                    <div className="alien-glow-effect"></div>
-                    <div className="icon-wrapper alien-info-gradient text-white">
-                      📡
+                  <Link href="/dashboard/presentations" className="text-decoration-none">
+                    <div className="stat-card alien-stat-card clickable-stat-card">
+                      <div className="alien-glow-effect"></div>
+                      <div className="icon-wrapper alien-info-gradient text-white">
+                        📡
+                      </div>
+                      <h2 className="fw-bold text-muted mb-1">0</h2>
+                      <p className="text-muted mb-2">Presentaciones Intergalácticas</p>
+                      <div className="d-flex justify-content-center mb-3">
+                        <span className="alien-badge bg-info bg-opacity-10 text-info fw-semibold">
+                          Próximamente
+                        </span>
+                      </div>
+                      <div className="card-hover-text">
+                        <small className="text-info fw-semibold">Click para explorar →</small>
+                      </div>
                     </div>
-                    <h2 className="fw-bold text-muted mb-1">0</h2>
-                    <p className="text-muted mb-2">Presentaciones Intergalácticas</p>
-                    <div className="d-flex justify-content-center mb-3">
-                      <span className="alien-badge bg-info bg-opacity-10 text-info fw-semibold">
-                        Próximamente
-                      </span>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                      <Link href="/dashboard/presentations">
-                        <Button 
-                          className="alien-create-btn"
-                          size="sm"
-                        >
-                          <span className="create-icon">📡</span>
-                          CREAR
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
+                  </Link>
                 </Col>
               </Row>
 
