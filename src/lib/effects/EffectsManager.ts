@@ -84,11 +84,18 @@ export class EffectsManager {
 
     // Hover Effects
     if (effects.hoverEffect.enabled) {
+      const intensity = effects.hoverEffect.intensity || 1;
+      const liftAmount = 5 * intensity;
+      const scaleAmount = 1 + (0.02 * intensity);
+      const shadowIntensity = 0.3 * intensity;
+      
       styles.push(`
-        .business-card:hover {
-          transform: translateY(-5px) scale(1.02);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        .business-card.effect-hover {
           transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .business-card.effect-hover:hover {
+          transform: translateY(-${liftAmount}px) scale(${scaleAmount});
+          box-shadow: 0 ${liftAmount * 4}px ${liftAmount * 8}px rgba(0, 0, 0, ${shadowIntensity});
         }
       `);
     }
@@ -150,31 +157,82 @@ export class EffectsManager {
 
     // Subtle Animations
     if (effects.subtleAnimations.enabled) {
+      const intensity = effects.subtleAnimations.intensity || 0.6;
+      const scaleAmount = 1 + (0.01 * intensity);
+      const duration = 4 + (2 * (1 - intensity)); // Más lento = más sutil
+      
       styles.push(`
-        .business-card {
-          animation: breathe 4s ease-in-out infinite;
+        .business-card.effect-animate {
+          animation: subtleBreathe ${duration}s ease-in-out infinite;
         }
-        @keyframes breathe {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.01); }
+        
+        /* Solo aplicar breathe si NO hay hover activo */
+        .business-card.effect-animate:not(.effect-hover) {
+          animation: subtleBreathe ${duration}s ease-in-out infinite;
+        }
+        
+        /* Si hay hover, pausar la animación durante hover */
+        .business-card.effect-animate.effect-hover:hover {
+          animation-play-state: paused;
+        }
+        
+        @keyframes subtleBreathe {
+          0%, 100% { 
+            transform: scale(1);
+            filter: brightness(1);
+          }
+          50% { 
+            transform: scale(${scaleAmount});
+            filter: brightness(1.02);
+          }
         }
       `);
     }
 
     // Background Patterns
     if (effects.backgroundPatterns.enabled) {
+      const intensity = effects.backgroundPatterns.intensity || 0.4;
+      const patternOpacity = 0.2 * intensity;
+      
+      // Usar ::after para evitar conflicto con glassmorphism que usa ::before
+      const pseudoElement = effects.glassmorphism.enabled ? '::after' : '::before';
+      const zIndex = effects.glassmorphism.enabled ? 1 : 0;
+      
+      // Adaptar colores según el fondo del usuario
+      const baseColor = this.extractBaseColor(cardColors.background);
+      const isLight = this.isLightColor(baseColor);
+      
+      const pattern1Color = isLight 
+        ? `rgba(100, 100, 200, ${patternOpacity})` 
+        : `rgba(200, 200, 255, ${patternOpacity})`;
+      const pattern2Color = isLight 
+        ? `rgba(200, 100, 200, ${patternOpacity})` 
+        : `rgba(255, 200, 255, ${patternOpacity})`;
+      
       styles.push(`
-        .business-card::before {
+        .business-card.effect-patterns {
+          position: relative;
+        }
+        .business-card.effect-patterns${pseudoElement} {
           content: '';
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
-          background-image: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                           radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+          background-image: 
+            radial-gradient(circle at 25% 75%, ${pattern1Color} 0%, transparent 50%),
+            radial-gradient(circle at 75% 25%, ${pattern2Color} 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(255, 255, 255, ${patternOpacity * 0.5}) 0%, transparent 30%);
           border-radius: inherit;
           pointer-events: none;
+          z-index: ${zIndex};
+          opacity: 0;
+          animation: patternFadeIn 2s ease-in-out forwards;
+        }
+        
+        @keyframes patternFadeIn {
+          to { opacity: 1; }
         }
       `);
     }
@@ -320,15 +378,38 @@ export class EffectsManager {
 
     // Glassmorphism + Background Patterns puede causar conflictos visuales
     if (effects.glassmorphism.enabled && effects.backgroundPatterns.enabled) {
-      warnings.push("Glassmorphism y patrones de fondo pueden crear conflictos visuales");
-      recommendations.push("Considera reducir la intensidad de uno de los efectos");
+      warnings.push("Glassmorphism y patrones de fondo activos - usando ::after para patrones");
+      recommendations.push("Efectos compatibles - sin problemas detectados");
+    }
+
+    // Hover + Subtle Animations pueden colisionar
+    if (effects.hoverEffect.enabled && effects.subtleAnimations.enabled) {
+      recommendations.push("Hover pausará animaciones automáticamente durante interacción");
+    }
+
+    // Partículas + muchos efectos
+    if (effects.particles.enabled) {
+      const otherEffects = Object.entries(effects)
+        .filter(([key, effect]) => key !== 'particles' && effect.enabled).length;
+      
+      if (otherEffects > 2) {
+        warnings.push(`Partículas + ${otherEffects} efectos adicionales pueden afectar performance`);
+        recommendations.push("En móviles se reducirá automáticamente el número de partículas");
+      }
+
+      // Validar tipo de partícula
+      const validTypes = ['floating', 'constellation', 'professional', 'creative'];
+      if (!validTypes.includes(effects.particles.type)) {
+        warnings.push(`Tipo de partícula "${effects.particles.type}" no reconocido`);
+        recommendations.push("Usar: floating, constellation, professional, o creative");
+      }
     }
 
     // Muchos efectos activos pueden afectar performance
     const activeEffects = Object.values(effects).filter(effect => effect.enabled).length;
-    if (activeEffects > 3) {
-      warnings.push(`${activeEffects} efectos activos pueden afectar performance`);
-      recommendations.push("Considera desactivar algunos efectos para mejor rendimiento");
+    if (activeEffects > 4) {
+      warnings.push(`${activeEffects} efectos activos - performance puede verse afectada`);
+      recommendations.push("Considera reducir efectos o usar configuración automática para móvil");
     }
 
     return {

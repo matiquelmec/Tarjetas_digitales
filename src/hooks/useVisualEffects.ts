@@ -118,15 +118,43 @@ export function useVisualEffects({
     styleElement.innerHTML = dynamicStyles;
   }, [cssClasses, dynamicStyles]);
 
-  // Información de debug
-  const debugInfo = useMemo(() => ({
-    activeEffects: Object.entries(effectsState)
+  // Información de debug mejorada
+  const debugInfo = useMemo(() => {
+    const activeEffects = Object.entries(effectsState)
       .filter(([_, config]) => config.enabled)
-      .map(([name, _]) => name),
-    isMobile,
-    validation,
-    totalEffects: Object.values(effectsState).filter(effect => effect.enabled).length
-  }), [effectsState, isMobile, validation]);
+      .map(([name, config]) => ({
+        name,
+        intensity: config.intensity || 1,
+        type: name === 'particles' ? (config as any).type : undefined
+      }));
+
+    // Log en desarrollo para detectar problemas
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🎨 Visual Effects State:', {
+        activeEffects,
+        validation,
+        isMobile,
+        dynamicStylesLength: dynamicStyles.length,
+        cssClasses
+      });
+      
+      if (validation.warnings.length > 0) {
+        console.warn('⚠️ Effects Warnings:', validation.warnings);
+      }
+      if (validation.recommendations.length > 0) {
+        console.info('💡 Effects Recommendations:', validation.recommendations);
+      }
+    }
+
+    return {
+      activeEffects,
+      isMobile,
+      validation,
+      totalEffects: Object.values(effectsState).filter(effect => effect.enabled).length,
+      generatedStyles: dynamicStyles.split('\n').length,
+      cssClassesArray: cssClasses.split(' ')
+    };
+  }, [effectsState, isMobile, validation, dynamicStyles, cssClasses]);
 
   return {
     // Estado de efectos

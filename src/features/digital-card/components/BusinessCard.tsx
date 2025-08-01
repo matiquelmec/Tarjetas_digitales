@@ -785,9 +785,12 @@ ${formattedAbout ? `${formattedAbout}
             borderRadius: effectsState.particles.type === 'creative' ? '0' : '50%',
             animationDelay: `${animationDelay}s`,
             zIndex: 2,
-            animation: `floatingParticle 6s ease-in-out infinite`,
+            ...(effectsState.particles.type === 'floating' && {
+              animation: 'floatingParticle 6s ease-in-out infinite',
+            }),
             ...(effectsState.particles.type === 'creative' && {
               clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+              animation: 'creativeSwirl 8s linear infinite',
             }),
             ...(effectsState.particles.type === 'constellation' && {
               boxShadow: `0 0 10px ${color}`,
