@@ -774,25 +774,16 @@ export default function HomePage() {
                     que <strong>transportan tu profesionalismo</strong> más allá de este mundo
                   </p>
                   
-                  {/* CTAs de Abducción */}
+                  {/* CTA de Abducción */}
                   <div className="hero-ctas mb-4">
                     <Button 
                       size="lg"
-                      className="cta-abduction-primary me-3 mb-3"
+                      className="cta-abduction-primary mb-3"
                       onClick={handleDashboardAccess}
                     >
                       <span className="cta-icon">🛸</span>
                       Iniciar Abducción
                       <span className="cta-arrow">→</span>
-                    </Button>
-                    
-                    <Button 
-                      size="lg"
-                      className="cta-abduction-secondary mb-3"
-                      onClick={handleCreateCard}
-                    >
-                      <span className="cta-icon">🌌</span>
-                      Explorar Tecnología
                     </Button>
                   </div>
                   
