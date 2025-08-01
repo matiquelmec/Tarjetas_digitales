@@ -130,8 +130,14 @@ export default function CreateCardPage() {
 
   // Nueva función para aplicar tema completo de una vez
   const applyThemeData = (themeColors: Record<string, any>) => {
+    console.log('📥 applyThemeData recibió:', themeColors);
     setCardData(prev => {
       const newData = { ...prev, ...themeColors };
+      console.log('📤 Nuevo cardData será:', {
+        cardBackgroundColor: newData.cardBackgroundColor,
+        cardTextColor: newData.cardTextColor,
+        buttonSecondaryColor: newData.buttonSecondaryColor
+      });
       return newData;
     });
   };

@@ -655,7 +655,15 @@ ${formattedAbout ? `${formattedAbout}
   // Obtener estilos de la plantilla seleccionada
   const templateStyles = getTemplateStyles(template);
   
-  // Debug removido
+  // Debug temporal para rastrear actualizaciones
+  useEffect(() => {
+    console.log('🎨 BusinessCard - Props actuales:', {
+      cardBackgroundColor,
+      cardTextColor,
+      buttonSecondaryColor,
+      template
+    });
+  }, [cardBackgroundColor, cardTextColor, buttonSecondaryColor, template]);
 
   // Aplicar sistema inteligente de efectos
   const cardStyles = getCombinedEffectsStyles(template, {

@@ -415,6 +415,11 @@ export function StepTwo({ cardData, updateCardData, applyThemeData }: StepTwoPro
                   boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
                 }}
                 onClick={() => {
+                  console.log(`🎯 BOTÓN CLICKEADO: ${theme.name}`, {
+                    coloresAplicar: theme.colors,
+                    tieneApplyThemeData: !!applyThemeData
+                  });
+                  
                   // Usar nueva función robusta para aplicar tema completo
                   if (applyThemeData) {
                     applyThemeData(theme.colors);
@@ -543,6 +548,11 @@ export function StepTwo({ cardData, updateCardData, applyThemeData }: StepTwoPro
                   boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
                 }}
                 onClick={() => {
+                  console.log(`🎯 BOTÓN CLICKEADO: ${theme.name}`, {
+                    coloresAplicar: theme.colors,
+                    tieneApplyThemeData: !!applyThemeData
+                  });
+                  
                   // Usar nueva función robusta para aplicar tema completo
                   if (applyThemeData) {
                     applyThemeData(theme.colors);
