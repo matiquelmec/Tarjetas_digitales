@@ -47,6 +47,7 @@ export default function CreateCardPage() {
     buttonSecondaryColor: '#00F6FF',
     buttonSecondaryHoverColor: '#00D1DB',
     buttonNormalBackgroundColor: '#1F1F1F',
+    fontFamily: 'Montserrat', // Fuente por defecto - Modern Professional
     
     // Efectos visuales - Desactivados para usuarios FREE
     enableHoverEffect: false,
@@ -282,7 +283,7 @@ export default function CreateCardPage() {
                       margin: '0 auto'
                     }}>
                       <BusinessCard
-                        key={`${cardData.cardBackgroundColor}-${cardData.cardTextColor}-${cardData.template}-${cardData.enableParticles}`}
+                        key={`${cardData.cardBackgroundColor}-${cardData.cardTextColor}-${cardData.template}-${cardData.enableParticles}-${cardData.fontFamily}`}
                         name={cardData.name || 'Tu Nombre'}
                         title={cardData.title || 'Tu Título'}
                         about={cardData.about || 'Tu descripción profesional aparecerá aquí...'}
@@ -310,6 +311,7 @@ export default function CreateCardPage() {
                         buttonNormalBackgroundColor={cardData.buttonNormalBackgroundColor}
                         buttonSecondaryHoverColor={cardData.buttonSecondaryHoverColor}
                         template={cardData.template}
+                        fontFamily={cardData.fontFamily}
                       />
                     </div>
                   </Card.Body>

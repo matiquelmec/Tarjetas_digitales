@@ -834,6 +834,184 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
         </div>
       </div>
 
+      {/* Font Selection */}
+      <div className="mb-4">
+        <h5 className="mb-3">✍️ Tipografía Profesional</h5>
+        <p className="text-muted mb-3">Elige la fuente que mejor represente tu personalidad profesional</p>
+        
+        <div className="mb-4">
+          <div className="d-flex gap-3 flex-wrap">
+            {[
+              {
+                name: 'Playfair Display',
+                key: 'Playfair Display',
+                personality: 'Executive Authority',
+                emoji: '👔',
+                description: 'Liderazgo y sofisticación',
+                ideal: 'CEOs, Directores, Abogados',
+                preview: 'Elegancia Clásica'
+              },
+              {
+                name: 'Montserrat',
+                key: 'Montserrat',  
+                personality: 'Modern Professional',
+                emoji: '🚀',
+                description: 'Innovación y claridad',
+                ideal: 'Tech, Marketing, Startups',
+                preview: 'Modernidad Accesible'
+              },
+              {
+                name: 'Merriweather',
+                key: 'Merriweather',
+                personality: 'Trusted Expert',
+                emoji: '🎓',
+                description: 'Confiabilidad y experiencia',
+                ideal: 'Médicos, Académicos',
+                preview: 'Conocimiento Profundo'
+              },
+              {
+                name: 'Poppins',
+                key: 'Poppins',
+                personality: 'Creative Leader',
+                emoji: '🎨',
+                description: 'Creatividad y dinamismo',
+                ideal: 'Creativos, Coaches',
+                preview: 'Energía Positiva'
+              },
+              {
+                name: 'Source Sans Pro',
+                key: 'Source Sans Pro',
+                personality: 'Technical Precision',
+                emoji: '⚙️',
+                description: 'Precisión y competencia',
+                ideal: 'Ingenieros, Arquitectos',
+                preview: 'Exactitud Profesional'
+              },
+              {
+                name: 'Crimson Text',
+                key: 'Crimson Text',
+                personality: 'Distinguished Scholar',
+                emoji: '📚',
+                description: 'Distinción académica',
+                ideal: 'Profesores, Investigadores',
+                preview: 'Sabiduría Intelectual'
+              }
+            ].map((font, index) => (
+              <div
+                key={index}
+                onClick={() => updateCardData('fontFamily', font.key)}
+                style={{
+                  cursor: 'pointer',
+                  minWidth: '280px',
+                  height: '120px',
+                  borderRadius: '12px',
+                  border: cardData.fontFamily === font.key 
+                    ? '3px solid #00F6FF' 
+                    : '2px solid rgba(255,255,255,0.2)',
+                  background: cardData.fontFamily === font.key
+                    ? 'linear-gradient(135deg, rgba(0,246,255,0.1) 0%, rgba(0,246,255,0.05) 100%)'
+                    : 'rgba(255,255,255,0.05)',
+                  backdropFilter: 'blur(10px)',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  transition: 'all 0.3s ease',
+                  transform: cardData.fontFamily === font.key ? 'scale(1.02)' : 'scale(1)'
+                }}
+                className="d-flex flex-column"
+              >
+                <div
+                  style={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: '12px',
+                    textAlign: 'center'
+                  }}
+                >
+                  <div style={{ fontSize: '1.5rem', marginBottom: '4px' }}>
+                    {font.emoji}
+                  </div>
+                  <div 
+                    style={{ 
+                      fontFamily: font.key,
+                      fontSize: '16px', 
+                      fontWeight: '600', 
+                      color: 'white',
+                      marginBottom: '2px',
+                      lineHeight: '1.2'
+                    }}
+                  >
+                    {font.preview}
+                  </div>
+                  <div style={{ 
+                    fontSize: '11px', 
+                    color: '#00F6FF',
+                    fontWeight: '600',
+                    marginBottom: '1px'
+                  }}>
+                    {font.personality}
+                  </div>
+                  <div style={{ 
+                    fontSize: '9px', 
+                    color: 'rgba(255,255,255,0.7)',
+                    lineHeight: '1.2'
+                  }}>
+                    {font.description}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    padding: '6px 8px',
+                    background: 'rgba(0,0,0,0.7)',
+                    color: 'rgba(255,255,255,0.8)',
+                    textAlign: 'center',
+                    borderTop: '1px solid rgba(255,255,255,0.1)'
+                  }}
+                >
+                  <div style={{ fontSize: '8px', fontWeight: '500' }}>
+                    Ideal: {font.ideal}
+                  </div>
+                </div>
+                {cardData.fontFamily === font.key && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '8px',
+                      right: '8px',
+                      background: '#00F6FF',
+                      color: '#000',
+                      borderRadius: '50%',
+                      width: '20px',
+                      height: '20px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '12px',
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    ✓
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-r from-blue-500 to-cyan-500 bg-opacity-10 p-3 rounded-3 mt-4">
+          <div className="d-flex align-items-center gap-2 mb-2">
+            <span style={{ fontSize: '1.2rem' }}>💡</span>
+            <strong className="text-info">Psicología de las Fuentes</strong>
+          </div>
+          <small className="text-info">
+            La tipografía transmite personalidad antes que las palabras. Una fuente bien elegida 
+            puede <strong>aumentar la percepción de competencia</strong> hasta un 40% según estudios de neuromarketing.
+          </small>
+        </div>
+      </div>
+
       {/* Visual Effects */}
       <div className="mb-4">
         <h5 className="mb-3">✨ Efectos Visuales (Premium)</h5>

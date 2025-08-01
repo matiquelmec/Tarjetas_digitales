@@ -39,6 +39,7 @@ interface BusinessCardProps {
   buttonNormalBackgroundColor: string;
   buttonSecondaryHoverColor: string;
   template?: string; // Nueva prop para la plantilla visual
+  fontFamily?: string; // Nueva prop para la fuente
 }
 
 const staticStyles = `
@@ -592,6 +593,7 @@ ${formattedAbout ? `${formattedAbout}
       width: '100%',
       maxWidth: '480px',
       color: cardTextColor,
+      fontFamily: fontFamily || 'Montserrat, sans-serif', // Aplicar fuente seleccionada
       // Transition manejada por el sistema de efectos cuando hover está habilitado
       ...(enableHoverEffect ? {} : { transition: 'all 0.3s ease-in-out' }),
       padding: '40px',
