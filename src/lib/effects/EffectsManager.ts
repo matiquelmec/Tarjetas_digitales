@@ -229,77 +229,67 @@ export class EffectsManager {
     // Background Patterns
     if (effects.backgroundPatterns.enabled) {
       const intensity = effects.backgroundPatterns.intensity || 0.4;
-      const patternOpacity = 0.2 * intensity;
-      
-      // Glassmorphism ahora usa ::before Y ::after, usar elemento hijo para patterns
-      const useChildElement = effects.glassmorphism.enabled;
-      const zIndex = effects.glassmorphism.enabled ? 3 : 0;
+      const patternOpacity = 0.25 * intensity; // Ligeramente más visible
       
       // Adaptar colores según el fondo del usuario
       const baseColor = this.extractBaseColor(cardColors.background);
       const isLight = this.isLightColor(baseColor);
       
       const pattern1Color = isLight 
-        ? `rgba(100, 100, 200, ${patternOpacity})` 
+        ? `rgba(120, 120, 220, ${patternOpacity})` 
         : `rgba(200, 200, 255, ${patternOpacity})`;
       const pattern2Color = isLight 
-        ? `rgba(200, 100, 200, ${patternOpacity})` 
-        : `rgba(255, 200, 255, ${patternOpacity})`;
+        ? `rgba(220, 120, 180, ${patternOpacity})` 
+        : `rgba(255, 180, 255, ${patternOpacity})`;
+      const pattern3Color = isLight
+        ? `rgba(180, 220, 120, ${patternOpacity * 0.7})`
+        : `rgba(200, 255, 200, ${patternOpacity * 0.7})`;
       
-      if (useChildElement) {
-        // Cuando glassmorphism está activo, crear un div hijo para patterns
-        styles.push(`
-          .business-card-custom.effect-patterns {
-            position: relative;
-          }
-          .business-card-custom.effect-patterns > .card-body::before {
-            content: '';
-            position: absolute;
-            top: -40px;
-            left: -40px;
-            right: -40px;
-            bottom: -40px;
-            background-image: 
-              radial-gradient(circle at 25% 75%, ${pattern1Color} 0%, transparent 50%),
-              radial-gradient(circle at 75% 25%, ${pattern2Color} 0%, transparent 50%),
-              radial-gradient(circle at 50% 50%, rgba(255, 255, 255, ${patternOpacity * 0.5}) 0%, transparent 30%);
-            border-radius: inherit;
-            pointer-events: none;
-            z-index: ${zIndex};
-            opacity: 0;
-            animation: patternFadeIn 2s ease-in-out forwards;
-          }
-        `);
-      } else {
-        // Cuando glassmorphism NO está activo, usar ::before normalmente
-        styles.push(`
-          .business-card-custom.effect-patterns {
-            position: relative;
-          }
-          .business-card-custom.effect-patterns::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-              radial-gradient(circle at 25% 75%, ${pattern1Color} 0%, transparent 50%),
-              radial-gradient(circle at 75% 25%, ${pattern2Color} 0%, transparent 50%),
-              radial-gradient(circle at 50% 50%, rgba(255, 255, 255, ${patternOpacity * 0.5}) 0%, transparent 30%);
-            border-radius: inherit;
-            pointer-events: none;
-            z-index: ${zIndex};
-            opacity: 0;
-            animation: patternFadeIn 2s ease-in-out forwards;
-          }
-        `);
-      }
-      
-      // Keyframe común para ambos casos
+      // Crear un sistema que funcione con o sin glassmorphism
+      // Los patrones van en un elemento pseudo separado que no interfiere
       styles.push(`
-        @keyframes patternFadeIn {
-          to { opacity: 1; }
+        .business-card-custom.effect-patterns {
+          position: relative;
+        }
+        
+        /* Sistema de patrones que evita conflictos con glassmorphism */
+        .business-card-custom.effect-patterns {
+          background-image: 
+            radial-gradient(circle at 20% 80%, ${pattern1Color} 0%, transparent 45%),
+            radial-gradient(circle at 80% 20%, ${pattern2Color} 0%, transparent 45%),
+            radial-gradient(circle at 40% 40%, ${pattern3Color} 0%, transparent 35%),
+            radial-gradient(circle at 60% 70%, rgba(255, 255, 255, ${patternOpacity * 0.3}) 0%, transparent 25%);
+          background-size: 400px 400px, 350px 350px, 300px 300px, 200px 200px;
+          background-position: 0% 100%, 100% 0%, 40% 40%, 60% 70%;
+          background-repeat: no-repeat;
+          animation: patternsMove 12s ease-in-out infinite;
+        }
+        
+        /* Cuando glassmorphism está activo, los patrones van como fondo base */
+        .business-card-custom.effect-patterns.effect-glass {
+          background-blend-mode: ${isLight ? 'multiply' : 'screen'};
+        }
+      `)
+      
+      // Animaciones para los patrones
+      styles.push(`
+        @keyframes patternsMove {
+          0%, 100% { 
+            background-position: 0% 100%, 100% 0%, 40% 40%, 60% 70%;
+            opacity: 0.8;
+          }
+          25% { 
+            background-position: 10% 90%, 90% 10%, 45% 35%, 65% 75%;
+            opacity: 1;
+          }
+          50% { 
+            background-position: 20% 80%, 80% 20%, 50% 30%, 70% 80%;
+            opacity: 0.9;
+          }
+          75% { 
+            background-position: 15% 85%, 85% 15%, 35% 45%, 55% 65%;
+            opacity: 1;
+          }
         }
       `);
     }
