@@ -651,6 +651,11 @@ ${formattedAbout ? `${formattedAbout}
 
   // Obtener estilos de la plantilla seleccionada
   const templateStyles = getTemplateStyles(template);
+  
+  // Debug: verificar template aplicado
+  useEffect(() => {
+    console.log('BusinessCard - Template aplicado:', template, templateStyles);
+  }, [template, templateStyles]);
 
   // Aplicar sistema inteligente de efectos
   const cardStyles = getCombinedEffectsStyles(template, {
@@ -697,7 +702,13 @@ ${formattedAbout ? `${formattedAbout}
       <Card className={getCardClasses()} style={cardStyles}>
         <Card.Body style={{ padding: 0 }}>
           <Stack gap={3}>
-            <div className="header-section" style={templateStyles.headerStyle}>
+            <div className="header-section" style={{
+              ...templateStyles.headerStyle,
+              // Para template elegant, aplicar borderColor dinámico
+              ...(template === 'elegant' && {
+                borderBottomColor: cardTextColor,
+              })
+            }}>
               <div style={{ 
                 position: 'relative',
                 width: '120px', 
@@ -720,15 +731,26 @@ ${formattedAbout ? `${formattedAbout}
               </div>
               <Card.Title as="h1" className="mb-2" style={{
                 lineHeight: 1.2,
-                // Para template creative, no aplicar cardTextColor para preservar gradiente
+                // Para template creative, preservar gradiente, para otros usar cardTextColor
                 color: template === 'creative' ? 'transparent' : cardTextColor,
-                ...templateStyles.nameStyle
+                ...templateStyles.nameStyle,
+                // Asegurar que el gradiente se vea correctamente en creative
+                ...(template === 'creative' && {
+                  background: 'linear-gradient(45deg, #00F6FF, #0072ff)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                })
               }}>
                 {name}
               </Card.Title>
               <Card.Subtitle as="h2" style={{
                 color: cardTextColor,
-                ...templateStyles.titleStyle
+                ...templateStyles.titleStyle,
+                // Agregar borderColor para template elegant
+                ...(template === 'elegant' && {
+                  borderColor: cardTextColor,
+                })
               }}>
                 {title}
               </Card.Subtitle>

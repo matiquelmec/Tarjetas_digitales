@@ -44,6 +44,7 @@ export default function BusinessCardGenerator() {
   const [facebook, setFacebook] = useState('');
   const [editorTextColor, setEditorTextColor] = useState('#ffffff');
   const [buttonTextColor, setButtonTextColor] = useState('#ffffff');
+  const [selectedTemplate, setSelectedTemplate] = useState('modern');
 
   useEffect(() => {
     if (session?.user?.plan) {
@@ -160,6 +161,7 @@ export default function BusinessCardGenerator() {
         enableSubtleAnimations,
         enableBackgroundPatterns,
         enableAIPalette,
+        selectedTemplate,
       }
     };
 
@@ -472,6 +474,30 @@ export default function BusinessCardGenerator() {
               </fieldset>
 
               <fieldset className="mt-3 p-3 border rounded">
+                <legend style={{ color: editorTextColor, fontSize: '0.9rem' }}>Plantillas Visuales (Premium)</legend>
+                <Form.Group className="mb-3">
+                  <Form.Label style={{ color: editorTextColor }}>Seleccionar Plantilla</Form.Label>
+                  <Form.Select 
+                    value={selectedTemplate} 
+                    onChange={(e) => setSelectedTemplate(e.target.value)}
+                    style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: editorTextColor, border: `1px solid ${editorTextColor}33` }}
+                    disabled={!planLimits?.canUseCustomTemplates}
+                  >
+                    <option value="modern" style={{ backgroundColor: '#2c2c2c', color: '#ffffff' }}>Modern - Diseño limpio y profesional</option>
+                    <option value="elegant" style={{ backgroundColor: '#2c2c2c', color: '#ffffff' }}>Elegant - Estilo sofisticado y minimalista</option>
+                    <option value="creative" style={{ backgroundColor: '#2c2c2c', color: '#ffffff' }}>Creative - Gradientes y efectos vibrantes</option>
+                    <option value="classic" style={{ backgroundColor: '#2c2c2c', color: '#ffffff' }}>Classic - Diseño tradicional y formal</option>
+                  </Form.Select>
+                  <Form.Text style={{ color: `${editorTextColor}CC`, fontSize: '0.85rem' }}>
+                    {selectedTemplate === 'modern' && '✨ Perfecto para profesionales de tecnología y negocios'}
+                    {selectedTemplate === 'elegant' && '🎩 Ideal para abogados, consultores y ejecutivos'}
+                    {selectedTemplate === 'creative' && '🎨 Excelente para diseñadores, artistas y creativos'}
+                    {selectedTemplate === 'classic' && '📚 Adecuado para académicos, médicos y profesionales tradicionales'}
+                  </Form.Text>
+                </Form.Group>
+              </fieldset>
+
+              <fieldset className="mt-3 p-3 border rounded">
                 <legend style={{ color: editorTextColor, fontSize: '0.9rem' }}>Fondo de la Página</legend>
                 <Form.Group className="mb-3">
                   <Form.Label style={{ color: editorTextColor }}>Color de Fondo de la Página</Form.Label>
@@ -517,7 +543,8 @@ export default function BusinessCardGenerator() {
               facebook={facebook}
               buttonSecondaryColor={buttonSecondaryColor}
               buttonNormalBackgroundColor={buttonNormalBackgroundColor}
-              buttonSecondaryHoverColor={buttonSecondaryHoverColor} />
+              buttonSecondaryHoverColor={buttonSecondaryHoverColor}
+              template={selectedTemplate} />
           </div>
         </Col>
       </Row>

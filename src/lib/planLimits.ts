@@ -14,6 +14,7 @@ export interface PlanLimits {
   canUseSubtleAnimations: boolean;
   canUseBackgroundPatterns: boolean;
   canUseAIPalette: boolean;
+  canUseCustomTemplates: boolean;
 }
 
 export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
@@ -30,6 +31,7 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
     canUseSubtleAnimations: false,
     canUseBackgroundPatterns: false,
     canUseAIPalette: false,
+    canUseCustomTemplates: false,
   },
   PROFESSIONAL: {
     maxCards: 5,
@@ -44,6 +46,7 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
     canUseSubtleAnimations: true,
     canUseBackgroundPatterns: true,
     canUseAIPalette: true,
+    canUseCustomTemplates: true,
   },
   BUSINESS: {
     maxCards: 25,
@@ -58,6 +61,7 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
     canUseSubtleAnimations: true,
     canUseBackgroundPatterns: true,
     canUseAIPalette: true,
+    canUseCustomTemplates: true,
   },
   ENTERPRISE: {
     maxCards: -1, // Unlimited
@@ -72,6 +76,7 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
     canUseSubtleAnimations: true,
     canUseBackgroundPatterns: true,
     canUseAIPalette: true,
+    canUseCustomTemplates: true,
   },
 };
 
