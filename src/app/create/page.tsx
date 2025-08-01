@@ -108,10 +108,10 @@ export default function CreateCardPage() {
   };
 
   const steps = [
-    { id: 1, title: 'Datos Básicos', description: 'Información personal y contacto' },
-    { id: 2, title: 'Diseño', description: 'Personaliza tu tarjeta' },
-    { id: 3, title: 'Redes Sociales', description: 'Conecta tus perfiles' },
-    { id: 4, title: 'Review & Publish', description: 'Revisa y publica' },
+    { id: 1, title: 'Datos Dimensionales', description: 'Configuración de identidad intergaláctica' },
+    { id: 2, title: 'Diseño Holográfico', description: 'Personalización visual de otro mundo' },
+    { id: 3, title: 'Redes Espaciales', description: 'Conexiones interdimensionales' },
+    { id: 4, title: 'Lanzamiento Final', description: 'Activación y transmisión' },
   ];
 
   const handleNext = () => {
@@ -187,6 +187,136 @@ export default function CreateCardPage() {
         .step-indicator.completed {
           background: rgba(0, 246, 255, 0.2);
         }
+
+        /* Estilos alienígenas para la página de creación */
+        .alien-title-glow {
+          text-shadow: 
+            0 0 10px rgba(0, 246, 255, 0.8),
+            0 0 20px rgba(0, 246, 255, 0.6),
+            0 0 40px rgba(0, 246, 255, 0.4);
+          animation: alienTitlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes alienTitlePulse {
+          0%, 100% { 
+            text-shadow: 
+              0 0 10px rgba(0, 246, 255, 0.8),
+              0 0 20px rgba(0, 246, 255, 0.6),
+              0 0 40px rgba(0, 246, 255, 0.4);
+          }
+          50% { 
+            text-shadow: 
+              0 0 15px rgba(0, 246, 255, 1),
+              0 0 30px rgba(0, 246, 255, 0.8),
+              0 0 50px rgba(0, 246, 255, 0.6);
+          }
+        }
+
+        .alien-btn-back {
+          background: rgba(0, 246, 255, 0.1);
+          border-color: rgba(0, 246, 255, 0.5);
+          transition: all 0.3s ease;
+        }
+
+        .alien-btn-back:hover {
+          background: rgba(0, 246, 255, 0.2);
+          border-color: rgba(0, 246, 255, 0.8);
+          transform: translateX(-2px);
+        }
+
+        .alien-progress-title {
+          text-shadow: 0 0 5px rgba(0, 246, 255, 0.6);
+        }
+
+        .alien-step-counter {
+          background: rgba(0, 246, 255, 0.2);
+          padding: 0.25rem 0.75rem;
+          border-radius: 12px;
+          border: 1px solid rgba(0, 246, 255, 0.3);
+        }
+
+        .alien-progress-bar {
+          border-radius: 10px;
+          overflow: hidden;
+          background: rgba(0, 0, 0, 0.3);
+        }
+
+        .alien-progress-bar .progress-bar {
+          background: linear-gradient(90deg, #00f6ff, #0072ff, #8e2de2);
+          background-size: 200% 100%;
+          animation: progressShine 2s ease-in-out infinite;
+          box-shadow: 0 0 10px rgba(0, 246, 255, 0.6);
+        }
+
+        @keyframes progressShine {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+
+        .alien-preview-header {
+          background: rgba(0, 246, 255, 0.1);
+          border-bottom: 2px solid rgba(0, 246, 255, 0.3);
+        }
+
+        .alien-preview-title {
+          text-shadow: 0 0 8px rgba(0, 246, 255, 0.8);
+        }
+
+        .alien-btn-nav {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.3);
+          transition: all 0.3s ease;
+        }
+
+        .alien-btn-nav:hover:not(:disabled) {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: rgba(255, 255, 255, 0.5);
+          transform: translateX(-2px);
+        }
+
+        .alien-btn-nav-primary {
+          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          border: none;
+          box-shadow: 0 4px 16px rgba(0, 246, 255, 0.4);
+          transition: all 0.3s ease;
+        }
+
+        .alien-btn-nav-primary:hover:not(:disabled) {
+          background: linear-gradient(135deg, #00d1db, #005bb5);
+          transform: translateX(2px) scale(1.02);
+          box-shadow: 0 6px 20px rgba(0, 246, 255, 0.6);
+        }
+
+        /* Efectos holográficos para las cards principales */
+        .glass-card {
+          position: relative;
+          transition: all 0.3s ease;
+        }
+
+        .glass-card::before {
+          content: '';
+          position: absolute;
+          top: -1px;
+          left: -1px;
+          right: -1px;
+          bottom: -1px;
+          background: linear-gradient(45deg, 
+            transparent, rgba(0, 246, 255, 0.3), transparent, 
+            rgba(0, 246, 255, 0.3), transparent);
+          border-radius: 16px;
+          z-index: -1;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .glass-card:hover::before {
+          opacity: 1;
+        }
+
+        .glass-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 48px rgba(0, 246, 255, 0.2);
+        }
         
       `}</style>
       
@@ -196,9 +326,9 @@ export default function CreateCardPage() {
           <Row className="mb-4">
             <Col>
               <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-sm-center gap-3">
-                <h1 className="text-white h2 h-sm-1 mb-0">Crear Nueva Tarjeta Digital</h1>
-                <Button variant="outline-light" href="/dashboard" size="sm" className="align-self-start">
-                  ← Volver
+                <h1 className="text-white h2 h-sm-1 mb-0 alien-title-glow">🚀 Iniciar Misión de Creación Intergaláctica</h1>
+                <Button variant="outline-light" href="/dashboard" size="sm" className="align-self-start alien-btn-back">
+                  🏠 Regresar al Centro de Comando
                 </Button>
               </div>
             </Col>
@@ -226,13 +356,14 @@ export default function CreateCardPage() {
               <Card className="glass-card text-white">
                 <Card.Body className="p-3">
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h5 className="mb-0">Progreso: {steps[currentStep - 1].title}</h5>
-                    <small className="text-light">Paso {currentStep} de 4</small>
+                    <h5 className="mb-0 alien-progress-title">🛸 Misión: {steps[currentStep - 1].title}</h5>
+                    <small className="text-light alien-step-counter">Fase {currentStep} de 4</small>
                   </div>
                   <ProgressBar 
                     now={(currentStep / 4) * 100} 
                     variant="info"
-                    style={{ height: '8px' }}
+                    className="alien-progress-bar"
+                    style={{ height: '10px' }}
                   />
                 </Card.Body>
               </Card>
@@ -254,15 +385,17 @@ export default function CreateCardPage() {
                     variant="outline-light" 
                     onClick={handlePrev}
                     disabled={currentStep === 1}
+                    className="alien-btn-nav"
                   >
-                    ← Anterior
+                    ◁ Retroceder
                   </Button>
                   <Button 
                     variant="primary" 
                     onClick={handleNext}
                     disabled={!!(limitError && currentStep === 4)}
+                    className="alien-btn-nav-primary"
                   >
-                    {limitError && currentStep === 4 ? 'Upgrade Required' : (currentStep === 4 ? 'Publicar Tarjeta' : 'Siguiente →')}
+                    {limitError && currentStep === 4 ? '⚠️ Upgrade Required' : (currentStep === 4 ? '🚀 Activar Transmisión' : 'Avanzar ▷')}
                   </Button>
                 </Card.Footer>
               </Card>
@@ -272,9 +405,9 @@ export default function CreateCardPage() {
             <Col lg={6}>
               <div style={{ position: 'sticky', top: '20px' }}>
                 <Card className="glass-card text-white">
-                  <Card.Header className="text-center">
-                    <h6 className="mb-0">👁️ Vista Previa - Tamaño Real</h6>
-                    <small className="text-light">480px × Auto</small>
+                  <Card.Header className="text-center alien-preview-header">
+                    <h6 className="mb-0 alien-preview-title">🔮 Holograma de Vista Previa</h6>
+                    <small className="text-light">Proyección Dimensional • 480px × Auto</small>
                   </Card.Header>
                   <Card.Body className="p-3" style={{ maxHeight: '85vh', overflowY: 'auto' }}>
                     <div style={{ 
