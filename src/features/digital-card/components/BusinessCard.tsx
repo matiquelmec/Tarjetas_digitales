@@ -649,9 +649,12 @@ ${formattedAbout ? `${formattedAbout}
     // Transform base - NO aplicar si hover effect está habilitado (conflicto con CSS)
     let transform = enableHoverEffect ? 'none' : 'translateY(0)';
 
-    // Animaciones inteligentes - evitar duplicación con background patterns
+    // Animaciones inteligentes - evitar conflicto con subtle animations
     let animation = 'none';
-    if (effects.animations && !effects.patterns) {
+    if (enableSubtleAnimations) {
+      // Si subtle animations está habilitado, no aplicar animation inline (conflicto)
+      animation = 'none';
+    } else if (effects.animations && !effects.patterns) {
       // Solo fadeIn si no hay patterns (patterns ya tienen su propia animación)
       animation = 'fadeIn 1s ease-out';
     } else if (effects.animations && effects.patterns) {
@@ -676,7 +679,8 @@ ${formattedAbout ? `${formattedAbout}
       boxShadow,
       // Solo aplicar transform si no interfiere con hover effect
       ...(transform !== 'none' && { transform }),
-      animation,
+      // Solo aplicar animation si no interfiere con subtle animations
+      ...(animation !== 'none' && !enableSubtleAnimations && { animation }),
       // Mantener propiedades específicas de template que no conflictúan
       ...Object.fromEntries(
         Object.entries(baseTemplate.cardStyle).filter(([key]) => 

@@ -57,7 +57,7 @@ export class EffectsManager {
       },
       subtleAnimations: {
         enabled: props.enableSubtleAnimations || false,
-        intensity: 0.6
+        intensity: 0.8 // Más intensidad por defecto para que sea más visible
       },
       backgroundPatterns: {
         enabled: props.enableBackgroundPatterns || false,
@@ -158,32 +158,30 @@ export class EffectsManager {
     // Subtle Animations
     if (effects.subtleAnimations.enabled) {
       const intensity = effects.subtleAnimations.intensity || 0.6;
-      const scaleAmount = 1 + (0.01 * intensity);
-      const duration = 4 + (2 * (1 - intensity)); // Más lento = más sutil
+      const scaleAmount = 1 + (0.03 * intensity); // Más visible: 1.018 en lugar de 1.006
+      const brightnessAmount = 1 + (0.05 * intensity); // Más brillo: 1.03 en lugar de 1.02
+      const duration = 3 + (3 * (1 - intensity)); // Rango 3-6 segundos
       
       styles.push(`
         .business-card-custom.effect-animate {
-          animation: subtleBreathe ${duration}s ease-in-out infinite;
-        }
-        
-        /* Solo aplicar breathe si NO hay hover activo */
-        .business-card-custom.effect-animate:not(.effect-hover) {
-          animation: subtleBreathe ${duration}s ease-in-out infinite;
+          animation: subtleBreathe ${duration}s ease-in-out infinite !important;
+          transform-origin: center center !important;
+          will-change: transform, filter !important;
         }
         
         /* Si hay hover, pausar la animación durante hover */
         .business-card-custom.effect-animate.effect-hover:hover {
-          animation-play-state: paused;
+          animation-play-state: paused !important;
         }
         
         @keyframes subtleBreathe {
           0%, 100% { 
-            transform: scale(1);
-            filter: brightness(1);
+            transform: scale(1) !important;
+            filter: brightness(1) !important;
           }
           50% { 
-            transform: scale(${scaleAmount});
-            filter: brightness(1.02);
+            transform: scale(${scaleAmount}) !important;
+            filter: brightness(${brightnessAmount}) !important;
           }
         }
       `);
