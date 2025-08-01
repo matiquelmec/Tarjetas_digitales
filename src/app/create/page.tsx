@@ -59,6 +59,7 @@ export default function CreateCardPage() {
     particleType: 'floating' as 'floating' | 'constellation' | 'professional' | 'creative',
     particleCount: 30,
     
+    
     // Redes sociales - Con datos de ejemplo
     linkedin: 'https://linkedin.com/in/dra-maria-rodriguez',
     twitter: '',
@@ -185,6 +186,7 @@ export default function CreateCardPage() {
         .step-indicator.completed {
           background: rgba(0, 246, 255, 0.2);
         }
+        
       `}</style>
       
       <div className="animated-gradient-background">

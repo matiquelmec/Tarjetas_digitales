@@ -108,37 +108,45 @@ export class EffectsManager {
       const baseColor = this.extractBaseColor(cardColors.background);
       const isLightBackground = this.isLightColor(baseColor);
       
-      // Aplicar glassmorphism con valores más visibles y overlay semitransparente
-      const blurAmount = 10 * intensity; // Más blur para efecto más notorio
-      const borderOpacity = 0.3 * intensity; // Bordes más visibles
-      const shadowStrength = 0.3 * intensity; // Sombra más intensa
-      const glassOpacity = isLightBackground ? 0.15 * intensity : 0.1 * intensity;
+      // Aplicar glassmorphism que trabaja sobre el color existente de la tarjeta
+      const blurAmount = 8 * intensity; // Blur más sutil para mantener legibilidad
+      const borderOpacity = 0.25 * intensity; // Bordes suaves
+      const shadowStrength = 0.2 * intensity; // Sombra más sutil
+      
+      // Crear overlay glass que se adapta al color de fondo existente
+      const glassOverlay = isLightBackground 
+        ? `rgba(255, 255, 255, ${0.2 * intensity})` // Overlay blanco sutil para fondos claros
+        : `rgba(255, 255, 255, ${0.08 * intensity})`; // Overlay muy sutil para fondos oscuros
+      
+      const glassTint = isLightBackground
+        ? `rgba(240, 248, 255, ${0.15 * intensity})` // Tinte azul muy claro para fondos claros
+        : `rgba(255, 255, 255, ${0.05 * intensity})`; // Tinte blanco mínimo para fondos oscuros
 
       styles.push(`
         .business-card-custom.effect-glass {
-          backdrop-filter: blur(${blurAmount}px) saturate(1.2) contrast(1.1) !important;
-          -webkit-backdrop-filter: blur(${blurAmount}px) saturate(1.2) contrast(1.1) !important;
-          background: rgba(255, 255, 255, ${glassOpacity}) !important;
+          backdrop-filter: blur(${blurAmount}px) saturate(1.1) contrast(1.05) !important;
+          -webkit-backdrop-filter: blur(${blurAmount}px) saturate(1.1) contrast(1.05) !important;
+          background: linear-gradient(135deg, ${glassOverlay} 0%, ${glassTint} 100%) !important;
           border: 1px solid rgba(255, 255, 255, ${borderOpacity}) !important;
           box-shadow: 
-            0 8px 32px rgba(0, 0, 0, ${shadowStrength}),
-            inset 0 1px 0 rgba(255, 255, 255, ${borderOpacity * 2}),
-            0 0 0 1px rgba(255, 255, 255, ${borderOpacity * 0.5}) !important;
+            0 8px 24px rgba(0, 0, 0, ${shadowStrength}),
+            inset 0 1px 0 rgba(255, 255, 255, ${borderOpacity * 1.5}) !important;
           position: relative;
+          overflow: hidden;
         }
         
-        /* Efecto de brillo mejorado en la parte superior */
+        /* Efecto de brillo sutil que respeta el color de la tarjeta */
         .business-card-custom.effect-glass::before {
           content: '';
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
-          height: 50%;
+          height: 40%;
           background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, ${isLightBackground ? 0.2 * intensity : 0.15 * intensity}) 0%,
-            rgba(255, 255, 255, ${isLightBackground ? 0.1 * intensity : 0.05 * intensity}) 50%,
+            145deg,
+            rgba(255, 255, 255, ${isLightBackground ? 0.12 * intensity : 0.08 * intensity}) 0%,
+            rgba(255, 255, 255, ${isLightBackground ? 0.05 * intensity : 0.03 * intensity}) 70%,
             transparent 100%
           );
           border-radius: inherit;
@@ -148,21 +156,22 @@ export class EffectsManager {
           z-index: 1;
         }
         
-        /* Efecto de reflejo adicional */
+        /* Punto de luz sutil en la esquina superior */
         .business-card-custom.effect-glass::after {
           content: '';
           position: absolute;
-          top: 10%;
-          left: 10%;
-          right: 60%;
-          height: 30%;
-          background: linear-gradient(
-            45deg,
-            rgba(255, 255, 255, ${0.3 * intensity}) 0%,
-            transparent 50%
+          top: 8%;
+          left: 8%;
+          right: 70%;
+          height: 25%;
+          background: radial-gradient(
+            ellipse at center,
+            rgba(255, 255, 255, ${isLightBackground ? 0.15 * intensity : 0.1 * intensity}) 0%,
+            rgba(255, 255, 255, ${isLightBackground ? 0.08 * intensity : 0.05 * intensity}) 40%,
+            transparent 70%
           );
           border-radius: 50%;
-          filter: blur(20px);
+          filter: blur(12px);
           pointer-events: none;
           z-index: 1;
         }
