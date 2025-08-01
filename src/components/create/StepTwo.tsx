@@ -943,9 +943,9 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               },
               {
                 name: 'Aurora',
-                gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 50%, #d299c2 100%)',
+                gradient: 'linear-gradient(135deg, #0c4a6e 0%, #1e3a8a 30%, #312e81 60%, #1f2937 100%)',
                 emoji: '🌈',
-                description: 'Luces boreales'
+                description: 'Luces boreales sobre cielo nocturno ártico'
               },
               {
                 name: 'Stellar',
