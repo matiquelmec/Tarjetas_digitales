@@ -604,7 +604,7 @@ export default function Dashboard() {
             <>
               {/* Estadísticas Intergalácticas */}
               <Row className="mb-5 g-4">
-                <Col md={6} lg={3}>
+                <Col md={6} lg={4}>
                   <div className="stat-card alien-stat-card">
                     <div className="alien-glow-effect"></div>
                     <div className="icon-wrapper alien-primary-gradient text-white">
@@ -619,22 +619,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </Col>
-                <Col md={6} lg={3}>
-                  <div className="stat-card alien-stat-card">
-                    <div className="alien-glow-effect"></div>
-                    <div className="icon-wrapper alien-success-gradient text-white">
-                      📡
-                    </div>
-                    <h2 className="fw-bold text-dark mb-1">{cards.reduce((sum, card) => sum + card.views, 0)}</h2>
-                    <p className="text-muted mb-2">Escaneos Recibidos</p>
-                    <div className="d-flex justify-content-center">
-                      <span className="alien-badge bg-success bg-opacity-10 text-success fw-semibold">
-                        Señales activas
-                      </span>
-                    </div>
-                  </div>
-                </Col>
-                <Col md={6} lg={3}>
+                <Col md={6} lg={4}>
                   <div className="stat-card alien-stat-card">
                     <div className="alien-glow-effect"></div>
                     <div className="icon-wrapper alien-warning-gradient text-white">
@@ -649,7 +634,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </Col>
-                <Col md={6} lg={3}>
+                <Col md={6} lg={4}>
                   <div className="stat-card alien-stat-card">
                     <div className="alien-glow-effect"></div>
                     <div className="icon-wrapper alien-info-gradient text-white">
