@@ -507,12 +507,6 @@ export default function Dashboard() {
                   </div>
                   <div className="stat-divider-compact">⚡</div>
                   <div className="stat-compact alien-stat">
-                    <span className="stat-icon">📡</span>
-                    <span className="stat-value">{cards.reduce((sum, card) => sum + card.views, 0)}</span>
-                    <span className="stat-label-compact">Escaneos</span>
-                  </div>
-                  <div className="stat-divider-compact">⚡</div>
-                  <div className="stat-compact alien-stat">
                     <span className="stat-icon">🌟</span>
                     <span className="stat-value plan-badge-alien">
                       {session?.user?.plan?.toString() === 'premium' ? 'COMANDANTE' : 'EXPLORADOR'}
@@ -672,85 +666,6 @@ export default function Dashboard() {
                 </Col>
               </Row>
 
-              {/* Quick Actions */}
-              <Row className="mb-5">
-                <Col>
-                  <div className="glass-card border-0">
-                    <div className="p-4">
-                      <div className="d-flex align-items-center mb-4">
-                        <div className="icon-wrapper alien-primary-gradient text-white me-3" style={{ width: '48px', height: '48px' }}>
-                          ⚡
-                        </div>
-                        <div>
-                          <h4 className="fw-bold text-dark mb-1">Misiones Disponibles</h4>
-                          <p className="text-muted mb-0">Inicia tu próxima misión intergaláctica</p>
-                        </div>
-                      </div>
-                      
-                      <Row className="g-4">
-                        <Col lg={4}>
-                          <div className="action-card">
-                            <div className="icon-wrapper primary-gradient text-white">
-                              💼
-                            </div>
-                            <h5 className="fw-bold text-dark mb-2">Crear Tarjeta de Otro Mundo</h5>
-                            <p className="text-muted mb-4">
-                              Diseña tu tarjeta digital con efectos intergalácticos únicos
-                            </p>
-                            <Link href="/create">
-                              <Button 
-                                variant="primary" 
-                                className="w-100 fw-semibold py-2"
-                                style={{ borderRadius: '12px' }}
-                              >
-                                Iniciar Transmisión 🛸
-                              </Button>
-                            </Link>
-                          </div>
-                        </Col>
-                        <Col lg={4}>
-                          <div className="action-card">
-                            <div className="icon-wrapper warning-gradient text-white">
-                              🚀
-                            </div>
-                            <h5 className="fw-bold text-muted mb-2">CV Inteligente con IA</h5>
-                            <p className="text-muted mb-4">
-                              Optimiza tu CV profesional con tecnología alienígena avanzada
-                            </p>
-                            <Button 
-                              variant="outline-secondary" 
-                              className="w-100 fw-semibold py-2" 
-                              disabled
-                              style={{ borderRadius: '12px' }}
-                            >
-                              Llegada: Feb 2025 🚀
-                            </Button>
-                          </div>
-                        </Col>
-                        <Col lg={4}>
-                          <div className="action-card">
-                            <div className="icon-wrapper info-gradient text-white">
-                              🎯
-                            </div>
-                            <h5 className="fw-bold text-muted mb-2">Presentación Intergaláctica</h5>
-                            <p className="text-muted mb-4">
-                              Crea presentaciones hipnotizantes con efectos de otro mundo
-                            </p>
-                            <Button 
-                              variant="outline-secondary" 
-                              className="w-100 fw-semibold py-2" 
-                              disabled
-                              style={{ borderRadius: '12px' }}
-                            >
-                              Llegada: Mar 2025 📡
-                            </Button>
-                          </div>
-                        </Col>
-                      </Row>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
             </>
           )}
         </Container>
