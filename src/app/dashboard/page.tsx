@@ -698,14 +698,15 @@ export default function Dashboard() {
                       </span>
                     </div>
                     <div className="d-flex justify-content-center">
-                      <Button 
-                        className="alien-create-btn-disabled"
-                        size="sm"
-                        disabled
-                      >
-                        <span className="create-icon">🚀</span>
-                        PRÓXIMAMENTE
-                      </Button>
+                      <Link href="/dashboard/cv">
+                        <Button 
+                          className="alien-create-btn"
+                          size="sm"
+                        >
+                          <span className="create-icon">🚀</span>
+                          EXPLORAR
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </Col>
