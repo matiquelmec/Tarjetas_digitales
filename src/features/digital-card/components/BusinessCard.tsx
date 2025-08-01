@@ -652,10 +652,7 @@ ${formattedAbout ? `${formattedAbout}
   // Obtener estilos de la plantilla seleccionada
   const templateStyles = getTemplateStyles(template);
   
-  // Debug: verificar template aplicado
-  useEffect(() => {
-    console.log('BusinessCard - Template aplicado:', template, templateStyles);
-  }, [template, templateStyles]);
+  // Debug: verificar template aplicado (removido para limpiar consola)
 
   // Aplicar sistema inteligente de efectos
   const cardStyles = getCombinedEffectsStyles(template, {

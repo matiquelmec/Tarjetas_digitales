@@ -11,8 +11,19 @@
 export function getRelativeLuminance(hexColor: string): number {
   if (!hexColor || hexColor.toLowerCase() === 'transparent') return 0;
   
+  // Skip luminance calculation for gradients, rgba, or complex colors
+  if (hexColor.includes('gradient') || hexColor.includes('rgba') || 
+      (!hexColor.startsWith('#') && !hexColor.startsWith('rgb'))) {
+    return 0.5; // Return neutral luminance for complex colors
+  }
+  
   // Remover # si existe
   const hex = hexColor.replace('#', '');
+  
+  // Validar que sea un hex válido
+  if (hex.length !== 6 || !/^[0-9a-fA-F]{6}$/.test(hex)) {
+    return 0.5; // Return neutral luminance for invalid hex
+  }
   
   // Convertir a RGB
   const r = parseInt(hex.substring(0, 2), 16) / 255;
@@ -50,6 +61,24 @@ export function getContrastRatio(color1: string, color2: string): number {
  * @returns Color de texto óptimo (#ffffff o #000000)
  */
 export function getBestTextColor(backgroundColor: string): string {
+  // Handle gradients and complex colors with intelligent defaults
+  if (backgroundColor.includes('gradient')) {
+    // Extract first color from gradient to make decision
+    const colorMatch = backgroundColor.match(/#[0-9a-fA-F]{6}/);
+    if (colorMatch) {
+      return getBestTextColor(colorMatch[0]);
+    }
+    // Default to white for dark-looking gradients
+    return '#ffffff';
+  }
+  
+  // Handle rgba colors
+  if (backgroundColor.includes('rgba')) {
+    // Default to white for rgba (usually used on dark backgrounds)
+    return '#ffffff';
+  }
+  
+  // Handle regular colors
   const whiteContrast = getContrastRatio(backgroundColor, '#ffffff');
   const blackContrast = getContrastRatio(backgroundColor, '#000000');
   
