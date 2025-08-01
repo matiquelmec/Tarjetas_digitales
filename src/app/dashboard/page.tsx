@@ -571,14 +571,14 @@ export default function Dashboard() {
                           active={pathname === '/dashboard/cv'} 
                           className={`alien-nav-link border-0 py-3 fw-semibold ${pathname === '/dashboard/cv' ? 'active' : ''}`}
                         >
-                          🚀 Archivos Inteligentes
+                          🚀 CVs Inteligentes
                         </Nav.Link>
                       </Link>
                     </Nav.Item>
                     <Nav.Item className="px-1">
                       <OverlayTrigger
                         placement="top"
-                        overlay={<Tooltip>Transmisión programada para Marzo 2025. Presentaciones holográficas con IA.</Tooltip>}
+                        overlay={<Tooltip>Disponible en Marzo 2025. Crea presentaciones intergalácticas con efectos hipnotizantes.</Tooltip>}
                       >
                         <div>
                           <Nav.Link 
@@ -586,7 +586,7 @@ export default function Dashboard() {
                             className="alien-nav-link border-0 py-3 text-muted"
                             style={{ cursor: 'not-allowed' }}
                           >
-                            📡 Transmisiones Inmersivas
+                            📡 Presentaciones Intergalácticas
                             <br />
                             <small className="text-muted">(En desarrollo)</small>
                           </Nav.Link>
