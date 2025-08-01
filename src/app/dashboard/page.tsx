@@ -515,7 +515,7 @@ export default function Dashboard() {
                   <div className="stat-compact alien-stat">
                     <span className="stat-icon">🌟</span>
                     <span className="stat-value plan-badge-alien">
-                      {session?.user?.plan === 'premium' ? 'COMANDANTE' : 'EXPLORADOR'}
+                      {session?.user?.plan?.toString() === 'premium' ? 'COMANDANTE' : 'EXPLORADOR'}
                     </span>
                   </div>
                 </div>
