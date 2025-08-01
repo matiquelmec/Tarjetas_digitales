@@ -675,6 +675,45 @@ export default function HomePage() {
           50% { transform: translateY(-30px) rotate(20deg); opacity: 1; }
         }
         
+        /* Capabilities Section */
+        .platform-capabilities {
+          padding: 3rem 0;
+        }
+        
+        .capability-card {
+          padding: 2rem 1.5rem;
+          text-align: center;
+          transition: all 0.3s ease;
+          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          height: 100%;
+        }
+        
+        .capability-card:hover {
+          transform: translateY(-8px);
+          background: rgba(255, 255, 255, 0.12);
+          border-color: rgba(0, 246, 255, 0.3);
+          box-shadow: 0 16px 40px rgba(0, 246, 255, 0.2);
+        }
+        
+        .capability-icon {
+          font-size: 3rem;
+          filter: drop-shadow(0 4px 12px rgba(0, 246, 255, 0.4));
+        }
+        
+        .capability-title {
+          font-size: 1.3rem;
+          font-weight: 700;
+          font-family: 'Montserrat', sans-serif;
+        }
+        
+        .capability-description {
+          font-size: 1rem;
+          line-height: 1.5;
+        }
+        
         /* Mobile optimizations */
         @media (max-width: 768px) {
           .hero-intergalactico {
@@ -835,96 +874,71 @@ export default function HomePage() {
             </Row>
           </div>
 
-          {/* Servicio Principal - Tarjetas Digitales */}
-          <Row className="justify-content-center mb-5">
-            <Col lg={8} xl={6}>
-              <Card className="glass-card text-white main-service-card">
-                <Card.Body className="p-4 text-center">
-                  <div className="service-icon mb-3" style={{ fontSize: '3rem' }}>
-                    💼
-                  </div>
-                  <Card.Title as="h3" className="mb-3 fw-bold" style={{ fontSize: '1.8rem' }}>
-                    Tarjetas Digitales Premium
-                  </Card.Title>
-                  <Card.Text className="mb-4 opacity-90" style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
-                    Diseña tarjetas profesionales con efectos visuales únicos, QR integrado y compartir instantáneo
-                  </Card.Text>
-                  
-                  {/* Features destacadas */}
-                  <div className="features-grid mb-4">
-                    <Row className="g-3">
-                      <Col sm={6}>
-                        <div className="feature-item">
-                          <small className="text-white opacity-75">
-                            ✨ Editor visual en tiempo real
-                          </small>
-                        </div>
-                      </Col>
-                      <Col sm={6}>
-                        <div className="feature-item">
-                          <small className="text-white opacity-75">
-                            🎨 Efectos glassmorphism
-                          </small>
-                        </div>
-                      </Col>
-                      <Col sm={6}>
-                        <div className="feature-item">
-                          <small className="text-white opacity-75">
-                            📊 Analytics de interacción
-                          </small>
-                        </div>
-                      </Col>
-                      <Col sm={6}>
-                        <div className="feature-item">
-                          <small className="text-white opacity-75">
-                            📱 URLs personalizadas
-                          </small>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                  
-                  <Button 
-                    className="btn-cta-secondary px-4 py-2"
-                    onClick={handleDashboardAccess}
-                    style={{
-                      fontSize: '1.1rem',
-                      fontWeight: '600',
-                      borderRadius: '12px',
-                      background: 'rgba(0, 246, 255, 0.2)',
-                      border: '2px solid #00F6FF',
-                      color: '#00F6FF'
-                    }}
-                  >
-                    ✨ Comenzar Ahora - Es Gratis
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-
-          {/* Servicios Futuros - Colapsados */}
+          {/* ¿Qué Puedes Hacer en Nuestra Plataforma? */}
           <Row className="justify-content-center">
-            <Col lg={10}>
-              <div className="future-services text-center">
-                <h4 className="text-white mb-4 opacity-75">Próximamente en nuestra plataforma</h4>
-                <div className="d-flex gap-4 justify-content-center flex-wrap">
-                  <div className="future-item">
-                    <span className="future-icon">🚀</span>
-                    <small className="text-white opacity-60 d-block">CVs Inteligentes</small>
-                    <small className="text-white opacity-40">Feb 2025</small>
-                  </div>
-                  <div className="future-item">
-                    <span className="future-icon">🎯</span>
-                    <small className="text-white opacity-60 d-block">Presentaciones</small>
-                    <small className="text-white opacity-40">Mar 2025</small>
-                  </div>
-                  <div className="future-item">
-                    <span className="future-icon">🎨</span>
-                    <small className="text-white opacity-60 d-block">Template Store</small>
-                    <small className="text-white opacity-40">Abr 2025</small>
-                  </div>
-                </div>
+            <Col lg={10} xl={8}>
+              <div className="platform-capabilities text-center mb-5">
+                <h2 className="text-white mb-5" style={{ fontSize: '2.5rem', fontWeight: '800' }}>
+                  ¿Qué Puedes Hacer en Nuestra <span className="hero-highlight-alien">Plataforma</span>?
+                </h2>
+                
+                <Row className="g-4">
+                  <Col md={6} lg={3}>
+                    <div className="capability-card">
+                      <div className="capability-icon mb-3">
+                        🛸
+                      </div>
+                      <h4 className="capability-title text-white mb-3">
+                        Crear Tarjetas de Otro Mundo
+                      </h4>
+                      <p className="capability-description text-white opacity-85">
+                        Diseña tarjetas digitales que transportan tu profesionalismo más allá de este planeta
+                      </p>
+                    </div>
+                  </Col>
+                  
+                  <Col md={6} lg={3}>
+                    <div className="capability-card">
+                      <div className="capability-icon mb-3">
+                        🚀
+                      </div>
+                      <h4 className="capability-title text-white mb-3">
+                        Optimizar con Inteligencia Alienígena
+                      </h4>
+                      <p className="capability-description text-white opacity-85">
+                        Transforma tu CV con algoritmos de otra dimensión para destacar en cualquier galaxia
+                      </p>
+                    </div>
+                  </Col>
+                  
+                  <Col md={6} lg={3}>
+                    <div className="capability-card">
+                      <div className="capability-icon mb-3">
+                        📡
+                      </div>
+                      <h4 className="capability-title text-white mb-3">
+                        Crear Presentaciones Inmersivas
+                      </h4>
+                      <p className="capability-description text-white opacity-85">
+                        Hipnotiza a tu audiencia con presentaciones que desafían las leyes de la física terrestre
+                      </p>
+                    </div>
+                  </Col>
+                  
+                  <Col md={6} lg={3}>
+                    <div className="capability-card">
+                      <div className="capability-icon mb-3">
+                        🌌
+                      </div>
+                      <h4 className="capability-title text-white mb-3">
+                        Acceder al Ecosistema Completo
+                      </h4>
+                      <p className="capability-description text-white opacity-85">
+                        Una plataforma integral donde tu identidad profesional evoluciona constantemente
+                      </p>
+                    </div>
+                  </Col>
+                </Row>
               </div>
             </Col>
           </Row>
