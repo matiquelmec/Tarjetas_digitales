@@ -1050,7 +1050,7 @@ export default function HomePage() {
                         🚀
                       </div>
                       <h4 className="capability-title text-white mb-3">
-                        Optimizar con Inteligencia Alienígena
+                        Crea y Optimiza tu Currículum con Inteligencia Alienígena
                       </h4>
                       <p className="capability-description text-white opacity-85">
                         Optimiza automáticamente tu currículum con IA avanzada. Usa plantillas ATS-friendly que pasan filtros automáticos y captan la atención de reclutadores al instante, multiplicando tus entrevistas de trabajo.
