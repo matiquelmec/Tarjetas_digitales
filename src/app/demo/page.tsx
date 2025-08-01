@@ -19,21 +19,28 @@ export default function DemoPage() {
     name: 'Dr. María Elena Rodríguez',
     title: 'Especialista en Cardiología Clínica',
     about: 'Con más de 15 años de experiencia en cardiología clínica, me especializo en el diagnóstico y tratamiento de enfermedades cardiovasculares. Comprometida con brindar atención médica integral y de calidad a cada paciente.',
-    company: 'Hospital Clínico Universidad de Chile',
-    email: 'dra.rodriguez@clinica.cl',
-    phone: '+56 9 8765 4321',
     location: 'Providencia, Santiago, Chile',
     whatsapp: '56987654321',
+    email: 'dra.rodriguez@clinica.cl',
+    photoUrl: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face',
     
     // Template Ocean con gradientes azul oceánico
     template: 'ocean',
-    photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face',
     cardBackgroundColor: 'linear-gradient(135deg, #006994 0%, #004d6b 50%, #003947 100%)', // Ocean gradient
     cardTextColor: '#ffffff',
     buttonSecondaryColor: '#00D4FF',
     buttonSecondaryHoverColor: '#00B8E6',
     buttonNormalBackgroundColor: '#1F1F1F',
     fontFamily: 'Montserrat',
+    
+    // Props requeridos adicionales
+    whatsappShareUrl: 'https://wa.me/56987654321',
+    appointmentLink: 'https://calendly.com/dra-rodriguez',
+    professionalDetails: 'Especialista certificada en cardiología clínica con experiencia en procedimientos mínimamente invasivos.',
+    linkedin: 'https://linkedin.com/in/maria-rodriguez-cardiologa',
+    instagram: 'https://instagram.com/dra.rodriguez.cardio',
+    twitter: '',
+    facebook: '',
     
     // Todos los efectos premium activados
     enableHoverEffect: true,
@@ -243,9 +250,16 @@ export default function DemoPage() {
                     location={demoCardData.location}
                     whatsapp={demoCardData.whatsapp}
                     email={demoCardData.email}
-                    photoUrl={demoCardData.photo}
+                    photoUrl={demoCardData.photoUrl}
                     cardBackgroundColor={demoCardData.cardBackgroundColor}
                     cardTextColor={demoCardData.cardTextColor}
+                    whatsappShareUrl={demoCardData.whatsappShareUrl}
+                    appointmentLink={demoCardData.appointmentLink}
+                    professionalDetails={demoCardData.professionalDetails}
+                    linkedin={demoCardData.linkedin}
+                    instagram={demoCardData.instagram}
+                    twitter={demoCardData.twitter}
+                    facebook={demoCardData.facebook}
                     enableHoverEffect={demoCardData.enableHoverEffect}
                     enableGlassmorphism={demoCardData.enableGlassmorphism}
                     enableSubtleAnimations={demoCardData.enableSubtleAnimations}
@@ -253,6 +267,7 @@ export default function DemoPage() {
                     enableParticles={demoCardData.enableParticles}
                     particleType={demoCardData.particleType}
                     particleCount={demoCardData.particleCount}
+                    template={demoCardData.template}
                     fontFamily={demoCardData.fontFamily}
                     buttonSecondaryColor={demoCardData.buttonSecondaryColor}
                     buttonSecondaryHoverColor={demoCardData.buttonSecondaryHoverColor}
