@@ -122,10 +122,14 @@ export default function CreateCardPage() {
   };
 
   const updateCardData = (field: string, value: any) => {
-    console.log(`🔄 updateCardData called: ${field} = ${value}`);
+    if (field === 'template') {
+      console.log(`🎯 TEMPLATE UPDATE: ${field} = ${value}`);
+    }
     setCardData(prev => {
       const newData = { ...prev, [field]: value };
-      console.log(`📊 New cardData for ${field}:`, (newData as any)[field]);
+      if (field === 'template') {
+        console.log(`📊 New template value:`, newData.template);
+      }
       return newData;
     });
   };
