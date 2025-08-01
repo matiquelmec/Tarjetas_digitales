@@ -134,17 +134,19 @@ export default function CreateCardPage() {
     });
   };
 
-  // Nueva función para aplicar tema completo de una vez
+  // Nueva función para aplicar tema completo de una vez - Con forzado de re-render
   const applyThemeData = (themeColors: Record<string, any>) => {
     console.log(`🎨 Applying complete theme:`, themeColors);
+    
     setCardData(prev => {
-      const newData = { ...prev, ...themeColors };
+      const newData = { ...prev, ...themeColors, _forceUpdate: Date.now() };
       console.log(`📊 Complete new cardData:`, {
         cardBackgroundColor: newData.cardBackgroundColor,
         cardTextColor: newData.cardTextColor,
         buttonSecondaryColor: newData.buttonSecondaryColor,
         buttonNormalBackgroundColor: newData.buttonNormalBackgroundColor,
-        buttonSecondaryHoverColor: newData.buttonSecondaryHoverColor
+        buttonSecondaryHoverColor: newData.buttonSecondaryHoverColor,
+        _forceUpdate: newData._forceUpdate
       });
       return newData;
     });
