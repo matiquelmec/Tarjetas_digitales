@@ -90,10 +90,10 @@ export class EffectsManager {
       const shadowIntensity = 0.3 * intensity;
       
       styles.push(`
-        .business-card.effect-hover {
+        .business-card-custom.effect-hover {
           transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .business-card.effect-hover:hover {
+        .business-card-custom.effect-hover:hover {
           transform: translateY(-${liftAmount}px) scale(${scaleAmount});
           box-shadow: 0 ${liftAmount * 4}px ${liftAmount * 8}px rgba(0, 0, 0, ${shadowIntensity});
         }
@@ -115,7 +115,7 @@ export class EffectsManager {
       const shadowStrength = 0.2 * intensity;
 
       styles.push(`
-        .business-card.effect-glass {
+        .business-card-custom.effect-glass {
           backdrop-filter: blur(${blurAmount}px) saturate(1.1);
           -webkit-backdrop-filter: blur(${blurAmount}px) saturate(1.1);
           border: 1px solid rgba(255, 255, 255, ${borderOpacity});
@@ -126,7 +126,7 @@ export class EffectsManager {
         }
         
         /* Efecto de brillo sutil en la parte superior */
-        .business-card.effect-glass::before {
+        .business-card-custom.effect-glass::before {
           content: '';
           position: absolute;
           top: 0;
@@ -146,9 +146,9 @@ export class EffectsManager {
         }
         
         /* Asegurar que el contenido esté por encima */
-        .business-card.effect-glass .card-body,
-        .business-card.effect-glass .card-body > *,
-        .business-card.effect-glass > * {
+        .business-card-custom.effect-glass .card-body,
+        .business-card-custom.effect-glass .card-body > *,
+        .business-card-custom.effect-glass > * {
           position: relative;
           z-index: 2;
         }
@@ -162,17 +162,17 @@ export class EffectsManager {
       const duration = 4 + (2 * (1 - intensity)); // Más lento = más sutil
       
       styles.push(`
-        .business-card.effect-animate {
+        .business-card-custom.effect-animate {
           animation: subtleBreathe ${duration}s ease-in-out infinite;
         }
         
         /* Solo aplicar breathe si NO hay hover activo */
-        .business-card.effect-animate:not(.effect-hover) {
+        .business-card-custom.effect-animate:not(.effect-hover) {
           animation: subtleBreathe ${duration}s ease-in-out infinite;
         }
         
         /* Si hay hover, pausar la animación durante hover */
-        .business-card.effect-animate.effect-hover:hover {
+        .business-card-custom.effect-animate.effect-hover:hover {
           animation-play-state: paused;
         }
         
@@ -210,10 +210,10 @@ export class EffectsManager {
         : `rgba(255, 200, 255, ${patternOpacity})`;
       
       styles.push(`
-        .business-card.effect-patterns {
+        .business-card-custom.effect-patterns {
           position: relative;
         }
-        .business-card.effect-patterns${pseudoElement} {
+        .business-card-custom.effect-patterns${pseudoElement} {
           content: '';
           position: absolute;
           top: 0;

@@ -90,9 +90,9 @@ export function useVisualEffects({
     return effectsManager.validateEffectCombination(effectsState);
   }, [effectsState, effectsManager]);
 
-  // CSS classes dinámicas
+  // CSS classes dinámicas (sin incluir business-card ya que el elemento usa business-card-custom)
   const cssClasses = useMemo(() => {
-    const classes: string[] = ['business-card'];
+    const classes: string[] = [];
     
     if (effectsState.hoverEffect.enabled) classes.push('effect-hover');
     if (effectsState.glassmorphism.enabled) classes.push('effect-glass');
