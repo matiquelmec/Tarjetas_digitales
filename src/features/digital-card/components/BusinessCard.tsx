@@ -610,8 +610,8 @@ ${formattedAbout ? `${formattedAbout}
     let backdropFilter = 'none';
     let border = baseTemplate.cardStyle.border || 'none';
     
-    if (effects.glass) {
-      // Glassmorphism: manejar tanto colores sólidos como gradientes
+    if (effects.glass && !enableGlassmorphism) {
+      // Legacy glassmorphism (solo si el nuevo sistema no está activo)
       if (cardBackgroundColor.startsWith('linear-gradient')) {
         // Para gradientes, mantener el gradiente original con ligero overlay
         background = cardBackgroundColor;
@@ -629,6 +629,11 @@ ${formattedAbout ? `${formattedAbout}
           border = `1px solid rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
         }
       }
+    } else if (enableGlassmorphism) {
+      // Nuevo sistema de glassmorphism manejado por CSS - mantener fondo original
+      background = cardBackgroundColor;
+      backdropFilter = 'none'; // El CSS se encarga del backdrop-filter
+      border = 'none'; // El CSS se encarga del border
     }
 
     // Combinar box-shadow de template, hover y glass

@@ -108,39 +108,61 @@ export class EffectsManager {
       const baseColor = this.extractBaseColor(cardColors.background);
       const isLightBackground = this.isLightColor(baseColor);
       
-      // Aplicar glassmorphism manteniendo el color base del usuario
-      // En lugar de overlay sólido, usar un efecto más sutil
-      const blurAmount = 6 * intensity;
-      const borderOpacity = 0.25 * intensity;
-      const shadowStrength = 0.2 * intensity;
+      // Aplicar glassmorphism con valores más visibles y overlay semitransparente
+      const blurAmount = 10 * intensity; // Más blur para efecto más notorio
+      const borderOpacity = 0.3 * intensity; // Bordes más visibles
+      const shadowStrength = 0.3 * intensity; // Sombra más intensa
+      const glassOpacity = isLightBackground ? 0.15 * intensity : 0.1 * intensity;
 
       styles.push(`
         .business-card-custom.effect-glass {
-          backdrop-filter: blur(${blurAmount}px) saturate(1.1);
-          -webkit-backdrop-filter: blur(${blurAmount}px) saturate(1.1);
-          border: 1px solid rgba(255, 255, 255, ${borderOpacity});
+          backdrop-filter: blur(${blurAmount}px) saturate(1.2) contrast(1.1) !important;
+          -webkit-backdrop-filter: blur(${blurAmount}px) saturate(1.2) contrast(1.1) !important;
+          background: rgba(255, 255, 255, ${glassOpacity}) !important;
+          border: 1px solid rgba(255, 255, 255, ${borderOpacity}) !important;
           box-shadow: 
             0 8px 32px rgba(0, 0, 0, ${shadowStrength}),
-            inset 0 1px 0 rgba(255, 255, 255, ${borderOpacity * 2});
+            inset 0 1px 0 rgba(255, 255, 255, ${borderOpacity * 2}),
+            0 0 0 1px rgba(255, 255, 255, ${borderOpacity * 0.5}) !important;
           position: relative;
         }
         
-        /* Efecto de brillo sutil en la parte superior */
+        /* Efecto de brillo mejorado en la parte superior */
         .business-card-custom.effect-glass::before {
           content: '';
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
-          height: 40%;
+          height: 50%;
           background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, ${isLightBackground ? 0.1 * intensity : 0.05 * intensity}) 0%,
+            135deg,
+            rgba(255, 255, 255, ${isLightBackground ? 0.2 * intensity : 0.15 * intensity}) 0%,
+            rgba(255, 255, 255, ${isLightBackground ? 0.1 * intensity : 0.05 * intensity}) 50%,
             transparent 100%
           );
           border-radius: inherit;
           border-bottom-left-radius: 0;
           border-bottom-right-radius: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+        
+        /* Efecto de reflejo adicional */
+        .business-card-custom.effect-glass::after {
+          content: '';
+          position: absolute;
+          top: 10%;
+          left: 10%;
+          right: 60%;
+          height: 30%;
+          background: linear-gradient(
+            45deg,
+            rgba(255, 255, 255, ${0.3 * intensity}) 0%,
+            transparent 50%
+          );
+          border-radius: 50%;
+          filter: blur(20px);
           pointer-events: none;
           z-index: 1;
         }
@@ -192,9 +214,9 @@ export class EffectsManager {
       const intensity = effects.backgroundPatterns.intensity || 0.4;
       const patternOpacity = 0.2 * intensity;
       
-      // Usar ::after para evitar conflicto con glassmorphism que usa ::before
-      const pseudoElement = effects.glassmorphism.enabled ? '::after' : '::before';
-      const zIndex = effects.glassmorphism.enabled ? 1 : 0;
+      // Glassmorphism ahora usa ::before Y ::after, usar elemento hijo para patterns
+      const useChildElement = effects.glassmorphism.enabled;
+      const zIndex = effects.glassmorphism.enabled ? 3 : 0;
       
       // Adaptar colores según el fondo del usuario
       const baseColor = this.extractBaseColor(cardColors.background);
@@ -207,28 +229,58 @@ export class EffectsManager {
         ? `rgba(200, 100, 200, ${patternOpacity})` 
         : `rgba(255, 200, 255, ${patternOpacity})`;
       
+      if (useChildElement) {
+        // Cuando glassmorphism está activo, crear un div hijo para patterns
+        styles.push(`
+          .business-card-custom.effect-patterns {
+            position: relative;
+          }
+          .business-card-custom.effect-patterns > .card-body::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: -40px;
+            right: -40px;
+            bottom: -40px;
+            background-image: 
+              radial-gradient(circle at 25% 75%, ${pattern1Color} 0%, transparent 50%),
+              radial-gradient(circle at 75% 25%, ${pattern2Color} 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(255, 255, 255, ${patternOpacity * 0.5}) 0%, transparent 30%);
+            border-radius: inherit;
+            pointer-events: none;
+            z-index: ${zIndex};
+            opacity: 0;
+            animation: patternFadeIn 2s ease-in-out forwards;
+          }
+        `);
+      } else {
+        // Cuando glassmorphism NO está activo, usar ::before normalmente
+        styles.push(`
+          .business-card-custom.effect-patterns {
+            position: relative;
+          }
+          .business-card-custom.effect-patterns::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+              radial-gradient(circle at 25% 75%, ${pattern1Color} 0%, transparent 50%),
+              radial-gradient(circle at 75% 25%, ${pattern2Color} 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(255, 255, 255, ${patternOpacity * 0.5}) 0%, transparent 30%);
+            border-radius: inherit;
+            pointer-events: none;
+            z-index: ${zIndex};
+            opacity: 0;
+            animation: patternFadeIn 2s ease-in-out forwards;
+          }
+        `);
+      }
+      
+      // Keyframe común para ambos casos
       styles.push(`
-        .business-card-custom.effect-patterns {
-          position: relative;
-        }
-        .business-card-custom.effect-patterns${pseudoElement} {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-image: 
-            radial-gradient(circle at 25% 75%, ${pattern1Color} 0%, transparent 50%),
-            radial-gradient(circle at 75% 25%, ${pattern2Color} 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(255, 255, 255, ${patternOpacity * 0.5}) 0%, transparent 30%);
-          border-radius: inherit;
-          pointer-events: none;
-          z-index: ${zIndex};
-          opacity: 0;
-          animation: patternFadeIn 2s ease-in-out forwards;
-        }
-        
         @keyframes patternFadeIn {
           to { opacity: 1; }
         }
