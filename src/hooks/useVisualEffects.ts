@@ -1,0 +1,151 @@
+/**
+ * Hook para gestionar efectos visuales con arquitectura limpia
+ * Reemplaza la lógica dispersa con un sistema unificado
+ */
+
+import { useMemo, useCallback, useEffect, useState } from 'react';
+import EffectsManager, { VisualEffectsState, ParticleConfig } from '@/lib/effects/EffectsManager';
+
+interface UseVisualEffectsProps {
+  // Props legacy para compatibilidad
+  enableHoverEffect?: boolean;
+  enableGlassmorphism?: boolean;
+  enableSubtleAnimations?: boolean;
+  enableBackgroundPatterns?: boolean;
+  enableParticles?: boolean;
+  particleType?: 'floating' | 'constellation' | 'professional' | 'creative';
+  particleCount?: number;
+  
+  // Colores de la tarjeta
+  cardBackgroundColor: string;
+  cardTextColor: string;
+}
+
+export function useVisualEffects({
+  enableHoverEffect,
+  enableGlassmorphism,
+  enableSubtleAnimations,
+  enableBackgroundPatterns,
+  enableParticles,
+  particleType,
+  particleCount,
+  cardBackgroundColor,
+  cardTextColor
+}: UseVisualEffectsProps) {
+  const [isMobile, setIsMobile] = useState(false);
+  const effectsManager = EffectsManager.getInstance();
+
+  // Detectar dispositivo móvil
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Convertir props legacy al nuevo formato
+  const effectsState = useMemo((): VisualEffectsState => {
+    const baseState = effectsManager.convertLegacyProps({
+      enableHoverEffect,
+      enableGlassmorphism,
+      enableSubtleAnimations,
+      enableBackgroundPatterns,
+      enableParticles,
+      particleType,
+      particleCount
+    });
+
+    // Optimizar para móvil si es necesario
+    return effectsManager.optimizeForDevice(baseState, isMobile);
+  }, [
+    enableHoverEffect,
+    enableGlassmorphism,
+    enableSubtleAnimations,
+    enableBackgroundPatterns,
+    enableParticles,
+    particleType,
+    particleCount,
+    isMobile,
+    effectsManager
+  ]);
+
+  // Generar CSS dinámico
+  const dynamicStyles = useMemo(() => {
+    return effectsManager.generateEffectStyles(effectsState, {
+      background: cardBackgroundColor,
+      text: cardTextColor
+    });
+  }, [effectsState, cardBackgroundColor, cardTextColor, effectsManager]);
+
+  // Configuración de partículas
+  const particleConfig = useMemo(() => {
+    return effectsManager.generateParticleConfig(effectsState.particles);
+  }, [effectsState.particles, effectsManager]);
+
+  // Validación de efectos
+  const validation = useMemo(() => {
+    return effectsManager.validateEffectCombination(effectsState);
+  }, [effectsState, effectsManager]);
+
+  // CSS classes dinámicas
+  const cssClasses = useMemo(() => {
+    const classes: string[] = ['business-card'];
+    
+    if (effectsState.hoverEffect.enabled) classes.push('effect-hover');
+    if (effectsState.glassmorphism.enabled) classes.push('effect-glass');
+    if (effectsState.subtleAnimations.enabled) classes.push('effect-animate');
+    if (effectsState.backgroundPatterns.enabled) classes.push('effect-patterns');
+    if (effectsState.particles.enabled) classes.push('effect-particles');
+    
+    return classes.join(' ');
+  }, [effectsState]);
+
+  // Función para aplicar efectos a un elemento
+  const applyEffectsToElement = useCallback((element: HTMLElement) => {
+    // Aplicar classes CSS
+    element.className = cssClasses;
+    
+    // Insertar estilos dinámicos
+    let styleElement = document.getElementById('dynamic-effects-styles');
+    if (!styleElement) {
+      styleElement = document.createElement('style');
+      styleElement.id = 'dynamic-effects-styles';
+      document.head.appendChild(styleElement);
+    }
+    styleElement.innerHTML = dynamicStyles;
+  }, [cssClasses, dynamicStyles]);
+
+  // Información de debug
+  const debugInfo = useMemo(() => ({
+    activeEffects: Object.entries(effectsState)
+      .filter(([_, config]) => config.enabled)
+      .map(([name, _]) => name),
+    isMobile,
+    validation,
+    totalEffects: Object.values(effectsState).filter(effect => effect.enabled).length
+  }), [effectsState, isMobile, validation]);
+
+  return {
+    // Estado de efectos
+    effectsState,
+    
+    // Configuraciones
+    particleConfig,
+    dynamicStyles,
+    cssClasses,
+    
+    // Validación
+    validation,
+    
+    // Utilidades
+    applyEffectsToElement,
+    
+    // Info de debug (solo en desarrollo)
+    ...(process.env.NODE_ENV === 'development' && { debugInfo })
+  };
+}
+
+export default useVisualEffects;

@@ -54,6 +54,11 @@ export default function CreateCardPage() {
     enableSubtleAnimations: false,
     enableBackgroundPatterns: false,
     
+    // Sistema de partículas - NUEVO
+    enableParticles: false,
+    particleType: 'floating' as 'floating' | 'constellation' | 'professional' | 'creative',
+    particleCount: 30,
+    
     // Redes sociales - Con datos de ejemplo
     linkedin: 'https://linkedin.com/in/dra-maria-rodriguez',
     twitter: '',
@@ -275,7 +280,7 @@ export default function CreateCardPage() {
                       margin: '0 auto'
                     }}>
                       <BusinessCard
-                        key={`${cardData.cardBackgroundColor}-${cardData.cardTextColor}-${cardData.template}`}
+                        key={`${cardData.cardBackgroundColor}-${cardData.cardTextColor}-${cardData.template}-${cardData.enableParticles}`}
                         name={cardData.name || 'Tu Nombre'}
                         title={cardData.title || 'Tu Título'}
                         about={cardData.about || 'Tu descripción profesional aparecerá aquí...'}
@@ -289,6 +294,9 @@ export default function CreateCardPage() {
                         enableGlassmorphism={cardData.enableGlassmorphism}
                         enableSubtleAnimations={cardData.enableSubtleAnimations}
                         enableBackgroundPatterns={cardData.enableBackgroundPatterns}
+                        enableParticles={cardData.enableParticles}
+                        particleType={cardData.particleType}
+                        particleCount={cardData.particleCount}
                         whatsappShareUrl=""
                         appointmentLink={cardData.appointmentLink}
                         professionalDetails={cardData.professionalDetails}

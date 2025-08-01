@@ -5,6 +5,7 @@ import { useEffect, useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { getBestTextColor, getContrastRatio, isAccessible } from '@/lib/contrast';
+import { useVisualEffects } from '@/hooks/useVisualEffects';
 
 const QrCodeDisplay = dynamic(() => import('./QrCodeDisplay'), { ssr: false });
 
@@ -24,6 +25,7 @@ interface BusinessCardProps {
   enableBackgroundPatterns: boolean;
   enableParticles?: boolean;
   particleType?: 'floating' | 'constellation' | 'professional' | 'creative';
+  particleCount?: number;
   particleDensity?: number;
   particleColor?: string;
   whatsappShareUrl: string;
@@ -234,8 +236,28 @@ const staticStyles = `
   }
 `;
 
-export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, enableParticles = false, particleType = 'floating', particleDensity = 3, particleColor = 'auto', whatsappShareUrl, appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, template = 'modern' }: BusinessCardProps) {
+export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, enableParticles = false, particleType = 'floating', particleCount = 30, particleDensity = 3, particleColor = 'auto', whatsappShareUrl, appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, template = 'modern' }: BusinessCardProps) {
   const [qrCodeValue, setQrCodeValue] = useState('');
+
+  // Sistema de efectos visuales limpio y modular
+  const {
+    effectsState,
+    particleConfig,
+    dynamicStyles,
+    cssClasses,
+    validation,
+    applyEffectsToElement
+  } = useVisualEffects({
+    enableHoverEffect,
+    enableGlassmorphism,
+    enableSubtleAnimations,
+    enableBackgroundPatterns,
+    enableParticles,
+    particleType,
+    particleCount,
+    cardBackgroundColor,
+    cardTextColor
+  });
 
 
   useEffect(() => {
@@ -727,66 +749,63 @@ ${formattedAbout ? `${formattedAbout}
     } : null;
   };
 
-  // Sistema de partículas inteligente
-  const generateParticles = () => {
-    if (!enableParticles) return null;
+  // Renderizado de partículas usando el nuevo sistema limpio
+  const renderParticles = () => {
+    if (!effectsState.particles.enabled) return null;
 
     const particles = [];
-    const particleCount = Math.max(5, Math.min(20, particleDensity * 4));
+    const particleCount = effectsState.particles.count;
     
-    // Determinar color de partículas
     const getParticleColor = () => {
       if (particleColor !== 'auto') return particleColor;
-      
-      // Auto: usar colores complementarios al tema
-      if (cardTextColor === '#ffffff') {
-        return 'rgba(255, 255, 255, 0.6)';
-      } else {
-        return cardTextColor + '60'; // Agregar transparencia
-      }
+      return cardTextColor === '#ffffff' ? 'rgba(255, 255, 255, 0.6)' : cardTextColor + '60';
     };
 
     const color = getParticleColor();
 
     for (let i = 0; i < particleCount; i++) {
-      const size = particleType === 'professional' ? 
+      const size = effectsState.particles.type === 'professional' ? 
         Math.random() * 4 + 2 : Math.random() * 6 + 3;
       
-      const left = Math.random() * 85 + 5; // 5% a 90% para evitar bordes
+      const left = Math.random() * 85 + 5;
       const top = Math.random() * 85 + 5;
-      
-      // Delay aleatorio para animaciones más naturales
       const animationDelay = Math.random() * 4;
 
       particles.push(
         <div
           key={i}
-          className={`particle particle-${particleType}`}
+          className={`particle particle-${effectsState.particles.type}`}
           style={{
+            position: 'absolute',
             left: `${left}%`,
             top: `${top}%`,
             width: `${size}px`,
             height: `${size}px`,
             background: color,
+            borderRadius: effectsState.particles.type === 'creative' ? '0' : '50%',
             animationDelay: `${animationDelay}s`,
             zIndex: 2,
-            // Formas especiales para diferentes tipos
-            ...(particleType === 'creative' && {
-              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)', // Triángulo
-              borderRadius: 0,
+            animation: `floatingParticle 6s ease-in-out infinite`,
+            ...(effectsState.particles.type === 'creative' && {
+              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
             }),
-            ...(particleType === 'professional' && {
-              borderRadius: '2px', // Cuadrado redondeado
-            })
+            ...(effectsState.particles.type === 'constellation' && {
+              boxShadow: `0 0 10px ${color}`,
+              animation: 'constellation 4s ease-in-out infinite',
+            }),
+            ...(effectsState.particles.type === 'professional' && {
+              borderRadius: '2px',
+              animation: 'professionalPulse 3s ease-in-out infinite',
+            }),
           }}
         />
       );
     }
 
     // Líneas de conexión para constellation
-    if (particleType === 'constellation') {
+    if (effectsState.particles.type === 'constellation') {
       const lines = [];
-      for (let i = 0; i < Math.min(particleCount / 2, 6); i++) {
+      for (let i = 0; i < Math.min(particleCount / 3, 5); i++) {
         const width = Math.random() * 60 + 20;
         const left = Math.random() * 70 + 10;
         const top = Math.random() * 70 + 15;
@@ -797,12 +816,14 @@ ${formattedAbout ? `${formattedAbout}
             key={`line-${i}`}
             className="constellation-line"
             style={{
+              position: 'absolute',
               left: `${left}%`,
               top: `${top}%`,
               width: `${width}px`,
+              height: '1px',
               background: color,
               transform: `rotate(${rotation}deg)`,
-              opacity: 0.2,
+              opacity: 0.3,
               zIndex: 1,
             }}
           />
@@ -812,7 +833,16 @@ ${formattedAbout ? `${formattedAbout}
     }
 
     return (
-      <div className="particles-container">
+      <div className="particles-container" style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        pointerEvents: 'none',
+        borderRadius: 'inherit'
+      }}>
         {particles}
       </div>
     );
@@ -883,8 +913,9 @@ ${formattedAbout ? `${formattedAbout}
   return (
     <>
       <style>{staticStyles}</style>
-      <Card className={getCardClasses()} style={cardStyles}>
-        {generateParticles()}
+      <style>{dynamicStyles}</style>
+      <Card className={`${getCardClasses()} ${cssClasses}`} style={cardStyles}>
+        {renderParticles()}
         <Card.Body style={{ padding: 0 }}>
           <Stack gap={3}>
             <div className="header-section" style={{
