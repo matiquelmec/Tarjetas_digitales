@@ -500,9 +500,9 @@ export default function HomePage() {
         /* Animación de llegada de nave */
         .spaceship-arrival {
           position: absolute;
-          top: 10%;
-          right: 10%;
-          z-index: 3;
+          top: 20%;
+          right: 15%;
+          z-index: 2;
         }
         
         .spaceship {
@@ -638,24 +638,24 @@ export default function HomePage() {
         }
         
         .alien-1 {
-          top: 15%;
-          left: 5%;
-          font-size: 2.5rem;
+          top: 30%;
+          left: 8%;
+          font-size: 2.2rem;
           animation: alienFloat1 5s ease-in-out infinite;
         }
         
         .alien-2 {
-          top: 25%;
-          right: 5%;
-          font-size: 2rem;
+          top: 45%;
+          right: 8%;
+          font-size: 1.8rem;
           animation: alienFloat2 7s ease-in-out infinite;
           animation-delay: -2s;
         }
         
         .alien-3 {
-          bottom: 15%;
-          left: 15%;
-          font-size: 1.8rem;
+          bottom: 25%;
+          left: 20%;
+          font-size: 2rem;
           animation: alienFloat3 6s ease-in-out infinite;
           animation-delay: -4s;
         }
@@ -782,7 +782,30 @@ export default function HomePage() {
           }
           
           .spaceship {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
+          }
+          
+          .spaceship-arrival {
+            top: 15%;
+            right: 10%;
+          }
+          
+          .alien-1 {
+            font-size: 1.8rem;
+            top: 25%;
+            left: 5%;
+          }
+          
+          .alien-2 {
+            font-size: 1.5rem;
+            top: 40%;
+            right: 5%;
+          }
+          
+          .alien-3 {
+            font-size: 1.6rem;
+            bottom: 20%;
+            left: 15%;
           }
           
           .hero-ctas {
