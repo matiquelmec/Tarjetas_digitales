@@ -96,11 +96,54 @@ export class EffectsManager {
     // Glassmorphism
     if (effects.glassmorphism.enabled) {
       const intensity = effects.glassmorphism.intensity || 0.8;
+      
+      // Extraer el color base del fondo del usuario
+      const baseColor = this.extractBaseColor(cardColors.background);
+      const isLightBackground = this.isLightColor(baseColor);
+      
+      // Aplicar glassmorphism manteniendo el color base del usuario
+      // En lugar de overlay sólido, usar un efecto más sutil
+      const blurAmount = 6 * intensity;
+      const borderOpacity = 0.25 * intensity;
+      const shadowStrength = 0.2 * intensity;
+
       styles.push(`
-        .business-card {
-          backdrop-filter: blur(${10 * intensity}px);
-          background: rgba(255, 255, 255, ${0.1 * intensity}) !important;
-          border: 1px solid rgba(255, 255, 255, ${0.2 * intensity});
+        .business-card.effect-glass {
+          backdrop-filter: blur(${blurAmount}px) saturate(1.1);
+          -webkit-backdrop-filter: blur(${blurAmount}px) saturate(1.1);
+          border: 1px solid rgba(255, 255, 255, ${borderOpacity});
+          box-shadow: 
+            0 8px 32px rgba(0, 0, 0, ${shadowStrength}),
+            inset 0 1px 0 rgba(255, 255, 255, ${borderOpacity * 2});
+          position: relative;
+        }
+        
+        /* Efecto de brillo sutil en la parte superior */
+        .business-card.effect-glass::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 40%;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, ${isLightBackground ? 0.1 * intensity : 0.05 * intensity}) 0%,
+            transparent 100%
+          );
+          border-radius: inherit;
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+        
+        /* Asegurar que el contenido esté por encima */
+        .business-card.effect-glass .card-body,
+        .business-card.effect-glass .card-body > *,
+        .business-card.effect-glass > * {
+          position: relative;
+          z-index: 2;
         }
       `);
     }
@@ -234,6 +277,34 @@ export class EffectsManager {
       default: // floating
         return baseConfig;
     }
+  }
+
+  /**
+   * Extrae el color base de un fondo (puede ser color sólido o gradiente)
+   */
+  private extractBaseColor(background: string): string {
+    if (background.includes('linear-gradient')) {
+      // Extraer el primer color del gradiente
+      const colorMatch = background.match(/#[0-9a-fA-F]{6}/);
+      return colorMatch ? colorMatch[0] : '#000000';
+    }
+    return background;
+  }
+
+  /**
+   * Determina si un color es claro u oscuro
+   */
+  private isLightColor(color: string): boolean {
+    if (!color.startsWith('#')) return false;
+    
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    
+    // Fórmula de luminancia
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance > 0.5;
   }
 
   /**
