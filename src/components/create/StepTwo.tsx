@@ -264,70 +264,13 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
         </Form.Group>
       </div>
 
-      {/* AI Palette Selection */}
-      <div className="mb-4">
-        <h5 className="mb-3">🤖 Paletas con IA</h5>
-        <Row>
-          {minimalistPalettes.map((palette, index) => (
-            <Col md={6} lg={4} key={index} className="mb-3">
-              <Card 
-                className="cursor-pointer border-2 hover-card"
-                onClick={() => applyPalette(palette)}
-                style={{ cursor: 'pointer' }}
-              >
-                <Card.Body className="text-center p-2">
-                  <div className="d-flex mb-2" style={{ height: '40px' }}>
-                    <div 
-                      className="flex-fill"
-                      style={{ backgroundColor: palette.cardBackgroundColor }}
-                    ></div>
-                    <div 
-                      className="flex-fill"
-                      style={{ backgroundColor: palette.buttonSecondaryColor }}
-                    ></div>
-                  </div>
-                  <h6 className="mb-1">{palette.name}</h6>
-                  <Button 
-                    variant="outline-info" 
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      applyPalette(palette);
-                    }}
-                  >
-                    Aplicar
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </div>
 
       {/* Smart Theme System */}
       <div className="mb-4">
-        <h5 className="mb-3">🎨 Temas Inteligentes</h5>
-        <p className="text-muted mb-3">Cada tema transmite una personalidad visual coherente y profesional</p>
+        <h5 className="mb-3">🎨 Temas Profesionales</h5>
+        <p className="text-muted mb-3">Selecciona un tema que refleje tu personalidad profesional</p>
         
-        <div className="bg-success bg-opacity-10 p-3 rounded mb-4">
-          <div className="d-flex align-items-center gap-2 mb-2">
-            <span style={{ fontSize: '1.1rem' }}>🛡️</span>
-            <strong className="text-success">Reglas Universales de Contraste WCAG AA</strong>
-          </div>
-          <small className="text-success">
-            <strong>Sistema automático</strong> que garantiza legibilidad perfecta en todos los temas:<br/>
-            🤖 <strong>Aplicación automática:</strong> Cada tema se optimiza automáticamente al seleccionarlo<br/>
-            📊 <strong>Contraste mínimo:</strong> 4.5:1 garantizado para texto normal, 3:1 para texto grande<br/>  
-            🎨 <strong>Identidad preservada:</strong> Mantiene la personalidad visual del tema<br/>
-            🔍 <strong>Validación en tiempo real:</strong> Detecta y corrige problemas automáticamente<br/>
-            ♿ <strong>Accesibilidad universal:</strong> Compatible con lectores de pantalla y discapacidades visuales<br/>
-            <em>Ya no necesitas preocuparte por el contraste - el sistema lo maneja automáticamente.</em>
-          </small>
-        </div>
-        
-        {/* Professional Themes */}
         <div className="mb-4">
-          <h6 className="mb-3">💼 Temas Profesionales</h6>
           <div className="d-flex gap-3 flex-wrap">
             {[
               {
@@ -446,9 +389,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
           </div>
         </div>
 
-        {/* Creative Themes */}
         <div className="mb-4">
-          <h6 className="mb-3">🎨 Temas Creativos</h6>
           <div className="d-flex gap-3 flex-wrap">
             {[
               {
