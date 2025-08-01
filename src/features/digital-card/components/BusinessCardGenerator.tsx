@@ -34,6 +34,9 @@ export default function BusinessCardGenerator() {
   const [enableGlassmorphism, setEnableGlassmorphism] = useState(false);
   const [enableSubtleAnimations, setEnableSubtleAnimations] = useState(false);
   const [enableBackgroundPatterns, setEnableBackgroundPatterns] = useState(false);
+  const [enableParticles, setEnableParticles] = useState(false);
+  const [particleType, setParticleType] = useState<'floating' | 'constellation' | 'professional' | 'creative'>('floating');
+  const [particleDensity, setParticleDensity] = useState(3);
   const [enableAIPalette, setEnableAIPalette] = useState(false);
   const [currentPaletteIndex, setCurrentPaletteIndex] = useState(0);
   const [whatsappShareUrl, setWhatsappShareUrl] = useState('');
@@ -160,6 +163,9 @@ export default function BusinessCardGenerator() {
         enableGlassmorphism,
         enableSubtleAnimations,
         enableBackgroundPatterns,
+        enableParticles,
+        particleType,
+        particleDensity,
         enableAIPalette,
         selectedTemplate,
       }
@@ -534,6 +540,10 @@ export default function BusinessCardGenerator() {
               enableGlassmorphism={enableGlassmorphism}
               enableSubtleAnimations={enableSubtleAnimations}
               enableBackgroundPatterns={enableBackgroundPatterns}
+              enableParticles={enableParticles}
+              particleType={particleType}
+              particleDensity={particleDensity}
+              particleColor="auto"
               whatsappShareUrl={whatsappShareUrl}
               appointmentLink={appointmentLink}
               professionalDetails={professionalDetails}

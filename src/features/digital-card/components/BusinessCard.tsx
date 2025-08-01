@@ -22,6 +22,10 @@ interface BusinessCardProps {
   enableGlassmorphism: boolean;
   enableSubtleAnimations: boolean;
   enableBackgroundPatterns: boolean;
+  enableParticles?: boolean;
+  particleType?: 'floating' | 'constellation' | 'professional' | 'creative';
+  particleDensity?: number;
+  particleColor?: string;
   whatsappShareUrl: string;
   appointmentLink: string;
   professionalDetails: string;
@@ -52,6 +56,87 @@ const staticStyles = `
   @keyframes glassShimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
+  }
+  
+  /* Sistema de Partículas Inteligente */
+  @keyframes floatingParticle {
+    0%, 100% { 
+      transform: translateY(0px) translateX(0px) scale(1);
+      opacity: 0.7;
+    }
+    33% { 
+      transform: translateY(-15px) translateX(5px) scale(1.1);
+      opacity: 1;
+    }
+    66% { 
+      transform: translateY(-5px) translateX(-3px) scale(0.9);
+      opacity: 0.8;
+    }
+  }
+  
+  @keyframes constellation {
+    0% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.3; transform: scale(0.8); }
+  }
+  
+  @keyframes professionalPulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+  }
+  
+  @keyframes creativeSwirl {
+    0% { transform: rotate(0deg) translateX(10px) rotate(0deg); opacity: 0.6; }
+    100% { transform: rotate(360deg) translateX(10px) rotate(-360deg); opacity: 0.6; }
+  }
+  
+  /* Contenedor de partículas */
+  .particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: inherit;
+    z-index: 1;
+  }
+  
+  /* Tipos de partículas */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  
+  .particle-floating {
+    animation: floatingParticle 6s ease-in-out infinite;
+  }
+  
+  .particle-constellation {
+    animation: constellation 4s ease-in-out infinite;
+  }
+  
+  .particle-professional {
+    animation: professionalPulse 3s ease-in-out infinite;
+    border-radius: 2px;
+  }
+  
+  .particle-creative {
+    animation: creativeSwirl 8s linear infinite;
+    border-radius: 0;
+    transform-origin: center;
+  }
+  
+  /* Líneas de conexión para constellation */
+  .constellation-line {
+    position: absolute;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.3;
+    transform-origin: left center;
+    pointer-events: none;
   }
   
   /* Animación combinada para patterns - solo aplica si no hay background inline */
@@ -149,7 +234,7 @@ const staticStyles = `
   }
 `;
 
-export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, whatsappShareUrl, appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, template = 'modern' }: BusinessCardProps) {
+export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, enableParticles = false, particleType = 'floating', particleDensity = 3, particleColor = 'auto', whatsappShareUrl, appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, template = 'modern' }: BusinessCardProps) {
   const [qrCodeValue, setQrCodeValue] = useState('');
 
 
@@ -642,6 +727,97 @@ ${formattedAbout ? `${formattedAbout}
     } : null;
   };
 
+  // Sistema de partículas inteligente
+  const generateParticles = () => {
+    if (!enableParticles) return null;
+
+    const particles = [];
+    const particleCount = Math.max(5, Math.min(20, particleDensity * 4));
+    
+    // Determinar color de partículas
+    const getParticleColor = () => {
+      if (particleColor !== 'auto') return particleColor;
+      
+      // Auto: usar colores complementarios al tema
+      if (cardTextColor === '#ffffff') {
+        return 'rgba(255, 255, 255, 0.6)';
+      } else {
+        return cardTextColor + '60'; // Agregar transparencia
+      }
+    };
+
+    const color = getParticleColor();
+
+    for (let i = 0; i < particleCount; i++) {
+      const size = particleType === 'professional' ? 
+        Math.random() * 4 + 2 : Math.random() * 6 + 3;
+      
+      const left = Math.random() * 85 + 5; // 5% a 90% para evitar bordes
+      const top = Math.random() * 85 + 5;
+      
+      // Delay aleatorio para animaciones más naturales
+      const animationDelay = Math.random() * 4;
+
+      particles.push(
+        <div
+          key={i}
+          className={`particle particle-${particleType}`}
+          style={{
+            left: `${left}%`,
+            top: `${top}%`,
+            width: `${size}px`,
+            height: `${size}px`,
+            background: color,
+            animationDelay: `${animationDelay}s`,
+            zIndex: 2,
+            // Formas especiales para diferentes tipos
+            ...(particleType === 'creative' && {
+              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)', // Triángulo
+              borderRadius: 0,
+            }),
+            ...(particleType === 'professional' && {
+              borderRadius: '2px', // Cuadrado redondeado
+            })
+          }}
+        />
+      );
+    }
+
+    // Líneas de conexión para constellation
+    if (particleType === 'constellation') {
+      const lines = [];
+      for (let i = 0; i < Math.min(particleCount / 2, 6); i++) {
+        const width = Math.random() * 60 + 20;
+        const left = Math.random() * 70 + 10;
+        const top = Math.random() * 70 + 15;
+        const rotation = Math.random() * 180;
+
+        lines.push(
+          <div
+            key={`line-${i}`}
+            className="constellation-line"
+            style={{
+              left: `${left}%`,
+              top: `${top}%`,
+              width: `${width}px`,
+              background: color,
+              transform: `rotate(${rotation}deg)`,
+              opacity: 0.2,
+              zIndex: 1,
+            }}
+          />
+        );
+      }
+      particles.push(...lines);
+    }
+
+    return (
+      <div className="particles-container">
+        {particles}
+      </div>
+    );
+  };
+
   // Función helper para parsear rgb
   const parseRgb = (rgb: string) => {
     const match = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
@@ -708,6 +884,7 @@ ${formattedAbout ? `${formattedAbout}
     <>
       <style>{staticStyles}</style>
       <Card className={getCardClasses()} style={cardStyles}>
+        {generateParticles()}
         <Card.Body style={{ padding: 0 }}>
           <Stack gap={3}>
             <div className="header-section" style={{

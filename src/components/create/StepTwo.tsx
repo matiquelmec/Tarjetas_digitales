@@ -874,8 +874,69 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               onChange={(e) => updateCardData('enableBackgroundPatterns', e.target.checked)}
               className="mb-3"
             />
+            <Form.Check
+              type="switch"
+              id="particles"
+              label="🌟 Sistema de Partículas (NUEVO)"
+              checked={cardData.enableParticles || false}
+              onChange={(e) => updateCardData('enableParticles', e.target.checked)}
+              className="mb-3"
+            />
           </Col>
         </Row>
+
+        {/* Controles avanzados de partículas */}
+        {cardData.enableParticles && (
+          <div className="mt-4 p-3 bg-info bg-opacity-10 rounded">
+            <h6 className="mb-3 text-info">🌟 Configuración de Partículas</h6>
+            
+            <Row>
+              <Col md={6}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Tipo de Partículas</Form.Label>
+                  <Form.Select
+                    value={cardData.particleType || 'floating'}
+                    onChange={(e) => updateCardData('particleType', e.target.value)}
+                  >
+                    <option value="floating">🎈 Flotantes (Suave)</option>
+                    <option value="constellation">⭐ Constelación (Tech)</option>
+                    <option value="professional">💼 Profesional (Geométrico)</option>
+                    <option value="creative">🎨 Creativo (Orgánico)</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Densidad de Partículas</Form.Label>
+                  <div className="d-flex align-items-center gap-2">
+                    <span className="text-muted">Pocas</span>
+                    <Form.Range
+                      min={1}
+                      max={5}
+                      step={1}
+                      value={cardData.particleDensity || 3}
+                      onChange={(e) => updateCardData('particleDensity', parseInt(e.target.value))}
+                      className="flex-grow-1"
+                    />
+                    <span className="text-muted">Muchas</span>
+                  </div>
+                  <small className="text-muted">
+                    Nivel {cardData.particleDensity || 3} - {
+                      (cardData.particleDensity || 3) <= 2 ? 'Minimalista' :
+                      (cardData.particleDensity || 3) <= 3 ? 'Equilibrado' : 'Dramático'
+                    }
+                  </small>
+                </Form.Group>
+              </Col>
+            </Row>
+            
+            <div className="bg-warning bg-opacity-10 p-2 rounded">
+              <small className="text-warning">
+                <strong>💡 Tip:</strong> Las partículas se adaptan automáticamente a los colores de tu tema para máxima armonía visual.
+              </small>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="bg-success bg-opacity-10 p-3 rounded">
