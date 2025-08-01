@@ -122,32 +122,16 @@ export default function CreateCardPage() {
   };
 
   const updateCardData = (field: string, value: any) => {
-    if (field === 'template') {
-      console.log(`🎯 TEMPLATE UPDATE: ${field} = ${value}`);
-    }
     setCardData(prev => {
       const newData = { ...prev, [field]: value };
-      if (field === 'template') {
-        console.log(`📊 New template value:`, newData.template);
-      }
       return newData;
     });
   };
 
   // Nueva función para aplicar tema completo de una vez - Con forzado de re-render
   const applyThemeData = (themeColors: Record<string, any>) => {
-    console.log(`🎨 Applying complete theme:`, themeColors);
-    
     setCardData(prev => {
       const newData = { ...prev, ...themeColors, _forceUpdate: Date.now() };
-      console.log(`📊 Complete new cardData:`, {
-        cardBackgroundColor: newData.cardBackgroundColor,
-        cardTextColor: newData.cardTextColor,
-        buttonSecondaryColor: newData.buttonSecondaryColor,
-        buttonNormalBackgroundColor: newData.buttonNormalBackgroundColor,
-        buttonSecondaryHoverColor: newData.buttonSecondaryHoverColor,
-        _forceUpdate: newData._forceUpdate
-      });
       return newData;
     });
   };
@@ -298,6 +282,7 @@ export default function CreateCardPage() {
                       margin: '0 auto'
                     }}>
                       <BusinessCard
+                        key={`${cardData.cardBackgroundColor}-${cardData.cardTextColor}-${cardData._forceUpdate || Date.now()}`}
                         name={cardData.name || 'Tu Nombre'}
                         title={cardData.title || 'Tu Título'}
                         about={cardData.about || 'Tu descripción profesional aparecerá aquí...'}

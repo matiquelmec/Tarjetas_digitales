@@ -415,20 +415,12 @@ export function StepTwo({ cardData, updateCardData, applyThemeData }: StepTwoPro
                   boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
                 }}
                 onClick={() => {
-                  console.log(`🎨 Aplicando tema: ${theme.name}`);
-                  console.log('📊 Estado ANTES:', {
-                    cardBackgroundColor: cardData.cardBackgroundColor,
-                    buttonSecondaryColor: cardData.buttonSecondaryColor,
-                    buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor
-                  });
-                  
                   // Usar nueva función robusta para aplicar tema completo
                   if (applyThemeData) {
                     applyThemeData(theme.colors);
                   } else {
                     // Fallback al método anterior si no está disponible
                     Object.entries(theme.colors).forEach(([key, value]) => {
-                      console.log(`  ↳ ${key}: ${value}`);
                       updateCardData(key, value);
                     });
                   }
@@ -551,20 +543,12 @@ export function StepTwo({ cardData, updateCardData, applyThemeData }: StepTwoPro
                   boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
                 }}
                 onClick={() => {
-                  console.log(`🎨 Aplicando tema: ${theme.name}`);
-                  console.log('📊 Estado ANTES:', {
-                    cardBackgroundColor: cardData.cardBackgroundColor,
-                    buttonSecondaryColor: cardData.buttonSecondaryColor,
-                    buttonNormalBackgroundColor: cardData.buttonNormalBackgroundColor
-                  });
-                  
                   // Usar nueva función robusta para aplicar tema completo
                   if (applyThemeData) {
                     applyThemeData(theme.colors);
                   } else {
                     // Fallback al método anterior si no está disponible
                     Object.entries(theme.colors).forEach(([key, value]) => {
-                      console.log(`  ↳ ${key}: ${value}`);
                       updateCardData(key, value);
                     });
                   }
