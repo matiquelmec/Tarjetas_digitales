@@ -428,33 +428,97 @@ export default function DashboardCardsPage() {
           margin-bottom: 1.5rem;
           border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
+        /* Título alienígena con efecto glow */
+        .alien-title-glow {
+          text-shadow: 
+            0 0 10px rgba(0, 246, 255, 0.8),
+            0 0 20px rgba(0, 246, 255, 0.6),
+            0 0 40px rgba(0, 246, 255, 0.4);
+          animation: alienTitlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes alienTitlePulse {
+          0%, 100% { 
+            text-shadow: 
+              0 0 10px rgba(0, 246, 255, 0.8),
+              0 0 20px rgba(0, 246, 255, 0.6),
+              0 0 40px rgba(0, 246, 255, 0.4);
+          }
+          50% { 
+            text-shadow: 
+              0 0 15px rgba(0, 246, 255, 1),
+              0 0 30px rgba(0, 246, 255, 0.8),
+              0 0 50px rgba(0, 246, 255, 0.6);
+          }
+        }
         
-        /* Cards modernas mejoradas */
+        /* Cards alienígenas con efectos holográficos */
         .card-item-modern {
-          background: white;
-          border-radius: 16px;
+          background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.1), 
+            rgba(255, 255, 255, 0.05));
+          backdrop-filter: blur(15px);
+          border: 2px solid rgba(0, 246, 255, 0.3);
+          border-radius: 20px;
           padding: 1.5rem;
-          border: 1px solid #e2e8f0;
-          transition: all 0.3s ease;
+          transition: all 0.4s ease;
           height: 100%;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+          position: relative;
+          overflow: hidden;
+          box-shadow: 
+            0 4px 16px rgba(0, 246, 255, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .card-item-modern::before {
+          content: '';
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          right: -2px;
+          bottom: -2px;
+          background: linear-gradient(45deg, 
+            #00f6ff, #0072ff, #8e2de2, #4a00e0);
+          border-radius: 22px;
+          z-index: -1;
+          opacity: 0;
+          transition: opacity 0.4s ease;
         }
         
         .card-item-modern:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-          border-color: #3b82f6;
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 
+            0 20px 60px rgba(0, 246, 255, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          border-color: rgba(0, 246, 255, 0.8);
+        }
+
+        .card-item-modern:hover::before {
+          opacity: 0.6;
+        }
+
+        .card-item-modern:hover .card-title-modern {
+          color: #ffffff !important;
+          text-shadow: 0 0 10px rgba(0, 246, 255, 0.8);
+        }
+
+        .card-item-modern:hover .card-subtitle-modern {
+          color: rgba(255, 255, 255, 0.9) !important;
         }
         
         .card-title-modern {
           font-size: 1.1rem;
-          color: #1f2937;
+          color: #ffffff;
           line-height: 1.3;
+          font-weight: 700;
+          transition: all 0.3s ease;
         }
         
         .card-subtitle-modern {
           font-size: 0.9rem;
-          color: #6b7280;
+          color: rgba(255, 255, 255, 0.8);
+          transition: all 0.3s ease;
         }
         
         .card-stats-modern {
@@ -471,12 +535,24 @@ export default function DashboardCardsPage() {
         .stat-number-modern {
           font-weight: 700;
           font-size: 1.1rem;
-          color: #1f2937;
+          color: #00f6ff;
+          text-shadow: 0 0 5px rgba(0, 246, 255, 0.6);
+          transition: all 0.3s ease;
         }
         
         .stat-label-modern {
           font-size: 0.8rem;
-          opacity: 0.7;
+          color: rgba(255, 255, 255, 0.7);
+          transition: all 0.3s ease;
+        }
+
+        .card-item-modern:hover .stat-number-modern {
+          color: #ffffff;
+          text-shadow: 0 0 10px rgba(0, 246, 255, 1);
+        }
+
+        .card-item-modern:hover .stat-label-modern {
+          color: rgba(255, 255, 255, 0.9);
         }
         
         .status-badge-modern {
@@ -526,10 +602,10 @@ export default function DashboardCardsPage() {
             <Breadcrumb className="breadcrumb-custom mb-0">
               <Breadcrumb.Item>
                 <Link href="/dashboard" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none' }}>
-                  🏠 Dashboard
+                  🏠 Centro de Comando
                 </Link>
               </Breadcrumb.Item>
-              <Breadcrumb.Item active>💼 Mis Tarjetas</Breadcrumb.Item>
+              <Breadcrumb.Item active>🛸 Flota Intergaláctica</Breadcrumb.Item>
             </Breadcrumb>
           </div>
 
@@ -539,15 +615,17 @@ export default function DashboardCardsPage() {
               <div className="header-content-compact d-flex justify-content-between align-items-center py-3">
                 <div className="d-flex align-items-center gap-4">
                   <div>
-                    <h1 className="text-white mb-1 fw-bold h3">💼 Mis Tarjetas ({cards.length})</h1>
+                    <h1 className="text-white mb-1 fw-bold h3 alien-title-glow">
+                      🛸 Flota de Tarjetas Intergalácticas ({cards.length})
+                    </h1>
                   </div>
                   {!loading && cards.length > 0 && (
                     <div className="d-flex gap-3">
                       <span className="badge bg-primary bg-opacity-20 text-white fw-semibold px-3 py-2">
-                        📊 {cards.reduce((sum, card) => sum + card.views, 0)} vistas
+                        👁️ {cards.reduce((sum, card) => sum + card.views, 0)} escaneos
                       </span>
                       <span className="badge bg-success bg-opacity-20 text-white fw-semibold px-3 py-2">
-                        🔗 {cards.reduce((sum, card) => sum + card.clicks, 0)} clics
+                        🔗 {cards.reduce((sum, card) => sum + card.clicks, 0)} conexiones
                       </span>
                     </div>
                   )}
@@ -570,7 +648,7 @@ export default function DashboardCardsPage() {
                         className="fw-semibold px-5"
                         style={{ borderRadius: '12px' }}
                       >
-                        ✨ Crear Nueva Tarjeta
+                        🚀 Lanzar Nueva Misión
                       </Button>
                     </Link>
                   )}
@@ -683,8 +761,8 @@ export default function DashboardCardsPage() {
                     <div className="spinner-border text-primary" role="status" style={{ width: '3rem', height: '3rem' }}>
                       <span className="visually-hidden">Cargando...</span>
                     </div>
-                    <h5 className="mt-3 text-white">Cargando tus tarjetas...</h5>
-                    <p className="text-white opacity-75">Un momento por favor</p>
+                    <h5 className="mt-3 text-white">Sincronizando con satélites espaciales...</h5>
+                    <p className="text-white opacity-75">Estableciendo conexión intergaláctica</p>
                   </div>
                 </div>
               ) : cards.length === 0 ? (
@@ -703,10 +781,10 @@ export default function DashboardCardsPage() {
                         </span>
                       </div>
                     </div>
-                    <h3 className="fw-bold text-white mb-3">¡Crea tu primera tarjeta digital!</h3>
+                    <h3 className="fw-bold text-white mb-3 alien-title-glow">¡Tu Flota Espacial Está Vacía!</h3>
                     <p className="text-white opacity-75 mb-4" style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
-                      Diseña una tarjeta profesional con efectos únicos, QR codes automáticos 
-                      y compartir instantáneo por WhatsApp. <strong>Todo en menos de 5 minutos.</strong>
+                      Inicia tu primera misión intergaláctica creando una tarjeta de otro mundo. 
+                      <strong>Efectos holográficos, códigos QR dimensionales y transmisión por WhatsApp instantánea.</strong>
                     </p>
                     <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
                       <Link href="/create">
@@ -716,7 +794,7 @@ export default function DashboardCardsPage() {
                           className="fw-semibold px-5 py-3"
                           style={{ borderRadius: '16px' }}
                         >
-                          ✨ Crear Mi Primera Tarjeta
+                          🚀 Lanzar Primera Misión
                         </Button>
                       </Link>
                       <Button 
