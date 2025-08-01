@@ -202,3 +202,170 @@ export function getContrastStyles(backgroundColor: string) {
     };
   }
 }
+
+/**
+ * REGLAS UNIVERSALES DE CONTRASTE WCAG AA
+ * Estas reglas se aplican automáticamente a todos los temas
+ */
+export const UNIVERSAL_CONTRAST_RULES = {
+  // Contraste mínimo requerido
+  MIN_CONTRAST_RATIO: 4.5,
+  MIN_LARGE_TEXT_RATIO: 3.0,
+  
+  // Colores seguros para botones sobre fondos oscuros
+  SAFE_BUTTON_COLORS_DARK_BG: [
+    '#ffffff', '#f8f9fa', '#e9ecef', '#dee2e6',
+    '#fff3e0', '#ffecb3', '#e8f5e8', '#c8e6c9',
+    '#e1f5fe', '#b3e5fc', '#f3e5f5', '#e1bee7',
+    '#fff8e1', '#ffcc02'
+  ],
+  
+  // Colores seguros para botones sobre fondos claros  
+  SAFE_BUTTON_COLORS_LIGHT_BG: [
+    '#1a1a1a', '#2d2d2d', '#424242', '#616161',
+    '#d84315', '#f57900', '#2e7d32', '#388e3c',
+    '#0277bd', '#0288d1', '#7b1fa2', '#8e24aa',
+    '#ff6f00', '#ff8f00'
+  ],
+  
+  // Colores de texto seguros
+  SAFE_TEXT_COLORS: {
+    DARK_BACKGROUNDS: '#ffffff',
+    LIGHT_BACKGROUNDS: '#1a1a1a',
+    GRADIENT_DARK: '#ffffff',
+    GRADIENT_LIGHT: '#2d2d2d'
+  }
+};
+
+/**
+ * Aplica reglas universales de contraste a un tema
+ * @param theme Objeto del tema con colores
+ * @returns Tema optimizado con contraste WCAG AA
+ */
+export function applyUniversalContrastRules(theme: {
+  cardBackgroundColor: string;
+  cardTextColor: string;
+  buttonSecondaryColor: string;
+  buttonSecondaryHoverColor: string;
+  buttonNormalBackgroundColor: string;
+}) {
+  const isDarkBackground = isBackgroundDark(theme.cardBackgroundColor);
+  
+  // Aplicar color de texto seguro
+  const safeTextColor = isDarkBackground 
+    ? UNIVERSAL_CONTRAST_RULES.SAFE_TEXT_COLORS.DARK_BACKGROUNDS
+    : UNIVERSAL_CONTRAST_RULES.SAFE_TEXT_COLORS.LIGHT_BACKGROUNDS;
+  
+  // Seleccionar color de botón seguro
+  const safeButtonColors = isDarkBackground 
+    ? UNIVERSAL_CONTRAST_RULES.SAFE_BUTTON_COLORS_DARK_BG
+    : UNIVERSAL_CONTRAST_RULES.SAFE_BUTTON_COLORS_LIGHT_BG;
+  
+  // Encontrar el mejor color de botón que mantenga la identidad del tema
+  const safePrimaryButton = findBestButtonColor(
+    theme.buttonSecondaryColor, 
+    safeButtonColors,
+    theme.cardBackgroundColor
+  );
+  
+  const safeHoverButton = adjustBrightness(safePrimaryButton, isDarkBackground ? -20 : 20);
+  
+  return {
+    ...theme,
+    cardTextColor: safeTextColor,
+    buttonSecondaryColor: safePrimaryButton,
+    buttonSecondaryHoverColor: safeHoverButton,
+    buttonNormalBackgroundColor: `rgba(${hexToRgb(safePrimaryButton)?.r || 255}, ${hexToRgb(safePrimaryButton)?.g || 255}, ${hexToRgb(safePrimaryButton)?.b || 255}, 0.15)`
+  };
+}
+
+/**
+ * Determina si un fondo es oscuro o claro
+ */
+function isBackgroundDark(backgroundColor: string): boolean {
+  // Para gradientes, extraer el primer color
+  if (backgroundColor.includes('linear-gradient')) {
+    const colorMatch = backgroundColor.match(/#[0-9a-fA-F]{6}/);
+    if (colorMatch) {
+      backgroundColor = colorMatch[0];
+    } else {
+      return true; // Asumir oscuro para gradientes complejos
+    }
+  }
+  
+  const luminance = getRelativeLuminance(backgroundColor);
+  return luminance < 0.5;
+}
+
+/**
+ * Encuentra el mejor color de botón manteniendo la identidad del tema
+ */
+function findBestButtonColor(
+  originalColor: string, 
+  safeColors: string[], 
+  backgroundColor: string
+): string {
+  // Intentar usar el color original si tiene buen contraste
+  const originalContrast = getContrastRatio(originalColor, backgroundColor);
+  if (originalContrast >= UNIVERSAL_CONTRAST_RULES.MIN_CONTRAST_RATIO) {
+    return originalColor;
+  }
+  
+  // Buscar el color seguro más similar al original
+  const originalHue = getColorHue(originalColor);
+  let bestColor = safeColors[0];
+  let bestHueDifference = Number.MAX_VALUE;
+  
+  for (const safeColor of safeColors) {
+    const safeHue = getColorHue(safeColor);
+    const hueDifference = Math.abs(originalHue - safeHue);
+    
+    if (hueDifference < bestHueDifference) {
+      bestHueDifference = hueDifference;
+      bestColor = safeColor;
+    }
+  }
+  
+  return bestColor;
+}
+
+/**
+ * Obtiene el matiz (hue) de un color en grados (0-360)
+ */
+function getColorHue(hexColor: string): number {
+  const rgb = hexToRgb(hexColor);
+  if (!rgb) return 0;
+  
+  const r = rgb.r / 255;
+  const g = rgb.g / 255;
+  const b = rgb.b / 255;
+  
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const delta = max - min;
+  
+  if (delta === 0) return 0;
+  
+  let hue = 0;
+  if (max === r) {
+    hue = ((g - b) / delta) % 6;
+  } else if (max === g) {
+    hue = (b - r) / delta + 2;
+  } else {
+    hue = (r - g) / delta + 4;
+  }
+  
+  return Math.round(hue * 60);
+}
+
+/**
+ * Convierte hex a RGB
+ */
+function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}

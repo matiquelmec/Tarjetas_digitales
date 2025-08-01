@@ -3,6 +3,7 @@
 import { Form, Row, Col, Card, Button } from 'react-bootstrap';
 import { useState, useRef } from 'react';
 import Image from 'next/image';
+import { useUniversalContrast } from '@/hooks/useUniversalContrast';
 
 interface StepTwoProps {
   cardData: any;
@@ -12,6 +13,7 @@ interface StepTwoProps {
 export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
+  const { applyAndUpdate } = useUniversalContrast();
 
   const minimalistPalettes = [
     { 
@@ -143,11 +145,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
   };
 
   const applyPalette = (palette: any) => {
-    updateCardData('cardBackgroundColor', palette.cardBackgroundColor);
-    updateCardData('cardTextColor', palette.cardTextColor);
-    updateCardData('buttonSecondaryColor', palette.buttonSecondaryColor);
-    updateCardData('buttonSecondaryHoverColor', palette.buttonSecondaryHoverColor);
-    updateCardData('buttonNormalBackgroundColor', palette.buttonNormalBackgroundColor);
+    // Aplicar paleta con reglas universales de contraste
+    applyAndUpdate(palette, updateCardData);
   };
 
   return (
@@ -165,12 +164,10 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                     : 'border-secondary'
                 }`}
                 onClick={() => {
-                  // Aplicar plantilla y sus colores usando solo updateCardData
+                  // Aplicar plantilla y sus colores con reglas universales
                   updateCardData('template', template.id);
                   if (template.colors) {
-                    Object.entries(template.colors).forEach(([key, value]) => {
-                      updateCardData(key, value);
-                    });
+                    applyAndUpdate(template.colors, updateCardData);
                   }
                 }}
                 style={{ cursor: 'pointer' }}
@@ -312,19 +309,19 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
         <h5 className="mb-3">🎨 Temas Inteligentes</h5>
         <p className="text-muted mb-3">Cada tema transmite una personalidad visual coherente y profesional</p>
         
-        <div className="bg-info bg-opacity-10 p-3 rounded mb-4">
+        <div className="bg-success bg-opacity-10 p-3 rounded mb-4">
           <div className="d-flex align-items-center gap-2 mb-2">
-            <span style={{ fontSize: '1.1rem' }}>🔍</span>
-            <strong className="text-info">Sistema Optimizado para Legibilidad</strong>
+            <span style={{ fontSize: '1.1rem' }}>🛡️</span>
+            <strong className="text-success">Reglas Universales de Contraste WCAG AA</strong>
           </div>
-          <small className="text-info">
-            Todos los temas están <strong>optimizados para contraste WCAG AA</strong> garantizando máxima legibilidad:<br/>
-            🎨 <strong>Fondo:</strong> Gradientes profesionales que mantienen la identidad<br/>
-            📝 <strong>Texto:</strong> Colores con contraste mínimo 4.5:1 para perfecta lectura<br/>  
-            🔘 <strong>Botones:</strong> Colores claros que destacan sobre cualquier fondo<br/>
-            ✨ <strong>Hover:</strong> Estados interactivos bien definidos<br/>
-            ⬜ <strong>Accesibilidad:</strong> Cumple estándares profesionales de usabilidad<br/>
-            <em>El contenido siempre será fácil de leer, sin importar el tema seleccionado.</em>
+          <small className="text-success">
+            <strong>Sistema automático</strong> que garantiza legibilidad perfecta en todos los temas:<br/>
+            🤖 <strong>Aplicación automática:</strong> Cada tema se optimiza automáticamente al seleccionarlo<br/>
+            📊 <strong>Contraste mínimo:</strong> 4.5:1 garantizado para texto normal, 3:1 para texto grande<br/>  
+            🎨 <strong>Identidad preservada:</strong> Mantiene la personalidad visual del tema<br/>
+            🔍 <strong>Validación en tiempo real:</strong> Detecta y corrige problemas automáticamente<br/>
+            ♿ <strong>Accesibilidad universal:</strong> Compatible con lectores de pantalla y discapacidades visuales<br/>
+            <em>Ya no necesitas preocuparte por el contraste - el sistema lo maneja automáticamente.</em>
           </small>
         </div>
         
@@ -411,10 +408,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
                 }}
                 onClick={() => {
-                  // Apply theme colors directly to manual controls
-                  Object.entries(theme.colors).forEach(([key, value]) => {
-                    updateCardData(key, value);
-                  });
+                  // Apply theme colors with universal contrast rules
+                  applyAndUpdate(theme.colors, updateCardData);
                   
                   // Visual feedback
                   const element = document.querySelector(`[data-theme="${theme.name}"]`) as HTMLElement;
@@ -534,10 +529,8 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
                 }}
                 onClick={() => {
-                  // Apply theme colors directly to manual controls
-                  Object.entries(theme.colors).forEach(([key, value]) => {
-                    updateCardData(key, value);
-                  });
+                  // Apply theme colors with universal contrast rules
+                  applyAndUpdate(theme.colors, updateCardData);
                   
                   // Visual feedback
                   const element = document.querySelector(`[data-theme="${theme.name}"]`) as HTMLElement;
