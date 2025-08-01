@@ -85,17 +85,17 @@ export class EffectsManager {
     // Hover Effects
     if (effects.hoverEffect.enabled) {
       const intensity = effects.hoverEffect.intensity || 1;
-      const liftAmount = 5 * intensity;
-      const scaleAmount = 1 + (0.02 * intensity);
-      const shadowIntensity = 0.3 * intensity;
+      const liftAmount = 8 * intensity; // Más elevación para que sea más visible
+      const scaleAmount = 1 + (0.05 * intensity); // Más escala para efecto más notorio
+      const shadowIntensity = 0.4 * intensity; // Sombra más intensa
       
       styles.push(`
         .business-card-custom.effect-hover {
-          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
         }
         .business-card-custom.effect-hover:hover {
-          transform: translateY(-${liftAmount}px) scale(${scaleAmount});
-          box-shadow: 0 ${liftAmount * 4}px ${liftAmount * 8}px rgba(0, 0, 0, ${shadowIntensity});
+          transform: translateY(-${liftAmount}px) scale(${scaleAmount}) !important;
+          box-shadow: 0 ${liftAmount * 4}px ${liftAmount * 8}px rgba(0, 0, 0, ${shadowIntensity}) !important;
         }
       `);
     }

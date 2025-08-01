@@ -592,7 +592,8 @@ ${formattedAbout ? `${formattedAbout}
       width: '100%',
       maxWidth: '480px',
       color: cardTextColor,
-      transition: 'all 0.3s ease-in-out',
+      // Transition manejada por el sistema de efectos cuando hover está habilitado
+      ...(enableHoverEffect ? {} : { transition: 'all 0.3s ease-in-out' }),
       padding: '40px',
       margin: '0 auto',
       // CSS custom properties para colores reactivos
@@ -645,9 +646,8 @@ ${formattedAbout ? `${formattedAbout}
       boxShadow = templateShadow || '0 8px 32px rgba(31, 38, 135, 0.3)';
     }
 
-    // Transform base - hover se maneja via CSS :hover pseudo-class
-    let transform = 'translateY(0)';
-    // NO aplicamos transform permanente para hover - se maneja en CSS
+    // Transform base - NO aplicar si hover effect está habilitado (conflicto con CSS)
+    let transform = enableHoverEffect ? 'none' : 'translateY(0)';
 
     // Animaciones inteligentes - evitar duplicación con background patterns
     let animation = 'none';
@@ -674,7 +674,8 @@ ${formattedAbout ? `${formattedAbout}
       border,
       borderRadius,
       boxShadow,
-      transform,
+      // Solo aplicar transform si no interfiere con hover effect
+      ...(transform !== 'none' && { transform }),
       animation,
       // Mantener propiedades específicas de template que no conflictúan
       ...Object.fromEntries(
