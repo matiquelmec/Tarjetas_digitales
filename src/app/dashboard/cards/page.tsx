@@ -594,69 +594,6 @@ export default function DashboardCardsPage() {
           align-items: center;
           justify-content: center;
         }
-
-        /* Botón demo en header */
-        .alien-demo-btn {
-          background: rgba(0, 246, 255, 0.1);
-          border-color: rgba(0, 246, 255, 0.5);
-          color: #00f6ff;
-          transition: all 0.3s ease;
-          font-size: 0.9rem;
-          min-width: 44px;
-        }
-
-        .alien-demo-btn:hover {
-          background: rgba(0, 246, 255, 0.2);
-          border-color: rgba(0, 246, 255, 0.8);
-          color: #ffffff;
-          transform: translateY(-1px);
-        }
-
-        /* Botón principal del empty state */
-        .alien-create-main-btn {
-          background: linear-gradient(135deg, #00f6ff, #0072ff);
-          border: none;
-          box-shadow: 0 8px 32px rgba(0, 246, 255, 0.4);
-          transition: all 0.4s ease;
-        }
-
-        .alien-create-main-btn:hover {
-          background: linear-gradient(135deg, #00d1db, #005bb5);
-          transform: translateY(-3px) scale(1.05);
-          box-shadow: 0 12px 48px rgba(0, 246, 255, 0.6);
-        }
-
-        /* Link demo secundario */
-        .alien-demo-link {
-          color: #00f6ff !important;
-          text-decoration: none !important;
-          border-bottom: 1px solid transparent;
-          transition: all 0.2s ease;
-        }
-
-        .alien-demo-link:hover {
-          color: #ffffff !important;
-          border-bottom-color: #00f6ff;
-          text-shadow: 0 0 5px rgba(0, 246, 255, 0.8);
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 576px) {
-          .alien-demo-btn {
-            min-width: 40px;
-            padding: 0.5rem !important;
-          }
-          
-          .header-content-compact {
-            flex-direction: column;
-            gap: 1rem;
-            align-items: stretch !important;
-          }
-          
-          .header-content-compact > div {
-            justify-content: center !important;
-          }
-        }
       `}</style>
       <div className="animated-gradient-background">
         <Container className="py-4">
@@ -693,27 +630,14 @@ export default function DashboardCardsPage() {
                     </div>
                   )}
                 </div>
-                <div className="d-flex gap-2 flex-wrap">
-                  {/* Botón Demo siempre visible */}
-                  <Button 
-                    variant="outline-info" 
-                    size="sm"
-                    className="fw-semibold alien-demo-btn d-flex align-items-center"
-                    style={{ borderRadius: '12px' }}
-                    onClick={() => window.open('/demo', '_blank')}
-                  >
-                    <span className="d-none d-sm-inline">🔮 Ver Demo</span>
-                    <span className="d-sm-none">🔮</span>
-                  </Button>
-                  
+                <div className="d-flex gap-2">
                   {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 ? (
                     <Link href="/pricing">
                       <Button 
                         className="btn-premium-gold px-4"
                         style={{ borderRadius: '12px', border: 'none' }}
                       >
-                        <span className="d-none d-sm-inline">⭐ Actualizar Plan</span>
-                        <span className="d-sm-none">⭐</span>
+                        ⭐ Actualizar Plan
                       </Button>
                     </Link>
                   ) : (
@@ -721,11 +645,10 @@ export default function DashboardCardsPage() {
                       <Button 
                         variant="primary" 
                         size="lg"
-                        className="fw-semibold px-4 px-sm-5"
+                        className="fw-semibold px-5"
                         style={{ borderRadius: '12px' }}
                       >
-                        <span className="d-none d-sm-inline">🚀 Lanzar Nueva Misión</span>
-                        <span className="d-sm-none">🚀</span>
+                        🚀 Lanzar Nueva Misión
                       </Button>
                     </Link>
                   )}
@@ -863,29 +786,26 @@ export default function DashboardCardsPage() {
                       Inicia tu primera misión intergaláctica creando una tarjeta de otro mundo. 
                       <strong>Efectos holográficos, códigos QR dimensionales y transmisión por WhatsApp instantánea.</strong>
                     </p>
-                    <div className="text-center">
+                    <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
                       <Link href="/create">
                         <Button 
                           variant="primary" 
                           size="lg" 
-                          className="fw-semibold px-5 py-3 alien-create-main-btn"
+                          className="fw-semibold px-5 py-3"
                           style={{ borderRadius: '16px' }}
                         >
-                          🚀 Lanzar Primera Misión Intergaláctica
+                          🚀 Lanzar Primera Misión
                         </Button>
                       </Link>
-                      <div className="mt-3">
-                        <small className="text-white opacity-75">
-                          ¿Quieres ver cómo se ve primero? 
-                          <Button 
-                            variant="link" 
-                            className="text-info fw-semibold p-0 ms-1 alien-demo-link"
-                            onClick={() => window.open('/demo', '_blank')}
-                          >
-                            🔮 Ver Demo Ocean
-                          </Button>
-                        </small>
-                      </div>
+                      <Button 
+                        variant="outline-info" 
+                        size="lg"
+                        className="fw-semibold px-4 py-3"
+                        style={{ borderRadius: '16px' }}
+                        onClick={() => window.open('/demo', '_blank')}
+                      >
+                        🔮 Ver Holograma Demo
+                      </Button>
                     </div>
                   </div>
                 </div>
