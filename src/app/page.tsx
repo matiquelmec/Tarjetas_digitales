@@ -500,8 +500,8 @@ export default function HomePage() {
         /* Animación de llegada de nave */
         .spaceship-arrival {
           position: absolute;
-          top: 20%;
-          right: 15%;
+          top: 15%;
+          right: 12%;
           z-index: 2;
         }
         
@@ -638,26 +638,42 @@ export default function HomePage() {
         }
         
         .alien-1 {
-          top: 30%;
-          left: 8%;
-          font-size: 2.2rem;
+          top: 25%;
+          left: 5%;
+          font-size: 2.5rem;
           animation: alienFloat1 5s ease-in-out infinite;
         }
         
         .alien-2 {
-          top: 45%;
-          right: 8%;
-          font-size: 1.8rem;
+          top: 55%;
+          right: 6%;
+          font-size: 2rem;
           animation: alienFloat2 7s ease-in-out infinite;
           animation-delay: -2s;
         }
         
         .alien-3 {
-          bottom: 25%;
-          left: 20%;
-          font-size: 2rem;
+          bottom: 20%;
+          left: 18%;
+          font-size: 2.2rem;
           animation: alienFloat3 6s ease-in-out infinite;
           animation-delay: -4s;
+        }
+        
+        .alien-4 {
+          top: 10%;
+          left: 50%;
+          font-size: 1.8rem;
+          animation: alienFloat4 8s ease-in-out infinite;
+          animation-delay: -6s;
+        }
+        
+        .alien-5 {
+          bottom: 35%;
+          right: 20%;
+          font-size: 1.5rem;
+          animation: alienFloat5 9s ease-in-out infinite;
+          animation-delay: -1s;
         }
         
         @keyframes alienFloat1 {
@@ -673,6 +689,16 @@ export default function HomePage() {
         @keyframes alienFloat3 {
           0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
           50% { transform: translateY(-30px) rotate(20deg); opacity: 1; }
+        }
+        
+        @keyframes alienFloat4 {
+          0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+          50% { transform: translateY(-18px) rotate(-8deg); opacity: 0.8; }
+        }
+        
+        @keyframes alienFloat5 {
+          0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+          50% { transform: translateY(-22px) rotate(12deg); opacity: 0.7; }
         }
         
         /* Capabilities Section */
@@ -776,9 +802,35 @@ export default function HomePage() {
           }
           
           .card-hologram {
-            width: 260px;
-            height: 160px;
-            padding: 16px;
+            width: 300px;
+            height: 200px;
+            padding: 18px;
+          }
+          
+          .profile-alien {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            margin-right: 12px;
+          }
+          
+          .profile-data h4 {
+            font-size: 1rem !important;
+            line-height: 1.2 !important;
+          }
+          
+          .profile-data p {
+            font-size: 0.85rem !important;
+            line-height: 1.1 !important;
+          }
+          
+          .feature-alien {
+            font-size: 0.8rem !important;
+            gap: 8px;
+          }
+          
+          .holo-features {
+            gap: 8px !important;
           }
           
           .spaceship {
@@ -792,20 +844,30 @@ export default function HomePage() {
           
           .alien-1 {
             font-size: 1.8rem;
-            top: 25%;
-            left: 5%;
+            top: 20%;
+            left: 3%;
           }
           
           .alien-2 {
             font-size: 1.5rem;
-            top: 40%;
-            right: 5%;
+            top: 50%;
+            right: 3%;
           }
           
           .alien-3 {
             font-size: 1.6rem;
-            bottom: 20%;
-            left: 15%;
+            bottom: 15%;
+            left: 12%;
+          }
+          
+          .alien-4 {
+            font-size: 1.2rem;
+            top: 8%;
+            left: 45%;
+          }
+          
+          .alien-5 {
+            display: none; /* Ocultar en móvil para evitar saturación */
           }
           
           .hero-ctas {
@@ -951,6 +1013,8 @@ export default function HomePage() {
                     <div className="decoration alien-1">🌌</div>
                     <div className="decoration alien-2">⭐</div>
                     <div className="decoration alien-3">🌟</div>
+                    <div className="decoration alien-4">💫</div>
+                    <div className="decoration alien-5">✨</div>
                   </div>
                 </div>
               </Col>
