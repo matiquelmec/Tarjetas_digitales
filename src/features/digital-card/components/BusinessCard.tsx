@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, Stack, Button } from 'react-bootstrap';
-import { useEffect, useCallback, useState, useMemo } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { getBestTextColor, getContrastRatio, isAccessible } from '@/lib/contrast';
@@ -657,13 +657,13 @@ ${formattedAbout ? `${formattedAbout}
   
   // Debug removido
 
-  // Aplicar sistema inteligente de efectos - Reactivo a cambios de props
-  const cardStyles = useMemo(() => getCombinedEffectsStyles(template, {
+  // Aplicar sistema inteligente de efectos
+  const cardStyles = getCombinedEffectsStyles(template, {
     hover: enableHoverEffect,
     glass: enableGlassmorphism,
     animations: enableSubtleAnimations,
     patterns: enableBackgroundPatterns
-  }), [template, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, cardBackgroundColor, cardTextColor, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor]);
+  });
 
 
   // Generar clases CSS dinámicas para efectos combinados
