@@ -309,23 +309,402 @@ export default function HomePage() {
           text-align: center;
         }
         
+        /* ESTILOS HERO INTERGALÁCTICO */
+        .hero-intergalactico {
+          position: relative;
+          padding: 4rem 2rem;
+          margin-bottom: 3rem;
+          overflow: hidden;
+        }
+        
+        .min-vh-80 {
+          min-height: 80vh;
+        }
+        
+        /* Partículas espaciales */
+        .space-particles {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+        
+        .space-particle-1 { top: 10%; left: 10%; animation: particleSpace 12s ease-in-out infinite; animation-delay: 0s; }
+        .space-particle-2 { top: 20%; left: 80%; animation: particleSpace 10s ease-in-out infinite; animation-delay: -2s; }
+        .space-particle-3 { top: 60%; left: 15%; animation: particleSpace 14s ease-in-out infinite; animation-delay: -4s; }
+        .space-particle-4 { top: 80%; left: 70%; animation: particleSpace 8s ease-in-out infinite; animation-delay: -6s; }
+        .space-particle-5 { top: 30%; left: 50%; animation: particleSpace 16s ease-in-out infinite; animation-delay: -8s; }
+        .space-particle-6 { top: 70%; left: 30%; animation: particleSpace 11s ease-in-out infinite; animation-delay: -10s; }
+        
+        @keyframes particleSpace {
+          0%, 100% { transform: translateY(0px) scale(0.8); opacity: 0.4; }
+          25% { transform: translateY(-20px) scale(1.2); opacity: 0.8; }
+          50% { transform: translateY(-10px) scale(1); opacity: 1; }
+          75% { transform: translateY(-30px) scale(0.9); opacity: 0.6; }
+        }
+        
+        /* Badge alienígena */
+        .alien-badge {
+          display: inline-block;
+        }
+        
+        .badge-alien {
+          background: linear-gradient(135deg, rgba(0, 246, 255, 0.2), rgba(142, 45, 226, 0.2));
+          border: 2px solid rgba(0, 246, 255, 0.4);
+          padding: 12px 24px;
+          border-radius: 25px;
+          color: #00f6ff;
+          font-size: 1rem;
+          font-weight: 700;
+          backdrop-filter: blur(15px);
+          box-shadow: 0 8px 32px rgba(0, 246, 255, 0.2);
+        }
+        
+        /* Título alienígena */
+        .hero-title-alien {
+          font-size: clamp(3rem, 6vw, 5rem);
+          font-weight: 900;
+          line-height: 1.1;
+          font-family: 'Montserrat', sans-serif;
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-highlight-alien {
+          background: linear-gradient(135deg, #00f6ff, #0072ff, #8e2de2, #4a00e0);
+          background-size: 300% 300%;
+          animation: alienGradient 4s ease-in-out infinite;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        @keyframes alienGradient {
+          0%, 100% { background-position: 0% 50%; }
+          33% { background-position: 100% 50%; }
+          66% { background-position: 50% 100%; }
+        }
+        
+        .hero-subtitle-alien {
+          font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+          line-height: 1.7;
+          max-width: 95%;
+        }
+        
+        /* CTAs de Abducción */
+        .hero-ctas {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          justify-content: center;
+        }
+        
+        @media (min-width: 992px) {
+          .hero-ctas {
+            justify-content: flex-start;
+          }
+        }
+        
+        .cta-abduction-primary {
+          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          border: none;
+          padding: 18px 36px;
+          border-radius: 20px;
+          font-weight: 800;
+          transition: all 0.4s ease;
+          position: relative;
+          overflow: hidden;
+          font-size: 1.2rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          box-shadow: 0 12px 40px rgba(0, 246, 255, 0.3);
+        }
+        
+        .cta-abduction-primary:hover {
+          transform: translateY(-4px) scale(1.05);
+          box-shadow: 0 20px 60px rgba(0, 246, 255, 0.5);
+          background: linear-gradient(135deg, #00d4e7, #0056cc);
+        }
+        
+        .cta-abduction-secondary {
+          background: rgba(255, 255, 255, 0.1);
+          border: 3px solid rgba(0, 246, 255, 0.4);
+          color: #00f6ff;
+          padding: 18px 36px;
+          border-radius: 20px;
+          font-weight: 700;
+          backdrop-filter: blur(15px);
+          transition: all 0.4s ease;
+          font-size: 1.2rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+        
+        .cta-abduction-secondary:hover {
+          background: rgba(0, 246, 255, 0.2);
+          border-color: rgba(0, 246, 255, 0.7);
+          transform: translateY(-4px);
+          color: #ffffff;
+          box-shadow: 0 16px 48px rgba(0, 246, 255, 0.3);
+        }
+        
+        .cta-icon {
+          margin-right: 12px;
+          font-size: 1.3em;
+        }
+        
+        .cta-arrow {
+          margin-left: 12px;
+          transition: transform 0.3s ease;
+        }
+        
+        .cta-abduction-primary:hover .cta-arrow {
+          transform: translateX(8px);
+        }
+        
+        /* Transmisión desde la nave */
+        .transmission-status {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        }
+        
+        @media (min-width: 992px) {
+          .transmission-status {
+            justify-content: flex-start;
+          }
+        }
+        
+        .signal-indicator {
+          font-size: 1.2em;
+          animation: signal 2s ease-in-out infinite;
+        }
+        
+        @keyframes signal {
+          0%, 100% { opacity: 0.6; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        /* Contenedor de nave espacial */
+        .spaceship-container {
+          position: relative;
+          height: 500px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        /* Animación de llegada de nave */
+        .spaceship-arrival {
+          position: absolute;
+          top: 10%;
+          right: 10%;
+          z-index: 3;
+        }
+        
+        .spaceship {
+          font-size: 4rem;
+          animation: spaceshipArrival 8s ease-in-out infinite;
+          filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.8));
+        }
+        
+        @keyframes spaceshipArrival {
+          0% { transform: translateX(100px) translateY(-50px) rotate(10deg); opacity: 0.3; }
+          25% { transform: translateX(0px) translateY(0px) rotate(0deg); opacity: 1; }
+          50% { transform: translateX(-20px) translateY(10px) rotate(-5deg); opacity: 1; }
+          75% { transform: translateX(10px) translateY(-5px) rotate(2deg); opacity: 1; }
+          100% { transform: translateX(0px) translateY(0px) rotate(0deg); opacity: 1; }
+        }
+        
+        /* Rayo de luz de abducción */
+        .beam-light {
+          position: absolute;
+          top: 60px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 2px;
+          height: 200px;
+          background: linear-gradient(to bottom, rgba(0, 246, 255, 0.8), rgba(0, 246, 255, 0));
+          animation: beamPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes beamPulse {
+          0%, 100% { opacity: 0.3; width: 2px; }
+          50% { opacity: 1; width: 8px; }
+        }
+        
+        /* Holograma de tarjeta */
+        .hologram-card {
+          position: relative;
+          z-index: 2;
+        }
+        
+        .hologram-glow {
+          position: absolute;
+          top: -4px;
+          left: -4px;
+          right: -4px;
+          bottom: -4px;
+          background: linear-gradient(135deg, #00f6ff, #0072ff, #8e2de2);
+          border-radius: 24px;
+          z-index: -1;
+          opacity: 0.6;
+          filter: blur(12px);
+          animation: hologramGlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes hologramGlow {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; }
+        }
+        
+        .card-hologram {
+          width: 340px;
+          height: 220px;
+          background: linear-gradient(135deg, rgba(15, 12, 41, 0.9), rgba(48, 43, 99, 0.9));
+          border-radius: 20px;
+          padding: 24px;
+          position: relative;
+          animation: cardHologram 6s ease-in-out infinite;
+          backdrop-filter: blur(20px);
+          border: 2px solid rgba(0, 246, 255, 0.3);
+        }
+        
+        @keyframes cardHologram {
+          0%, 100% { transform: translateY(0px) rotateY(0deg); }
+          25% { transform: translateY(-15px) rotateY(3deg); }
+          50% { transform: translateY(-8px) rotateY(0deg); }
+          75% { transform: translateY(-20px) rotateY(-3deg); }
+        }
+        
+        .holo-header {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+        
+        .profile-alien {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.5rem;
+          margin-right: 16px;
+          border: 2px solid rgba(0, 246, 255, 0.5);
+        }
+        
+        .profile-data h4 {
+          font-size: 1.2rem;
+          font-weight: 800;
+          margin: 0;
+          color: #ffffff;
+          font-family: 'Montserrat', sans-serif;
+        }
+        
+        .profile-data p {
+          font-size: 1rem;
+          margin: 0;
+          color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .holo-features {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+        
+        .feature-alien {
+          display: flex;
+          align-items: center;
+          font-size: 0.95rem;
+          color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Decoraciones alienígenas */
+        .alien-decorations {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+        
+        .alien-1 {
+          top: 15%;
+          left: 5%;
+          font-size: 2.5rem;
+          animation: alienFloat1 5s ease-in-out infinite;
+        }
+        
+        .alien-2 {
+          top: 25%;
+          right: 5%;
+          font-size: 2rem;
+          animation: alienFloat2 7s ease-in-out infinite;
+          animation-delay: -2s;
+        }
+        
+        .alien-3 {
+          bottom: 15%;
+          left: 15%;
+          font-size: 1.8rem;
+          animation: alienFloat3 6s ease-in-out infinite;
+          animation-delay: -4s;
+        }
+        
+        @keyframes alienFloat1 {
+          0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+          50% { transform: translateY(-25px) rotate(15deg); opacity: 1; }
+        }
+        
+        @keyframes alienFloat2 {
+          0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+          50% { transform: translateY(-20px) rotate(-10deg); opacity: 0.9; }
+        }
+        
+        @keyframes alienFloat3 {
+          0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+          50% { transform: translateY(-30px) rotate(20deg); opacity: 1; }
+        }
+        
         /* Mobile optimizations */
         @media (max-width: 768px) {
-          .hero-content h2 {
-            font-size: 2.2rem !important;
+          .hero-intergalactico {
+            padding: 2rem 1rem;
           }
           
-          .cta-hero {
-            font-size: 1.1rem !important;
-            padding: 1rem 2rem !important;
-          }
-          
-          .future-services {
+          .spaceship-container {
+            height: 350px;
             margin-top: 2rem;
           }
           
-          .future-item {
-            margin-bottom: 1rem;
+          .card-hologram {
+            width: 280px;
+            height: 180px;
+            padding: 20px;
+          }
+          
+          .spaceship {
+            font-size: 3rem;
+          }
+          
+          .hero-ctas {
+            flex-direction: column;
+            align-items: center;
+          }
+          
+          .cta-abduction-primary,
+          .cta-abduction-secondary {
+            width: 100%;
+            max-width: 300px;
           }
         }
       `}</style>
@@ -365,49 +744,105 @@ export default function HomePage() {
             </Col>
           </Row>
           
-          {/* New Centered Hero Section */}
-          <Row className="justify-content-center text-center mb-5">
-            <Col lg={10} xl={8}>
-              <div className="hero-content">
-                <Image src="/logo.png" alt="Indi Logo" width={150} height={150} priority />
-                <h1 className="text-white fw-light" style={{ fontSize: '4.5rem', textTransform: 'lowercase', letterSpacing: '1px', marginTop: '-10px' }}>
-                  indi
-                </h1>
-                <p className="lead text-white mt-3 mb-4 opacity-90" style={{ fontSize: '1.3rem', fontWeight: '400' }}>
-                  Eleva tu identidad digital. Profesionalismo al siguiente nivel.
-                </p>
-                
-                {/* CTA Principal Gigante */}
-                <div className="mb-4">
-                  <Button 
-                    size="lg"
-                    className="cta-hero px-5 py-3"
-                    onClick={handleDashboardAccess}
-                    style={{
-                      fontSize: '1.3rem',
-                      fontWeight: '700',
-                      borderRadius: '16px',
-                      background: 'linear-gradient(135deg, #00F6FF, #0072ff)',
-                      border: 'none',
-                      color: '#ffffff',
-                      boxShadow: '0 8px 32px rgba(0, 246, 255, 0.3)',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.5px'
-                    }}
-                  >
-                    🚀 Crear Mi Tarjeta Gratis
-                  </Button>
+          {/* HERO INTERGALÁCTICO */}
+          <div className="hero-intergalactico">
+            {/* Partículas espaciales de fondo */}
+            <div className="space-particles">
+              <div className="particle space-particle-1"></div>
+              <div className="particle space-particle-2"></div>
+              <div className="particle space-particle-3"></div>
+              <div className="particle space-particle-4"></div>
+              <div className="particle space-particle-5"></div>
+              <div className="particle space-particle-6"></div>
+            </div>
+            
+            <Row className="align-items-center min-vh-80">
+              <Col lg={7}>
+                <div className="hero-content text-center text-lg-start">
+                  <div className="alien-badge mb-3">
+                    <span className="badge-alien">👽 Diseños de Otro Mundo</span>
+                  </div>
+                  
+                  <h1 className="hero-title-alien text-white mb-4">
+                    Eleva tu Imagen Profesional
+                    <br />
+                    <span className="hero-highlight-alien">a Otro Nivel</span>
+                  </h1>
+                  
+                  <p className="hero-subtitle-alien text-white opacity-90 mb-5">
+                    Tecnología intergaláctica para crear tarjetas digitales, CVs y presentaciones 
+                    que <strong>transportan tu profesionalismo</strong> más allá de este mundo
+                  </p>
+                  
+                  {/* CTAs de Abducción */}
+                  <div className="hero-ctas mb-4">
+                    <Button 
+                      size="lg"
+                      className="cta-abduction-primary me-3 mb-3"
+                      onClick={handleDashboardAccess}
+                    >
+                      <span className="cta-icon">🛸</span>
+                      Iniciar Abducción
+                      <span className="cta-arrow">→</span>
+                    </Button>
+                    
+                    <Button 
+                      size="lg"
+                      className="cta-abduction-secondary mb-3"
+                      onClick={handleCreateCard}
+                    >
+                      <span className="cta-icon">🌌</span>
+                      Explorar Tecnología
+                    </Button>
+                  </div>
+                  
+                  {/* Transmisión desde la nave */}
+                  <div className="transmission-status">
+                    <small className="text-white opacity-75">
+                      <span className="signal-indicator">📡</span>
+                      Conectados con <strong>500+</strong> profesionales intergalácticos
+                    </small>
+                  </div>
                 </div>
-                
-                {/* Social Proof Simple */}
-                <div className="social-proof-mini">
-                  <small className="text-white opacity-75">
-                    ✨ Únete a cientos de profesionales que ya digitalizaron su networking
-                  </small>
+              </Col>
+              
+              <Col lg={5}>
+                <div className="spaceship-container">
+                  {/* Nave espacial animada */}
+                  <div className="spaceship-arrival">
+                    <div className="spaceship">🛸</div>
+                    <div className="beam-light"></div>
+                  </div>
+                  
+                  {/* Holograma de tarjeta flotante */}
+                  <div className="hologram-card">
+                    <div className="hologram-glow"></div>
+                    <div className="card-hologram">
+                      <div className="holo-header">
+                        <div className="profile-alien">👽</div>
+                        <div className="profile-data">
+                          <h4>Profesional Intergaláctico</h4>
+                          <p>Especialista en Networking</p>
+                        </div>
+                      </div>
+                      <div className="holo-features">
+                        <div className="feature-alien">✨ Efectos Glassmorphism</div>
+                        <div className="feature-alien">🎨 Tipografía Estratégica</div>
+                        <div className="feature-alien">⭐ Template Stellar</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Elementos decorativos alienígenas */}
+                  <div className="alien-decorations">
+                    <div className="decoration alien-1">🌌</div>
+                    <div className="decoration alien-2">⭐</div>
+                    <div className="decoration alien-3">🌟</div>
+                  </div>
                 </div>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </div>
 
           {/* Servicio Principal - Tarjetas Digitales */}
           <Row className="justify-content-center mb-5">
