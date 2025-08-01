@@ -1038,9 +1038,9 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               },
               {
                 name: 'Forest',
-                gradient: 'linear-gradient(135deg, #56ab2f 0%, #a8e6cf 50%, #dcedc8 100%)',
+                gradient: 'linear-gradient(135deg, #1b4332 0%, #2d5016 50%, #081c15 100%)',
                 emoji: '🌲',
-                description: 'Verde natural'
+                description: 'Bosque profundo y frondoso'
               },
               {
                 name: 'Desert',
