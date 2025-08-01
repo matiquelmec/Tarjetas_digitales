@@ -836,15 +836,15 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
             {[
               {
                 name: 'Diamond',
-                gradient: 'linear-gradient(135deg, #e8f5e8 0%, #b8e6b8 50%, #4a8f4a 100%)',
+                gradient: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 30%, #6c757d 100%)',
                 emoji: '💎',
-                description: 'Elegancia cristalina'
+                description: 'Elegancia cristalina con contraste óptimo'
               },
               {
                 name: 'Platinum',
-                gradient: 'linear-gradient(135deg, #f7f7f7 0%, #d1d1d1 50%, #8c8c8c 100%)',
+                gradient: 'linear-gradient(135deg, #f8f9fa 0%, #adb5bd 50%, #495057 100%)',
                 emoji: '🔱',
-                description: 'Lujo metálico'  
+                description: 'Lujo metálico con excelente legibilidad'  
               },
               {
                 name: 'Sapphire',
