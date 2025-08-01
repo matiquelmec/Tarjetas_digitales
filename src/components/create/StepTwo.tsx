@@ -57,25 +57,53 @@ export function StepTwo({ cardData, updateCardData, applyThemeData }: StepTwoPro
       id: 'modern', 
       name: 'Moderno', 
       description: 'Diseño limpio y profesional',
-      preview: '🎨'
+      preview: '🎨',
+      colors: {
+        cardBackgroundColor: '#2c2c2c',
+        cardTextColor: '#ffffff',
+        buttonSecondaryColor: '#00F6FF',
+        buttonSecondaryHoverColor: '#00D1DB',
+        buttonNormalBackgroundColor: '#1F1F1F'
+      }
     },
     { 
       id: 'elegant', 
       name: 'Elegante', 
       description: 'Estilo sofisticado y minimalista',
-      preview: '✨'
+      preview: '✨',
+      colors: {
+        cardBackgroundColor: '#f8f9fa',
+        cardTextColor: '#2c3e50',
+        buttonSecondaryColor: '#6c757d',
+        buttonSecondaryHoverColor: '#5a6268',
+        buttonNormalBackgroundColor: '#e9ecef'
+      }
     },
     { 
       id: 'creative', 
       name: 'Creativo', 
       description: 'Colores vibrantes y dinámicos',
-      preview: '🚀'
+      preview: '🚀',
+      colors: {
+        cardBackgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        cardTextColor: '#ffffff',
+        buttonSecondaryColor: '#00F6FF',
+        buttonSecondaryHoverColor: '#0072ff',
+        buttonNormalBackgroundColor: 'rgba(255,255,255,0.1)'
+      }
     },
     { 
       id: 'classic', 
       name: 'Clásico', 
       description: 'Tradicional y confiable',
-      preview: '📊'
+      preview: '📊',
+      colors: {
+        cardBackgroundColor: '#ffffff',
+        cardTextColor: '#333333',
+        buttonSecondaryColor: '#0066cc',
+        buttonSecondaryHoverColor: '#0052a3',
+        buttonNormalBackgroundColor: '#f8f9fa'
+      }
     },
   ];
 
@@ -137,13 +165,49 @@ export function StepTwo({ cardData, updateCardData, applyThemeData }: StepTwoPro
                     ? 'border-info bg-info bg-opacity-10' 
                     : 'border-secondary'
                 }`}
-                onClick={() => updateCardData('template', template.id)}
+                onClick={() => {
+                  // Aplicar plantilla y sus colores
+                  updateCardData('template', template.id);
+                  if (applyThemeData && template.colors) {
+                    applyThemeData(template.colors);
+                  } else if (template.colors) {
+                    // Fallback: aplicar colores individualmente
+                    Object.entries(template.colors).forEach(([key, value]) => {
+                      updateCardData(key, value);
+                    });
+                  }
+                }}
                 style={{ cursor: 'pointer' }}
               >
-                <Card.Body className="text-center">
-                  <div style={{ fontSize: '2rem' }}>{template.preview}</div>
-                  <h6 className="mt-2">{template.name}</h6>
+                <Card.Body className="text-center p-3">
+                  {/* Mini preview de la plantilla */}
+                  <div 
+                    style={{
+                      width: '100%',
+                      height: '60px',
+                      background: template.colors.cardBackgroundColor,
+                      borderRadius: '8px',
+                      marginBottom: '10px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: template.colors.cardTextColor,
+                      fontSize: '1.5rem',
+                      fontWeight: template.id === 'elegant' ? '300' : template.id === 'creative' ? '800' : '600',
+                      border: template.id === 'classic' ? '1px solid #ddd' : 'none',
+                      letterSpacing: template.id === 'creative' ? '1px' : '0'
+                    }}
+                  >
+                    {template.preview}
+                  </div>
+                  <h6 className="mt-2 mb-1">{template.name}</h6>
                   <small className="text-muted">{template.description}</small>
+                  {/* Indicador de selección */}
+                  {cardData.template === template.id && (
+                    <div className="mt-2">
+                      <small className="text-info fw-bold">✓ Seleccionado</small>
+                    </div>
+                  )}
                 </Card.Body>
               </Card>
             </Col>
