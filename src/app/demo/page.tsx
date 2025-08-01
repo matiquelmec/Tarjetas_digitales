@@ -41,7 +41,7 @@ export default function DemoPage() {
     enableSubtleAnimations: true,
     enableBackgroundPatterns: true,
     enableParticles: true,
-    particleType: 'floating',
+    particleType: 'floating' as 'floating' | 'constellation' | 'professional' | 'creative',
     particleCount: 50
   };
 
