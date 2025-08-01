@@ -507,9 +507,9 @@ export default function Dashboard() {
                   </div>
                   <div className="stat-divider-compact">⚡</div>
                   <div className="stat-compact alien-stat">
-                    <span className="stat-icon">📡</span>
-                    <span className="stat-value">{cards.reduce((sum, card) => sum + card.views, 0)}</span>
-                    <span className="stat-label-compact">Escaneos</span>
+                    <span className="stat-icon">🚀</span>
+                    <span className="stat-value">{cards.reduce((sum, card) => sum + (card.shares || 0), 0)}</span>
+                    <span className="stat-label-compact">Compartidas</span>
                   </div>
                   <div className="stat-divider-compact">⚡</div>
                   <div className="stat-compact alien-stat">
@@ -631,11 +631,11 @@ export default function Dashboard() {
                     <div className="icon-wrapper alien-success-gradient text-white">
                       📡
                     </div>
-                    <h2 className="fw-bold text-dark mb-1">{cards.reduce((sum, card) => sum + card.views, 0)}</h2>
-                    <p className="text-muted mb-2">Escaneos Recibidos</p>
+                    <h2 className="fw-bold text-dark mb-1">{cards.reduce((sum, card) => sum + (card.shares || 0), 0)}</h2>
+                    <p className="text-muted mb-2">Compartidas por WhatsApp</p>
                     <div className="d-flex justify-content-center">
                       <span className="alien-badge bg-success bg-opacity-10 text-success fw-semibold">
-                        Señales activas
+                        Transmisiones enviadas
                       </span>
                     </div>
                   </div>
