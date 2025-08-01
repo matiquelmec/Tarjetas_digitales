@@ -1,7 +1,8 @@
 'use client';
 
 import { Form, Row, Col, InputGroup, Button } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import Image from 'next/image';
 
 interface StepOneProps {
   cardData: any;
@@ -12,6 +13,8 @@ export function StepOne({ cardData, updateCardData }: StepOneProps) {
   const [titleSuggestions, setTitleSuggestions] = useState<string[]>([]);
   const [aboutSuggestions, setAboutSuggestions] = useState<string[]>([]);
   const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [dragActive, setDragActive] = useState(false);
 
   const validateField = (field: string, value: string) => {
     const newErrors = { ...errors };
@@ -85,8 +88,105 @@ export function StepOne({ cardData, updateCardData }: StepOneProps) {
     }
   };
 
+  const handlePhotoUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      updateCardData('photo', reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handlePhotoUpload(file);
+    }
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setDragActive(true);
+    } else if (e.type === 'dragleave') {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith('image/')) {
+      handlePhotoUpload(file);
+    }
+  };
+
   return (
     <div>
+      {/* Photo Upload - Lo más importante primero */}
+      <div className="mb-4">
+        <h5 className="mb-3">📸 Tu Foto de Perfil</h5>
+        <p className="text-muted mb-3">Esta es la imagen que verán tus contactos - ¡haz que cuente!</p>
+        <div
+          className={`border-2 border-dashed rounded p-4 text-center ${
+            dragActive ? 'border-info bg-info bg-opacity-10' : 'border-secondary'
+          }`}
+          onDragEnter={handleDrag}
+          onDragLeave={handleDrag}
+          onDragOver={handleDrag}
+          onDrop={handleDrop}
+          style={{ cursor: 'pointer' }}
+          onClick={() => fileInputRef.current?.click()}
+        >
+          {cardData.photo ? (
+            <div>
+              <Image 
+                src={cardData.photo} 
+                alt="Tu foto de perfil" 
+                width={120}
+                height={120}
+                className="rounded-circle mb-3"
+                style={{ objectFit: 'cover' }}
+              />
+              <p className="mb-2">✅ ¡Perfecto! Tu foto está lista</p>
+              <Button variant="outline-info" size="sm">
+                Cambiar foto
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>📸</div>
+              <h6 className="mb-2">Sube tu mejor foto profesional</h6>
+              <p className="mb-2">Arrastra y suelta tu foto aquí</p>
+              <p className="text-muted">o haz clic para seleccionar desde tu dispositivo</p>
+            </div>
+          )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileInputChange}
+            style={{ display: 'none' }}
+          />
+        </div>
+        
+        <Form.Group className="mt-3">
+          <Form.Label>O ingresa URL de tu imagen</Form.Label>
+          <Form.Control
+            type="url"
+            placeholder="https://ejemplo.com/mi-foto-profesional.jpg"
+            value={typeof cardData.photo === 'string' && cardData.photo.startsWith('http') ? cardData.photo : ''}
+            onChange={(e) => updateCardData('photo', e.target.value)}
+          />
+          <Form.Text className="text-muted">
+            Recomendación: Usa una foto profesional, con buena iluminación y enfoque en tu rostro
+          </Form.Text>
+        </Form.Group>
+      </div>
+
       <Row>
         <Col md={6}>
           <Form.Group className="mb-3">

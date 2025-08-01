@@ -1,8 +1,6 @@
 'use client';
 
 import { Form, Row, Col, Card, Button } from 'react-bootstrap';
-import { useState, useRef } from 'react';
-import Image from 'next/image';
 import { useUniversalContrast } from '@/hooks/useUniversalContrast';
 
 interface StepTwoProps {
@@ -11,8 +9,6 @@ interface StepTwoProps {
 }
 
 export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [dragActive, setDragActive] = useState(false);
   const { applyAndUpdate } = useUniversalContrast();
 
   const minimalistPalettes = [
@@ -108,42 +104,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
     },
   ];
 
-  const handlePhotoUpload = (file: File) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      updateCardData('photo', reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      handlePhotoUpload(file);
-    }
-  };
-
-  const handleDrag = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === 'dragenter' || e.type === 'dragover') {
-      setDragActive(true);
-    } else if (e.type === 'dragleave') {
-      setDragActive(false);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-    
-    const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith('image/')) {
-      handlePhotoUpload(file);
-    }
-  };
-
   const applyPalette = (palette: any) => {
     // Aplicar paleta con reglas universales de contraste
     applyAndUpdate(palette, updateCardData);
@@ -207,63 +167,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
           ))}
         </Row>
       </div>
-
-      {/* Photo Upload with Drag & Drop */}
-      <div className="mb-4">
-        <h5 className="mb-3">📸 Foto de Perfil</h5>
-        <div
-          className={`border-2 border-dashed rounded p-4 text-center ${
-            dragActive ? 'border-info bg-info bg-opacity-10' : 'border-secondary'
-          }`}
-          onDragEnter={handleDrag}
-          onDragLeave={handleDrag}
-          onDragOver={handleDrag}
-          onDrop={handleDrop}
-          style={{ cursor: 'pointer' }}
-          onClick={() => fileInputRef.current?.click()}
-        >
-          {cardData.photo ? (
-            <div>
-              <Image 
-                src={cardData.photo} 
-                alt="Preview" 
-                width={100}
-                height={100}
-                className="rounded-circle mb-2"
-                style={{ objectFit: 'cover' }}
-              />
-              <p className="mb-2">✅ Foto cargada</p>
-              <Button variant="outline-info" size="sm">
-                Cambiar foto
-              </Button>
-            </div>
-          ) : (
-            <div>
-              <div style={{ fontSize: '3rem' }}>📸</div>
-              <p className="mb-2">Arrastra y suelta tu foto aquí</p>
-              <p className="text-muted">o haz clic para seleccionar</p>
-            </div>
-          )}
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleFileInputChange}
-            style={{ display: 'none' }}
-          />
-        </div>
-        
-        <Form.Group className="mt-3">
-          <Form.Label>O ingresa URL de imagen</Form.Label>
-          <Form.Control
-            type="url"
-            placeholder="https://ejemplo.com/mi-foto.jpg"
-            value={typeof cardData.photo === 'string' && cardData.photo.startsWith('http') ? cardData.photo : ''}
-            onChange={(e) => updateCardData('photo', e.target.value)}
-          />
-        </Form.Group>
-      </div>
-
 
       {/* Smart Theme System */}
       <div className="mb-4">
