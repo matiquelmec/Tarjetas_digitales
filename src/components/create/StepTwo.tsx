@@ -7,10 +7,9 @@ import Image from 'next/image';
 interface StepTwoProps {
   cardData: any;
   updateCardData: (field: string, value: any) => void;
-  applyThemeData?: (themeColors: Record<string, any>) => void;
 }
 
-export function StepTwo({ cardData, updateCardData, applyThemeData }: StepTwoProps) {
+export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
 
@@ -166,12 +165,9 @@ export function StepTwo({ cardData, updateCardData, applyThemeData }: StepTwoPro
                     : 'border-secondary'
                 }`}
                 onClick={() => {
-                  // Aplicar plantilla y sus colores
+                  // Aplicar plantilla y sus colores usando solo updateCardData
                   updateCardData('template', template.id);
-                  if (applyThemeData && template.colors) {
-                    applyThemeData(template.colors);
-                  } else if (template.colors) {
-                    // Fallback: aplicar colores individualmente
+                  if (template.colors) {
                     Object.entries(template.colors).forEach(([key, value]) => {
                       updateCardData(key, value);
                     });
@@ -415,20 +411,10 @@ export function StepTwo({ cardData, updateCardData, applyThemeData }: StepTwoPro
                   boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
                 }}
                 onClick={() => {
-                  console.log(`🎯 BOTÓN CLICKEADO: ${theme.name}`, {
-                    coloresAplicar: theme.colors,
-                    tieneApplyThemeData: !!applyThemeData
+                  // Apply theme colors directly to manual controls
+                  Object.entries(theme.colors).forEach(([key, value]) => {
+                    updateCardData(key, value);
                   });
-                  
-                  // Usar nueva función robusta para aplicar tema completo
-                  if (applyThemeData) {
-                    applyThemeData(theme.colors);
-                  } else {
-                    // Fallback al método anterior si no está disponible
-                    Object.entries(theme.colors).forEach(([key, value]) => {
-                      updateCardData(key, value);
-                    });
-                  }
                   
                   // Visual feedback
                   const element = document.querySelector(`[data-theme="${theme.name}"]`) as HTMLElement;
@@ -548,20 +534,10 @@ export function StepTwo({ cardData, updateCardData, applyThemeData }: StepTwoPro
                   boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
                 }}
                 onClick={() => {
-                  console.log(`🎯 BOTÓN CLICKEADO: ${theme.name}`, {
-                    coloresAplicar: theme.colors,
-                    tieneApplyThemeData: !!applyThemeData
+                  // Apply theme colors directly to manual controls
+                  Object.entries(theme.colors).forEach(([key, value]) => {
+                    updateCardData(key, value);
                   });
-                  
-                  // Usar nueva función robusta para aplicar tema completo
-                  if (applyThemeData) {
-                    applyThemeData(theme.colors);
-                  } else {
-                    // Fallback al método anterior si no está disponible
-                    Object.entries(theme.colors).forEach(([key, value]) => {
-                      updateCardData(key, value);
-                    });
-                  }
                   
                   // Visual feedback
                   const element = document.querySelector(`[data-theme="${theme.name}"]`) as HTMLElement;
