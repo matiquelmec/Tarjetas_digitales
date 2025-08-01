@@ -108,46 +108,53 @@ export class EffectsManager {
       const baseColor = this.extractBaseColor(cardColors.background);
       const isLightBackground = this.isLightColor(baseColor);
       
-      // Aplicar glassmorphism que trabaja sobre el color existente de la tarjeta
-      const blurAmount = 8 * intensity; // Blur más sutil para mantener legibilidad
-      const borderOpacity = 0.25 * intensity; // Bordes suaves
-      const shadowStrength = 0.2 * intensity; // Sombra más sutil
+      // Crear un efecto glass que no depende de backdrop-filter
+      const borderOpacity = 0.3 * intensity;
+      const shadowStrength = 0.25 * intensity;
       
-      // Crear overlay glass que se adapta al color de fondo existente
+      // Crear un fondo glass convincente que se superpone al color original
+      const { r, g, b } = this.hexToRgb(baseColor);
+      
+      // Base transparente del color original
+      const baseTransparent = `rgba(${r}, ${g}, ${b}, ${0.85 * intensity})`;
+      
+      // Overlay vidrio
       const glassOverlay = isLightBackground 
-        ? `rgba(255, 255, 255, ${0.2 * intensity})` // Overlay blanco sutil para fondos claros
-        : `rgba(255, 255, 255, ${0.08 * intensity})`; // Overlay muy sutil para fondos oscuros
+        ? `rgba(255, 255, 255, ${0.25 * intensity})`
+        : `rgba(255, 255, 255, ${0.12 * intensity})`;
       
+      // Tinte sutil
       const glassTint = isLightBackground
-        ? `rgba(240, 248, 255, ${0.15 * intensity})` // Tinte azul muy claro para fondos claros
-        : `rgba(255, 255, 255, ${0.05 * intensity})`; // Tinte blanco mínimo para fondos oscuros
+        ? `rgba(240, 248, 255, ${0.2 * intensity})`
+        : `rgba(200, 220, 255, ${0.08 * intensity})`;
 
       styles.push(`
         .business-card-custom.effect-glass {
-          backdrop-filter: blur(${blurAmount}px) saturate(1.1) contrast(1.05) !important;
-          -webkit-backdrop-filter: blur(${blurAmount}px) saturate(1.1) contrast(1.05) !important;
-          background: linear-gradient(135deg, ${glassOverlay} 0%, ${glassTint} 100%) !important;
+          background: 
+            linear-gradient(135deg, ${glassOverlay} 0%, transparent 50%, ${glassTint} 100%),
+            ${baseTransparent} !important;
           border: 1px solid rgba(255, 255, 255, ${borderOpacity}) !important;
           box-shadow: 
-            0 8px 24px rgba(0, 0, 0, ${shadowStrength}),
-            inset 0 1px 0 rgba(255, 255, 255, ${borderOpacity * 1.5}) !important;
+            0 8px 32px rgba(0, 0, 0, ${shadowStrength}),
+            inset 0 1px 0 rgba(255, 255, 255, ${borderOpacity}),
+            inset 0 -1px 0 rgba(255, 255, 255, ${borderOpacity * 0.5}) !important;
           position: relative;
           overflow: hidden;
         }
         
-        /* Efecto de brillo sutil que respeta el color de la tarjeta */
+        /* Efecto de brillo superior para simular reflexión de vidrio */
         .business-card-custom.effect-glass::before {
           content: '';
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
-          height: 40%;
+          height: 50%;
           background: linear-gradient(
-            145deg,
-            rgba(255, 255, 255, ${isLightBackground ? 0.12 * intensity : 0.08 * intensity}) 0%,
-            rgba(255, 255, 255, ${isLightBackground ? 0.05 * intensity : 0.03 * intensity}) 70%,
-            transparent 100%
+            160deg,
+            rgba(255, 255, 255, ${isLightBackground ? 0.3 * intensity : 0.2 * intensity}) 0%,
+            rgba(255, 255, 255, ${isLightBackground ? 0.1 * intensity : 0.05 * intensity}) 40%,
+            transparent 70%
           );
           border-radius: inherit;
           border-bottom-left-radius: 0;
@@ -156,24 +163,25 @@ export class EffectsManager {
           z-index: 1;
         }
         
-        /* Punto de luz sutil en la esquina superior */
+        /* Punto de luz brillante para simular reflexión */
         .business-card-custom.effect-glass::after {
           content: '';
           position: absolute;
-          top: 8%;
-          left: 8%;
-          right: 70%;
-          height: 25%;
+          top: 10%;
+          left: 15%;
+          width: 60px;
+          height: 60px;
           background: radial-gradient(
-            ellipse at center,
-            rgba(255, 255, 255, ${isLightBackground ? 0.15 * intensity : 0.1 * intensity}) 0%,
-            rgba(255, 255, 255, ${isLightBackground ? 0.08 * intensity : 0.05 * intensity}) 40%,
+            circle at center,
+            rgba(255, 255, 255, ${isLightBackground ? 0.4 * intensity : 0.25 * intensity}) 0%,
+            rgba(255, 255, 255, ${isLightBackground ? 0.15 * intensity : 0.1 * intensity}) 40%,
             transparent 70%
           );
           border-radius: 50%;
-          filter: blur(12px);
+          filter: blur(15px);
           pointer-events: none;
           z-index: 1;
+          transform: rotate(-20deg);
         }
         
         /* Asegurar que el contenido esté por encima */
@@ -422,6 +430,17 @@ export class EffectsManager {
     // Fórmula de luminancia
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
     return luminance > 0.5;
+  }
+
+  /**
+   * Convierte color hexadecimal a RGB
+   */
+  private hexToRgb(hex: string): { r: number; g: number; b: number } {
+    const cleanHex = hex.replace('#', '');
+    const r = parseInt(cleanHex.substring(0, 2), 16);
+    const g = parseInt(cleanHex.substring(2, 4), 16);
+    const b = parseInt(cleanHex.substring(4, 6), 16);
+    return { r, g, b };
   }
 
   /**
