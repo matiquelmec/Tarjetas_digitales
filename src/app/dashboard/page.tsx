@@ -704,7 +704,7 @@ export default function Dashboard() {
                           size="sm"
                         >
                           <span className="create-icon">🚀</span>
-                          EXPLORAR
+                          CREAR
                         </Button>
                       </Link>
                     </div>
@@ -730,7 +730,7 @@ export default function Dashboard() {
                           size="sm"
                         >
                           <span className="create-icon">📡</span>
-                          EXPLORAR
+                          CREAR
                         </Button>
                       </Link>
                     </div>
