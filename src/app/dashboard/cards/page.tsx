@@ -802,9 +802,9 @@ export default function DashboardCardsPage() {
                         size="lg"
                         className="fw-semibold px-4 py-3"
                         style={{ borderRadius: '16px' }}
-                        onClick={() => window.open('https://example.com/demo', '_blank')}
+                        onClick={() => window.open('/demo', '_blank')}
                       >
-                        👁️ Ver Demo
+                        🔮 Ver Holograma Demo
                       </Button>
                     </div>
                   </div>
