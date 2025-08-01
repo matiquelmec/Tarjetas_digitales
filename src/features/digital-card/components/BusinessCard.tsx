@@ -534,22 +534,25 @@ ${formattedAbout ? `${formattedAbout}
   ) => {
     const baseTemplate = getTemplateStyles(template);
     
-    // Base styles siempre aplicados
+    // Base styles siempre aplicados - Usando CSS custom properties para reactividad
     const baseStyles = {
       width: '100%',
       maxWidth: '480px',
-      color: cardTextColor,
+      color: 'var(--card-text-color)',
       transition: 'all 0.3s ease-in-out',
       padding: '40px',
       margin: '0 auto',
+      // CSS custom properties para colores reactivos
+      '--card-background-color': cardBackgroundColor,
+      '--card-text-color': cardTextColor,
       '--button-secondary-color': buttonSecondaryColor,
       '--button-normal-bg-color': buttonNormalBackgroundColor,
       '--button-secondary-hover-color': buttonSecondaryHoverColor,
       '--button-hover-text-color': getContrastTextColor(buttonSecondaryHoverColor),
     };
 
-    // Determinar color de fondo inteligentemente
-    let backgroundColor = cardBackgroundColor;
+    // Determinar color de fondo inteligentemente - Usando CSS custom property
+    let backgroundColor = 'var(--card-background-color)';
     let backdropFilter = 'none';
     let border = baseTemplate.cardStyle.border || 'none';
     
@@ -557,7 +560,7 @@ ${formattedAbout ? `${formattedAbout}
       // Glassmorphism: manejar tanto colores sólidos como gradientes
       if (cardBackgroundColor.startsWith('linear-gradient')) {
         // Para gradientes, mantener el gradiente original con ligero overlay
-        backgroundColor = cardBackgroundColor;
+        backgroundColor = 'var(--card-background-color)';
         backdropFilter = 'blur(8px) saturate(1.2)';
         border = '1px solid rgba(255, 255, 255, 0.2)';
       } else {
@@ -706,7 +709,7 @@ ${formattedAbout ? `${formattedAbout}
               ...templateStyles.headerStyle,
               // Para template elegant, aplicar borderColor dinámico
               ...(template === 'elegant' && {
-                borderBottomColor: cardTextColor,
+                borderBottomColor: 'var(--card-text-color)',
               })
             }}>
               <div style={{ 
@@ -716,7 +719,7 @@ ${formattedAbout ? `${formattedAbout}
                 margin: '0 auto 20px auto',
                 overflow: 'hidden',
                 ...templateStyles.photoStyle,
-                borderColor: `${cardTextColor}33`,
+                borderColor: `var(--card-text-color)33`,
               }}>
                 <Image
                   src={photoUrl}
@@ -731,8 +734,8 @@ ${formattedAbout ? `${formattedAbout}
               </div>
               <Card.Title as="h1" className="mb-2" style={{
                 lineHeight: 1.2,
-                // Para template creative, preservar gradiente, para otros usar cardTextColor
-                color: template === 'creative' ? 'transparent' : cardTextColor,
+                // Para template creative, preservar gradiente, para otros usar CSS custom property
+                color: template === 'creative' ? 'transparent' : 'var(--card-text-color)',
                 ...templateStyles.nameStyle,
                 // Asegurar que el gradiente se vea correctamente en creative
                 ...(template === 'creative' && {
@@ -745,11 +748,11 @@ ${formattedAbout ? `${formattedAbout}
                 {name}
               </Card.Title>
               <Card.Subtitle as="h2" style={{
-                color: cardTextColor,
+                color: 'var(--card-text-color)',
                 ...templateStyles.titleStyle,
                 // Agregar borderColor para template elegant
                 ...(template === 'elegant' && {
-                  borderColor: cardTextColor,
+                  borderColor: 'var(--card-text-color)',
                 })
               }}>
                 {title}
@@ -758,7 +761,7 @@ ${formattedAbout ? `${formattedAbout}
 
             {about && (
               <div className="about-section text-start" style={{ 
-                borderTop: `1px solid ${cardTextColor}33`,
+                borderTop: `1px solid var(--card-text-color)33`,
                 paddingTop: '20px',
                 marginTop: '20px'
               }}>
@@ -773,7 +776,7 @@ ${formattedAbout ? `${formattedAbout}
             )}
 
             <Stack gap={2} className="actions-section" style={{ 
-              borderTop: `1px solid ${cardTextColor}33`,
+              borderTop: `1px solid var(--card-text-color)33`,
               paddingTop: '20px',
               marginTop: '20px'
             }}>
@@ -816,7 +819,7 @@ ${formattedAbout ? `${formattedAbout}
 
             {professionalDetails && (
               <div className="extra-info text-start" style={{ 
-                borderTop: `1px solid ${cardTextColor}33`, 
+                borderTop: `1px solid var(--card-text-color)33`, 
                 paddingTop: '20px',
                 marginTop: '20px'
               }}>
@@ -832,7 +835,7 @@ ${formattedAbout ? `${formattedAbout}
 
             {location && (
               <div className="location-section text-start" style={{ 
-                borderTop: `1px solid ${cardTextColor}33`,
+                borderTop: `1px solid var(--card-text-color)33`,
                 paddingTop: '20px',
                 marginTop: '20px'
               }}>
@@ -850,7 +853,7 @@ ${formattedAbout ? `${formattedAbout}
             )}
 
             <div className="share-section text-center" style={{ 
-              borderTop: `1px solid ${cardTextColor}33`,
+              borderTop: `1px solid var(--card-text-color)33`,
               paddingTop: '20px',
               marginTop: '20px'
             }}>
