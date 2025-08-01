@@ -647,7 +647,7 @@ export default function Dashboard() {
                       🚀
                     </div>
                     <h2 className="fw-bold text-muted mb-1">0</h2>
-                    <p className="text-muted mb-2">Archivos Optimizados</p>
+                    <p className="text-muted mb-2">CVs Inteligentes</p>
                     <div className="d-flex justify-content-center">
                       <span className="alien-badge bg-warning bg-opacity-10 text-warning fw-semibold">
                         Llegada: Feb 2025
@@ -662,7 +662,7 @@ export default function Dashboard() {
                       📡
                     </div>
                     <h2 className="fw-bold text-muted mb-1">0</h2>
-                    <p className="text-muted mb-2">Transmisiones</p>
+                    <p className="text-muted mb-2">Presentaciones Intergalácticas</p>
                     <div className="d-flex justify-content-center">
                       <span className="alien-badge bg-info bg-opacity-10 text-info fw-semibold">
                         Llegada: Mar 2025
@@ -713,9 +713,9 @@ export default function Dashboard() {
                             <div className="icon-wrapper warning-gradient text-white">
                               🚀
                             </div>
-                            <h5 className="fw-bold text-muted mb-2">Archivo Inteligente IA</h5>
+                            <h5 className="fw-bold text-muted mb-2">CV Inteligente con IA</h5>
                             <p className="text-muted mb-4">
-                              Optimiza tu archivo profesional con tecnología alienígena avanzada
+                              Optimiza tu CV profesional con tecnología alienígena avanzada
                             </p>
                             <Button 
                               variant="outline-secondary" 
@@ -732,9 +732,9 @@ export default function Dashboard() {
                             <div className="icon-wrapper info-gradient text-white">
                               🎯
                             </div>
-                            <h5 className="fw-bold text-muted mb-2">Transmisión Holográfica</h5>
+                            <h5 className="fw-bold text-muted mb-2">Presentación Intergaláctica</h5>
                             <p className="text-muted mb-4">
-                              Proyecta presentaciones holográficas con efectos intergalácticos
+                              Crea presentaciones hipnotizantes con efectos de otro mundo
                             </p>
                             <Button 
                               variant="outline-secondary" 
