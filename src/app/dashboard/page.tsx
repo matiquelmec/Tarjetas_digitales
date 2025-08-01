@@ -503,7 +503,7 @@ export default function Dashboard() {
                   <div className="stat-compact alien-stat">
                     <span className="stat-icon">🛸</span>
                     <span className="stat-value">{cards.length}</span>
-                    <span className="stat-label-compact">Perfiles Activos</span>
+                    <span className="stat-label-compact">Tarjetas Activas</span>
                   </div>
                   <div className="stat-divider-compact">⚡</div>
                   <div className="stat-compact alien-stat">
@@ -567,7 +567,7 @@ export default function Dashboard() {
                           active={pathname === '/dashboard/cards'} 
                           className={`alien-nav-link border-0 py-3 fw-semibold ${pathname === '/dashboard/cards' ? 'active' : ''}`}
                         >
-                          🛸 Perfiles Dimensionales
+                          🛸 Tarjetas de Otro Mundo
                         </Nav.Link>
                       </Link>
                     </Nav.Item>
@@ -617,7 +617,7 @@ export default function Dashboard() {
                       🛸
                     </div>
                     <h2 className="fw-bold text-dark mb-1">{cards.length}</h2>
-                    <p className="text-muted mb-2">Perfiles Dimensionales</p>
+                    <p className="text-muted mb-2">Tarjetas de Otro Mundo</p>
                     <div className="d-flex justify-content-center">
                       <span className="alien-badge bg-primary bg-opacity-10 text-primary fw-semibold">
                         En órbita: {cards.filter(card => card.isActive).length}
@@ -693,9 +693,9 @@ export default function Dashboard() {
                             <div className="icon-wrapper primary-gradient text-white">
                               💼
                             </div>
-                            <h5 className="fw-bold text-dark mb-2">Crear Perfil Dimensional</h5>
+                            <h5 className="fw-bold text-dark mb-2">Crear Tarjeta de Otro Mundo</h5>
                             <p className="text-muted mb-4">
-                              Diseña tu identidad intergaláctica con efectos de otro mundo
+                              Diseña tu tarjeta digital con efectos intergalácticos únicos
                             </p>
                             <Link href="/create">
                               <Button 
