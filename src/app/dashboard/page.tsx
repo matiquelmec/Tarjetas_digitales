@@ -629,7 +629,7 @@ export default function Dashboard() {
                     <p className="text-muted mb-2">CVs Inteligentes</p>
                     <div className="d-flex justify-content-center">
                       <span className="alien-badge bg-warning bg-opacity-10 text-warning fw-semibold">
-                        Llegada: Feb 2025
+                        Próximamente
                       </span>
                     </div>
                   </div>
@@ -644,7 +644,7 @@ export default function Dashboard() {
                     <p className="text-muted mb-2">Presentaciones Intergalácticas</p>
                     <div className="d-flex justify-content-center">
                       <span className="alien-badge bg-info bg-opacity-10 text-info fw-semibold">
-                        Llegada: Mar 2025
+                        Próximamente
                       </span>
                     </div>
                   </div>
