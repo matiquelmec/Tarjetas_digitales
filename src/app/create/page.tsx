@@ -40,9 +40,9 @@ export default function CreateCardPage() {
     whatsapp: '56987654321',
     
     // Diseño
-    template: 'modern',
+    template: 'stellar', // Noche estelar por defecto
     photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face',
-    cardBackgroundColor: '#2c2c2c',
+    cardBackgroundColor: 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)', // Stellar gradient
     cardTextColor: '#ffffff',
     buttonSecondaryColor: '#00F6FF',
     buttonSecondaryHoverColor: '#00D1DB',
