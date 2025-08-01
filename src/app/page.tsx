@@ -948,14 +948,14 @@ export default function HomePage() {
                   </div>
                   
                   <h1 className="hero-title-alien text-white mb-4">
-                    Eleva tu Imagen Profesional
+                    Multiplica tus Oportunidades
                     <br />
-                    <span className="hero-highlight-alien">a Otro Nivel</span>
+                    <span className="hero-highlight-alien">de Negocio</span>
                   </h1>
                   
                   <p className="hero-subtitle-alien text-white opacity-90 mb-5">
-                    Tecnología intergaláctica para crear tarjetas digitales, CVs y presentaciones 
-                    que <strong>transportan tu profesionalismo</strong> más allá de este mundo
+                    Crea una identidad digital profesional que <strong>convierte contactos en clientes</strong>. 
+                    Tarjetas interactivas, CVs optimizados con IA y presentaciones que cierran deals - todo con diseños únicos que nadie más tiene.
                   </p>
                   
                   {/* CTA de Abducción */}
@@ -1039,7 +1039,7 @@ export default function HomePage() {
                         Crear Tarjetas de Otro Mundo
                       </h4>
                       <p className="capability-description text-white opacity-85">
-                        Diseña tarjetas digitales que transportan tu profesionalismo más allá de este planeta
+                        Crea tu tarjeta digital con diseño exclusivo y propiedades interactivas. Compártela fácilmente por WhatsApp y atrae más clientes para tu negocio con efectos visuales únicos que nadie más tiene.
                       </p>
                     </div>
                   </Col>
@@ -1053,7 +1053,7 @@ export default function HomePage() {
                         Optimizar con Inteligencia Alienígena
                       </h4>
                       <p className="capability-description text-white opacity-85">
-                        Transforma tu CV con algoritmos de otra dimensión para destacar en cualquier galaxia
+                        Optimiza automáticamente tu currículum con IA avanzada. Usa plantillas ATS-friendly que pasan filtros automáticos y captan la atención de reclutadores al instante, multiplicando tus entrevistas de trabajo.
                       </p>
                     </div>
                   </Col>
@@ -1067,7 +1067,7 @@ export default function HomePage() {
                         Crear Presentaciones Inmersivas
                       </h4>
                       <p className="capability-description text-white opacity-85">
-                        Hipnotiza a tu audiencia con presentaciones que desafían las leyes de la física terrestre
+                        Hipnotiza a tu audiencia con presentaciones cinematográficas que convierten ideas en resultados. Elementos interactivos y transiciones que cierran más deals y generan impacto duradero en clientes.
                       </p>
                     </div>
                   </Col>
@@ -1095,10 +1095,10 @@ export default function HomePage() {
             <Col lg={8} xl={6}>
               <div className="final-cta text-center py-5">
                 <h3 className="text-white mb-4" style={{ fontSize: '2rem', fontWeight: '700' }}>
-                  ¿Listo para Transformar tu <span className="hero-highlight-alien">Networking</span>?
+                  ¿Listo para Atraer Más <span className="hero-highlight-alien">Clientes</span> y <span className="hero-highlight-alien">Oportunidades</span>?
                 </h3>
                 <p className="text-white opacity-85 mb-4" style={{ fontSize: '1.1rem' }}>
-                  Únete a cientos de profesionales que ya elevaron su presencia digital
+                  Únete a profesionales que ya están cerrando más deals con nuestra plataforma
                 </p>
                 <Button 
                   size="lg"
@@ -1106,7 +1106,7 @@ export default function HomePage() {
                   onClick={handleDashboardAccess}
                 >
                   <span className="cta-icon">🚀</span>
-                  Comenzar Gratis
+                  Crear Mi Identidad Digital Gratis
                   <span className="cta-arrow">→</span>
                 </Button>
               </div>
