@@ -1026,9 +1026,9 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
             {[
               {
                 name: 'Sunset',
-                gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)',
+                gradient: 'linear-gradient(135deg, #b91c1c 0%, #dc2626 30%, #ea580c 60%, #451a03 100%)',
                 emoji: '🌅',
-                description: 'Atardecer cálido'
+                description: 'Atardecer ardiente con crepúsculo'
               },
               {
                 name: 'Ocean',
