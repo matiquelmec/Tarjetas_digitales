@@ -552,7 +552,7 @@ ${formattedAbout ? `${formattedAbout}
     };
 
     // Determinar color de fondo inteligentemente
-    let backgroundColor = cardBackgroundColor;
+    let background = cardBackgroundColor;
     let backdropFilter = 'none';
     let border = baseTemplate.cardStyle.border || 'none';
     
@@ -560,7 +560,7 @@ ${formattedAbout ? `${formattedAbout}
       // Glassmorphism: manejar tanto colores sólidos como gradientes
       if (cardBackgroundColor.startsWith('linear-gradient')) {
         // Para gradientes, mantener el gradiente original con ligero overlay
-        backgroundColor = cardBackgroundColor;
+        background = cardBackgroundColor;
         backdropFilter = 'blur(8px) saturate(1.2)';
         border = '1px solid rgba(255, 255, 255, 0.2)';
       } else {
@@ -570,7 +570,7 @@ ${formattedAbout ? `${formattedAbout}
           : parseRgb(cardBackgroundColor);
         
         if (rgb) {
-          backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.25)`;
+          background = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.25)`;
           backdropFilter = 'blur(12px) saturate(1.8)';
           border = `1px solid rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`;
         }
@@ -616,7 +616,7 @@ ${formattedAbout ? `${formattedAbout}
 
     return {
       ...baseStyles,
-      backgroundColor,
+      background,
       backdropFilter,
       border,
       borderRadius,
@@ -626,7 +626,7 @@ ${formattedAbout ? `${formattedAbout}
       // Mantener propiedades específicas de template que no conflictúan
       ...Object.fromEntries(
         Object.entries(baseTemplate.cardStyle).filter(([key]) => 
-          !['backgroundColor', 'backdropFilter', 'border', 'borderRadius', 'boxShadow', 'transform', 'animation'].includes(key)
+          !['background', 'backgroundColor', 'backdropFilter', 'border', 'borderRadius', 'boxShadow', 'transform', 'animation'].includes(key)
         )
       ),
     } as React.CSSProperties & Record<string, string>;
