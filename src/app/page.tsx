@@ -957,7 +957,7 @@ export default function HomePage() {
               <Col lg={7}>
                 <div className="hero-content text-center text-lg-start">
                   <div className="alien-badge mb-3">
-                    <span className="badge-alien">👽 Diseños de Otro Mundo</span>
+                    <span className="badge-alien">👽 Diseños de Otro Mundo • PRUEBA GRATIS</span>
                   </div>
                   
                   <h1 className="hero-title-alien text-white mb-4">
@@ -966,10 +966,19 @@ export default function HomePage() {
                     <span className="hero-highlight-alien">de Negocio</span>
                   </h1>
                   
-                  <p className="hero-subtitle-alien text-white opacity-90 mb-5">
+                  <p className="hero-subtitle-alien text-white opacity-90 mb-4">
                     Crea una identidad digital profesional que <strong>convierte contactos en clientes</strong>. 
-                    Tarjetas interactivas, CVs optimizados con IA y presentaciones que cierran deals - todo con diseños únicos que nadie más tiene.
+                    <strong>Tarjetas interactivas</strong>, CVs optimizados con IA y presentaciones que cierran deals.
                   </p>
+                  
+                  {/* Destacar productos */}
+                  <div className="hero-products mb-4">
+                    <div className="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
+                      <span className="badge bg-success px-3 py-2">🛸 Tarjetas • GRATIS</span>
+                      <span className="badge bg-warning text-dark px-3 py-2">🚀 CVs Alienígenas</span>
+                      <span className="badge bg-info px-3 py-2">📡 Presentaciones</span>
+                    </div>
+                  </div>
                   
                   {/* CTA de Abducción */}
                   <div className="hero-ctas mb-4">
@@ -979,16 +988,15 @@ export default function HomePage() {
                       onClick={handleDashboardAccess}
                     >
                       <span className="cta-icon">🛸</span>
-                      Conectar con Indi
+                      Conectar con Indi GRATIS
                       <span className="cta-arrow">→</span>
                     </Button>
                   </div>
                   
-                  {/* Transmisión desde la nave */}
-                  <div className="transmission-status">
-                    <small className="text-white opacity-75">
-                      <span className="signal-indicator">📡</span>
-                      Conectados con <strong>500+</strong> profesionales intergalácticos
+                  {/* Beneficios clave */}
+                  <div className="hero-benefits">
+                    <small className="text-white opacity-85">
+                      ✅ Gratis para siempre • ✅ Sin compromisos • ✅ Resultados inmediatos
                     </small>
                   </div>
                 </div>
@@ -1040,27 +1048,18 @@ export default function HomePage() {
                 
                 <Row className="g-4">
                   <Col md={6} lg={3}>
-                    <div className="capability-card" style={{position: 'relative'}}>
-                      {/* Indi Assistant para Tarjetas */}
-                      <div className="indi-service-assistant">
-                        <IndiLogo
-                          variant="floating"
-                          size="sm"
-                          animated={true}
-                          showName={false}
-                          state="success"
-                        />
-                        <div className="indi-message-bubble" style={{animationDelay: '1s'}}>
-                          ¡Diseño hipnotizante!
-                        </div>
-                      </div>
-                      
+                    <div className="capability-card">
                       <div className="capability-icon mb-3">
                         🛸
                       </div>
                       <h4 className="capability-title text-white mb-3">
-                        Crear Tarjetas de Otro Mundo
+                        Tarjetas de Otro Mundo
                       </h4>
+                      <div className="mb-3">
+                        <span className="badge bg-success fs-6 px-3 py-2 mb-2">
+                          🎯 PRUEBA GRATIS
+                        </span>
+                      </div>
                       <p className="capability-description text-white opacity-85">
                         Crea tu tarjeta digital con diseño exclusivo y propiedades interactivas. Compártela fácilmente por WhatsApp y atrae más clientes para tu negocio con efectos visuales únicos que nadie más tiene.
                       </p>
@@ -1068,27 +1067,18 @@ export default function HomePage() {
                   </Col>
                   
                   <Col md={6} lg={3}>
-                    <div className="capability-card" style={{position: 'relative'}}>
-                      {/* Indi Assistant para CVs */}
-                      <div className="indi-service-assistant">
-                        <IndiLogo
-                          variant="floating"
-                          size="sm"
-                          animated={true}
-                          showName={false}
-                          state="thinking"
-                        />
-                        <div className="indi-message-bubble" style={{animationDelay: '3s'}}>
-                          IA analizando...
-                        </div>
-                      </div>
-                      
+                    <div className="capability-card">
                       <div className="capability-icon mb-3">
                         🚀
                       </div>
                       <h4 className="capability-title text-white mb-3">
-                        Crea y Optimiza tu Currículum con Inteligencia Alienígena
+                        CVs con Inteligencia Alienígena
                       </h4>
+                      <div className="mb-3">
+                        <span className="badge bg-warning text-dark fs-6 px-3 py-2 mb-2">
+                          📅 PRÓXIMAMENTE
+                        </span>
+                      </div>
                       <p className="capability-description text-white opacity-85">
                         Optimiza automáticamente tu currículum con IA avanzada. Usa plantillas ATS-friendly que pasan filtros automáticos y captan la atención de reclutadores al instante, multiplicando tus entrevistas de trabajo.
                       </p>
@@ -1096,27 +1086,18 @@ export default function HomePage() {
                   </Col>
                   
                   <Col md={6} lg={3}>
-                    <div className="capability-card" style={{position: 'relative'}}>
-                      {/* Indi Assistant para Presentaciones */}
-                      <div className="indi-service-assistant">
-                        <IndiLogo
-                          variant="floating"
-                          size="sm"
-                          animated={true}
-                          showName={false}
-                          state="normal"
-                        />
-                        <div className="indi-message-bubble" style={{animationDelay: '5s'}}>
-                          Impacto garantizado!
-                        </div>
-                      </div>
-                      
+                    <div className="capability-card">
                       <div className="capability-icon mb-3">
                         📡
                       </div>
                       <h4 className="capability-title text-white mb-3">
-                        Crear Presentaciones Inmersivas
+                        Presentaciones Inmersivas
                       </h4>
+                      <div className="mb-3">
+                        <span className="badge bg-info fs-6 px-3 py-2 mb-2">
+                          🔧 EN DESARROLLO
+                        </span>
+                      </div>
                       <p className="capability-description text-white opacity-85">
                         Hipnotiza a tu audiencia con presentaciones cinematográficas que convierten ideas en resultados. Elementos interactivos y transiciones que cierran más deals y generan impacto duradero en clientes.
                       </p>
@@ -1124,27 +1105,18 @@ export default function HomePage() {
                   </Col>
                   
                   <Col md={6} lg={3}>
-                    <div className="capability-card" style={{position: 'relative'}}>
-                      {/* Indi Assistant para Ecosistema */}
-                      <div className="indi-service-assistant">
-                        <IndiLogo
-                          variant="floating"
-                          size="sm"
-                          animated={true}
-                          showName={false}
-                          state="greeting"
-                        />
-                        <div className="indi-message-bubble" style={{animationDelay: '7s'}}>
-                          Todo conectado!
-                        </div>
-                      </div>
-                      
+                    <div className="capability-card">
                       <div className="capability-icon mb-3">
-                        🌌
+                        🌟
                       </div>
                       <h4 className="capability-title text-white mb-3">
-                        Acceder al Ecosistema Completo
+                        Ecosistema Completo
                       </h4>
+                      <div className="mb-3">
+                        <span className="badge bg-gradient fs-6 px-3 py-2 mb-2" style={{background: 'linear-gradient(135deg, #00f6ff, #0072ff)'}}>
+                          🎯 TODO INCLUIDO
+                        </span>
+                      </div>
                       <p className="capability-description text-white opacity-85">
                         Una plataforma integral donde tu identidad profesional evoluciona constantemente
                       </p>
@@ -1159,36 +1131,38 @@ export default function HomePage() {
           <Row className="justify-content-center">
             <Col lg={8} xl={6}>
               <div className="final-cta text-center py-5" style={{position: 'relative'}}>
-                {/* Indi Final Assistant */}
-                <div style={{position: 'absolute', top: '-20px', left: '20px', zIndex: 10}}>
+                {/* Indi Estratégico */}
+                <div style={{position: 'absolute', top: '-10px', right: '20px', zIndex: 10}}>
                   <IndiLogo
                     variant="floating"
-                    size="md"
+                    size="sm"
                     animated={true}
                     showName={false}
                     state="success"
                   />
-                  <div className="indi-message-bubble" style={{animationDelay: '2s', top: '-20px', right: '50px'}}>
-                    ¡Comienza tu viaje!
+                  <div className="indi-message-bubble" style={{animationDelay: '1s', top: '-15px', right: '40px'}}>
+                    ¡Únete a nosotros!
                   </div>
                 </div>
-                
-                {/* Background CTA Elements */}
-                <div style={{position: 'absolute', top: '10%', right: '10%', fontSize: '1.5rem', opacity: 0.3, animation: 'alienFloat1 8s ease-in-out infinite'}}>
-                  🚀
+
+                {/* Elementos flotantes discretos */}
+                <div style={{position: 'absolute', top: '20%', left: '10%', fontSize: '1rem', opacity: 0.2, animation: 'alienFloat1 12s ease-in-out infinite'}}>
+                  🛸
                 </div>
-                <div style={{position: 'absolute', bottom: '20%', left: '15%', fontSize: '1.2rem', opacity: 0.25, animation: 'alienFloat2 6s ease-in-out infinite', animationDelay: '-3s'}}>
-                  💼
-                </div>
-                <div style={{position: 'absolute', top: '50%', right: '5%', fontSize: '1rem', opacity: 0.2, animation: 'alienFloat3 10s ease-in-out infinite', animationDelay: '-5s'}}>
+                <div style={{position: 'absolute', bottom: '30%', right: '15%', fontSize: '0.8rem', opacity: 0.15, animation: 'alienFloat2 10s ease-in-out infinite', animationDelay: '-4s'}}>
                   ⭐
                 </div>
-                
+
+                <div className="mb-4">
+                  <span className="badge bg-success fs-4 px-4 py-3 mb-3" style={{background: 'linear-gradient(135deg, #10b981, #059669) !important'}}>
+                    👽 TECNOLOGÍA ALIENÍGENA • PRUEBA GRATIS
+                  </span>
+                </div>
                 <h3 className="text-white mb-4" style={{ fontSize: '2rem', fontWeight: '700' }}>
                   ¿Listo para Atraer Más <span className="hero-highlight-alien">Clientes</span> y <span className="hero-highlight-alien">Oportunidades</span>?
                 </h3>
                 <p className="text-white opacity-85 mb-4" style={{ fontSize: '1.1rem' }}>
-                  Únete a profesionales que ya están cerrando más deals con la tecnología de Indi
+                  Únete a profesionales que ya están usando tecnología alienígena para cerrar más deals
                 </p>
                 <Button 
                   size="lg"
@@ -1196,9 +1170,14 @@ export default function HomePage() {
                   onClick={handleDashboardAccess}
                 >
                   <span className="cta-icon">🛸</span>
-                  Comenzar Viaje con Indi
+                  Iniciar Viaje con Indi
                   <span className="cta-arrow">→</span>
                 </Button>
+                <div className="mt-3">
+                  <small className="text-white opacity-75">
+                    ✅ Gratis para siempre • ✅ Tecnología única • ✅ Resultados garantizados
+                  </small>
+                </div>
               </div>
             </Col>
           </Row>
