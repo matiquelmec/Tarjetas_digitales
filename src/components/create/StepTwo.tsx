@@ -850,7 +850,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
 
       {/* Font Selection */}
       <div className="mb-4">
-        <h5 className="mb-3">✍️ Tipografía Profesional <small className="text-muted">(3 gratuitas + 3 premium)</small></h5>
+        <h5 className="mb-3">✍️ Tipografía Profesional <small className="text-muted">(1 gratuita + 5 premium)</small></h5>
         <p className="text-muted mb-3">Elige la fuente que mejor represente tu personalidad profesional</p>
         
         <div className="mb-4">
@@ -890,7 +890,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Poppins',
                 key: 'Poppins',
                 personality: 'Creative Leader',
-                isFree: true,
+                isFree: false,
                 emoji: '🎨',
                 description: 'Creatividad y dinamismo',
                 ideal: 'Creativos, Coaches',
@@ -900,7 +900,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Source Sans Pro',
                 key: 'Source Sans Pro',
                 personality: 'Technical Precision',
-                isFree: true,
+                isFree: false,
                 emoji: '⚙️',
                 description: 'Precisión y competencia',
                 ideal: 'Ingenieros, Arquitectos',
