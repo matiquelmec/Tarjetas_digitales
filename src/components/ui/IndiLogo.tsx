@@ -91,16 +91,18 @@ const IndiLogo: React.FC<IndiLogoProps> = ({
       <style jsx>{`
         .indi-logo {
           display: inline-flex;
+          flex-direction: column;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.5rem;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
         }
         
         .indi-container {
           display: flex;
+          flex-direction: column;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.5rem;
         }
         
         .indi-image {
@@ -121,6 +123,8 @@ const IndiLogo: React.FC<IndiLogoProps> = ({
           text-transform: lowercase;
           letter-spacing: -1px;
           filter: drop-shadow(0 0 8px rgba(0, 246, 255, 0.3));
+          text-align: center;
+          margin-top: 0.25rem;
         }
         
         @keyframes gradientShift {

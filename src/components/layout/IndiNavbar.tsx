@@ -169,8 +169,8 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
       <div className={getNavbarClasses()}>
         <Container fluid>
           <Row className="justify-content-between align-items-center">
-            {/* Logo Indi - Izquierda */}
-            <Col xs="auto">
+            {/* Logo Indi - Centrado verticalmente */}
+            <Col xs="auto" className="d-flex align-items-center">
               <IndiLogo
                 variant="navbar"
                 size="xl"

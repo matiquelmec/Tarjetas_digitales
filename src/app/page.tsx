@@ -996,7 +996,7 @@ export default function HomePage() {
                   {/* Beneficios clave */}
                   <div className="hero-benefits">
                     <small className="text-white opacity-85">
-                      ✅ Gratis para siempre • ✅ Sin compromisos • ✅ Resultados inmediatos
+                      ✅ Sin compromisos • ✅ Resultados inmediatos • ✅ Tecnología única
                     </small>
                   </div>
                 </div>
@@ -1039,7 +1039,7 @@ export default function HomePage() {
           </div>
 
           {/* ¿Qué Puedes Hacer en Nuestra Plataforma? */}
-          <Row className="justify-content-center mb-3 mt-4">
+          <Row className="justify-content-center mb-3 mt-2">
             <Col lg={10} xl={8}>
               <div className="platform-capabilities text-center">
                 <h2 className="text-white mb-3" style={{ fontSize: '2.5rem', fontWeight: '800' }}>
