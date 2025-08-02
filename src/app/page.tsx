@@ -1130,28 +1130,7 @@ export default function HomePage() {
           {/* CTA Final */}
           <Row className="justify-content-center mt-3">
             <Col lg={8} xl={6}>
-              <div className="final-cta text-center py-4" style={{position: 'relative'}}>
-                {/* Indi Estratégico */}
-                <div style={{position: 'absolute', top: '-10px', right: '20px', zIndex: 10}}>
-                  <IndiLogo
-                    variant="floating"
-                    size="sm"
-                    animated={true}
-                    showName={false}
-                    state="success"
-                  />
-                  <div className="indi-message-bubble" style={{animationDelay: '1s', top: '-15px', right: '40px'}}>
-                    ¡Únete a nosotros!
-                  </div>
-                </div>
-
-                {/* Elementos flotantes discretos */}
-                <div style={{position: 'absolute', top: '20%', left: '10%', fontSize: '1rem', opacity: 0.2, animation: 'alienFloat1 12s ease-in-out infinite'}}>
-                  🛸
-                </div>
-                <div style={{position: 'absolute', bottom: '30%', right: '15%', fontSize: '0.8rem', opacity: 0.15, animation: 'alienFloat2 10s ease-in-out infinite', animationDelay: '-4s'}}>
-                  ⭐
-                </div>
+              <div className="final-cta text-center py-4">
 
                 <div className="mb-4">
                   <span className="badge bg-success fs-4 px-4 py-3 mb-3" style={{background: 'linear-gradient(135deg, #10b981, #059669) !important'}}>
@@ -1175,7 +1154,7 @@ export default function HomePage() {
                 </Button>
                 <div className="mt-3">
                   <small className="text-white opacity-75">
-                    ✅ Gratis para siempre • ✅ Tecnología única • ✅ Resultados garantizados
+                    ✅ Tecnología única • ✅ Resultados garantizados • ✅ Sin compromisos
                   </small>
                 </div>
               </div>

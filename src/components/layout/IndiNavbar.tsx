@@ -44,7 +44,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
     <>
       <style jsx>{`
         .indi-navbar-container {
-          padding: 1.5rem 0;
+          padding: 2rem 0;
           transition: all 0.3s ease;
           z-index: 1000;
         }
@@ -173,7 +173,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             <Col xs="auto">
               <IndiLogo
                 variant="navbar"
-                size="lg"
+                size="xl"
                 animated={true}
                 interactive={true}
                 showName={true}

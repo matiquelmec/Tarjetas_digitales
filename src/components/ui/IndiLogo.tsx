@@ -130,20 +130,20 @@ const IndiLogo: React.FC<IndiLogoProps> = ({
         
         /* Size variants */
         .indi-logo-sm .indi-name { 
-          font-size: 1.6rem; 
+          font-size: 2rem; 
           filter: drop-shadow(0 0 6px rgba(0, 246, 255, 0.25));
         }
         .indi-logo-md .indi-name { 
-          font-size: 2rem; 
+          font-size: 2.5rem; 
           filter: drop-shadow(0 0 8px rgba(0, 246, 255, 0.3));
         }
         .indi-logo-lg .indi-name { 
-          font-size: 2.8rem; 
+          font-size: 3.2rem; 
           filter: drop-shadow(0 0 12px rgba(0, 246, 255, 0.4));
         }
         .indi-logo-xl .indi-name { 
-          font-size: 3.5rem; 
-          filter: drop-shadow(0 0 16px rgba(0, 246, 255, 0.5));
+          font-size: 4rem; 
+          filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.6));
         }
         
         /* Interactive states */
