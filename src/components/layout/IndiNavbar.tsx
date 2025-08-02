@@ -181,13 +181,21 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             margin-top: 0.5rem;
           }
         }
+        
+        /* Forzar centrado del logo */
+        .logo-container {
+          display: flex !important;
+          justify-content: center !important;
+          align-items: center !important;
+          width: 100% !important;
+        }
       `}</style>
       
       <div className={getNavbarClasses()}>
         <Container fluid>
           <Row className="align-items-center position-relative">
             {/* Logo Indi - Centrado absoluto */}
-            <Col xs={12} className="d-flex justify-content-center">
+            <Col xs={12} className="logo-container">
               <IndiLogo
                 variant="navbar"
                 size="xl"

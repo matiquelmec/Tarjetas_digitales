@@ -402,9 +402,15 @@ export default function HomePage() {
           justify-content: center;
         }
         
+        .hero-ctas {
+          display: flex !important;
+          justify-content: center !important;
+          align-items: center !important;
+        }
+        
         @media (min-width: 992px) {
           .hero-ctas {
-            justify-content: flex-start;
+            justify-content: center !important;
           }
         }
         
