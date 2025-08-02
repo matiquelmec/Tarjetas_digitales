@@ -489,8 +489,8 @@ export default function HomePage() {
           50% { opacity: 1; transform: scale(1.1); }
         }
         
-        /* Contenedor de nave espacial */
-        .spaceship-container {
+        /* Indi Hero Assistant Container */
+        .indi-hero-assistant {
           position: relative;
           height: 500px;
           display: flex;
@@ -498,133 +498,130 @@ export default function HomePage() {
           justify-content: center;
         }
         
-        /* Animación de llegada de nave */
-        .spaceship-arrival {
+        /* Hero Spaceship */
+        .hero-spaceship {
           position: absolute;
-          top: 15%;
-          right: 12%;
-          z-index: 2;
+          top: 10%;
+          right: 10%;
+          z-index: 1;
         }
         
-        .spaceship {
-          font-size: 4rem;
-          animation: spaceshipArrival 8s ease-in-out infinite;
-          filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.8));
+        .spaceship-main {
+          font-size: 3rem;
+          animation: heroSpaceshipFloat 6s ease-in-out infinite;
+          filter: drop-shadow(0 0 15px rgba(0, 246, 255, 0.6));
         }
         
-        @keyframes spaceshipArrival {
-          0% { transform: translateX(100px) translateY(-50px) rotate(10deg); opacity: 0.3; }
-          25% { transform: translateX(0px) translateY(0px) rotate(0deg); opacity: 1; }
-          50% { transform: translateX(-20px) translateY(10px) rotate(-5deg); opacity: 1; }
-          75% { transform: translateX(10px) translateY(-5px) rotate(2deg); opacity: 1; }
-          100% { transform: translateX(0px) translateY(0px) rotate(0deg); opacity: 1; }
-        }
-        
-        /* Rayo de luz de abducción */
-        .beam-light {
+        .spaceship-trail {
           position: absolute;
-          top: 60px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 2px;
-          height: 200px;
-          background: linear-gradient(to bottom, rgba(0, 246, 255, 0.8), rgba(0, 246, 255, 0));
-          animation: beamPulse 3s ease-in-out infinite;
+          top: 50%;
+          left: -40px;
+          width: 30px;
+          height: 2px;
+          background: linear-gradient(to left, rgba(0, 246, 255, 0.8), transparent);
+          animation: trailPulse 2s ease-in-out infinite;
         }
         
-        @keyframes beamPulse {
-          0%, 100% { opacity: 0.3; width: 2px; }
-          50% { opacity: 1; width: 8px; }
+        @keyframes heroSpaceshipFloat {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-15px) rotate(5deg); }
         }
         
-        /* Holograma de tarjeta */
-        .hologram-card {
-          position: relative;
-          z-index: 2;
-        }
-        
-        .hologram-glow {
-          position: absolute;
-          top: -4px;
-          left: -4px;
-          right: -4px;
-          bottom: -4px;
-          background: linear-gradient(135deg, #00f6ff, #0072ff, #8e2de2);
-          border-radius: 24px;
-          z-index: -1;
-          opacity: 0.6;
-          filter: blur(12px);
-          animation: hologramGlow 4s ease-in-out infinite;
-        }
-        
-        @keyframes hologramGlow {
-          0%, 100% { opacity: 0.6; }
+        @keyframes trailPulse {
+          0%, 100% { opacity: 0.3; }
           50% { opacity: 1; }
         }
         
-        .card-hologram {
-          width: 340px;
-          height: 220px;
-          background: linear-gradient(135deg, rgba(15, 12, 41, 0.9), rgba(48, 43, 99, 0.9));
-          border-radius: 20px;
-          padding: 24px;
+        /* Indi Floating Hero */
+        .indi-floating-hero {
           position: relative;
-          animation: cardHologram 6s ease-in-out infinite;
-          backdrop-filter: blur(20px);
-          border: 2px solid rgba(0, 246, 255, 0.3);
+          z-index: 3;
+          animation: indiHeroFloat 4s ease-in-out infinite;
         }
         
-        @keyframes cardHologram {
-          0%, 100% { transform: translateY(0px) rotateY(0deg); }
-          25% { transform: translateY(-15px) rotateY(3deg); }
-          50% { transform: translateY(-8px) rotateY(0deg); }
-          75% { transform: translateY(-20px) rotateY(-3deg); }
+        @keyframes indiHeroFloat {
+          0%, 100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-10px) scale(1.05); }
         }
         
-        .holo-header {
-          display: flex;
-          align-items: center;
-          margin-bottom: 20px;
+        /* Hero Particles Background */
+        .hero-particles {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          z-index: 1;
         }
         
-        .profile-alien {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #00f6ff, #0072ff);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.5rem;
-          margin-right: 16px;
-          border: 2px solid rgba(0, 246, 255, 0.5);
-        }
-        
-        .profile-data h4 {
+        .hero-particle {
+          position: absolute;
           font-size: 1.2rem;
-          font-weight: 800;
-          margin: 0;
-          color: #ffffff;
-          font-family: 'Montserrat', sans-serif;
+          animation: heroParticleFloat 10s ease-in-out infinite;
+          opacity: 0.3;
         }
         
-        .profile-data p {
-          font-size: 1rem;
-          margin: 0;
-          color: rgba(255, 255, 255, 0.8);
+        .hero-particle-1 { top: 20%; left: 15%; animation-delay: 0s; }
+        .hero-particle-2 { top: 40%; left: 25%; animation-delay: -2s; }
+        .hero-particle-3 { top: 60%; left: 10%; animation-delay: -4s; }
+        .hero-particle-4 { top: 30%; right: 20%; animation-delay: -6s; }
+        .hero-particle-5 { top: 70%; right: 15%; animation-delay: -8s; }
+        .hero-particle-6 { bottom: 20%; left: 35%; animation-delay: -1s; }
+        
+        @keyframes heroParticleFloat {
+          0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+          25% { transform: translateY(-15px) rotate(90deg); opacity: 0.6; }
+          50% { transform: translateY(-8px) rotate(180deg); opacity: 0.4; }
+          75% { transform: translateY(-20px) rotate(270deg); opacity: 0.5; }
         }
         
-        .holo-features {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
+        /* Indi Service Assistant */
+        .indi-service-assistant {
+          position: absolute;
+          top: -10px;
+          right: -10px;
+          z-index: 10;
+          animation: indiServiceFloat 3s ease-in-out infinite;
         }
         
-        .feature-alien {
-          display: flex;
-          align-items: center;
-          font-size: 0.95rem;
-          color: rgba(255, 255, 255, 0.9);
+        @keyframes indiServiceFloat {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-8px) rotate(5deg); }
+        }
+        
+        .indi-message-bubble {
+          position: absolute;
+          top: -15px;
+          right: 60px;
+          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          color: white;
+          padding: 8px 12px;
+          border-radius: 15px;
+          font-size: 0.8rem;
+          white-space: nowrap;
+          box-shadow: 0 4px 12px rgba(0, 246, 255, 0.3);
+          opacity: 0;
+          animation: messageBubble 4s ease-in-out infinite;
+          font-weight: 600;
+        }
+        
+        .indi-message-bubble::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: -8px;
+          transform: translateY(-50%);
+          width: 0;
+          height: 0;
+          border-left: 8px solid #00f6ff;
+          border-top: 6px solid transparent;
+          border-bottom: 6px solid transparent;
+        }
+        
+        @keyframes messageBubble {
+          0%, 70%, 100% { opacity: 0; transform: translateX(10px); }
+          10%, 60% { opacity: 1; transform: translateX(0px); }
         }
         
         /* Decoraciones alienígenas */
@@ -998,48 +995,35 @@ export default function HomePage() {
               </Col>
               
               <Col lg={5}>
-                <div className="spaceship-container">
-                  {/* Nave espacial animada */}
-                  <div className="spaceship-arrival">
-                    <div className="spaceship">🛸</div>
-                    <div className="beam-light"></div>
+                {/* Indi Floating Assistant Hero */}
+                <div className="indi-hero-assistant">
+                  {/* Nave espacial principal */}
+                  <div className="hero-spaceship">
+                    <div className="spaceship-main">🛸</div>
+                    <div className="spaceship-trail"></div>
                   </div>
                   
-                  {/* Holograma de tarjeta flotante */}
-                  <div className="hologram-card">
-                    <div className="hologram-glow"></div>
-                    <div className="card-hologram">
-                      <div className="holo-header">
-                        <div className="profile-alien">
-                          <IndiLogo
-                            variant="hero"
-                            size="sm"
-                            animated={true}
-                            interactive={false}
-                            showName={false}
-                            state="normal"
-                          />
-                        </div>
-                        <div className="profile-data">
-                          <h4>Indi - Embajador Intergaláctico</h4>
-                          <p>Especialista en Identidad Digital</p>
-                        </div>
-                      </div>
-                      <div className="holo-features">
-                        <div className="feature-alien">✨ Efectos Glassmorphism</div>
-                        <div className="feature-alien">🎨 Tipografía Estratégica</div>
-                        <div className="feature-alien">⭐ Template Stellar</div>
-                      </div>
-                    </div>
+                  {/* Indi Floating with Message */}
+                  <div className="indi-floating-hero">
+                    <IndiLogo
+                      variant="floating"
+                      size="xl"
+                      animated={true}
+                      interactive={true}
+                      showName={false}
+                      state="greeting"
+                      message="¡Bienvenido, terrícola! Te muestro mi tecnología..."
+                    />
                   </div>
                   
-                  {/* Elementos decorativos alienígenas */}
-                  <div className="alien-decorations">
-                    <div className="decoration alien-1">🌌</div>
-                    <div className="decoration alien-2">⭐</div>
-                    <div className="decoration alien-3">🌟</div>
-                    <div className="decoration alien-4">💫</div>
-                    <div className="decoration alien-5">✨</div>
+                  {/* Background Elements */}
+                  <div className="hero-particles">
+                    <div className="hero-particle hero-particle-1">🌌</div>
+                    <div className="hero-particle hero-particle-2">⭐</div>
+                    <div className="hero-particle hero-particle-3">💫</div>
+                    <div className="hero-particle hero-particle-4">✨</div>
+                    <div className="hero-particle hero-particle-5">🔮</div>
+                    <div className="hero-particle hero-particle-6">👽</div>
                   </div>
                 </div>
               </Col>
@@ -1056,7 +1040,21 @@ export default function HomePage() {
                 
                 <Row className="g-4">
                   <Col md={6} lg={3}>
-                    <div className="capability-card">
+                    <div className="capability-card" style={{position: 'relative'}}>
+                      {/* Indi Assistant para Tarjetas */}
+                      <div className="indi-service-assistant">
+                        <IndiLogo
+                          variant="floating"
+                          size="sm"
+                          animated={true}
+                          showName={false}
+                          state="success"
+                        />
+                        <div className="indi-message-bubble" style={{animationDelay: '1s'}}>
+                          ¡Diseño hipnotizante!
+                        </div>
+                      </div>
+                      
                       <div className="capability-icon mb-3">
                         🛸
                       </div>
@@ -1070,7 +1068,21 @@ export default function HomePage() {
                   </Col>
                   
                   <Col md={6} lg={3}>
-                    <div className="capability-card">
+                    <div className="capability-card" style={{position: 'relative'}}>
+                      {/* Indi Assistant para CVs */}
+                      <div className="indi-service-assistant">
+                        <IndiLogo
+                          variant="floating"
+                          size="sm"
+                          animated={true}
+                          showName={false}
+                          state="thinking"
+                        />
+                        <div className="indi-message-bubble" style={{animationDelay: '3s'}}>
+                          IA analizando...
+                        </div>
+                      </div>
+                      
                       <div className="capability-icon mb-3">
                         🚀
                       </div>
@@ -1084,7 +1096,21 @@ export default function HomePage() {
                   </Col>
                   
                   <Col md={6} lg={3}>
-                    <div className="capability-card">
+                    <div className="capability-card" style={{position: 'relative'}}>
+                      {/* Indi Assistant para Presentaciones */}
+                      <div className="indi-service-assistant">
+                        <IndiLogo
+                          variant="floating"
+                          size="sm"
+                          animated={true}
+                          showName={false}
+                          state="normal"
+                        />
+                        <div className="indi-message-bubble" style={{animationDelay: '5s'}}>
+                          Impacto garantizado!
+                        </div>
+                      </div>
+                      
                       <div className="capability-icon mb-3">
                         📡
                       </div>
@@ -1098,7 +1124,21 @@ export default function HomePage() {
                   </Col>
                   
                   <Col md={6} lg={3}>
-                    <div className="capability-card">
+                    <div className="capability-card" style={{position: 'relative'}}>
+                      {/* Indi Assistant para Ecosistema */}
+                      <div className="indi-service-assistant">
+                        <IndiLogo
+                          variant="floating"
+                          size="sm"
+                          animated={true}
+                          showName={false}
+                          state="greeting"
+                        />
+                        <div className="indi-message-bubble" style={{animationDelay: '7s'}}>
+                          Todo conectado!
+                        </div>
+                      </div>
+                      
                       <div className="capability-icon mb-3">
                         🌌
                       </div>
