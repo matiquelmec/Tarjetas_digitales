@@ -804,6 +804,105 @@ export default function HomePage() {
           line-height: 1.5;
         }
         
+        /* CTA Final Alienígena */
+        .final-alien-cta {
+          margin-top: 3rem;
+        }
+        
+        .alien-cta-container {
+          position: relative;
+          padding: 2rem;
+        }
+        
+        .alien-glow-effect {
+          position: relative;
+          display: inline-block;
+        }
+        
+        .alien-signal {
+          font-size: 3rem;
+          animation: alienSignal 2s ease-in-out infinite;
+          filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.8));
+        }
+        
+        @keyframes alienSignal {
+          0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+          50% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+        }
+        
+        .alien-cta-title {
+          font-size: clamp(1.8rem, 4vw, 2.5rem);
+          font-weight: 800;
+          font-family: 'Montserrat', sans-serif;
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-alien-final {
+          background: linear-gradient(135deg, #00f6ff, #0072ff, #8e2de2);
+          background-size: 200% 200%;
+          animation: alienGradientPulse 3s ease-in-out infinite;
+          border: none;
+          padding: 18px 40px;
+          border-radius: 30px;
+          font-weight: 800;
+          font-size: 1.2rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: white;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 15px 50px rgba(0, 246, 255, 0.4);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes alienGradientPulse {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        
+        .btn-alien-final:hover {
+          transform: translateY(-5px) scale(1.05);
+          box-shadow: 0 25px 70px rgba(0, 246, 255, 0.6);
+          color: white;
+        }
+        
+        .btn-alien-final::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+          transition: left 0.6s ease;
+        }
+        
+        .btn-alien-final:hover::before {
+          left: 100%;
+        }
+        
+        .alien-icon {
+          margin-right: 12px;
+          font-size: 1.4em;
+          animation: alienBounce 2s ease-in-out infinite;
+        }
+        
+        .alien-trail {
+          margin-left: 12px;
+          font-size: 1.2em;
+          animation: alienSparkle 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes alienBounce {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-3px); }
+        }
+        
+        @keyframes alienSparkle {
+          0%, 100% { opacity: 0.6; transform: rotate(0deg); }
+          50% { opacity: 1; transform: rotate(180deg); }
+        }
+        
         /* Mobile optimizations */
         @media (max-width: 768px) {
           .hero-intergalactico {
@@ -919,6 +1018,21 @@ export default function HomePage() {
             max-width: 320px;
             font-size: 1.1rem;
             padding: 16px 32px;
+          }
+          
+          .btn-alien-final {
+            width: 100%;
+            max-width: 300px;
+            font-size: 1rem;
+            padding: 16px 32px;
+          }
+          
+          .alien-signal {
+            font-size: 2.5rem;
+          }
+          
+          .alien-cta-container {
+            padding: 1.5rem;
           }
         }
       `}</style>
@@ -1094,6 +1208,42 @@ export default function HomePage() {
             </Container>
           </div>
 
+          {/* CTA Final Alienígena */}
+          <div className="final-alien-cta py-5">
+            <Container>
+              <Row className="justify-content-center">
+                <Col lg={8} xl={6}>
+                  <div className="text-center">
+                    <div className="alien-cta-container">
+                      <div className="alien-glow-effect mb-4">
+                        <span className="alien-signal">🛸</span>
+                      </div>
+                      <h3 className="alien-cta-title text-white mb-3">
+                        Tu Diseño Alienígena Te Está <span className="hero-highlight-alien">Esperando</span>
+                      </h3>
+                      <p className="text-white opacity-85 mb-4">
+                        Únete a la revolución intergaláctica del diseño profesional
+                      </p>
+                      <Button 
+                        size="lg"
+                        className="btn-alien-final"
+                        onClick={handleCreateCard}
+                      >
+                        <span className="alien-icon">👽</span>
+                        Comenzar Mi Diseño
+                        <span className="alien-trail">✨</span>
+                      </Button>
+                      <div className="mt-3">
+                        <small className="text-white opacity-75">
+                          🚀 Acceso inmediato • 🛸 Sin compromisos • ✨ Tecnología única
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </div>
 
         </Container>
         </div>
