@@ -172,7 +172,8 @@ export const useIndi = () => {
           context.celebrate('¡Compartiendo con el universo!');
           break;
         case 'upgrade':
-          context.triggerPlanUpgrade();
+          context.setState('success');
+          context.setMessage('¡Genial! Tu plan ha sido actualizado 🚀');
           break;
       }
     }
