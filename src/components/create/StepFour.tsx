@@ -150,22 +150,6 @@ export function StepFour({ cardData, updateCardData }: StepFourProps) {
         />
       </div>
 
-      {/* Upselling */}
-      <Alert variant="warning">
-        <h6>🚀 ¿Quieres llevar tu tarjeta al siguiente nivel?</h6>
-        <p className="mb-2">
-          Con el <strong>Plan Professional</strong> puedes:
-        </p>
-        <ul className="mb-3">
-          <li>Dominio personalizado (alejandro.cards)</li>
-          <li>Analytics detallados</li>
-          <li>Sin marca de agua</li>
-          <li>Múltiples tarjetas</li>
-        </ul>
-        <button className="btn btn-warning btn-sm">
-          Ver Planes → desde $9.990 CLP
-        </button>
-      </Alert>
     </div>
   );
 }
