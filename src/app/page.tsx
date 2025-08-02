@@ -354,15 +354,28 @@ export default function HomePage() {
         }
         
         .badge-alien {
-          background: linear-gradient(135deg, rgba(0, 246, 255, 0.2), rgba(142, 45, 226, 0.2));
-          border: 2px solid rgba(0, 246, 255, 0.4);
-          padding: 12px 24px;
-          border-radius: 25px;
-          color: #00f6ff;
-          font-size: 1rem;
-          font-weight: 700;
-          backdrop-filter: blur(15px);
-          box-shadow: 0 8px 32px rgba(0, 246, 255, 0.2);
+          background: linear-gradient(135deg, rgba(0, 246, 255, 0.15), rgba(142, 45, 226, 0.15));
+          border: 2px solid rgba(0, 246, 255, 0.6);
+          padding: 14px 28px;
+          border-radius: 30px;
+          color: #ffffff;
+          font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+          font-weight: 800;
+          backdrop-filter: blur(20px);
+          box-shadow: 0 12px 40px rgba(0, 246, 255, 0.3);
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          white-space: nowrap;
+          display: inline-block;
+          transition: all 0.3s ease;
+        }
+        
+        .badge-alien:hover {
+          background: linear-gradient(135deg, rgba(0, 246, 255, 0.25), rgba(142, 45, 226, 0.25));
+          border-color: rgba(0, 246, 255, 0.8);
+          transform: translateY(-2px) scale(1.02);
+          box-shadow: 0 16px 50px rgba(0, 246, 255, 0.4);
         }
         
         /* Título alienígena */
@@ -800,6 +813,18 @@ export default function HomePage() {
           .min-vh-60 {
             min-height: 50vh;
           }
+          
+          .badge-alien {
+            font-size: 0.85rem;
+            padding: 12px 20px;
+            letter-spacing: 0.3px;
+            white-space: normal;
+            text-align: center;
+            line-height: 1.3;
+            max-width: 280px;
+            margin: 0 auto;
+          }
+        }
           
           .spaceship-container {
             height: 300px;
