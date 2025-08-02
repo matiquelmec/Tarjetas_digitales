@@ -836,13 +836,9 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-purple-500 to-pink-500 bg-opacity-10 p-3 rounded-3 mt-4">
-          <div className="d-flex align-items-center gap-2 mb-2">
-            <span style={{ fontSize: '1.2rem' }}>✨</span>
-            <strong className="text-info">Pro Tip Exclusivo</strong>
-          </div>
-          <small className="text-info">
-            Los gradientes premium están específicamente diseñados para maximizar el efecto Glassmorphism. 
+        <div className="bg-info bg-opacity-20 p-3 rounded mt-4" style={{ border: '1px solid rgba(13, 202, 240, 0.3)' }}>
+          <small className="text-light" style={{ color: '#ffffff !important' }}>
+            <strong style={{ color: '#0dcaf0' }}>✨ Pro Tip Exclusivo:</strong> Los gradientes premium están específicamente diseñados para maximizar el efecto Glassmorphism. 
             Combínalos con efectos visuales para crear tarjetas que <strong>hipnoticen</strong> a tus contactos.
           </small>
         </div>
@@ -1020,13 +1016,9 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-blue-500 to-cyan-500 bg-opacity-10 p-3 rounded-3 mt-4">
-          <div className="d-flex align-items-center gap-2 mb-2">
-            <span style={{ fontSize: '1.2rem' }}>💡</span>
-            <strong className="text-info">Psicología de las Fuentes</strong>
-          </div>
-          <small className="text-info">
-            La tipografía transmite personalidad antes que las palabras. Una fuente bien elegida 
+        <div className="bg-info bg-opacity-20 p-3 rounded mt-4" style={{ border: '1px solid rgba(13, 202, 240, 0.3)' }}>
+          <small className="text-light" style={{ color: '#ffffff !important' }}>
+            <strong style={{ color: '#0dcaf0' }}>💡 Psicología de las Fuentes:</strong> La tipografía transmite personalidad antes que las palabras. Una fuente bien elegida 
             puede <strong>aumentar la percepción de competencia</strong> hasta un 40% según estudios de neuromarketing.
           </small>
         </div>
@@ -1128,18 +1120,18 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               </Col>
             </Row>
             
-            <div className="bg-warning bg-opacity-10 p-2 rounded">
-              <small className="text-warning">
-                <strong>💡 Tip:</strong> Las partículas se adaptan automáticamente a los colores de tu tema para máxima armonía visual.
+            <div className="bg-info bg-opacity-20 p-3 rounded" style={{ border: '1px solid rgba(13, 202, 240, 0.3)' }}>
+              <small className="text-light" style={{ color: '#ffffff !important' }}>
+                <strong style={{ color: '#0dcaf0' }}>💡 Tip:</strong> Las partículas se adaptan automáticamente a los colores de tu tema para máxima armonía visual.
               </small>
             </div>
           </div>
         )}
       </div>
 
-      <div className="bg-success bg-opacity-10 p-3 rounded">
-        <small className="text-success">
-          <strong>🎨 Pro Tip:</strong> Las paletas con IA están optimizadas para máximo impacto visual. 
+      <div className="bg-info bg-opacity-20 p-3 rounded" style={{ border: '1px solid rgba(13, 202, 240, 0.3)' }}>
+        <small className="text-light" style={{ color: '#ffffff !important' }}>
+          <strong style={{ color: '#0dcaf0' }}>🎨 Pro Tip:</strong> Las paletas con IA están optimizadas para máximo impacto visual. 
           Los efectos premium están disponibles en planes pagos.
         </small>
       </div>
