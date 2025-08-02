@@ -1158,7 +1158,32 @@ export default function HomePage() {
           {/* CTA Final */}
           <Row className="justify-content-center">
             <Col lg={8} xl={6}>
-              <div className="final-cta text-center py-5">
+              <div className="final-cta text-center py-5" style={{position: 'relative'}}>
+                {/* Indi Final Assistant */}
+                <div style={{position: 'absolute', top: '-20px', left: '20px', zIndex: 10}}>
+                  <IndiLogo
+                    variant="floating"
+                    size="md"
+                    animated={true}
+                    showName={false}
+                    state="success"
+                  />
+                  <div className="indi-message-bubble" style={{animationDelay: '2s', top: '-20px', right: '50px'}}>
+                    ¡Comienza tu viaje!
+                  </div>
+                </div>
+                
+                {/* Background CTA Elements */}
+                <div style={{position: 'absolute', top: '10%', right: '10%', fontSize: '1.5rem', opacity: 0.3, animation: 'alienFloat1 8s ease-in-out infinite'}}>
+                  🚀
+                </div>
+                <div style={{position: 'absolute', bottom: '20%', left: '15%', fontSize: '1.2rem', opacity: 0.25, animation: 'alienFloat2 6s ease-in-out infinite', animationDelay: '-3s'}}>
+                  💼
+                </div>
+                <div style={{position: 'absolute', top: '50%', right: '5%', fontSize: '1rem', opacity: 0.2, animation: 'alienFloat3 10s ease-in-out infinite', animationDelay: '-5s'}}>
+                  ⭐
+                </div>
+                
                 <h3 className="text-white mb-4" style={{ fontSize: '2rem', fontWeight: '700' }}>
                   ¿Listo para Atraer Más <span className="hero-highlight-alien">Clientes</span> y <span className="hero-highlight-alien">Oportunidades</span>?
                 </h3>
