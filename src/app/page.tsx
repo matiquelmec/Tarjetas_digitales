@@ -1069,43 +1069,6 @@ export default function HomePage() {
             </Container>
           </div>
 
-          {/* CTA Final */}
-          <div className="cta-section py-5">
-            <Container>
-              <Row className="justify-content-center">
-                <Col lg={8} xl={6}>
-                  <div className="final-cta text-center py-4">
-
-                <div className="mb-4">
-                  <span className="badge bg-success fs-4 px-4 py-3 mb-3" style={{background: 'linear-gradient(135deg, #10b981, #059669) !important'}}>
-                    👽 TECNOLOGÍA ALIENÍGENA • PRUEBA GRATIS
-                  </span>
-                </div>
-                <h3 className="text-white mb-4" style={{ fontSize: '2rem', fontWeight: '700' }}>
-                  ¿Listo para Atraer Más <span className="hero-highlight-alien">Clientes</span> y <span className="hero-highlight-alien">Oportunidades</span>?
-                </h3>
-                <p className="text-white opacity-85 mb-4" style={{ fontSize: '1.1rem' }}>
-                  Únete a profesionales que ya están usando tecnología alienígena para cerrar más deals
-                </p>
-                <Button 
-                  size="lg"
-                  className="cta-final-button"
-                  onClick={handleDashboardAccess}
-                >
-                  <span className="cta-icon">🛸</span>
-                  Iniciar Viaje con Indi
-                  <span className="cta-arrow">→</span>
-                </Button>
-                <div className="mt-3">
-                  <small className="text-white opacity-75">
-                    ✅ Tecnología única • ✅ Resultados garantizados • ✅ Sin compromisos
-                  </small>
-                </div>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </div>
 
         </Container>
         </div>
