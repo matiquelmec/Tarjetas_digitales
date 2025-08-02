@@ -163,7 +163,7 @@ export default function Dashboard() {
           flex: 1;
           display: flex;
           align-items: center;
-          text-align: left;
+          text-align: center;
           line-height: 1.4;
           padding: 0.5rem 0;
         }
