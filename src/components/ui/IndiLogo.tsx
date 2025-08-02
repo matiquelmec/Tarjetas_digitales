@@ -90,12 +90,14 @@ const IndiLogo: React.FC<IndiLogoProps> = ({
       
       <style jsx>{`
         .indi-logo {
-          display: inline-flex;
+          display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: center;
           gap: 0.5rem;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
+          width: 100%;
         }
         
         .indi-container {

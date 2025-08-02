@@ -84,9 +84,10 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
         .nav-actions-container {
           position: absolute;
           top: 50%;
-          right: 0;
+          right: 15px;
           transform: translateY(-50%);
           z-index: 10;
+          pointer-events: auto;
         }
         
         .nav-actions {
@@ -188,11 +189,20 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
           justify-content: center !important;
           align-items: center !important;
           width: 100% !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+        
+        /* Asegurar que el container no interfiera */
+        .navbar-container-fix {
+          margin: 0 !important;
+          padding-left: 0 !important;
+          padding-right: 0 !important;
         }
       `}</style>
       
       <div className={getNavbarClasses()}>
-        <Container fluid>
+        <Container fluid className="navbar-container-fix">
           <Row className="align-items-center position-relative">
             {/* Logo Indi - Centrado absoluto */}
             <Col xs={12} className="logo-container">
