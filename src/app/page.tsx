@@ -1103,7 +1103,7 @@ export default function HomePage() {
                   {/* Beneficios clave */}
                   <div className="hero-benefits text-center">
                     <small className="text-white opacity-85">
-                      ✅ Sin compromisos • ✅ Resultados inmediatos • ✅ Tecnología única
+                      🚀 Acceso inmediato • 🛸 Sin compromisos • ✨ Tecnología única
                     </small>
                   </div>
                 </div>
