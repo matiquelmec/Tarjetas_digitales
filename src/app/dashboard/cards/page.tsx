@@ -595,6 +595,43 @@ export default function DashboardCardsPage() {
           align-items: center;
           justify-content: center;
         }
+        
+        /* Estilos minimalistas para las tarjetas */
+        .minimal-card {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 20px;
+          padding: 1.5rem;
+          transition: all 0.3s ease;
+          height: 100%;
+        }
+        
+        .minimal-card:hover {
+          transform: translateY(-5px);
+          background: rgba(255, 255, 255, 0.15);
+          border-color: rgba(255, 255, 255, 0.3);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .minimal-header {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(15px);
+          border-radius: 20px;
+          padding: 1.5rem;
+          margin-bottom: 2rem;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stats-minimal {
+          text-align: right;
+        }
+        
+        .card-actions {
+          display: flex;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
       `}</style>
       <div className="animated-gradient-background">
         {/* Navbar con Indi */}
@@ -613,53 +650,38 @@ export default function DashboardCardsPage() {
             </Breadcrumb>
           </div>
 
-          {/* Hero Section Ultra Compacta */}
-          <Row className="align-items-center mb-4">
-            <Col>
-              <div className="header-content-compact d-flex justify-content-between align-items-center py-3">
-                <div className="d-flex align-items-center gap-4">
-                  <div>
-                    <h1 className="text-white mb-1 fw-bold h3 alien-title-glow">
-                      🛸 Flota de Tarjetas Intergalácticas ({cards.length})
-                    </h1>
-                  </div>
-                  {!loading && cards.length > 0 && (
-                    <div className="d-flex gap-3">
-                      <span className="badge bg-primary bg-opacity-20 text-white fw-semibold px-3 py-2">
-                        👁️ {cards.reduce((sum, card) => sum + card.views, 0)} escaneos
-                      </span>
-                      <span className="badge bg-success bg-opacity-20 text-white fw-semibold px-3 py-2">
-                        🔗 {cards.reduce((sum, card) => sum + card.clicks, 0)} conexiones
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <div className="d-flex gap-2">
-                  {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 ? (
-                    <Link href="/pricing">
-                      <Button 
-                        className="btn-premium-gold px-4"
-                        style={{ borderRadius: '12px', border: 'none' }}
-                      >
-                        ⭐ Actualizar Plan
-                      </Button>
-                    </Link>
-                  ) : (
-                    <Link href="/create">
-                      <Button 
-                        variant="primary" 
-                        size="lg"
-                        className="fw-semibold px-5"
-                        style={{ borderRadius: '12px' }}
-                      >
-                        🚀 Lanzar Nueva Misión
-                      </Button>
-                    </Link>
-                  )}
-                </div>
+          {/* Header Minimalista */}
+          <div className="minimal-header">
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h1 className="text-white mb-0 fw-bold" style={{ fontSize: '1.8rem' }}>
+                  Mis Tarjetas ({cards.length})
+                </h1>
               </div>
-            </Col>
-          </Row>
+              <div>
+                {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 ? (
+                  <Link href="/pricing">
+                    <Button 
+                      className="btn-premium-gold"
+                      style={{ borderRadius: '25px', border: 'none', padding: '12px 24px' }}
+                    >
+                      ⭐ Actualizar Plan
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link href="/create">
+                    <Button 
+                      variant="primary" 
+                      className="fw-semibold"
+                      style={{ borderRadius: '25px', padding: '12px 24px' }}
+                    >
+                      ✨ Crear Nueva
+                    </Button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
 
           {/* Welcome Message */}
           {showWelcomeMessage && (
@@ -692,47 +714,6 @@ export default function DashboardCardsPage() {
             </Row>
           )}
 
-          {/* Controles de búsqueda y filtros */}
-          {!loading && cards.length > 0 && (
-            <Row className="mb-4">
-              <Col>
-                <div className="search-controls">
-                  <Row className="align-items-center">
-                    <Col md={6}>
-                      <InputGroup>
-                        <Form.Control
-                          type="text"
-                          placeholder="🔍 Buscar por nombre o profesión..."
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                          className="form-control-glass"
-                        />
-                      </InputGroup>
-                    </Col>
-                    <Col md={3}>
-                      <Form.Select
-                        value={sortBy}
-                        onChange={(e) => setSortBy(e.target.value as 'name' | 'views' | 'clicks' | 'date')}
-                        className="form-select-glass"
-                      >
-                        <option value="date">📅 Más recientes</option>
-                        <option value="name">🔤 Por nombre</option>
-                        <option value="views">👁️ Más vistas</option>
-                        <option value="clicks">🔗 Más clics</option>
-                      </Form.Select>
-                    </Col>
-                    <Col md={3}>
-                      <div className="text-white opacity-75 text-center">
-                        <small>
-                          {filteredAndSortedCards.length} de {cards.length} tarjetas
-                        </small>
-                      </div>
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-            </Row>
-          )}
 
           {/* Plan Limit Warning - Solo si está en el límite */}
           {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 && (
@@ -833,66 +814,55 @@ export default function DashboardCardsPage() {
                   </div>
                 </div>
               ) : (
-                <Row className="g-3">
+                <Row className="g-4">
                     {filteredAndSortedCards.map((card) => (
                       <Col key={card.id} lg={6} xl={4}>
-                        <div className="card-item-modern">
-                          <div className="card-header-modern mb-3">
-                            <div className="d-flex justify-content-between align-items-start">
-                              <div className="flex-grow-1">
-                                <h5 className="fw-bold text-dark mb-1 card-title-modern">{card.name}</h5>
-                                <p className="text-muted mb-2 card-subtitle-modern">{card.profession}</p>
+                        <div className="minimal-card">
+                          <div className="card-content">
+                            <div className="d-flex justify-content-between align-items-start mb-3">
+                              <div>
+                                <h5 className="text-white fw-bold mb-1">{card.name}</h5>
+                                <p className="text-white-50 mb-0">{card.profession}</p>
                               </div>
-                              <div className="card-stats-modern">
-                                <div className="d-flex gap-3 mb-2">
-                                  <div className="stat-item-modern">
-                                    <span className="stat-number-modern">{card.views}</span>
-                                    <span className="stat-label-modern">👁️</span>
-                                  </div>
-                                  <div className="stat-item-modern">
-                                    <span className="stat-number-modern">{card.clicks}</span>
-                                    <span className="stat-label-modern">🔗</span>
-                                  </div>
-                                </div>
+                              <div className="stats-minimal">
+                                <small className="text-white-50">
+                                  {card.views} vistas • {card.clicks} clics
+                                </small>
                               </div>
                             </div>
-                            <div className="d-flex justify-content-between align-items-center">
-                              <span className={`badge status-badge-modern ${card.isActive ? 'status-active' : 'status-inactive'}`}>
-                                {card.isActive ? '🟢 Activa' : '🔴 Inactiva'}
-                              </span>
-                              <small className="text-muted">
-                                {new Date(card.createdAt).toLocaleDateString('es-ES')}
-                              </small>
+                            
+                            <div className="card-actions">
+                              <Link 
+                                href={card.customUrl ? `/c/${card.customUrl}` : `/card/${card.id}`} 
+                                target="_blank" 
+                                className="btn btn-sm btn-outline-light me-2"
+                                style={{ borderRadius: '20px' }}
+                              >
+                                Ver
+                              </Link>
+                              <Button 
+                                variant="outline-light" 
+                                size="sm"
+                                className="me-2"
+                                style={{ borderRadius: '20px' }}
+                                onClick={() => window.open(`/create?edit=${card.id}`, '_self')}
+                              >
+                                Editar
+                              </Button>
+                              <Button 
+                                variant="outline-danger" 
+                                size="sm"
+                                style={{ borderRadius: '20px' }}
+                                onClick={() => deleteCard(card.id)}
+                                disabled={deletingCardId === card.id}
+                              >
+                                {deletingCardId === card.id ? (
+                                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                ) : (
+                                  'Eliminar'
+                                )}
+                              </Button>
                             </div>
-                          </div>
-
-                          <div className="card-actions-modern">
-                            <Link 
-                              href={card.customUrl ? `/c/${card.customUrl}` : `/card/${card.id}`} 
-                              target="_blank" 
-                              className="btn btn-primary btn-action-modern"
-                            >
-                              👁️ Ver
-                            </Link>
-                            <Button 
-                              variant="outline-info" 
-                              className="btn-action-modern"
-                              onClick={() => window.open(`/create?edit=${card.id}`, '_self')}
-                            >
-                              ✏️ Editar
-                            </Button>
-                            <Button 
-                              variant="outline-danger" 
-                              className="btn-action-modern btn-icon-modern"
-                              onClick={() => deleteCard(card.id)}
-                              disabled={deletingCardId === card.id}
-                            >
-                              {deletingCardId === card.id ? (
-                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                              ) : (
-                                '🗑️'
-                              )}
-                            </Button>
                           </div>
                         </div>
                       </Col>
