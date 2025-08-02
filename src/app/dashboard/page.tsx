@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AuthWrapper } from '../../components/AuthWrapper';
 import { usePostLoginRedirect } from '@/hooks/usePostLoginRedirect';
+import IndiNavbar from '@/components/layout/IndiNavbar';
 
 interface CardData {
   id: string;
@@ -561,7 +562,10 @@ export default function Dashboard() {
         }
       `}</style>
       <div className="animated-gradient-background">
-        <Container className="py-5">
+        {/* Navbar con Indi */}
+        <IndiNavbar variant="gradient" position="sticky" showActions={true} />
+        
+        <Container className="py-4">
           {/* Centro de Comando Intergaláctico */}
           <div className="alien-command-center">
             {/* Partículas espaciales sutiles */}

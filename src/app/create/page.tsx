@@ -5,6 +5,7 @@ import { Container, Row, Col, Card, Button, ProgressBar, Alert } from 'react-boo
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { AuthWrapper } from '@/components/AuthWrapper';
+import IndiNavbar from '@/components/layout/IndiNavbar';
 import { StepOne } from '@/components/create/StepOne';
 import { StepTwo } from '@/components/create/StepTwo';
 import { StepThree } from '@/components/create/StepThree';
@@ -321,6 +322,9 @@ export default function CreateCardPage() {
       `}</style>
       
       <div className="animated-gradient-background">
+        {/* Navbar con Indi */}
+        <IndiNavbar variant="gradient" position="sticky" showActions={true} />
+        
         <Container className="py-4">
           {/* Header */}
           <Row className="mb-4">

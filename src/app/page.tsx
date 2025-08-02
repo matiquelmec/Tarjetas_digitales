@@ -901,7 +901,7 @@ export default function HomePage() {
             <Col xs="auto">
               <IndiLogo
                 variant="navbar"
-                size="md"
+                size="lg"
                 animated={true}
                 interactive={true}
                 showName={true}

@@ -73,8 +73,8 @@ const IndiLogo: React.FC<IndiLogoProps> = ({
         <Image
           src="/logo.png"
           alt="Indi - Tu Embajador Intergaláctico"
-          width={variant === 'navbar' ? 40 : variant === 'hero' ? 80 : 60}
-          height={variant === 'navbar' ? 40 : variant === 'hero' ? 80 : 60}
+          width={variant === 'navbar' ? 60 : variant === 'hero' ? 100 : 80}
+          height={variant === 'navbar' ? 60 : variant === 'hero' ? 100 : 80}
           className="indi-image"
           priority={variant === 'navbar' || variant === 'hero'}
         />
@@ -110,33 +110,57 @@ const IndiLogo: React.FC<IndiLogoProps> = ({
         
         .indi-name {
           font-family: 'Montserrat', sans-serif;
-          font-weight: 800;
-          font-size: 1.5rem;
-          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          font-weight: 900;
+          font-size: 2rem;
+          background: linear-gradient(135deg, #00f6ff, #0072ff, #8e2de2);
+          background-size: 200% 200%;
+          animation: gradientShift 3s ease-in-out infinite;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
           text-transform: lowercase;
-          letter-spacing: -0.5px;
+          letter-spacing: -1px;
+          filter: drop-shadow(0 0 8px rgba(0, 246, 255, 0.3));
+        }
+        
+        @keyframes gradientShift {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
         }
         
         /* Size variants */
-        .indi-logo-sm .indi-name { font-size: 1.2rem; }
-        .indi-logo-md .indi-name { font-size: 1.5rem; }
-        .indi-logo-lg .indi-name { font-size: 2rem; }
-        .indi-logo-xl .indi-name { font-size: 2.5rem; }
+        .indi-logo-sm .indi-name { 
+          font-size: 1.6rem; 
+          filter: drop-shadow(0 0 6px rgba(0, 246, 255, 0.25));
+        }
+        .indi-logo-md .indi-name { 
+          font-size: 2rem; 
+          filter: drop-shadow(0 0 8px rgba(0, 246, 255, 0.3));
+        }
+        .indi-logo-lg .indi-name { 
+          font-size: 2.8rem; 
+          filter: drop-shadow(0 0 12px rgba(0, 246, 255, 0.4));
+        }
+        .indi-logo-xl .indi-name { 
+          font-size: 3.5rem; 
+          filter: drop-shadow(0 0 16px rgba(0, 246, 255, 0.5));
+        }
         
         /* Interactive states */
         .indi-interactive:hover {
-          transform: translateY(-2px);
+          transform: translateY(-4px) scale(1.05);
         }
         
         .indi-interactive:hover .indi-image {
-          filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.6));
+          filter: drop-shadow(0 0 25px rgba(0, 246, 255, 0.8)) 
+                  drop-shadow(0 0 40px rgba(142, 45, 226, 0.4));
+          transform: rotate(5deg);
         }
         
         .indi-interactive:hover .indi-name {
-          text-shadow: 0 0 20px rgba(0, 246, 255, 0.4);
+          filter: drop-shadow(0 0 15px rgba(0, 246, 255, 0.6))
+                  drop-shadow(0 0 25px rgba(142, 45, 226, 0.3));
+          transform: scale(1.1);
         }
         
         /* Animated states */
@@ -261,15 +285,33 @@ const IndiLogo: React.FC<IndiLogoProps> = ({
           }
           
           .indi-navbar .indi-name {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
           }
           
           .indi-message {
             display: none; /* Ocultar mensajes en móvil */
           }
+          
+          .indi-interactive:hover {
+            transform: translateY(-2px) scale(1.02);
+          }
         }
         
         @media (max-width: 576px) {
+          .indi-navbar .indi-name {
+            font-size: 1.3rem;
+          }
+          
+          .indi-logo {
+            gap: 0.5rem;
+          }
+          
+          .indi-interactive:hover {
+            transform: translateY(-1px) scale(1.01);
+          }
+        }
+        
+        @media (max-width: 480px) {
           .indi-navbar .indi-name {
             font-size: 1.1rem;
           }
