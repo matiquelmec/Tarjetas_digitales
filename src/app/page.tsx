@@ -953,9 +953,9 @@ export default function HomePage() {
               <div className="particle space-particle-6"></div>
             </div>
             
-            <Row className="align-items-center min-vh-50">
-              <Col lg={7}>
-                <div className="hero-content text-center text-lg-start">
+            <Row className="align-items-center min-vh-70 justify-content-center">
+              <Col lg={8} xl={7}>
+                <div className="hero-content text-center">
                   <div className="alien-badge mb-3">
                     <span className="badge-alien">👽 Diseños de Otro Mundo • PRUEBA GRATIS</span>
                   </div>
@@ -972,8 +972,8 @@ export default function HomePage() {
                   </p>
                   
                   {/* Destacar productos */}
-                  <div className="hero-products mb-3">
-                    <div className="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
+                  <div className="hero-products mb-4">
+                    <div className="d-flex flex-wrap gap-2 justify-content-center">
                       <span className="badge bg-success px-3 py-2">🛸 Tarjetas • GRATIS</span>
                       <span className="badge bg-warning text-dark px-3 py-2">🚀 CVs Alienígenas</span>
                       <span className="badge bg-info px-3 py-2">📡 Presentaciones</span>
@@ -1001,53 +1001,26 @@ export default function HomePage() {
                   </div>
                 </div>
               </Col>
-              
-              <Col lg={5}>
-                {/* Indi Floating Assistant Hero */}
-                <div className="indi-hero-assistant">
-                  {/* Nave espacial principal */}
-                  <div className="hero-spaceship">
-                    <div className="spaceship-main">🛸</div>
-                    <div className="spaceship-trail"></div>
-                  </div>
-                  
-                  {/* Indi Floating with Message */}
-                  <div className="indi-floating-hero">
-                    <IndiLogo
-                      variant="floating"
-                      size="xl"
-                      animated={true}
-                      interactive={true}
-                      showName={false}
-                      state="greeting"
-                      message="¡Bienvenido, terrícola! Te muestro mi tecnología..."
-                    />
-                  </div>
-                  
-                  {/* Background Elements */}
-                  <div className="hero-particles">
-                    <div className="hero-particle hero-particle-1">🌌</div>
-                    <div className="hero-particle hero-particle-2">⭐</div>
-                    <div className="hero-particle hero-particle-3">💫</div>
-                    <div className="hero-particle hero-particle-4">✨</div>
-                    <div className="hero-particle hero-particle-5">🔮</div>
-                    <div className="hero-particle hero-particle-6">👽</div>
-                  </div>
-                </div>
-              </Col>
             </Row>
           </div>
 
           {/* ¿Qué Puedes Hacer en Nuestra Plataforma? */}
-          <Row className="justify-content-center mb-3 mt-2">
-            <Col lg={10} xl={8}>
-              <div className="platform-capabilities text-center">
-                <h2 className="text-white mb-3" style={{ fontSize: '2.5rem', fontWeight: '800' }}>
-                  ¿Qué Puedes Hacer en Nuestra <span className="hero-highlight-alien">Plataforma</span>?
-                </h2>
-                
-                <Row className="g-4">
-                  <Col md={6} lg={3}>
+          <div className="productos-section py-5">
+            <Container>
+              <Row className="justify-content-center mb-5">
+                <Col lg={8} xl={6}>
+                  <div className="text-center">
+                    <h2 className="text-white mb-4" style={{ fontSize: '2.5rem', fontWeight: '800' }}>
+                      ¿Qué Puedes Hacer en Nuestra <span className="hero-highlight-alien">Plataforma</span>?
+                    </h2>
+                  </div>
+                </Col>
+              </Row>
+              
+              <Row className="justify-content-center">
+                <Col lg={10} xl={8}>
+                  <Row className="g-4">
+                    <Col md={6}>
                     <div className="capability-card">
                       <div className="capability-icon mb-3">
                         🛸
@@ -1066,14 +1039,14 @@ export default function HomePage() {
                     </div>
                   </Col>
                   
-                  <Col md={6} lg={3}>
-                    <div className="capability-card">
-                      <div className="capability-icon mb-3">
-                        🚀
-                      </div>
-                      <h4 className="capability-title text-white mb-3">
-                        CVs con Inteligencia Alienígena
-                      </h4>
+                    <Col md={6}>
+                      <div className="capability-card">
+                        <div className="capability-icon mb-3">
+                          🚀
+                        </div>
+                        <h4 className="capability-title text-white mb-3">
+                          CVs con Inteligencia Alienígena
+                        </h4>
                       <div className="mb-3">
                         <span className="badge bg-warning text-dark fs-6 px-3 py-2 mb-2">
                           📅 PRÓXIMAMENTE
@@ -1085,14 +1058,14 @@ export default function HomePage() {
                     </div>
                   </Col>
                   
-                  <Col md={6} lg={3}>
-                    <div className="capability-card">
-                      <div className="capability-icon mb-3">
-                        📡
-                      </div>
-                      <h4 className="capability-title text-white mb-3">
-                        Presentaciones Inmersivas
-                      </h4>
+                    <Col md={6}>
+                      <div className="capability-card">
+                        <div className="capability-icon mb-3">
+                          📡
+                        </div>
+                        <h4 className="capability-title text-white mb-3">
+                          Presentaciones Inmersivas
+                        </h4>
                       <div className="mb-3">
                         <span className="badge bg-info fs-6 px-3 py-2 mb-2">
                           🔧 EN DESARROLLO
@@ -1104,14 +1077,14 @@ export default function HomePage() {
                     </div>
                   </Col>
                   
-                  <Col md={6} lg={3}>
-                    <div className="capability-card">
-                      <div className="capability-icon mb-3">
-                        🌟
-                      </div>
-                      <h4 className="capability-title text-white mb-3">
-                        Ecosistema Completo
-                      </h4>
+                    <Col md={6}>
+                      <div className="capability-card">
+                        <div className="capability-icon mb-3">
+                          🌟
+                        </div>
+                        <h4 className="capability-title text-white mb-3">
+                          Ecosistema Completo
+                        </h4>
                       <div className="mb-3">
                         <span className="badge bg-gradient fs-6 px-3 py-2 mb-2" style={{background: 'linear-gradient(135deg, #00f6ff, #0072ff)'}}>
                           🎯 TODO INCLUIDO
@@ -1122,15 +1095,18 @@ export default function HomePage() {
                       </p>
                     </div>
                   </Col>
-                </Row>
-              </div>
-            </Col>
-          </Row>
+                  </Row>
+                </Col>
+              </Row>
+            </Container>
+          </div>
 
           {/* CTA Final */}
-          <Row className="justify-content-center mt-3">
-            <Col lg={8} xl={6}>
-              <div className="final-cta text-center py-4">
+          <div className="cta-section py-5">
+            <Container>
+              <Row className="justify-content-center">
+                <Col lg={8} xl={6}>
+                  <div className="final-cta text-center py-4">
 
                 <div className="mb-4">
                   <span className="badge bg-success fs-4 px-4 py-3 mb-3" style={{background: 'linear-gradient(135deg, #10b981, #059669) !important'}}>
@@ -1157,9 +1133,11 @@ export default function HomePage() {
                     ✅ Tecnología única • ✅ Resultados garantizados • ✅ Sin compromisos
                   </small>
                 </div>
-              </div>
-            </Col>
-          </Row>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </div>
 
         </Container>
       </div>
