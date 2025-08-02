@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Table, Alert, ProgressBar, Breadcrumb, Form, InputGroup } from 'react-bootstrap';
 import Link from 'next/link';
 import { PlanLimits, PLAN_LIMITS } from '@/lib/planLimits'; // Assuming this import is needed
+import IndiNavbar from '@/components/layout/IndiNavbar';
 
 interface CardData {
   id: string;
@@ -596,6 +597,9 @@ export default function DashboardCardsPage() {
         }
       `}</style>
       <div className="animated-gradient-background">
+        {/* Navbar con Indi */}
+        <IndiNavbar variant="gradient" position="sticky" showActions={true} />
+        
         <Container className="py-4">
           {/* Navegación */}
           <div className="mb-4">

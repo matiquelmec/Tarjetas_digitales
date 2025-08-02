@@ -1,6 +1,7 @@
 'use client';
 
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import IndiNavbar from '@/components/layout/IndiNavbar';
 
 export default function CVPage() {
   return (
@@ -142,7 +143,10 @@ export default function CVPage() {
         }
       `}</style>
       
-      <Container fluid className="py-5">
+      {/* Navbar con Indi */}
+      <IndiNavbar variant="gradient" position="sticky" showActions={true} />
+      
+      <Container fluid className="py-4">
         <Row className="justify-content-center align-items-center min-vh-100">
           <Col lg={8} xl={6}>
             <Card className="intergalactic-card text-center p-5 text-white border-0">

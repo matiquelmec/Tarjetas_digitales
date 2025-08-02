@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Container, Row, Col, Card, Button, ListGroup, Badge } from 'react-bootstrap';
 import { useSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
+import IndiNavbar from '@/components/layout/IndiNavbar';
 
 export default function PricingPage() {
   const { data: session } = useSession();
@@ -199,7 +200,10 @@ export default function PricingPage() {
         }
       `}</style>
       <div className="animated-gradient-background">
-        <Container className="py-5">
+        {/* Navbar con Indi */}
+        <IndiNavbar variant="gradient" position="sticky" showActions={true} />
+        
+        <Container className="py-4">
           {/* Header */}
           <Row className="mb-5">
             <Col>
