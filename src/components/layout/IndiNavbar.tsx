@@ -81,6 +81,14 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
           top: 0;
         }
         
+        .nav-actions-container {
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translateY(-50%);
+          z-index: 10;
+        }
+        
         .nav-actions {
           display: flex;
           flex-wrap: wrap;
@@ -147,10 +155,19 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             padding: 1rem 0;
           }
           
+          .nav-actions-container {
+            position: static;
+            transform: none;
+            margin-top: 1rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+          }
+          
           .nav-actions {
             gap: 0.5rem;
             justify-content: center;
-            margin-top: 0.5rem;
+            flex-wrap: wrap;
           }
           
           .btn-nav {
@@ -168,9 +185,9 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
       
       <div className={getNavbarClasses()}>
         <Container fluid>
-          <Row className="justify-content-between align-items-center">
-            {/* Logo Indi - Centrado verticalmente */}
-            <Col xs="auto" className="d-flex align-items-center">
+          <Row className="align-items-center position-relative">
+            {/* Logo Indi - Centrado absoluto */}
+            <Col xs={12} className="d-flex justify-content-center">
               <IndiLogo
                 variant="navbar"
                 size="xl"
@@ -182,9 +199,9 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
               />
             </Col>
             
-            {/* Acciones - Derecha */}
+            {/* Acciones - Posición absoluta derecha */}
             {showActions && (
-              <Col xs="auto">
+              <div className="nav-actions-container">
                 <div className="nav-actions">
                   {session ? (
                     <>
@@ -224,7 +241,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
                     </>
                   )}
                 </div>
-              </Col>
+              </div>
             )}
           </Row>
         </Container>
