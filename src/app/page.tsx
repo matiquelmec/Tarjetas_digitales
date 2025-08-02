@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { usePostLoginRedirect } from '@/hooks/usePostLoginRedirect';
 import IndiLogo from '@/components/ui/IndiLogo';
+import IndiNavbar from '@/components/layout/IndiNavbar';
 
 type ServiceStatus = 'available' | 'coming-soon' | 'contact-us';
 
@@ -897,56 +898,15 @@ export default function HomePage() {
         }
       `}</style>
       <div className="animated-gradient-background min-vh-100 d-flex flex-column justify-content-center align-items-center">
+        
+        {/* Navigation Header */}
+        <IndiNavbar 
+          variant="transparent" 
+          position="relative" 
+          showActions={true} 
+        />
+        
         <Container fluid className="py-5">
-          {/* Navigation Header */}
-          <Row className="justify-content-between align-items-center mb-4">
-            {/* Logo Indi - Top Left */}
-            <Col xs="auto">
-              <IndiLogo
-                variant="navbar"
-                size="lg"
-                animated={true}
-                interactive={true}
-                showName={true}
-                href="/"
-                state="greeting"
-                message="¡Hola terrícola! 👋"
-              />
-            </Col>
-            
-            {/* Navigation - Top Right */}
-            <Col xs="auto">
-              <div className="d-flex flex-column flex-sm-row gap-2 align-items-center">
-                {session ? (
-                  <>
-                    <div className="d-flex flex-wrap gap-2 justify-content-center">
-                      <Link href="/pricing">
-                        <Button size="sm" className="btn-premium-gold-outline px-3">
-                          ⭐ Actualizar Plan
-                        </Button>
-                      </Link>
-                      <Link href="/dashboard/cards">
-                        <Button variant="outline-light" size="sm" className="px-3">
-                          💼 Mis Tarjetas
-                        </Button>
-                      </Link>
-                      <Button variant="outline-secondary" size="sm" onClick={() => signOut()} className="px-3">
-                        👋 Salir
-                      </Button>
-                    </div>
-                    <div className="text-white text-center mt-2 mt-sm-0">
-                      <small>Hola, {session.user?.name?.split(' ')[0] || 'Usuario'}</small>
-                    </div>
-                  </>
-                ) : (
-                  <Button variant="outline-light" onClick={() => signIn('google')} className="px-4 py-2">
-                    🚀 Iniciar Sesión con Google
-                  </Button>
-                )}
-              </div>
-            </Col>
-          </Row>
-          
           {/* HERO INTERGALÁCTICO */}
           <div className="hero-intergalactico">
             {/* Partículas espaciales de fondo */}
