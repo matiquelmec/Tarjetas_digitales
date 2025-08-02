@@ -155,9 +155,9 @@ export function StepThree({ cardData, updateCardData }: StepThreeProps) {
         </Form.Group>
       </div>
 
-      <div className="bg-success bg-opacity-10 p-3 rounded mt-4">
-        <small className="text-success">
-          <strong>🔗 Consejo:</strong> Asegúrate de que tus perfiles estén actualizados y sean profesionales. 
+      <div className="bg-success bg-opacity-20 p-3 rounded mt-4" style={{ border: '1px solid rgba(25, 135, 84, 0.3)' }}>
+        <small className="text-light" style={{ color: '#ffffff !important' }}>
+          <strong style={{ color: '#00ff88' }}>🔗 Consejo:</strong> Asegúrate de que tus perfiles estén actualizados y sean profesionales. 
           Cada enlace es una oportunidad de generar una conexión valiosa.
         </small>
       </div>
