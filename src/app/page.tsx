@@ -974,7 +974,8 @@ export default function HomePage() {
                   
                   <p className="hero-subtitle-alien text-white opacity-90 mb-3">
                     Crea una identidad digital profesional que <strong>convierte contactos en clientes</strong>. 
-                    <strong>Tarjetas interactivas</strong>, CVs optimizados con IA y presentaciones que cierran deals.
+                    <br />
+                    Tarjetas interactivas, CVs optimizados con IA y presentaciones que cierran deals.
                   </p>
                   
                   {/* Destacar productos */}
