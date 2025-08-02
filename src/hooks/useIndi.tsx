@@ -1,5 +1,6 @@
 'use client';
 
+// Hook para manejo de estado global de Indi - Embajador Intergaláctico
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 
 export type IndiState = 'normal' | 'thinking' | 'success' | 'error' | 'greeting' | 'celebrating';
