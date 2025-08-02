@@ -73,8 +73,8 @@ const IndiLogo: React.FC<IndiLogoProps> = ({
         <Image
           src="/logo.png"
           alt="Indi - Tu Embajador Intergaláctico"
-          width={variant === 'navbar' ? 60 : variant === 'hero' ? 100 : 80}
-          height={variant === 'navbar' ? 60 : variant === 'hero' ? 100 : 80}
+          width={variant === 'navbar' ? 80 : variant === 'hero' ? 100 : 80}
+          height={variant === 'navbar' ? 80 : variant === 'hero' ? 100 : 80}
           className="indi-image"
           priority={variant === 'navbar' || variant === 'hero'}
         />
