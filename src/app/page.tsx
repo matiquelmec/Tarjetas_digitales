@@ -897,7 +897,7 @@ export default function HomePage() {
           }
         }
       `}</style>
-      <div className="animated-gradient-background min-vh-100 d-flex flex-column justify-content-center align-items-center">
+      <div className="animated-gradient-background min-vh-100">
         
         {/* Navigation Header */}
         <IndiNavbar 
@@ -906,7 +906,8 @@ export default function HomePage() {
           showActions={true} 
         />
         
-        <Container fluid className="py-5">
+        <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: 'calc(100vh - 120px)' }}>
+          <Container fluid className="py-5">
           {/* HERO INTERGALÁCTICO */}
           <div className="hero-intergalactico">
             {/* Partículas espaciales de fondo */}
@@ -1107,6 +1108,7 @@ export default function HomePage() {
           </div>
 
         </Container>
+        </div>
       </div>
     </>
   );
