@@ -909,6 +909,9 @@ ${formattedAbout ? `${formattedAbout}
                 height: '120px',
                 margin: '0 auto 20px auto',
                 overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 ...templateStyles.photoStyle,
                 borderColor: `var(--card-text-color)33`,
               }}>
@@ -916,7 +919,12 @@ ${formattedAbout ? `${formattedAbout}
                   src={photoUrl}
                   alt="Foto del Profesional"
                   fill
-                  style={{ objectFit: 'cover' }}
+                  style={{ 
+                    objectFit: 'cover',
+                    objectPosition: 'center center',
+                    width: '100%',
+                    height: '100%'
+                  }}
                   sizes="120px"
                   priority={false}
                   placeholder="blur"
