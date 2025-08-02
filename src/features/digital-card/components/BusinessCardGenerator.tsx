@@ -63,6 +63,40 @@ export default function BusinessCardGenerator() {
     { name: 'Lavanda y Carbón', pageBackgroundColor: '#e6e6fa', cardBackgroundColor: '#ffffff', cardTextColor: '#2c2c2c', buttonSecondaryColor: '#9b59b6', buttonSecondaryHoverColor: '#8e44ad', buttonNormalBackgroundColor: '#f2f2f2' },
   ];
 
+  // Definición centralizada de templates para mantener sincronización
+  const availableTemplates = [
+    { 
+      value: 'modern', 
+      label: 'Modern - Diseño limpio y profesional',
+      description: '✨ Perfecto para profesionales de tecnología y negocios',
+      icon: '✨'
+    },
+    { 
+      value: 'elegant', 
+      label: 'Elegant - Estilo sofisticado y minimalista',
+      description: '🎩 Ideal para abogados, consultores y ejecutivos',
+      icon: '🎩'
+    },
+    { 
+      value: 'creative', 
+      label: 'Creative - Gradientes y efectos vibrantes',
+      description: '🎨 Excelente para diseñadores, artistas y creativos',
+      icon: '🎨'
+    },
+    { 
+      value: 'ocean', 
+      label: 'Ocean - Tema oceánico con gradientes azules',
+      description: '🌊 Perfecto para profesionales de la salud, bienestar y spa',
+      icon: '🌊'
+    },
+    { 
+      value: 'classic', 
+      label: 'Classic - Diseño tradicional y formal',
+      description: '📚 Adecuado para académicos, médicos y profesionales tradicionales',
+      icon: '📚'
+    }
+  ];
+
   const getContrastTextColor = (hexcolor: string) => {
     if (!hexcolor || hexcolor.length < 7) return '#000000';
     const r = parseInt(hexcolor.substring(1, 3), 16);
@@ -489,16 +523,18 @@ export default function BusinessCardGenerator() {
                     style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: editorTextColor, border: `1px solid ${editorTextColor}33` }}
                     disabled={!planLimits?.canUseCustomTemplates}
                   >
-                    <option value="modern" style={{ backgroundColor: '#2c2c2c', color: '#ffffff' }}>Modern - Diseño limpio y profesional</option>
-                    <option value="elegant" style={{ backgroundColor: '#2c2c2c', color: '#ffffff' }}>Elegant - Estilo sofisticado y minimalista</option>
-                    <option value="creative" style={{ backgroundColor: '#2c2c2c', color: '#ffffff' }}>Creative - Gradientes y efectos vibrantes</option>
-                    <option value="classic" style={{ backgroundColor: '#2c2c2c', color: '#ffffff' }}>Classic - Diseño tradicional y formal</option>
+                    {availableTemplates.map(template => (
+                      <option 
+                        key={template.value} 
+                        value={template.value} 
+                        style={{ backgroundColor: '#2c2c2c', color: '#ffffff' }}
+                      >
+                        {template.label}
+                      </option>
+                    ))}
                   </Form.Select>
                   <Form.Text style={{ color: `${editorTextColor}CC`, fontSize: '0.85rem' }}>
-                    {selectedTemplate === 'modern' && '✨ Perfecto para profesionales de tecnología y negocios'}
-                    {selectedTemplate === 'elegant' && '🎩 Ideal para abogados, consultores y ejecutivos'}
-                    {selectedTemplate === 'creative' && '🎨 Excelente para diseñadores, artistas y creativos'}
-                    {selectedTemplate === 'classic' && '📚 Adecuado para académicos, médicos y profesionales tradicionales'}
+                    {availableTemplates.find(t => t.value === selectedTemplate)?.description || ''}
                   </Form.Text>
                 </Form.Group>
               </fieldset>
