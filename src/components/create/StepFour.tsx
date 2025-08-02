@@ -150,6 +150,23 @@ export function StepFour({ cardData, updateCardData }: StepFourProps) {
         />
       </div>
 
+      {/* Recordatorio de funciones premium */}
+      {(cardData.enableHoverEffect || cardData.enableGlassmorphism || 
+        cardData.enableSubtleAnimations || cardData.enableBackgroundPatterns || 
+        cardData.enableParticles || cardData.template !== 'modern') && (
+        <Alert variant="info">
+          <h6>💎 Recordatorio sobre funciones premium</h6>
+          <p className="mb-2">
+            Has seleccionado efectos y diseños premium. Estas funciones tienen un <strong>costo único de $4.990 CLP</strong>.
+          </p>
+          <p className="mb-0 small">
+            Si prefieres no pagar, puedes volver al <strong>Paso 2</strong> y seleccionar las alternativas gratuitas:
+            <br />• Template: Modern (gratuito)
+            <br />• Desactivar todos los efectos visuales
+          </p>
+        </Alert>
+      )}
+
     </div>
   );
 }
