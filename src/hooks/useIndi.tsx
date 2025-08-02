@@ -1,6 +1,6 @@
 'use client';
 
-// Hook para manejo de estado global de Indi - Embajador Intergaláctico
+// Hook simplificado para manejo de estado de Indi - Embajador Intergaláctico
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 
 export type IndiState = 'normal' | 'thinking' | 'success' | 'error' | 'greeting' | 'celebrating';
@@ -123,7 +123,7 @@ export const IndiProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// Hook personalizado para usar Indi en componentes
+// Hook básico para usar Indi en componentes
 export const useIndi = () => {
   const context = useContext(IndiContext);
   
@@ -131,110 +131,7 @@ export const useIndi = () => {
     throw new Error('useIndi debe ser usado dentro de un IndiProvider');
   }
   
-  return {
-    ...context,
-    
-    // Helpers adicionales
-    triggerOnboarding: () => {
-      context.setState('greeting');
-      context.setMessage('¡Bienvenido! Soy Indi, tu guía intergaláctico 🛸');
-    },
-    
-    triggerCardCreated: () => {
-      context.celebrate('¡Tarjeta creada exitosamente!');
-    },
-    
-    triggerLoading: (action = 'procesando') => {
-      context.think();
-      context.setMessage(`Indi está ${action}...`, 0);
-    },
-    
-    triggerPlanUpgrade: () => {
-      context.setState('success');
-      context.setMessage('¡Genial! Tu plan ha sido actualizado 🚀');
-    },
-    
-    // Context-aware reactions
-    reactToUserAction: (action: 'create' | 'edit' | 'delete' | 'share' | 'upgrade') => {
-      switch (action) {
-        case 'create':
-          context.setState('success');
-          context.setMessage('¡Indi está impresionado con tu creación! ✨');
-          break;
-        case 'edit':
-          context.setState('thinking');
-          context.setMessage('Indi observa tus mejoras...');
-          break;
-        case 'delete':
-          context.setState('normal');
-          context.setMessage('Indi comprende, a veces hay que empezar de nuevo 🔄');
-          break;
-        case 'share':
-          context.celebrate('¡Compartiendo con el universo!');
-          break;
-        case 'upgrade':
-          context.setState('success');
-          context.setMessage('¡Genial! Tu plan ha sido actualizado 🚀');
-          break;
-      }
-    }
-  };
-};
-
-// Hook específico para mensajes contextuales
-export const useIndiMessages = () => {
-  const context = useContext(IndiContext);
-  
-  if (!context) {
-    throw new Error('useIndiMessages debe ser usado dentro de un IndiProvider');
-  }
-  
-  const { setMessage, clearMessage } = context;
-  
-  const contextualMessages = {
-    onboarding: [
-      '¡Hola! Soy Indi, tu embajador intergaláctico 🛸',
-      'Te ayudaré a crear una identidad digital única',
-      '¡Vamos a transformar tu presencia profesional!'
-    ],
-    
-    cardEditor: [
-      'Indi sugiere probar efectos glassmorphism ✨',
-      'Esta paleta de colores es perfecta para networking 🎨',
-      '¡Tu tarjeta está quedando increíble! 🌟'
-    ],
-    
-    dashboard: [
-      'Indi nota que podrías crear más tarjetas 💡',
-      'Tus métricas están mejorando 📈',
-      '¿Listo para el siguiente nivel? 🚀'
-    ],
-    
-    empty_states: [
-      'Indi sugiere empezar con una tarjeta básica 👽',
-      '¡El universo espera tu primera creación! 🌌',
-      'Tu viaje intergaláctico comienza aquí ✨'
-    ]
-  };
-  
-  return {
-    showContextualMessage: (context: keyof typeof contextualMessages) => {
-      const messages = contextualMessages[context];
-      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-      setMessage(randomMessage, 4000);
-    },
-    
-    showRandomTip: () => {
-      const tips = [
-        'Indi tip: Los efectos sutiles generan más impacto 💫',
-        'Indi recomienda: Mantén tu información actualizada 🔄',
-        'Dato intergaláctico: Las tarjetas simples convierten más 📊',
-        'Indi observa: Tu networking está evolucionando 🌟'
-      ];
-      const randomTip = tips[Math.floor(Math.random() * tips.length)];
-      setMessage(randomTip, 5000);
-    }
-  };
+  return context;
 };
 
 export default useIndi;
