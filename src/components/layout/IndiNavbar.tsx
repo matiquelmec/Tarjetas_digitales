@@ -84,7 +84,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
         .nav-actions-container {
           position: absolute;
           top: 50%;
-          right: 15px;
+          right: 50px;
           transform: translateY(-50%);
           z-index: 10;
           pointer-events: auto;
@@ -108,47 +108,64 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
         }
         
         .btn-nav-primary {
-          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          background: linear-gradient(135deg, #ff006e, #fb8500, #ffbe0b);
           color: white;
           border: none;
+          font-weight: 700;
+          box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
         }
         
         .btn-nav-primary:hover {
-          background: linear-gradient(135deg, #00d4e7, #0056cc);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(0, 246, 255, 0.3);
+          background: linear-gradient(135deg, #e8005a, #e07500, #f0b000);
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 8px 25px rgba(255, 0, 110, 0.6);
           color: white;
         }
         
         .btn-nav-outline {
-          background: transparent;
+          background: rgba(0, 246, 255, 0.1);
           color: #00f6ff;
-          border: 2px solid rgba(0, 246, 255, 0.5);
+          border: 2px solid #00f6ff;
+          font-weight: 600;
+          box-shadow: 0 2px 10px rgba(0, 246, 255, 0.3);
+          backdrop-filter: blur(10px);
         }
         
         .btn-nav-outline:hover {
-          background: rgba(0, 246, 255, 0.1);
+          background: linear-gradient(135deg, #00f6ff, #0072ff);
           border-color: #00f6ff;
-          transform: translateY(-2px);
-          color: #00f6ff;
+          transform: translateY(-3px) scale(1.02);
+          color: white;
+          box-shadow: 0 6px 20px rgba(0, 246, 255, 0.5);
         }
         
         .btn-nav-secondary {
-          background: rgba(255, 255, 255, 0.1);
-          color: rgba(255, 255, 255, 0.8);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          font-weight: 600;
+          box-shadow: 0 2px 10px rgba(220, 38, 38, 0.3);
         }
         
         .btn-nav-secondary:hover {
-          background: rgba(255, 255, 255, 0.2);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+          border-color: #b91c1c;
           color: white;
-          transform: translateY(-2px);
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
         }
         
         .user-greeting {
-          color: rgba(255, 255, 255, 0.9);
-          font-size: 0.9rem;
-          font-weight: 500;
+          background: linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc);
+          color: white;
+          font-size: 0.85rem;
+          font-weight: 600;
+          padding: 8px 16px;
+          border-radius: 20px;
+          border: 2px solid #a855f7;
+          box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+          backdrop-filter: blur(10px);
+          white-space: nowrap;
         }
         
         @media (max-width: 768px) {
@@ -163,6 +180,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             width: 100%;
             display: flex;
             justify-content: center;
+            right: auto;
           }
           
           .nav-actions {
