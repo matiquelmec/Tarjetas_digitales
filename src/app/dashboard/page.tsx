@@ -155,7 +155,23 @@ export default function Dashboard() {
           height: 100%;
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          justify-content: flex-start;
+          min-height: 320px;
+        }
+        
+        .module-description {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          text-align: left;
+          line-height: 1.4;
+          padding: 0.5rem 0;
+        }
+        
+        .module-description small {
+          font-size: 0.85rem;
+          color: #666;
+          line-height: 1.5;
         }
         
         .alien-stat-card {
@@ -624,7 +640,12 @@ export default function Dashboard() {
                         🛸
                       </div>
                       <h2 className="fw-bold text-dark mb-1">{cards.length}</h2>
-                      <p className="text-muted mb-2">Tarjetas de Otro Mundo</p>
+                      <p className="text-muted mb-2">Tarjetas Digitales Premium</p>
+                      <div className="module-description mb-3">
+                        <small className="text-secondary">
+                          Crea tu tarjeta digital con diseño exclusivo y propiedades interactivas. Compártela fácilmente por WhatsApp y atrae más clientes para tu negocio con efectos visuales únicos que nadie más tiene.
+                        </small>
+                      </div>
                       <div className="d-flex justify-content-center mb-3">
                         <span className="alien-badge bg-primary bg-opacity-10 text-primary fw-semibold">
                           En órbita: {cards.filter(card => card.isActive).length}
@@ -644,7 +665,12 @@ export default function Dashboard() {
                         🚀
                       </div>
                       <h2 className="fw-bold text-muted mb-1">0</h2>
-                      <p className="text-muted mb-2">CVs Inteligentes</p>
+                      <p className="text-muted mb-2">CVs con Inteligencia Alienígena</p>
+                      <div className="module-description mb-3">
+                        <small className="text-secondary">
+                          Optimiza automáticamente tu currículum con IA avanzada. Usa plantillas ATS-friendly que pasan filtros automáticos y captan la atención de reclutadores al instante, multiplicando tus entrevistas de trabajo.
+                        </small>
+                      </div>
                       <div className="d-flex justify-content-center mb-3">
                         <span className="alien-badge bg-warning bg-opacity-10 text-warning fw-semibold">
                           Próximamente
@@ -664,7 +690,12 @@ export default function Dashboard() {
                         📡
                       </div>
                       <h2 className="fw-bold text-muted mb-1">0</h2>
-                      <p className="text-muted mb-2">Presentaciones Intergalácticas</p>
+                      <p className="text-muted mb-2">Presentaciones Inmersivas</p>
+                      <div className="module-description mb-3">
+                        <small className="text-secondary">
+                          Hipnotiza a tu audiencia con presentaciones cinematográficas que convierten ideas en resultados. Elementos interactivos y transiciones que cierran más deals y generan impacto duradero en clientes.
+                        </small>
+                      </div>
                       <div className="d-flex justify-content-center mb-3">
                         <span className="alien-badge bg-info bg-opacity-10 text-info fw-semibold">
                           Próximamente
