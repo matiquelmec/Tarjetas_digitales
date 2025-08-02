@@ -171,6 +171,16 @@ export default function HomePage() {
   return (
     <>
       <style jsx global>{`
+        /* Sistema de espaciado refinado */
+        :root {
+          --space-xs: 0.75rem;   /* 12px */
+          --space-sm: 1.5rem;    /* 24px */
+          --space-md: 3rem;      /* 48px */
+          --space-lg: 4.5rem;    /* 72px */
+          --space-xl: 6rem;      /* 96px */
+          --space-xxl: 7.5rem;   /* 120px */
+        }
+
         @keyframes gradientAnimation {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
@@ -962,23 +972,23 @@ export default function HomePage() {
             <Row className="align-items-center min-vh-70 justify-content-center">
               <Col lg={8} xl={7}>
                 <div className="hero-content text-center">
-                  <div className="alien-badge mb-3">
+                  <div className="alien-badge" style={{marginBottom: 'var(--space-md)'}}>
                     <span className="badge-alien">👽 Diseños de Otro Mundo • PRUEBA GRATIS</span>
                   </div>
                   
-                  <h1 className="hero-title-alien text-white mb-3">
+                  <h1 className="hero-title-alien text-white" style={{marginBottom: 'var(--space-md)'}}>
                     Multiplica tus Oportunidades
                     <br />
                     <span className="hero-highlight-alien">de Negocio</span>
                   </h1>
                   
-                  <p className="hero-subtitle-alien text-white opacity-90 mb-3">
+                  <p className="hero-subtitle-alien text-white opacity-90" style={{marginBottom: 'var(--space-lg)'}}>
                     Crea una identidad digital profesional que <strong>convierte contactos en clientes</strong>. 
                     <strong>Tarjetas interactivas</strong>, CVs optimizados con IA y presentaciones que cierran deals.
                   </p>
                   
                   {/* Destacar productos */}
-                  <div className="hero-products mb-4">
+                  <div className="hero-products" style={{marginBottom: 'var(--space-md)'}}>
                     <div className="d-flex flex-wrap gap-2 justify-content-center">
                       <span className="badge bg-success px-3 py-2">🛸 Tarjetas • GRATIS</span>
                       <span className="badge bg-warning text-dark px-3 py-2">🚀 CVs Alienígenas</span>
@@ -987,11 +997,12 @@ export default function HomePage() {
                   </div>
                   
                   {/* CTA de Abducción */}
-                  <div className="hero-ctas mb-3 text-center">
+                  <div className="hero-ctas text-center" style={{marginBottom: 'var(--space-md)'}}>
                     <Button 
                       size="lg"
-                      className="cta-abduction-primary mb-3"
+                      className="cta-abduction-primary"
                       onClick={handleDashboardAccess}
+                      style={{marginBottom: 'var(--space-sm)'}}
                     >
                       <span className="cta-icon">🛸</span>
                       Conectar con Indi GRATIS
@@ -1011,12 +1022,12 @@ export default function HomePage() {
           </div>
 
           {/* ¿Qué Puedes Hacer en Nuestra Plataforma? */}
-          <div className="productos-section py-5">
+          <div className="productos-section" style={{paddingTop: 'var(--space-xxl)', paddingBottom: 'var(--space-xl)'}}>
             <Container>
-              <Row className="justify-content-center mb-5">
+              <Row className="justify-content-center" style={{marginBottom: 'var(--space-xl)'}}>
                 <Col lg={8} xl={6}>
                   <div className="text-center">
-                    <h2 className="text-white mb-4" style={{ fontSize: '2.5rem', fontWeight: '800' }}>
+                    <h2 className="text-white" style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: 'var(--space-md)' }}>
                       ¿Qué Puedes Hacer en Nuestra <span className="hero-highlight-alien">Plataforma</span>?
                     </h2>
                   </div>
@@ -1025,7 +1036,7 @@ export default function HomePage() {
               
               <Row className="justify-content-center">
                 <Col lg={10} xl={8}>
-                  <Row className="g-4">
+                  <Row style={{gap: 'var(--space-lg)'}}>
                     <Col md={6}>
                     <div className="capability-card">
                       <div className="capability-icon mb-3">
@@ -1108,33 +1119,34 @@ export default function HomePage() {
           </div>
 
           {/* CTA Final */}
-          <div className="cta-section py-5">
+          <div className="cta-section" style={{paddingTop: 'var(--space-xl)', paddingBottom: 'var(--space-xxl)'}}>
             <Container>
               <Row className="justify-content-center">
                 <Col lg={8} xl={6}>
-                  <div className="final-cta text-center py-4">
+                  <div className="final-cta text-center" style={{padding: 'var(--space-lg)'}}>
 
-                <div className="mb-4">
-                  <span className="badge bg-success fs-4 px-4 py-3 mb-3" style={{background: 'linear-gradient(135deg, #10b981, #059669) !important'}}>
+                <div style={{marginBottom: 'var(--space-lg)'}}>
+                  <span className="badge bg-success fs-4 px-4 py-3" style={{background: 'linear-gradient(135deg, #10b981, #059669) !important', marginBottom: 'var(--space-md)'}}>
                     👽 TECNOLOGÍA ALIENÍGENA • PRUEBA GRATIS
                   </span>
                 </div>
-                <h3 className="text-white mb-4" style={{ fontSize: '2rem', fontWeight: '700' }}>
+                <h3 className="text-white" style={{ fontSize: '2rem', fontWeight: '700', marginBottom: 'var(--space-md)' }}>
                   ¿Listo para Atraer Más <span className="hero-highlight-alien">Clientes</span> y <span className="hero-highlight-alien">Oportunidades</span>?
                 </h3>
-                <p className="text-white opacity-85 mb-4" style={{ fontSize: '1.1rem' }}>
+                <p className="text-white opacity-85" style={{ fontSize: '1.1rem', marginBottom: 'var(--space-lg)' }}>
                   Únete a profesionales que ya están usando tecnología alienígena para cerrar más deals
                 </p>
                 <Button 
                   size="lg"
                   className="cta-final-button"
                   onClick={handleDashboardAccess}
+                  style={{marginBottom: 'var(--space-md)'}}
                 >
                   <span className="cta-icon">🛸</span>
                   Iniciar Viaje con Indi
                   <span className="cta-arrow">→</span>
                 </Button>
-                <div className="mt-3">
+                <div>
                   <small className="text-white opacity-75">
                     ✅ Tecnología única • ✅ Resultados garantizados • ✅ Sin compromisos
                   </small>
