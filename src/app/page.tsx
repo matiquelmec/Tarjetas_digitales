@@ -953,26 +953,26 @@ export default function HomePage() {
               <div className="particle space-particle-6"></div>
             </div>
             
-            <Row className="align-items-center min-vh-60">
+            <Row className="align-items-center min-vh-50">
               <Col lg={7}>
                 <div className="hero-content text-center text-lg-start">
                   <div className="alien-badge mb-3">
                     <span className="badge-alien">👽 Diseños de Otro Mundo • PRUEBA GRATIS</span>
                   </div>
                   
-                  <h1 className="hero-title-alien text-white mb-4">
+                  <h1 className="hero-title-alien text-white mb-3">
                     Multiplica tus Oportunidades
                     <br />
                     <span className="hero-highlight-alien">de Negocio</span>
                   </h1>
                   
-                  <p className="hero-subtitle-alien text-white opacity-90 mb-4">
+                  <p className="hero-subtitle-alien text-white opacity-90 mb-3">
                     Crea una identidad digital profesional que <strong>convierte contactos en clientes</strong>. 
                     <strong>Tarjetas interactivas</strong>, CVs optimizados con IA y presentaciones que cierran deals.
                   </p>
                   
                   {/* Destacar productos */}
-                  <div className="hero-products mb-4">
+                  <div className="hero-products mb-3">
                     <div className="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
                       <span className="badge bg-success px-3 py-2">🛸 Tarjetas • GRATIS</span>
                       <span className="badge bg-warning text-dark px-3 py-2">🚀 CVs Alienígenas</span>
@@ -981,7 +981,7 @@ export default function HomePage() {
                   </div>
                   
                   {/* CTA de Abducción */}
-                  <div className="hero-ctas mb-4">
+                  <div className="hero-ctas mb-3">
                     <Button 
                       size="lg"
                       className="cta-abduction-primary mb-3"
@@ -1039,10 +1039,10 @@ export default function HomePage() {
           </div>
 
           {/* ¿Qué Puedes Hacer en Nuestra Plataforma? */}
-          <Row className="justify-content-center mb-5">
+          <Row className="justify-content-center mb-3 mt-4">
             <Col lg={10} xl={8}>
               <div className="platform-capabilities text-center">
-                <h2 className="text-white mb-5" style={{ fontSize: '2.5rem', fontWeight: '800' }}>
+                <h2 className="text-white mb-3" style={{ fontSize: '2.5rem', fontWeight: '800' }}>
                   ¿Qué Puedes Hacer en Nuestra <span className="hero-highlight-alien">Plataforma</span>?
                 </h2>
                 
@@ -1128,9 +1128,9 @@ export default function HomePage() {
           </Row>
 
           {/* CTA Final */}
-          <Row className="justify-content-center">
+          <Row className="justify-content-center mt-3">
             <Col lg={8} xl={6}>
-              <div className="final-cta text-center py-5" style={{position: 'relative'}}>
+              <div className="final-cta text-center py-4" style={{position: 'relative'}}>
                 {/* Indi Estratégico */}
                 <div style={{position: 'absolute', top: '-10px', right: '20px', zIndex: 10}}>
                   <IndiLogo
