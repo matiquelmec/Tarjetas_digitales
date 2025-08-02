@@ -250,9 +250,18 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
                       <Link href="/dashboard" className="btn-nav btn-nav-outline">
                         🛸 Dashboard
                       </Link>
-                      <Link href="/create" className="btn-nav btn-nav-outline">
+                      <Link href="/create" className="btn-nav btn-nav-primary">
                         ✨ Crear
                       </Link>
+                      <button 
+                        onClick={() => signOut()} 
+                        className="btn-nav btn-nav-secondary"
+                      >
+                        👋 Salir
+                      </button>
+                      <div className="user-greeting d-none d-md-block">
+                        Hola, {session.user?.name?.split(' ')[0] || 'Terrícola'} 🛸
+                      </div>
                     </>
                   ) : (
                     <>
