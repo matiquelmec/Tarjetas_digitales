@@ -6,15 +6,16 @@ import Link from 'next/link';
 
 const BusinessCard = dynamic(() => import('@/features/digital-card/components/BusinessCard'), {
   loading: () => <div className="d-flex justify-content-center align-items-center" style={{ height: '400px' }}>
-    <div className="spinner-border text-light" role="status">
-      <span className="visually-hidden">Cargando holograma demo...</span>
+    <div className="hologram-loader">
+      <div className="hologram-spinner"></div>
+      <span className="loader-text">Materializando holograma...</span>
     </div>
   </div>,
   ssr: false
 });
 
 export default function DemoPage() {
-  // Datos demo con template Ocean
+  // Datos demo con template Ocean original
   const demoCardData = {
     name: 'Dr. María Elena Rodríguez',
     title: 'Especialista en Cardiología Clínica',
@@ -55,76 +56,327 @@ export default function DemoPage() {
   return (
     <>
       <style jsx global>{`
-        .demo-gradient-background {
-          background: linear-gradient(-45deg, #006994, #004d6b, #003947, #002633);
-          background-size: 400% 400%;
-          animation: oceanGradientAnimation 15s ease infinite;
-          min-height: 100vh;
+        body {
+          overflow-x: hidden;
         }
         
-        @keyframes oceanGradientAnimation {
+        .demo-gradient-background {
+          background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0, #006994, #003947);
+          background-size: 600% 600%;
+          animation: hypnoticGradientAnimation 20s ease infinite;
+          min-height: 100vh;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .demo-gradient-background::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: radial-gradient(circle at 20% 50%, rgba(0, 246, 255, 0.3) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(142, 45, 226, 0.3) 0%, transparent 50%),
+                      radial-gradient(circle at 40% 80%, rgba(0, 114, 255, 0.2) 0%, transparent 50%);
+          animation: stellarMovement 25s ease-in-out infinite;
+          pointer-events: none;
+        }
+        
+        @keyframes hypnoticGradientAnimation {
           0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
+          25% { background-position: 100% 50%; }
+          50% { background-position: 100% 100%; }
+          75% { background-position: 0% 100%; }
           100% { background-position: 0% 50%; }
         }
         
+        @keyframes stellarMovement {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          33% { transform: translate(30px, -20px) rotate(120deg); }
+          66% { transform: translate(-20px, 30px) rotate(240deg); }
+        }
+        
+        /* Partículas espaciales flotantes */
+        .space-particles {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: 1;
+        }
+        
+        .space-particle {
+          position: absolute;
+          color: rgba(0, 246, 255, 0.6);
+          font-size: 1rem;
+          animation: floatParticle 15s linear infinite;
+        }
+        
+        .particle-1 { top: 10%; left: 10%; animation-delay: 0s; font-size: 1.2rem; }
+        .particle-2 { top: 20%; left: 80%; animation-delay: -3s; font-size: 0.8rem; }
+        .particle-3 { top: 60%; left: 15%; animation-delay: -6s; font-size: 1rem; }
+        .particle-4 { top: 80%; left: 70%; animation-delay: -9s; font-size: 1.1rem; }
+        .particle-5 { top: 40%; left: 90%; animation-delay: -12s; font-size: 0.9rem; }
+        .particle-6 { top: 70%; left: 40%; animation-delay: -2s; font-size: 1.3rem; }
+        
+        @keyframes floatParticle {
+          0% { 
+            transform: translateY(0px) translateX(0px) rotate(0deg);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.8;
+          }
+          90% {
+            opacity: 0.8;
+          }
+          100% { 
+            transform: translateY(-100px) translateX(50px) rotate(360deg);
+            opacity: 0;
+          }
+        }
+        
+        /* Loader holográfico mejorado */
+        .hologram-loader {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+        }
+        
+        .hologram-spinner {
+          width: 60px;
+          height: 60px;
+          border: 3px solid transparent;
+          border-top: 3px solid #00f6ff;
+          border-right: 3px solid #8e2de2;
+          border-radius: 50%;
+          animation: hologramSpin 1.5s linear infinite;
+          position: relative;
+        }
+        
+        .hologram-spinner::before {
+          content: '';
+          position: absolute;
+          top: -3px;
+          left: -3px;
+          right: -3px;
+          bottom: -3px;
+          border: 2px solid transparent;
+          border-left: 2px solid #0072ff;
+          border-bottom: 2px solid #4a00e0;
+          border-radius: 50%;
+          animation: hologramSpin 2s linear infinite reverse;
+        }
+        
+        @keyframes hologramSpin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        
+        .loader-text {
+          color: #00f6ff;
+          font-weight: 600;
+          font-size: 1rem;
+          text-shadow: 0 0 10px rgba(0, 246, 255, 0.5);
+          animation: textPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes textPulse {
+          0%, 100% { opacity: 0.7; }
+          50% { opacity: 1; }
+        }
+        
         .demo-header {
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(20px);
-          border-radius: 20px;
-          padding: 2rem;
-          margin-bottom: 2rem;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.15), 
+            rgba(255, 255, 255, 0.05));
+          backdrop-filter: blur(25px);
+          border-radius: 24px;
+          padding: 3rem 2rem;
+          margin-bottom: 3rem;
+          border: 2px solid rgba(0, 246, 255, 0.3);
           text-align: center;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 
+            0 8px 32px rgba(0, 246, 255, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .demo-header::before {
+          content: '';
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          right: -2px;
+          bottom: -2px;
+          background: linear-gradient(45deg, 
+            transparent, #00f6ff, transparent, #8e2de2, transparent);
+          background-size: 200% 200%;
+          border-radius: inherit;
+          z-index: -1;
+          opacity: 0.6;
+          animation: holographicBorder 4s linear infinite;
+        }
+        
+        @keyframes holographicBorder {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
         }
         
         .demo-title {
           color: #ffffff;
+          font-size: 2.8rem;
+          font-weight: 900;
           text-shadow: 
-            0 0 10px rgba(0, 212, 255, 0.8),
-            0 0 20px rgba(0, 212, 255, 0.6),
-            0 0 40px rgba(0, 212, 255, 0.4);
-          animation: oceanTitlePulse 3s ease-in-out infinite;
-          margin-bottom: 1rem;
+            0 0 20px rgba(0, 246, 255, 0.8),
+            0 0 40px rgba(0, 246, 255, 0.6),
+            0 0 80px rgba(0, 246, 255, 0.4);
+          animation: hypnoticTitlePulse 4s ease-in-out infinite;
+          margin-bottom: 1.5rem;
+          background: linear-gradient(135deg, #ffffff, #00f6ff, #ffffff);
+          background-size: 200% 200%;
+          animation: hypnoticTitlePulse 4s ease-in-out infinite,
+                     titleGradientShift 3s ease-in-out infinite;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
         
-        @keyframes oceanTitlePulse {
+        @keyframes hypnoticTitlePulse {
           0%, 100% { 
             text-shadow: 
-              0 0 10px rgba(0, 212, 255, 0.8),
-              0 0 20px rgba(0, 212, 255, 0.6),
-              0 0 40px rgba(0, 212, 255, 0.4);
+              0 0 20px rgba(0, 246, 255, 0.8),
+              0 0 40px rgba(0, 246, 255, 0.6),
+              0 0 80px rgba(0, 246, 255, 0.4);
+            transform: scale(1);
           }
           50% { 
             text-shadow: 
-              0 0 15px rgba(0, 212, 255, 1),
-              0 0 30px rgba(0, 212, 255, 0.8),
-              0 0 50px rgba(0, 212, 255, 0.6);
+              0 0 30px rgba(0, 246, 255, 1),
+              0 0 60px rgba(0, 246, 255, 0.8),
+              0 0 120px rgba(0, 246, 255, 0.6);
+            transform: scale(1.02);
           }
         }
         
+        @keyframes titleGradientShift {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        
         .demo-subtitle {
-          color: rgba(255, 255, 255, 0.9);
-          font-size: 1.2rem;
+          color: rgba(255, 255, 255, 0.95);
+          font-size: 1.3rem;
           margin-bottom: 2rem;
+          font-weight: 500;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
         
         .demo-card-container {
           display: flex;
           justify-content: center;
           align-items: center;
-          min-height: 60vh;
-          padding: 2rem 0;
+          min-height: 70vh;
+          padding: 3rem 0;
+          position: relative;
+        }
+        
+        /* Holograma contenedor de la tarjeta */
+        .hologram-card-wrapper {
+          position: relative;
+          transform-style: preserve-3d;
+          animation: hologramFloat 6s ease-in-out infinite;
+        }
+        
+        @keyframes hologramFloat {
+          0%, 100% { 
+            transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+          }
+          25% { 
+            transform: translateY(-10px) rotateX(2deg) rotateY(1deg);
+          }
+          50% { 
+            transform: translateY(-5px) rotateX(0deg) rotateY(-1deg);
+          }
+          75% { 
+            transform: translateY(-15px) rotateX(-1deg) rotateY(0.5deg);
+          }
+        }
+        
+        .hologram-card-wrapper::before {
+          content: '';
+          position: absolute;
+          top: -20px;
+          left: -20px;
+          right: -20px;
+          bottom: -20px;
+          background: conic-gradient(from 0deg, 
+            transparent, 
+            rgba(0, 246, 255, 0.4), 
+            transparent, 
+            rgba(142, 45, 226, 0.4), 
+            transparent);
+          border-radius: 30px;
+          z-index: -1;
+          animation: hologramSpin 8s linear infinite;
+          filter: blur(2px);
+        }
+        
+        .hologram-card-wrapper::after {
+          content: '';
+          position: absolute;
+          top: -10px;
+          left: -10px;
+          right: -10px;
+          bottom: -10px;
+          background: linear-gradient(45deg, 
+            rgba(0, 246, 255, 0.1), 
+            transparent, 
+            rgba(142, 45, 226, 0.1));
+          border-radius: 25px;
+          z-index: -1;
+          animation: hologramSpin 6s linear infinite reverse;
         }
         
         .demo-cta {
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(15px);
-          border: 1px solid rgba(0, 212, 255, 0.3);
-          border-radius: 20px;
-          padding: 2rem;
+          background: linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.15), 
+            rgba(255, 255, 255, 0.05));
+          backdrop-filter: blur(20px);
+          border: 2px solid rgba(0, 246, 255, 0.4);
+          border-radius: 24px;
+          padding: 3rem 2rem;
           text-align: center;
-          margin-top: 3rem;
+          margin-top: 4rem;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 
+            0 15px 45px rgba(0, 246, 255, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .demo-cta::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, 
+            transparent, 
+            rgba(0, 246, 255, 0.1), 
+            transparent);
+          animation: ctaScanline 3s ease-in-out infinite;
+        }
+        
+        @keyframes ctaScanline {
+          0% { left: -100%; }
+          100% { left: 100%; }
         }
         
         .demo-btn-create {
@@ -186,11 +438,82 @@ export default function DemoPage() {
         
         @media (max-width: 768px) {
           .demo-header {
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
           }
           
           .demo-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
+            line-height: 1.2;
+          }
+          
+          .demo-subtitle {
+            font-size: 1.1rem;
+            line-height: 1.4;
+          }
+          
+          .demo-card-container {
+            padding: 2rem 0;
+            min-height: 60vh;
+          }
+          
+          .hologram-card-wrapper {
+            max-width: 90% !important;
+          }
+          
+          .demo-cta {
+            padding: 2rem 1.5rem;
+            margin-top: 3rem;
+          }
+          
+          .demo-cta h3 {
+            font-size: 1.6rem !important;
+            line-height: 1.3 !important;
+          }
+          
+          .demo-cta p {
+            font-size: 1rem !important;
+            line-height: 1.5 !important;
+          }
+          
+          .demo-btn-create {
+            font-size: 0.95rem;
+            padding: 1rem 2rem;
+            width: 100%;
+            max-width: 280px;
+          }
+          
+          .demo-btn-back {
+            font-size: 0.9rem;
+            padding: 0.875rem 1.5rem;
+            width: 100%;
+            max-width: 250px;
+          }
+          
+          .demo-badge {
+            top: 15px;
+            right: 15px;
+            font-size: 0.75rem;
+            padding: 0.5rem 1rem;
+          }
+          
+          .space-particles {
+            display: none; /* Ocultar partículas en móvil para mejor performance */
+          }
+          
+          .hologram-card-wrapper::before,
+          .hologram-card-wrapper::after {
+            animation-duration: 12s; /* Animaciones más lentas en móvil */
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .demo-header {
+            padding: 1.5rem 1rem;
+          }
+          
+          .demo-title {
+            font-size: 1.7rem;
           }
           
           .demo-subtitle {
@@ -198,24 +521,26 @@ export default function DemoPage() {
           }
           
           .demo-card-container {
-            padding: 1rem 0;
+            padding: 1.5rem 0;
             min-height: 50vh;
           }
           
           .demo-cta {
-            padding: 1.5rem;
+            padding: 1.5rem 1rem;
           }
           
-          .demo-btn-create {
-            font-size: 1rem;
-            padding: 0.875rem 2rem;
+          .demo-cta h3 {
+            font-size: 1.4rem !important;
           }
           
-          .demo-badge {
-            top: 10px;
-            right: 10px;
-            font-size: 0.8rem;
-            padding: 0.4rem 0.8rem;
+          .demo-cta p {
+            font-size: 0.95rem !important;
+          }
+          
+          .demo-btn-create,
+          .demo-btn-back {
+            font-size: 0.9rem;
+            padding: 0.875rem 1.5rem;
           }
         }
       `}</style>
@@ -226,14 +551,24 @@ export default function DemoPage() {
       </div>
       
       <div className="demo-gradient-background">
-        <Container className="py-4">
+        {/* Partículas espaciales flotantes */}
+        <div className="space-particles">
+          <span className="space-particle particle-1">✨</span>
+          <span className="space-particle particle-2">🌟</span>
+          <span className="space-particle particle-3">⭐</span>
+          <span className="space-particle particle-4">💫</span>
+          <span className="space-particle particle-5">🔮</span>
+          <span className="space-particle particle-6">✦</span>
+        </div>
+        
+        <Container className="py-4" style={{ position: 'relative', zIndex: 2 }}>
           {/* Header */}
           <div className="demo-header">
             <h1 className="demo-title">
-              🌊 Experiencia Demo Ocean
+              🔮 Holograma Demo Intergaláctico
             </h1>
             <p className="demo-subtitle">
-              Así se ve una tarjeta digital profesional con nuestro template Ocean premium
+              Experiencia inmersiva de tarjeta digital con tecnología alienígena premium
             </p>
           </div>
           
@@ -241,7 +576,7 @@ export default function DemoPage() {
           <Row>
             <Col>
               <div className="demo-card-container">
-                <div style={{ maxWidth: '480px', width: '100%' }}>
+                <div className="hologram-card-wrapper" style={{ maxWidth: '480px', width: '100%' }}>
                   <BusinessCard
                     key={`demo-ocean-${demoCardData.template}`}
                     name={demoCardData.name}
@@ -282,21 +617,37 @@ export default function DemoPage() {
           <Row>
             <Col>
               <div className="demo-cta">
-                <h3 className="text-white mb-3" style={{ fontSize: '1.8rem', fontWeight: '700' }}>
-                  ¿Listo para Crear tu Propia <span style={{ color: '#00D4FF' }}>Tarjeta Ocean</span>?
+                <h3 className="text-white mb-4" style={{ 
+                  fontSize: '2.2rem', 
+                  fontWeight: '800',
+                  textShadow: '0 0 20px rgba(0, 246, 255, 0.6)',
+                  position: 'relative',
+                  zIndex: 2
+                }}>
+                  ¿Listo para Materializar tu <span style={{ 
+                    color: '#00f6ff',
+                    textShadow: '0 0 30px rgba(0, 246, 255, 0.8)'
+                  }}>Holograma Digital</span>?
                 </h3>
-                <p className="text-white opacity-90 mb-4" style={{ fontSize: '1.1rem' }}>
-                  Inicia tu misión intergaláctica y crea una tarjeta digital que impresione a tus contactos
+                <p className="text-white mb-5" style={{ 
+                  fontSize: '1.2rem',
+                  fontWeight: '500',
+                  opacity: '0.95',
+                  position: 'relative',
+                  zIndex: 2,
+                  textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'
+                }}>
+                  Inicia tu transmisión intergaláctica y crea una tarjeta digital que fascine a toda tu red de contactos
                 </p>
-                <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
+                <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-4" style={{ position: 'relative', zIndex: 2 }}>
                   <Link href="/create">
                     <Button className="demo-btn-create">
-                      🚀 Crear Mi Tarjeta Intergaláctica
+                      🛸 Materializar Mi Holograma
                     </Button>
                   </Link>
-                  <Link href="/dashboard/cards">
+                  <Link href="/">
                     <Button variant="outline-light" className="demo-btn-back">
-                      ← Volver a Flota
+                      ← Regresar a Base Espacial
                     </Button>
                   </Link>
                 </div>
