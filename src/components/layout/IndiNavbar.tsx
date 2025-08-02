@@ -84,7 +84,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
         .nav-actions-container {
           position: absolute;
           top: 20px;
-          right: 20px;
+          left: 20px;
           transform: none;
           z-index: 10;
           pointer-events: auto;
@@ -108,63 +108,66 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
         }
         
         .btn-nav-primary {
-          background: linear-gradient(135deg, #ff006e, #fb8500, #ffbe0b);
-          color: white;
-          border: none;
+          background: rgba(255, 255, 255, 0.9);
+          color: #1a1a1a;
+          border: 2px solid rgba(255, 255, 255, 0.3);
           font-weight: 700;
-          box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
+          box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+          backdrop-filter: blur(10px);
         }
         
         .btn-nav-primary:hover {
-          background: linear-gradient(135deg, #e8005a, #e07500, #f0b000);
+          background: rgba(255, 255, 255, 1);
           transform: translateY(-3px) scale(1.02);
-          box-shadow: 0 8px 25px rgba(255, 0, 110, 0.6);
-          color: white;
+          box-shadow: 0 8px 25px rgba(255, 255, 255, 0.5);
+          color: #000000;
+          border-color: rgba(255, 255, 255, 0.8);
         }
         
         .btn-nav-outline {
-          background: rgba(0, 246, 255, 0.1);
-          color: #00f6ff;
-          border: 2px solid #00f6ff;
+          background: rgba(255, 255, 255, 0.15);
+          color: white;
+          border: 2px solid rgba(255, 255, 255, 0.4);
           font-weight: 600;
-          box-shadow: 0 2px 10px rgba(0, 246, 255, 0.3);
+          box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
           backdrop-filter: blur(10px);
         }
         
         .btn-nav-outline:hover {
-          background: linear-gradient(135deg, #00f6ff, #0072ff);
-          border-color: #00f6ff;
+          background: rgba(255, 255, 255, 0.9);
+          border-color: rgba(255, 255, 255, 0.8);
           transform: translateY(-3px) scale(1.02);
-          color: white;
-          box-shadow: 0 6px 20px rgba(0, 246, 255, 0.5);
+          color: #1a1a1a;
+          box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
         }
         
         .btn-nav-secondary {
-          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          background: rgba(255, 255, 255, 0.2);
           color: white;
-          border: 2px solid #dc2626;
+          border: 2px solid rgba(255, 255, 255, 0.5);
           font-weight: 600;
-          box-shadow: 0 2px 10px rgba(220, 38, 38, 0.3);
+          box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(10px);
         }
         
         .btn-nav-secondary:hover {
-          background: linear-gradient(135deg, #b91c1c, #991b1b);
-          border-color: #b91c1c;
-          color: white;
+          background: rgba(255, 255, 255, 0.9);
+          border-color: rgba(255, 255, 255, 0.8);
+          color: #1a1a1a;
           transform: translateY(-3px) scale(1.02);
-          box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
+          box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
         }
         
         .user-greeting {
-          background: linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc);
+          background: rgba(255, 255, 255, 0.25);
           color: white;
           font-size: 0.85rem;
           font-weight: 600;
           padding: 8px 16px;
           border-radius: 20px;
-          border: 2px solid #a855f7;
-          box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
-          backdrop-filter: blur(10px);
+          border: 2px solid rgba(255, 255, 255, 0.4);
+          box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(15px);
           white-space: nowrap;
         }
         
@@ -180,7 +183,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             width: 100%;
             display: flex;
             justify-content: center;
-            right: auto;
+            left: auto;
           }
           
           .nav-actions {
