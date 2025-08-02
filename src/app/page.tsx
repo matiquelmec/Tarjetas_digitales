@@ -1012,9 +1012,9 @@ export default function HomePage() {
           </div>
 
           {/* ¿Qué Puedes Hacer en Nuestra Plataforma? */}
-          <div className="productos-section py-5">
+          <div className="productos-section py-3">
             <Container>
-              <Row className="justify-content-center mb-5">
+              <Row className="justify-content-center mb-3">
                 <Col lg={8} xl={6}>
                   <div className="text-center">
                     <h2 className="text-white mb-4" style={{ fontSize: '2.5rem', fontWeight: '800' }}>
