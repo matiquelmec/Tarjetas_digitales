@@ -1038,94 +1038,99 @@ export default function HomePage() {
             </Row>
           </div>
 
-          {/* ¿Qué Puedes Hacer en Nuestra Plataforma? */}
-          <Row className="justify-content-center mb-5">
-            <Col lg={10} xl={8}>
-              <div className="platform-capabilities text-center">
-                <h2 className="text-white mb-5" style={{ fontSize: '2.5rem', fontWeight: '800' }}>
-                  ¿Qué Puedes Hacer en Nuestra <span className="hero-highlight-alien">Plataforma</span>?
-                </h2>
-                
-                <Row className="g-4">
-                  <Col md={6} lg={3}>
-                    <div className="capability-card">
-                      <div className="capability-icon mb-3">
-                        🛸
-                      </div>
-                      <h4 className="capability-title text-white mb-3">
-                        Tarjetas de Otro Mundo
-                      </h4>
-                      <div className="mb-3">
-                        <span className="badge bg-success fs-6 px-3 py-2 mb-2">
-                          🎯 PRUEBA GRATIS
-                        </span>
-                      </div>
-                      <p className="capability-description text-white opacity-85">
-                        Crea tu tarjeta digital con diseño exclusivo y propiedades interactivas. Compártela fácilmente por WhatsApp y atrae más clientes para tu negocio con efectos visuales únicos que nadie más tiene.
-                      </p>
-                    </div>
-                  </Col>
-                  
-                  <Col md={6} lg={3}>
-                    <div className="capability-card">
-                      <div className="capability-icon mb-3">
-                        🚀
-                      </div>
-                      <h4 className="capability-title text-white mb-3">
-                        CVs con Inteligencia Alienígena
-                      </h4>
-                      <div className="mb-3">
-                        <span className="badge bg-warning text-dark fs-6 px-3 py-2 mb-2">
-                          📅 PRÓXIMAMENTE
-                        </span>
-                      </div>
-                      <p className="capability-description text-white opacity-85">
-                        Optimiza automáticamente tu currículum con IA avanzada. Usa plantillas ATS-friendly que pasan filtros automáticos y captan la atención de reclutadores al instante, multiplicando tus entrevistas de trabajo.
-                      </p>
-                    </div>
-                  </Col>
-                  
-                  <Col md={6} lg={3}>
-                    <div className="capability-card">
-                      <div className="capability-icon mb-3">
-                        📡
-                      </div>
-                      <h4 className="capability-title text-white mb-3">
-                        Presentaciones Inmersivas
-                      </h4>
-                      <div className="mb-3">
-                        <span className="badge bg-info fs-6 px-3 py-2 mb-2">
-                          🔧 EN DESARROLLO
-                        </span>
-                      </div>
-                      <p className="capability-description text-white opacity-85">
-                        Hipnotiza a tu audiencia con presentaciones cinematográficas que convierten ideas en resultados. Elementos interactivos y transiciones que cierran más deals y generan impacto duradero en clientes.
-                      </p>
-                    </div>
-                  </Col>
-                  
-                  <Col md={6} lg={3}>
-                    <div className="capability-card">
-                      <div className="capability-icon mb-3">
-                        🌟
-                      </div>
-                      <h4 className="capability-title text-white mb-3">
-                        Ecosistema Completo
-                      </h4>
-                      <div className="mb-3">
-                        <span className="badge bg-gradient fs-6 px-3 py-2 mb-2" style={{background: 'linear-gradient(135deg, #00f6ff, #0072ff)'}}>
-                          🎯 TODO INCLUIDO
-                        </span>
-                      </div>
-                      <p className="capability-description text-white opacity-85">
-                        Una plataforma integral donde tu identidad profesional evoluciona constantemente
-                      </p>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-            </Col>
-          </Row>
+          {/* PRODUCTOS PRINCIPALES - Sección destacada */}
+          <div className="productos-principales py-5 my-5">
+            <Container>
+              <Row className="justify-content-center mb-5">
+                <Col lg={10} xl={8}>
+                  <div className="platform-capabilities text-center">
+                    <h2 className="text-white mb-5" style={{ fontSize: '2.5rem', fontWeight: '800' }}>
+                      ¿Qué Puedes Hacer en Nuestra <span className="hero-highlight-alien">Plataforma</span>?
+                    </h2>
+                    
+                    <Row className="g-4">
+                      <Col md={6} lg={3}>
+                        <div className="capability-card">
+                          <div className="capability-icon mb-3">
+                            🛸
+                          </div>
+                          <h4 className="capability-title text-white mb-3">
+                            Tarjetas de Otro Mundo
+                          </h4>
+                          <div className="mb-3">
+                            <span className="badge bg-success fs-6 px-3 py-2 mb-2">
+                              🎯 PRUEBA GRATIS
+                            </span>
+                          </div>
+                          <p className="capability-description text-white opacity-85">
+                            Crea tu tarjeta digital con diseño exclusivo y propiedades interactivas. Compártela fácilmente por WhatsApp y atrae más clientes para tu negocio con efectos visuales únicos que nadie más tiene.
+                          </p>
+                        </div>
+                      </Col>
+                      
+                      <Col md={6} lg={3}>
+                        <div className="capability-card">
+                          <div className="capability-icon mb-3">
+                            🚀
+                          </div>
+                          <h4 className="capability-title text-white mb-3">
+                            CVs con Inteligencia Alienígena
+                          </h4>
+                          <div className="mb-3">
+                            <span className="badge bg-warning text-dark fs-6 px-3 py-2 mb-2">
+                              📅 PRÓXIMAMENTE
+                            </span>
+                          </div>
+                          <p className="capability-description text-white opacity-85">
+                            Optimiza automáticamente tu currículum con IA avanzada. Usa plantillas ATS-friendly que pasan filtros automáticos y captan la atención de reclutadores al instante, multiplicando tus entrevistas de trabajo.
+                          </p>
+                        </div>
+                      </Col>
+                      
+                      <Col md={6} lg={3}>
+                        <div className="capability-card">
+                          <div className="capability-icon mb-3">
+                            📡
+                          </div>
+                          <h4 className="capability-title text-white mb-3">
+                            Presentaciones Inmersivas
+                          </h4>
+                          <div className="mb-3">
+                            <span className="badge bg-info fs-6 px-3 py-2 mb-2">
+                              🔧 EN DESARROLLO
+                            </span>
+                          </div>
+                          <p className="capability-description text-white opacity-85">
+                            Hipnotiza a tu audiencia con presentaciones cinematográficas que convierten ideas en resultados. Elementos interactivos y transiciones que cierran más deals y generan impacto duradero en clientes.
+                          </p>
+                        </div>
+                      </Col>
+                      
+                      <Col md={6} lg={3}>
+                        <div className="capability-card">
+                          <div className="capability-icon mb-3">
+                            🌟
+                          </div>
+                          <h4 className="capability-title text-white mb-3">
+                            Ecosistema Completo
+                          </h4>
+                          <div className="mb-3">
+                            <span className="badge bg-gradient fs-6 px-3 py-2 mb-2" style={{background: 'linear-gradient(135deg, #00f6ff, #0072ff)'}}>
+                              🎯 TODO INCLUIDO
+                            </span>
+                          </div>
+                          <p className="capability-description text-white opacity-85">
+                            Una plataforma integral donde tu identidad profesional evoluciona constantemente
+                          </p>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+
 
           {/* CTA Final */}
           <Row className="justify-content-center">
