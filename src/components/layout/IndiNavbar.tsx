@@ -88,67 +88,132 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
           transform: translateY(-50%);
           z-index: 10;
           pointer-events: auto;
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(20px);
+          border-radius: 25px;
+          padding: 12px 20px;
+          border: 1px solid rgba(0, 246, 255, 0.2);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
         .nav-actions {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.75rem;
+          gap: 0.5rem;
           align-items: center;
         }
         
         .btn-nav {
-          font-size: 0.9rem;
-          font-weight: 600;
-          padding: 0.5rem 1rem;
-          border-radius: 25px;
-          transition: all 0.3s ease;
+          font-size: 0.85rem;
+          font-weight: 700;
+          padding: 10px 18px;
+          border-radius: 20px;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           text-decoration: none;
           border: none;
+          position: relative;
+          overflow: hidden;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+        
+        .btn-nav::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transition: left 0.6s ease;
+        }
+        
+        .btn-nav:hover::before {
+          left: 100%;
         }
         
         .btn-nav-primary {
-          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          background: linear-gradient(135deg, #00f6ff, #0072ff, #8e2de2);
+          background-size: 200% 200%;
+          animation: alienPulse 3s ease-in-out infinite;
           color: white;
           border: none;
+          box-shadow: 0 4px 15px rgba(0, 246, 255, 0.4);
+        }
+        
+        @keyframes alienPulse {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
         }
         
         .btn-nav-primary:hover {
-          background: linear-gradient(135deg, #00d4e7, #0056cc);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(0, 246, 255, 0.3);
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 8px 25px rgba(0, 246, 255, 0.6);
           color: white;
         }
         
         .btn-nav-outline {
-          background: transparent;
+          background: rgba(0, 246, 255, 0.1);
           color: #00f6ff;
-          border: 2px solid rgba(0, 246, 255, 0.5);
+          border: 2px solid rgba(0, 246, 255, 0.6);
+          backdrop-filter: blur(10px);
+          box-shadow: 0 2px 10px rgba(0, 246, 255, 0.2);
         }
         
         .btn-nav-outline:hover {
-          background: rgba(0, 246, 255, 0.1);
+          background: rgba(0, 246, 255, 0.2);
           border-color: #00f6ff;
-          transform: translateY(-2px);
-          color: #00f6ff;
+          transform: translateY(-3px) scale(1.05);
+          color: #ffffff;
+          box-shadow: 0 6px 20px rgba(0, 246, 255, 0.4);
         }
         
         .btn-nav-secondary {
           background: rgba(255, 255, 255, 0.1);
-          color: rgba(255, 255, 255, 0.8);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: rgba(255, 255, 255, 0.9);
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          backdrop-filter: blur(10px);
         }
         
         .btn-nav-secondary:hover {
           background: rgba(255, 255, 255, 0.2);
           color: white;
-          transform: translateY(-2px);
+          transform: translateY(-3px) scale(1.05);
+          border-color: rgba(255, 255, 255, 0.5);
+          box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
         }
         
         .user-greeting {
-          color: rgba(255, 255, 255, 0.9);
-          font-size: 0.9rem;
-          font-weight: 500;
+          background: linear-gradient(135deg, rgba(0, 246, 255, 0.2), rgba(142, 45, 226, 0.2));
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(0, 246, 255, 0.3);
+          border-radius: 20px;
+          padding: 8px 16px;
+          color: #00f6ff;
+          font-size: 0.85rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          white-space: nowrap;
+          box-shadow: 0 4px 15px rgba(0, 246, 255, 0.2);
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .user-greeting::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(0, 246, 255, 0.1), transparent);
+          animation: greetingScan 3s ease-in-out infinite;
+        }
+        
+        @keyframes greetingScan {
+          0%, 100% { left: -100%; }
+          50% { left: 100%; }
         }
         
         @media (max-width: 768px) {
@@ -163,23 +228,36 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             width: 100%;
             display: flex;
             justify-content: center;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px);
+            border-radius: 30px;
+            padding: 16px 24px;
+            border: 1px solid rgba(0, 246, 255, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
           }
           
           .nav-actions {
-            gap: 0.5rem;
+            gap: 0.4rem;
             justify-content: center;
             flex-wrap: wrap;
+            width: 100%;
           }
           
           .btn-nav {
-            font-size: 0.8rem;
-            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+            padding: 8px 14px;
+            border-radius: 18px;
+            flex: 1;
+            min-width: fit-content;
+            text-align: center;
           }
           
           .user-greeting {
             text-align: center;
             width: 100%;
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            padding: 6px 12px;
           }
         }
         
@@ -223,14 +301,14 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
                 <div className="nav-actions">
                   {session ? (
                     <>
-                      <Link href="/pricing" className="btn-nav btn-nav-outline">
-                        ⭐ Actualizar Plan
+                      <Link href="/create" className="btn-nav btn-nav-primary">
+                        ✨ Crear
                       </Link>
                       <Link href="/dashboard" className="btn-nav btn-nav-outline">
                         🛸 Dashboard
                       </Link>
-                      <Link href="/create" className="btn-nav btn-nav-primary">
-                        ✨ Crear
+                      <Link href="/pricing" className="btn-nav btn-nav-outline">
+                        ⭐ Planes
                       </Link>
                       <button 
                         onClick={() => signOut()} 
@@ -238,7 +316,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
                       >
                         👋 Salir
                       </button>
-                      <div className="user-greeting d-none d-md-block">
+                      <div className="user-greeting">
                         Hola, {session.user?.name?.split(' ')[0] || 'Terrícola'} 🛸
                       </div>
                     </>
