@@ -5,8 +5,28 @@ import './custom.css';
 import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
-  title: "Plataforma Digital Profesional - Tarjetas, CVs y Presentaciones",
-  description: "Transforma tu identidad profesional en una experiencia digital hipnotizante. Tarjetas digitales premium, CVs inteligentes y presentaciones inmersivas.",
+  title: "Indi - Plataforma Digital Profesional Intergaláctica",
+  description: "Transforma tu identidad profesional en una experiencia digital hipnotizante con Indi, tu embajador intergaláctico. Tarjetas digitales premium, CVs inteligentes y presentaciones inmersivas.",
+  keywords: "tarjetas digitales, CVs inteligentes, presentaciones inmersivas, identidad digital, networking profesional, Indi",
+  authors: [{ name: "Indi Platform" }],
+  creator: "Indi - Embajador Intergaláctico",
+  openGraph: {
+    title: "Indi - Plataforma Digital Profesional Intergaláctica",
+    description: "Transforma tu identidad profesional con diseños de otro mundo",
+    images: ["/logo.png"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Indi - Plataforma Digital Profesional",
+    description: "Diseños de otro mundo para profesionales terrestres",
+    images: ["/logo.png"],
+  },
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({

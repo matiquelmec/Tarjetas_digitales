@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { usePostLoginRedirect } from '@/hooks/usePostLoginRedirect';
+import IndiLogo from '@/components/ui/IndiLogo';
 
 type ServiceStatus = 'available' | 'coming-soon' | 'contact-us';
 
@@ -894,8 +895,23 @@ export default function HomePage() {
       `}</style>
       <div className="animated-gradient-background min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <Container fluid className="py-5">
-          {/* Top-right navigation */}
-          <Row className="justify-content-end mb-4">
+          {/* Navigation Header */}
+          <Row className="justify-content-between align-items-center mb-4">
+            {/* Logo Indi - Top Left */}
+            <Col xs="auto">
+              <IndiLogo
+                variant="navbar"
+                size="md"
+                animated={true}
+                interactive={true}
+                showName={true}
+                href="/"
+                state="greeting"
+                message="¡Hola terrícola! 👋"
+              />
+            </Col>
+            
+            {/* Navigation - Top Right */}
             <Col xs="auto">
               <div className="d-flex flex-column flex-sm-row gap-2 align-items-center">
                 {session ? (
@@ -966,7 +982,7 @@ export default function HomePage() {
                       onClick={handleDashboardAccess}
                     >
                       <span className="cta-icon">🛸</span>
-                      Iniciar Abducción
+                      Conectar con Indi
                       <span className="cta-arrow">→</span>
                     </Button>
                   </div>
@@ -994,10 +1010,19 @@ export default function HomePage() {
                     <div className="hologram-glow"></div>
                     <div className="card-hologram">
                       <div className="holo-header">
-                        <div className="profile-alien">👽</div>
+                        <div className="profile-alien">
+                          <IndiLogo
+                            variant="hero"
+                            size="sm"
+                            animated={true}
+                            interactive={false}
+                            showName={false}
+                            state="normal"
+                          />
+                        </div>
                         <div className="profile-data">
-                          <h4>Profesional Intergaláctico</h4>
-                          <p>Especialista en Networking</p>
+                          <h4>Indi - Embajador Intergaláctico</h4>
+                          <p>Especialista en Identidad Digital</p>
                         </div>
                       </div>
                       <div className="holo-features">
@@ -1098,15 +1123,15 @@ export default function HomePage() {
                   ¿Listo para Atraer Más <span className="hero-highlight-alien">Clientes</span> y <span className="hero-highlight-alien">Oportunidades</span>?
                 </h3>
                 <p className="text-white opacity-85 mb-4" style={{ fontSize: '1.1rem' }}>
-                  Únete a profesionales que ya están cerrando más deals con nuestra plataforma
+                  Únete a profesionales que ya están cerrando más deals con la tecnología de Indi
                 </p>
                 <Button 
                   size="lg"
                   className="cta-final-button"
                   onClick={handleDashboardAccess}
                 >
-                  <span className="cta-icon">🚀</span>
-                  Crear Mi Identidad Digital Gratis
+                  <span className="cta-icon">🛸</span>
+                  Comenzar Viaje con Indi
                   <span className="cta-arrow">→</span>
                 </Button>
               </div>
