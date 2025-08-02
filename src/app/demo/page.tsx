@@ -140,6 +140,9 @@ export default function DemoPage() {
         .card-wrapper {
           max-width: 480px;
           width: 100%;
+          margin: 0 auto;
+          display: flex;
+          justify-content: center;
         }
         
         .demo-cta {
@@ -328,6 +331,7 @@ export default function DemoPage() {
             <Col>
               <div className="demo-card-container">
                 <div className="card-wrapper">
+                  <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                   <BusinessCard
                     key={`demo-ocean-${demoCardData.template}`}
                     name={demoCardData.name}
@@ -359,6 +363,7 @@ export default function DemoPage() {
                     buttonSecondaryHoverColor={demoCardData.buttonSecondaryHoverColor}
                     buttonNormalBackgroundColor={demoCardData.buttonNormalBackgroundColor}
                   />
+                  </div>
                 </div>
               </div>
             </Col>
