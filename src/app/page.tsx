@@ -1235,7 +1235,7 @@ export default function HomePage() {
                       </Button>
                       <div className="mt-3">
                         <small className="text-white opacity-75">
-                          🚀 Acceso inmediato • 🛸 Sin compromisos • ✨ Tecnología única
+                          ✅ Sin compromisos • ✅ Resultados inmediatos • ✅ Tecnología única
                         </small>
                       </div>
                     </div>
