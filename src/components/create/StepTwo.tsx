@@ -1034,7 +1034,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
 
       {/* Visual Effects */}
       <div className="mb-4">
-        <h5 className="mb-3">✨ Efectos Visuales (Premium)</h5>
+        <h5 className="mb-3">✨ Efectos Visuales <span className="badge bg-warning">PREMIUM</span></h5>
         
         <Row>
           <Col md={6}>
