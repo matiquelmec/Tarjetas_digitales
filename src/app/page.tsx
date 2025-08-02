@@ -981,7 +981,7 @@ export default function HomePage() {
                   </div>
                   
                   {/* CTA de Abducción */}
-                  <div className="hero-ctas mb-3">
+                  <div className="hero-ctas mb-3 text-center">
                     <Button 
                       size="lg"
                       className="cta-abduction-primary mb-3"
@@ -994,7 +994,7 @@ export default function HomePage() {
                   </div>
                   
                   {/* Beneficios clave */}
-                  <div className="hero-benefits">
+                  <div className="hero-benefits text-center">
                     <small className="text-white opacity-85">
                       ✅ Sin compromisos • ✅ Resultados inmediatos • ✅ Tecnología única
                     </small>
