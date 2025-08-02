@@ -433,6 +433,45 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
           boxShadow: '0 1px 8px rgba(0,0,0,0.1)',
         },
       },
+      ocean: {
+        cardStyle: {
+          background: 'linear-gradient(135deg, #006994 0%, #004d6b 50%, #003947 100%)',
+          border: '2px solid rgba(0, 212, 255, 0.3)',
+          borderRadius: '20px',
+          boxShadow: '0 8px 32px rgba(0, 212, 255, 0.2)',
+        },
+        headerStyle: {
+          background: 'transparent',
+          borderBottom: 'none',
+          textAlign: 'center' as const,
+          padding: '2rem 2rem 1rem',
+        },
+        nameStyle: {
+          fontSize: '1.8rem',
+          fontWeight: '700',
+          color: '#ffffff',
+          textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+          marginBottom: '0.5rem',
+        },
+        titleStyle: {
+          fontSize: '1.1rem',
+          fontWeight: '500',
+          color: 'rgba(255, 255, 255, 0.9)',
+          marginBottom: '1rem',
+        },
+        aboutStyle: {
+          fontSize: '0.95rem',
+          fontWeight: '400',
+          color: 'rgba(255, 255, 255, 0.85)',
+          marginBottom: '1rem',
+          lineHeight: '1.5',
+        },
+        photoStyle: {
+          borderRadius: '50%',
+          border: '3px solid rgba(0, 212, 255, 0.4)',
+          boxShadow: '0 4px 16px rgba(0, 212, 255, 0.3)',
+        },
+      },
     };
     
     return templates[templateId as keyof typeof templates] || templates.modern;
