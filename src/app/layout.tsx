@@ -36,11 +36,39 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body style={{
-        fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
-        margin: 0,
-        padding: 0
-      }}>
+      <head>
+        {/* Preload critical resources */}
+        <link rel="preload" href="/logo.png" as="image" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" 
+          rel="stylesheet"
+        />
+        {/* Critical CSS inline para evitar FOUC */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            body { 
+              margin: 0; 
+              padding: 0; 
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
+              min-height: 100vh;
+            }
+            .page-loading {
+              background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
+              background-size: 400% 400%;
+              animation: gradientAnimation 3s ease infinite;
+            }
+            @keyframes gradientAnimation {
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
+            }
+          `
+        }} />
+      </head>
+      <body>
         <Providers>
           {children}
         </Providers>
