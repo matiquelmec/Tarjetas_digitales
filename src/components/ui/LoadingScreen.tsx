@@ -11,11 +11,11 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
   const [currentMessage, setCurrentMessage] = useState(0);
   
   const loadingMessages = [
-    "🛸 Conectando con la nave nodriza...",
-    "👽 Descifrando tecnología alienígena...", 
-    "🌌 Calibrando efectos intergalácticos...",
+    "🆔 Conectando con servidores empresariales...",
+    "💼 Procesando datos profesionales...", 
+    "📊 Calibrando herramientas de presentación...",
     "✨ Preparando experiencia inmersiva...",
-    "🚀 ¡Listo para despegar!"
+    "🚀 ¡Listo para impresionar!"
   ];
 
   useEffect(() => {
@@ -316,9 +316,9 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
       
       {/* Partículas de fondo */}
       <div className="loading-particles">
-        <div className="particle particle-1">🛸</div>
-        <div className="particle particle-2">👽</div>
-        <div className="particle particle-3">🌌</div>
+        <div className="particle particle-1">🆔</div>
+        <div className="particle particle-2">💼</div>
+        <div className="particle particle-3">📊</div>
         <div className="particle particle-4">✨</div>
         <div className="particle particle-5">🚀</div>
         <div className="particle particle-6">💫</div>
@@ -326,7 +326,7 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
       </div>
       
       <div className="loading-content">
-        <div className="loading-logo">🛸</div>
+        <div className="loading-logo">🆔</div>
         
         <h1 className="loading-title">
           Indi Platform
@@ -349,7 +349,7 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
         </div>
         
         <div className="loading-subtitle">
-          Diseños de otro mundo para profesionales terrestres
+          Tarjetas digitales premium para profesionales modernos
         </div>
       </div>
     </div>

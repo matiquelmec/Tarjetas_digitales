@@ -151,15 +151,15 @@ export default function PresentationsPage() {
           <Col lg={8} xl={6}>
             <Card className="intergalactic-card text-center p-5 text-white border-0">
               <div className="floating-particles">
-                <div className="particle particle-1">📡</div>
+                <div className="particle particle-1">📊</div>
                 <div className="particle particle-2">🌌</div>
                 <div className="particle particle-3">⭐</div>
-                <div className="particle particle-4">🛸</div>
+                <div className="particle particle-4">📈</div>
               </div>
               
               <Card.Body className="position-relative" style={{ zIndex: 2 }}>
                 <h1 className="title-glow mb-4" style={{ fontSize: '3rem' }}>
-                  📡 Presentaciones Intergalácticas
+                  📊 Presentaciones Profesionales
                 </h1>
                 
                 <p className="subtitle-alien mb-4">
@@ -178,8 +178,8 @@ export default function PresentationsPage() {
                   className="alien-btn"
                   href="/dashboard"
                 >
-                  <span style={{ marginRight: '8px' }}>🛸</span>
-                  Volver al Centro de Comando
+                  <span style={{ marginRight: '8px' }}>🏢</span>
+                  Volver al Dashboard
                 </Button>
               </Card.Body>
             </Card>

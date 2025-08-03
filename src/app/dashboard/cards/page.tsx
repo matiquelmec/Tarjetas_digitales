@@ -646,7 +646,7 @@ export default function DashboardCardsPage() {
                   🏠 Centro de Comando
                 </Link>
               </Breadcrumb.Item>
-              <Breadcrumb.Item active>🛸 Flota Intergaláctica</Breadcrumb.Item>
+              <Breadcrumb.Item active>🆔 Tarjetas Digitales</Breadcrumb.Item>
             </Breadcrumb>
           </div>
 
@@ -746,8 +746,8 @@ export default function DashboardCardsPage() {
                     <div className="spinner-border text-primary" role="status" style={{ width: '3rem', height: '3rem' }}>
                       <span className="visually-hidden">Cargando...</span>
                     </div>
-                    <h5 className="mt-3 text-white">Sincronizando con satélites espaciales...</h5>
-                    <p className="text-white opacity-75">Estableciendo conexión intergaláctica</p>
+                    <h5 className="mt-3 text-white">Cargando tus tarjetas digitales...</h5>
+                    <p className="text-white opacity-75">Conectando con la plataforma empresarial</p>
                   </div>
                 </div>
               ) : cards.length === 0 ? (
@@ -766,10 +766,10 @@ export default function DashboardCardsPage() {
                         </span>
                       </div>
                     </div>
-                    <h3 className="fw-bold text-white mb-3 alien-title-glow">¡Tu Flota Espacial Está Vacía!</h3>
+                    <h3 className="fw-bold text-white mb-3 alien-title-glow">¡Crea Tu Primera Tarjeta Digital!</h3>
                     <p className="text-white opacity-75 mb-4" style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
-                      Inicia tu primera misión intergaláctica creando una tarjeta de otro mundo. 
-                      <strong>Efectos holográficos, códigos QR dimensionales y transmisión por WhatsApp instantánea.</strong>
+                      Comienza a impresionar a tus contactos con una tarjeta digital profesional. 
+                      <strong>Efectos premium, códigos QR personalizados y compartir por WhatsApp instantáneo.</strong>
                     </p>
                     <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
                       <Link href="/create">
@@ -779,7 +779,7 @@ export default function DashboardCardsPage() {
                           className="fw-semibold px-5 py-3"
                           style={{ borderRadius: '16px' }}
                         >
-                          🚀 Lanzar Primera Misión
+                          🚀 Crear Mi Primera Tarjeta
                         </Button>
                       </Link>
                       <Button 
@@ -789,7 +789,7 @@ export default function DashboardCardsPage() {
                         style={{ borderRadius: '16px' }}
                         onClick={() => window.open('/demo', '_blank')}
                       >
-                        🔮 Ver Holograma Demo
+                        🔮 Ver Demo Interactivo
                       </Button>
                     </div>
                   </div>
