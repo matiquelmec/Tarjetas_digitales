@@ -48,22 +48,52 @@ export default function RootLayout({
         {/* Critical CSS inline para evitar FOUC */}
         <style dangerouslySetInnerHTML={{
           __html: `
+            * {
+              box-sizing: border-box;
+            }
+            
+            html {
+              height: 100%;
+              overflow-x: hidden;
+            }
+            
             body { 
               margin: 0; 
               padding: 0; 
               font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-              background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
+              background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0) !important;
+              background-size: 400% 400% !important;
+              animation: gradientAnimation 15s ease infinite !important;
               min-height: 100vh;
+              height: 100%;
+              overflow-x: hidden;
             }
-            .page-loading {
-              background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
-              background-size: 400% 400%;
-              animation: gradientAnimation 3s ease infinite;
+            
+            #__next {
+              min-height: 100vh;
+              background: transparent;
             }
+            
+            /* Evitar cualquier flash de contenido */
+            .app-content {
+              opacity: 0;
+              transition: opacity 0.3s ease;
+            }
+            
+            .app-content.loaded {
+              opacity: 1;
+            }
+            
             @keyframes gradientAnimation {
               0% { background-position: 0% 50%; }
               50% { background-position: 100% 50%; }
               100% { background-position: 0% 50%; }
+            }
+            
+            /* Prevenir scroll horizontal */
+            html, body {
+              overflow-x: hidden;
+              width: 100%;
             }
           `
         }} />

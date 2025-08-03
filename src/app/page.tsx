@@ -8,7 +8,6 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import { usePostLoginRedirect } from '@/hooks/usePostLoginRedirect';
 import IndiLogo from '@/components/ui/IndiLogo';
 import IndiNavbar from '@/components/layout/IndiNavbar';
-import PageTransition from '@/components/ui/PageTransition';
 
 type ServiceStatus = 'available' | 'coming-soon' | 'contact-us';
 
@@ -171,7 +170,7 @@ export default function HomePage() {
   };
   
   return (
-    <PageTransition>
+    <>
       <style jsx global>{`
         @keyframes gradientAnimation {
           0% { background-position: 0% 50%; }
@@ -1249,6 +1248,6 @@ export default function HomePage() {
         </Container>
         </div>
       </div>
-    </PageTransition>
+    </>
   );
 }
