@@ -1041,7 +1041,7 @@ export default function HomePage() {
         {/* Navigation Header */}
         <IndiNavbar 
           variant="transparent" 
-          position="sticky" 
+          position="relative" 
           showActions={true} 
         />
         
