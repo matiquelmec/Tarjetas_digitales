@@ -274,7 +274,12 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             
             {/* Acciones - Posición absoluta derecha */}
             {showActions && (
-              <div className="nav-actions-container">
+              <div className="nav-actions-container" style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                zIndex: 10
+              }}>
                 <div className="nav-actions">
                   {session ? (
                     <>
