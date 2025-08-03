@@ -771,17 +771,7 @@ export default function DashboardCardsPage() {
                       Comienza a impresionar a tus contactos con una tarjeta digital profesional. 
                       <strong>Efectos premium, códigos QR personalizados y compartir por WhatsApp instantáneo.</strong>
                     </p>
-                    <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-                      <Link href="/create">
-                        <Button 
-                          variant="primary" 
-                          size="lg" 
-                          className="fw-semibold px-5 py-3"
-                          style={{ borderRadius: '16px' }}
-                        >
-                          🚀 Crear Mi Primera Tarjeta
-                        </Button>
-                      </Link>
+                    <div className="d-flex justify-content-center">
                       <Button 
                         variant="outline-info" 
                         size="lg"
