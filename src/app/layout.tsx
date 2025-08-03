@@ -60,7 +60,7 @@ export default function RootLayout({
               margin: 0; 
               padding: 0; 
               font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-              background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0) !important;
+              background: linear-gradient(-45deg, #0f0c29, #24243e, #302b63, #1a1a2e) !important;
               background-size: 400% 400% !important;
               animation: gradientAnimation 15s ease infinite !important;
               min-height: 100vh;

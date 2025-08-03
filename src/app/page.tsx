@@ -178,7 +178,7 @@ export default function HomePage() {
           100% { background-position: 0% 50%; }
         }
         .animated-gradient-background {
-          background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
+          background: linear-gradient(-45deg, #0f0c29, #24243e, #302b63, #1a1a2e);
           background-size: 400% 400%;
           animation: gradientAnimation 15s ease infinite;
         }
@@ -354,16 +354,16 @@ export default function HomePage() {
         }
         
         .badge-alien {
-          background: linear-gradient(135deg, rgba(0, 246, 255, 0.15), rgba(142, 45, 226, 0.15));
-          border: 2px solid rgba(0, 246, 255, 0.6);
+          background: linear-gradient(135deg, rgba(0, 246, 255, 0.2), rgba(142, 45, 226, 0.2));
+          border: 2px solid rgba(0, 246, 255, 0.8);
           padding: 14px 28px;
           border-radius: 30px;
           color: #ffffff;
           font-size: clamp(0.9rem, 2.5vw, 1.1rem);
           font-weight: 800;
           backdrop-filter: blur(20px);
-          box-shadow: 0 12px 40px rgba(0, 246, 255, 0.3);
-          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 12px 40px rgba(0, 246, 255, 0.4);
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
           letter-spacing: 0.5px;
           text-transform: uppercase;
           white-space: nowrap;
@@ -440,12 +440,12 @@ export default function HomePage() {
           font-size: 1.2rem;
           text-transform: uppercase;
           letter-spacing: 1px;
-          box-shadow: 0 12px 40px rgba(0, 246, 255, 0.3);
+          box-shadow: 0 12px 40px rgba(0, 246, 255, 0.4);
         }
         
         .cta-abduction-primary:hover {
           transform: translateY(-4px) scale(1.05);
-          box-shadow: 0 20px 60px rgba(0, 246, 255, 0.5);
+          box-shadow: 0 20px 60px rgba(0, 246, 255, 0.6);
           background: linear-gradient(135deg, #00d4e7, #0056cc);
         }
         

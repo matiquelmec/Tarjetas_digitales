@@ -55,7 +55,7 @@ export default function AppInitializer({ children }: AppInitializerProps) {
         left: 0,
         right: 0,
         bottom: 0,
-        background: 'linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0)',
+        background: 'linear-gradient(-45deg, #0f0c29, #24243e, #302b63, #1a1a2e)',
         backgroundSize: '400% 400%',
         animation: 'gradientAnimation 15s ease infinite',
         zIndex: 9999
