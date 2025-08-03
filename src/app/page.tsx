@@ -1095,7 +1095,7 @@ export default function HomePage() {
                       onClick={handleDashboardAccess}
                     >
                       <span className="cta-icon">🚀</span>
-                      Comenzar Mi Identidad Digital GRATIS
+                      Comenzar a Diseñar GRATIS
                       <span className="cta-arrow">→</span>
                     </Button>
                   </div>
