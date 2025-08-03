@@ -1094,8 +1094,8 @@ export default function HomePage() {
                       className="cta-abduction-primary mb-3"
                       onClick={handleDashboardAccess}
                     >
-                      <span className="cta-icon">⚡</span>
-                      Crear Mi Identidad Digital GRATIS
+                      <span className="cta-icon">🚀</span>
+                      Comenzar Mi Identidad Digital GRATIS
                       <span className="cta-arrow">→</span>
                     </Button>
                   </div>
@@ -1222,15 +1222,15 @@ export default function HomePage() {
                         Tu Identidad Digital Te Está <span className="hero-highlight-alien">Esperando</span>
                       </h3>
                       <p className="text-white opacity-85 mb-4">
-                        Únete a la revolución intergaláctica del diseño profesional
+                        Comienza con tarjetas digitales y accede a CVs inteligentes, presentaciones y más herramientas próximamente
                       </p>
                       <Button 
                         size="lg"
                         className="btn-alien-final"
                         onClick={handleCreateCard}
                       >
-                        <span className="alien-icon">🆔</span>
-                        Crear Mi Tarjeta Digital
+                        <span className="alien-icon">🚀</span>
+                        Comenzar con Mi Tarjeta Digital
                         <span className="alien-trail">✨</span>
                       </Button>
                       <div className="mt-3">
