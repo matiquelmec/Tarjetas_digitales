@@ -82,6 +82,11 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
           text-align: center;
           color: white;
           max-width: 90%;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
         }
         
         .loading-logo {
@@ -238,26 +243,73 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
         
         /* Mobile optimizations */
         @media (max-width: 768px) {
+          .loading-screen {
+            padding: 1rem;
+            min-height: 100vh;
+            min-height: 100dvh; /* Para móviles modernos */
+          }
+          
+          .loading-content {
+            max-width: 95%;
+            padding: 1rem;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+          
           .loading-logo {
             font-size: 3rem;
             margin-bottom: 1.5rem;
           }
           
           .loading-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
           }
           
           .loading-message {
             font-size: 1rem;
             margin-bottom: 1.5rem;
+            line-height: 1.4;
+            padding: 0 1rem;
           }
           
           .progress-container {
-            max-width: 300px;
+            max-width: 280px;
+            width: 90%;
           }
           
           .particle {
-            font-size: 1.2rem;
+            font-size: 1rem;
+            opacity: 0.6;
+          }
+          
+          .progress-text {
+            font-size: 0.9rem;
+          }
+        }
+        
+        /* Para móviles muy pequeños */
+        @media (max-width: 480px) {
+          .loading-logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+          }
+          
+          .loading-title {
+            font-size: 1.5rem;
+          }
+          
+          .loading-message {
+            font-size: 0.9rem;
+            padding: 0 0.5rem;
+          }
+          
+          .progress-container {
+            max-width: 250px;
           }
         }
       `}</style>
