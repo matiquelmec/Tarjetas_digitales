@@ -1067,9 +1067,9 @@ export default function HomePage() {
                   </div>
                   
                   <h1 className="hero-title-alien text-white mb-3">
-                    Multiplica tus Oportunidades
+                    Lleva tu Imagen Personal
                     <br />
-                    <span className="hero-highlight-alien">de Negocio</span>
+                    <span className="hero-highlight-alien">al Siguiente Nivel</span>
                   </h1>
                   
                   <p className="hero-subtitle-alien text-white opacity-90 mb-3">
