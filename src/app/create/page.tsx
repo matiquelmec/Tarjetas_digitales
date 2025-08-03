@@ -444,6 +444,7 @@ export default function CreateCardPage() {
                         instagram={cardData.instagram}
                         twitter={cardData.twitter}
                         facebook={cardData.facebook}
+                        website={cardData.website}
                         buttonSecondaryColor={cardData.buttonSecondaryColor}
                         buttonNormalBackgroundColor={cardData.buttonNormalBackgroundColor}
                         buttonSecondaryHoverColor={cardData.buttonSecondaryHoverColor}

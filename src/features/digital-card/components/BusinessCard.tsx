@@ -35,6 +35,7 @@ interface BusinessCardProps {
   instagram: string;
   twitter: string;
   facebook: string;
+  website: string;
   buttonSecondaryColor: string;
   buttonNormalBackgroundColor: string;
   buttonSecondaryHoverColor: string;
@@ -185,7 +186,7 @@ const staticStyles = `
   }
 `;
 
-export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, enableParticles = false, particleType = 'floating', particleCount = 30, particleDensity = 3, particleColor = 'auto', whatsappShareUrl, appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, template = 'modern', fontFamily = 'Montserrat' }: BusinessCardProps) {
+export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, enableParticles = false, particleType = 'floating', particleCount = 30, particleDensity = 3, particleColor = 'auto', whatsappShareUrl, appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, website, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, template = 'modern', fontFamily = 'Montserrat' }: BusinessCardProps) {
   const [qrCodeValue, setQrCodeValue] = useState('');
 
   // Sistema de efectos visuales limpio y modular
@@ -1012,6 +1013,11 @@ ${formattedAbout ? `${formattedAbout}
               {facebook && (
                 <Button href={formatSocialUrl(facebook, 'facebook')} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
                   Facebook
+                </Button>
+              )}
+              {website && (
+                <Button href={website.startsWith('http') ? website : `https://${website}`} target="_blank" rel="noopener noreferrer" className="btn-outline-secondary-custom">
+                  Sitio Web
                 </Button>
               )}
             </Stack>

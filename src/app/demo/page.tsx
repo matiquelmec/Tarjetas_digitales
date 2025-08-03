@@ -42,6 +42,7 @@ export default function DemoPage() {
     instagram: 'https://instagram.com/dra.rodriguez.cardio',
     twitter: '',
     facebook: '',
+    website: 'https://drarodriguez.cl',
     
     // Todos los efectos premium activados
     enableHoverEffect: true,
@@ -350,6 +351,7 @@ export default function DemoPage() {
                     instagram={demoCardData.instagram}
                     twitter={demoCardData.twitter}
                     facebook={demoCardData.facebook}
+                    website={demoCardData.website}
                     enableHoverEffect={demoCardData.enableHoverEffect}
                     enableGlassmorphism={demoCardData.enableGlassmorphism}
                     enableSubtleAnimations={demoCardData.enableSubtleAnimations}
