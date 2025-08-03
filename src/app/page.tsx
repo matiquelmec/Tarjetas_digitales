@@ -1175,7 +1175,7 @@ export default function HomePage() {
                         </h4>
                       <div className="mb-3">
                         <span className="badge bg-info fs-6 px-3 py-2 mb-2">
-                          🔧 EN DESARROLLO
+                          📅 PRÓXIMAMENTE
                         </span>
                       </div>
                       <p className="capability-description text-white opacity-85">
