@@ -84,7 +84,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
         .nav-actions-container {
           position: absolute;
           top: 20px;
-          right: 20px;
+          left: 20px;
           transform: none;
           z-index: 10;
           pointer-events: auto;
