@@ -1081,7 +1081,7 @@ export default function HomePage() {
                   {/* Destacar productos */}
                   <div className="hero-products mb-4">
                     <div className="d-flex flex-wrap gap-2 justify-content-center">
-                      <span className="badge bg-success px-3 py-2">💳 Tarjetas Digitales • GRATIS</span>
+                      <span className="badge bg-success px-3 py-2">🆔 Tarjetas Digitales • GRATIS</span>
                       <span className="badge bg-warning text-dark px-3 py-2">📄 CVs Inteligentes</span>
                       <span className="badge bg-info px-3 py-2">📊 Presentaciones Pro</span>
                     </div>
@@ -1130,7 +1130,7 @@ export default function HomePage() {
                     <Col md={6}>
                     <div className="capability-card">
                       <div className="capability-icon mb-3">
-                        💳
+                        🆔
                       </div>
                       <h4 className="capability-title text-white mb-3">
                         Tarjetas Digitales Premium
@@ -1229,7 +1229,7 @@ export default function HomePage() {
                         className="btn-alien-final"
                         onClick={handleCreateCard}
                       >
-                        <span className="alien-icon">💳</span>
+                        <span className="alien-icon">🆔</span>
                         Crear Mi Tarjeta Digital
                         <span className="alien-trail">✨</span>
                       </Button>
