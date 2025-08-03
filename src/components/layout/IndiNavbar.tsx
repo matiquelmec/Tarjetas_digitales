@@ -3,6 +3,7 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import IndiLogo from '@/components/ui/IndiLogo';
 
@@ -18,6 +19,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
   showActions = true
 }) => {
   const { data: session } = useSession();
+  const pathname = usePathname();
 
   const getNavbarClasses = () => {
     let classes = 'indi-navbar-container';
@@ -217,17 +219,14 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             padding: 1rem 0;
           }
           
-          /* En móvil mantener posición fija en la derecha */
+          /* Ocultar botones superiores en móvil */
           .nav-actions-fixed-right {
-            position: fixed !important;
-            top: 20px !important;
-            right: 15px !important;
-            left: auto !important;
-            transform: none !important;
-            margin: 0 !important;
-            width: auto !important;
+            display: none !important;
+          }
+          
+          /* Mostrar bottom navigation en móvil */
+          .bottom-nav-mobile {
             display: block !important;
-            justify-content: flex-start !important;
           }
           
           .nav-actions {
@@ -269,6 +268,78 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
           margin: 0 !important;
           padding-left: 0 !important;
           padding-right: 0 !important;
+        }
+        
+        /* Bottom Navigation Bar para móvil */
+        .bottom-nav-mobile {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(15, 12, 41, 0.95);
+          backdrop-filter: blur(20px);
+          border-top: 1px solid rgba(0, 246, 255, 0.3);
+          padding: 0.75rem 0 calc(0.75rem + env(safe-area-inset-bottom));
+          z-index: 1000;
+          display: none;
+        }
+        
+        .bottom-nav-items {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          max-width: 500px;
+          margin: 0 auto;
+          padding: 0 1rem;
+        }
+        
+        .bottom-nav-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-decoration: none;
+          color: rgba(255, 255, 255, 0.7);
+          transition: all 0.3s ease;
+          padding: 0.5rem;
+          border-radius: 12px;
+          min-width: 60px;
+        }
+        
+        .bottom-nav-item:hover {
+          color: #00f6ff;
+          background: rgba(0, 246, 255, 0.1);
+          text-decoration: none;
+        }
+        
+        .bottom-nav-item.active {
+          color: #00f6ff;
+          background: rgba(0, 246, 255, 0.15);
+        }
+        
+        .bottom-nav-icon {
+          font-size: 1.2rem;
+          margin-bottom: 0.25rem;
+          filter: drop-shadow(0 0 4px rgba(0, 246, 255, 0.3));
+        }
+        
+        .bottom-nav-label {
+          font-size: 0.7rem;
+          font-weight: 600;
+          text-align: center;
+          line-height: 1;
+        }
+        
+        .bottom-nav-upgrade {
+          background: linear-gradient(135deg, #D4A017, #B8860B) !important;
+          color: white !important;
+          box-shadow: 0 4px 12px rgba(212, 160, 23, 0.4);
+        }
+        
+        .bottom-nav-upgrade:hover {
+          background: linear-gradient(135deg, #E5B41F, #CD950C) !important;
+          color: white !important;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(212, 160, 23, 0.5);
         }
       `}</style>
       
@@ -340,6 +411,61 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
           </Row>
         </Container>
       </div>
+      
+      {/* Bottom Navigation Bar para móvil */}
+      {showActions && (
+        <div className="bottom-nav-mobile">
+          <div className="bottom-nav-items">
+            {session ? (
+              <>
+                <Link href="/dashboard" className={`bottom-nav-item ${pathname === '/dashboard' || pathname.startsWith('/dashboard') ? 'active' : ''}`}>
+                  <div className="bottom-nav-icon">📊</div>
+                  <div className="bottom-nav-label">Dashboard</div>
+                </Link>
+                <Link href="/create" className={`bottom-nav-item ${pathname === '/create' ? 'active' : ''}`}>
+                  <div className="bottom-nav-icon">✨</div>
+                  <div className="bottom-nav-label">Crear</div>
+                </Link>
+                <Link href="/pricing" className={`bottom-nav-item bottom-nav-upgrade ${pathname === '/pricing' ? 'active' : ''}`}>
+                  <div className="bottom-nav-icon">⭐</div>
+                  <div className="bottom-nav-label">Plan</div>
+                </Link>
+                <button 
+                  onClick={() => signOut()} 
+                  className="bottom-nav-item"
+                  style={{ border: 'none', background: 'transparent' }}
+                >
+                  <div className="bottom-nav-icon">👋</div>
+                  <div className="bottom-nav-label">Salir</div>
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/" className={`bottom-nav-item ${pathname === '/' ? 'active' : ''}`}>
+                  <div className="bottom-nav-icon">🏠</div>
+                  <div className="bottom-nav-label">Inicio</div>
+                </Link>
+                <Link href="/demo" className={`bottom-nav-item ${pathname === '/demo' ? 'active' : ''}`}>
+                  <div className="bottom-nav-icon">🌟</div>
+                  <div className="bottom-nav-label">Demo</div>
+                </Link>
+                <Link href="/pricing" className={`bottom-nav-item ${pathname === '/pricing' ? 'active' : ''}`}>
+                  <div className="bottom-nav-icon">💰</div>
+                  <div className="bottom-nav-label">Precios</div>
+                </Link>
+                <button 
+                  onClick={() => signIn('google')} 
+                  className="bottom-nav-item"
+                  style={{ border: 'none', background: 'transparent' }}
+                >
+                  <div className="bottom-nav-icon">🚀</div>
+                  <div className="bottom-nav-label">Entrar</div>
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 };
