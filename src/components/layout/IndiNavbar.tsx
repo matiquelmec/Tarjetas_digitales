@@ -229,6 +229,16 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             display: block !important;
           }
           
+          /* Agregar espacio al body para bottom navigation */
+          body {
+            padding-bottom: 80px !important;
+          }
+          
+          /* Asegurar que el contenido principal tenga espacio */
+          .container, .container-fluid {
+            margin-bottom: 80px !important;
+          }
+          
           .nav-actions {
             gap: 0.5rem;
             justify-content: center;
