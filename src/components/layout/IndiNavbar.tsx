@@ -15,7 +15,7 @@ interface IndiNavbarProps {
 
 const IndiNavbar: React.FC<IndiNavbarProps> = ({
   variant = 'transparent',
-  position = 'relative',
+  position = 'fixed',
   showActions = true
 }) => {
   const { data: session } = useSession();
