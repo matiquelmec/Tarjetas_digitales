@@ -323,7 +323,7 @@ export default function CreateCardPage() {
       
       <div className="animated-gradient-background">
         {/* Navbar con Indi */}
-        <IndiNavbar variant="gradient" position="sticky" showActions={true} />
+        <IndiNavbar variant="transparent" position="sticky" showActions={true} />
         
         <Container className="py-4">
           {/* Header */}
