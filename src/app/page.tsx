@@ -1051,19 +1051,19 @@ export default function HomePage() {
           <div className="hero-intergalactico">
             {/* Partículas espaciales de fondo */}
             <div className="space-particles">
-              <div className="particle space-particle-1"></div>
-              <div className="particle space-particle-2"></div>
-              <div className="particle space-particle-3"></div>
-              <div className="particle space-particle-4"></div>
-              <div className="particle space-particle-5"></div>
-              <div className="particle space-particle-6"></div>
+              <div className="particle space-particle-1">🆔</div>
+              <div className="particle space-particle-2">📄</div>
+              <div className="particle space-particle-3">📊</div>
+              <div className="particle space-particle-4">🔗</div>
+              <div className="particle space-particle-5">💻</div>
+              <div className="particle space-particle-6">✨</div>
             </div>
             
             <Row className="align-items-center min-vh-70 justify-content-center">
               <Col lg={8} xl={7}>
                 <div className="hero-content text-center">
                   <div className="alien-badge mb-3">
-                    <span className="badge-alien">👽 Diseños de Otro Mundo • PRUEBA GRATIS</span>
+                    <span className="badge-alien">💻 Plataforma Digital Profesional • PRUEBA GRATIS</span>
                   </div>
                   
                   <h1 className="hero-title-alien text-white mb-3">
@@ -1229,7 +1229,7 @@ export default function HomePage() {
                         className="btn-alien-final"
                         onClick={handleCreateCard}
                       >
-                        <span className="alien-icon">🚀</span>
+                        <span className="alien-icon">🆔</span>
                         Comenzar con Mi Tarjeta Digital
                         <span className="alien-trail">✨</span>
                       </Button>
