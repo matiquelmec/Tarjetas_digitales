@@ -1081,9 +1081,9 @@ export default function HomePage() {
                   {/* Destacar productos */}
                   <div className="hero-products mb-4">
                     <div className="d-flex flex-wrap gap-2 justify-content-center">
-                      <span className="badge bg-success px-3 py-2">🛸 Tarjetas • GRATIS</span>
-                      <span className="badge bg-warning text-dark px-3 py-2">🚀 CVs Alienígenas</span>
-                      <span className="badge bg-info px-3 py-2">📡 Presentaciones</span>
+                      <span className="badge bg-success px-3 py-2">💳 Tarjetas Digitales • GRATIS</span>
+                      <span className="badge bg-warning text-dark px-3 py-2">📄 CVs Inteligentes</span>
+                      <span className="badge bg-info px-3 py-2">📊 Presentaciones Pro</span>
                     </div>
                   </div>
                   
@@ -1094,8 +1094,8 @@ export default function HomePage() {
                       className="cta-abduction-primary mb-3"
                       onClick={handleDashboardAccess}
                     >
-                      <span className="cta-icon">🛸</span>
-                      Conectar con Indi GRATIS
+                      <span className="cta-icon">⚡</span>
+                      Crear Mi Identidad Digital GRATIS
                       <span className="cta-arrow">→</span>
                     </Button>
                   </div>
@@ -1130,10 +1130,10 @@ export default function HomePage() {
                     <Col md={6}>
                     <div className="capability-card">
                       <div className="capability-icon mb-3">
-                        🛸
+                        💳
                       </div>
                       <h4 className="capability-title text-white mb-3">
-                        Tarjetas de Otro Mundo
+                        Tarjetas Digitales Premium
                       </h4>
                       <div className="mb-3">
                         <span className="badge bg-success fs-6 px-3 py-2 mb-2">
@@ -1149,10 +1149,10 @@ export default function HomePage() {
                     <Col md={6}>
                       <div className="capability-card">
                         <div className="capability-icon mb-3">
-                          🚀
+                          📄
                         </div>
                         <h4 className="capability-title text-white mb-3">
-                          CVs con Inteligencia Alienígena
+                          CVs Inteligentes con IA
                         </h4>
                       <div className="mb-3">
                         <span className="badge bg-warning text-dark fs-6 px-3 py-2 mb-2">
@@ -1168,10 +1168,10 @@ export default function HomePage() {
                     <Col md={6}>
                       <div className="capability-card">
                         <div className="capability-icon mb-3">
-                          📡
+                          📊
                         </div>
                         <h4 className="capability-title text-white mb-3">
-                          Presentaciones Inmersivas
+                          Presentaciones Profesionales
                         </h4>
                       <div className="mb-3">
                         <span className="badge bg-info fs-6 px-3 py-2 mb-2">
@@ -1187,10 +1187,10 @@ export default function HomePage() {
                     <Col md={6}>
                       <div className="capability-card">
                         <div className="capability-icon mb-3">
-                          🌟
+                          🔗
                         </div>
                         <h4 className="capability-title text-white mb-3">
-                          Ecosistema Completo
+                          Identidad Digital Completa
                         </h4>
                       <div className="mb-3">
                         <span className="badge bg-gradient fs-6 px-3 py-2 mb-2" style={{background: 'linear-gradient(135deg, #00f6ff, #0072ff)'}}>
@@ -1216,10 +1216,10 @@ export default function HomePage() {
                   <div className="text-center">
                     <div className="alien-cta-container">
                       <div className="alien-glow-effect mb-4">
-                        <span className="alien-signal">🛸</span>
+                        <span className="alien-signal">💻</span>
                       </div>
                       <h3 className="alien-cta-title text-white mb-3">
-                        Tu Diseño Alienígena Te Está <span className="hero-highlight-alien">Esperando</span>
+                        Tu Identidad Digital Te Está <span className="hero-highlight-alien">Esperando</span>
                       </h3>
                       <p className="text-white opacity-85 mb-4">
                         Únete a la revolución intergaláctica del diseño profesional
@@ -1229,8 +1229,8 @@ export default function HomePage() {
                         className="btn-alien-final"
                         onClick={handleCreateCard}
                       >
-                        <span className="alien-icon">👽</span>
-                        Comenzar Mi Diseño
+                        <span className="alien-icon">💳</span>
+                        Crear Mi Tarjeta Digital
                         <span className="alien-trail">✨</span>
                       </Button>
                       <div className="mt-3">
