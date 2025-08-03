@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import IndiLogo from '@/components/ui/IndiLogo';
 
 interface LoadingScreenProps {
   onLoadingComplete: () => void;
@@ -90,10 +91,12 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
         }
         
         .loading-logo {
-          font-size: 4rem;
           margin-bottom: 2rem;
           animation: logoFloat 2s ease-in-out infinite;
           filter: drop-shadow(0 0 30px rgba(0, 246, 255, 0.8));
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         
         @keyframes logoFloat {
@@ -326,7 +329,16 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
       </div>
       
       <div className="loading-content">
-        <div className="loading-logo">🆔</div>
+        <div className="loading-logo">
+          <IndiLogo
+            variant="hero"
+            size="lg"
+            animated={true}
+            interactive={false}
+            showName={false}
+            state="normal"
+          />
+        </div>
         
         <h1 className="loading-title">
           Indi Platform
