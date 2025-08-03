@@ -551,6 +551,7 @@ export default function BusinessCardGenerator() {
               instagram={instagram}
               twitter={twitter}
               facebook={facebook}
+              website={''}
               buttonSecondaryColor={buttonSecondaryColor}
               buttonNormalBackgroundColor={buttonNormalBackgroundColor}
               buttonSecondaryHoverColor={buttonSecondaryHoverColor}

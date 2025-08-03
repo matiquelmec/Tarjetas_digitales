@@ -144,6 +144,7 @@ export default function PublicCardSlugPage() {
         instagram={card.instagram || ''}
         twitter={card.twitter || ''}
         facebook={card.facebook || ''}
+        website={card.website || ''}
         buttonSecondaryColor={card.buttonSecondaryColor || '#00F6FF'}
         buttonNormalBackgroundColor={card.buttonNormalBackgroundColor || '#1F1F1F'}
         buttonSecondaryHoverColor={card.buttonSecondaryHoverColor || '#00D1DB'}
