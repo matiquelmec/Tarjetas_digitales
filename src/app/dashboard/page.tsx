@@ -610,7 +610,7 @@ export default function Dashboard() {
               <Col lg={4}>
                 <div className="quick-stats-bar">
                   <div className="stat-compact alien-stat">
-                    <span className="stat-icon">🛸</span>
+                    <span className="stat-icon">🆔</span>
                     <span className="stat-value">{cards.length}</span>
                     <span className="stat-label-compact">Tarjetas Activas</span>
                   </div>
@@ -637,7 +637,7 @@ export default function Dashboard() {
                     <div className="stat-card alien-stat-card clickable-stat-card">
                       <div className="alien-glow-effect"></div>
                       <div className="icon-wrapper alien-primary-gradient text-white">
-                        🛸
+                        🆔
                       </div>
                       <h2 className="fw-bold text-dark mb-1">{cards.length}</h2>
                       <p className="text-muted mb-2">Tarjetas Digitales Premium</p>
@@ -662,10 +662,10 @@ export default function Dashboard() {
                     <div className="stat-card alien-stat-card clickable-stat-card">
                       <div className="alien-glow-effect"></div>
                       <div className="icon-wrapper alien-warning-gradient text-white">
-                        🚀
+                        📄
                       </div>
                       <h2 className="fw-bold text-muted mb-1">0</h2>
-                      <p className="text-muted mb-2">CVs con Inteligencia Alienígena</p>
+                      <p className="text-muted mb-2">CVs Inteligentes con IA</p>
                       <div className="module-description mb-3">
                         <small className="text-secondary">
                           Optimiza automáticamente tu currículum con IA avanzada. Usa plantillas ATS-friendly que pasan filtros automáticos y captan la atención de reclutadores al instante, multiplicando tus entrevistas de trabajo.
@@ -687,7 +687,7 @@ export default function Dashboard() {
                     <div className="stat-card alien-stat-card clickable-stat-card">
                       <div className="alien-glow-effect"></div>
                       <div className="icon-wrapper alien-info-gradient text-white">
-                        📡
+                        📊
                       </div>
                       <h2 className="fw-bold text-muted mb-1">0</h2>
                       <p className="text-muted mb-2">Presentaciones Inmersivas</p>

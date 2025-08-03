@@ -360,7 +360,7 @@ export default function CreateCardPage() {
               <Card className="glass-card text-white">
                 <Card.Body className="p-3">
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h5 className="mb-0 alien-progress-title">🛸 Misión: {steps[currentStep - 1].title}</h5>
+                    <h5 className="mb-0 alien-progress-title">🚀 Misión: {steps[currentStep - 1].title}</h5>
                     <small className="text-light alien-step-counter">Fase {currentStep} de 4</small>
                   </div>
                   <ProgressBar 

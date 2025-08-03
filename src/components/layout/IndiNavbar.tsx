@@ -282,7 +282,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
                         ⭐ Actualizar Plan
                       </Link>
                       <Link href="/dashboard" className="btn-nav btn-nav-outline">
-                        🛸 Dashboard
+                        📊 Dashboard
                       </Link>
                       <Link href="/create" className="btn-nav btn-nav-primary">
                         ✨ Crear
@@ -294,7 +294,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
                         👋 Salir
                       </button>
                       <div className="user-greeting d-none d-md-block">
-                        Hola, {session.user?.name?.split(' ')[0] || 'Terrícola'} 🛸
+                        Hola, {session.user?.name?.split(' ')[0] || 'Terrícola'} 👋
                       </div>
                     </>
                   ) : (
