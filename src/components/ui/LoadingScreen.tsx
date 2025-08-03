@@ -361,7 +361,7 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
         </div>
         
         <div className="loading-subtitle">
-          Tarjetas digitales premium para profesionales modernos
+          Tarjetas digitales • CVs profesionales • Presentaciones premium
         </div>
       </div>
     </div>
