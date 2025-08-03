@@ -114,7 +114,7 @@ export default function Dashboard() {
     <AuthWrapper>
       <style jsx global>{`
         body {
-          background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
+          background: linear-gradient(-45deg, #0f0c29, #24243e, #302b63, #1a1a2e);
           background-size: 400% 400%;
           animation: gradientAnimation 15s ease infinite;
           min-height: 100vh;
@@ -122,7 +122,7 @@ export default function Dashboard() {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         .animated-gradient-background {
-          background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
+          background: linear-gradient(-45deg, #0f0c29, #24243e, #302b63, #1a1a2e);
           background-size: 400% 400%;
           animation: gradientAnimation 15s ease infinite;
           min-height: 100vh;
