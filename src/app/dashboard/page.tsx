@@ -579,9 +579,9 @@ export default function Dashboard() {
       `}</style>
       <div className="animated-gradient-background">
         {/* Navbar con Indi */}
-        <IndiNavbar variant="transparent" position="sticky" showActions={true} />
+        <IndiNavbar variant="transparent" position="fixed" showActions={true} />
         
-        <Container className="py-4">
+        <Container className="py-4" style={{ paddingTop: '120px' }}>
           {/* Centro de Comando Intergaláctico */}
           <div className="alien-command-center">
             {/* Partículas espaciales sutiles */}

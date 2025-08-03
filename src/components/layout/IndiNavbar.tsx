@@ -74,6 +74,9 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
           top: 0;
           left: 0;
           right: 0;
+          z-index: 999;
+          background: rgba(15, 12, 41, 0.95);
+          backdrop-filter: blur(15px);
         }
         
         .navbar-sticky {
@@ -216,10 +219,10 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             padding: 1rem 0;
           }
           
-          /* Mantener posición fija incluso en móvil */
+          /* Mantener posición fija incluso en móvil pero más abajo para no solapar */
           .nav-actions-fixed-right {
             position: fixed !important;
-            top: 15px !important;
+            top: 80px !important;
             right: 15px !important;
             left: auto !important;
             transform: none !important;
