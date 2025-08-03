@@ -144,7 +144,7 @@ export default function CVPage() {
       `}</style>
       
       {/* Navbar con Indi */}
-      <IndiNavbar variant="transparent" position="fixed" showActions={true} />
+      <IndiNavbar variant="transparent" position="sticky" showActions={true} />
       
       <Container fluid className="py-4">
         <Row className="justify-content-center align-items-center min-vh-100">

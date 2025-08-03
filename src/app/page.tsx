@@ -1041,11 +1041,11 @@ export default function HomePage() {
         {/* Navigation Header */}
         <IndiNavbar 
           variant="transparent" 
-          position="fixed" 
+          position="sticky" 
           showActions={true} 
         />
         
-        <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: 'calc(100vh - 120px)', paddingTop: '120px' }}>
+        <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: 'calc(100vh - 120px)' }}>
           <Container fluid className="py-5">
           {/* HERO INTERGALÁCTICO */}
           <div className="hero-intergalactico">
