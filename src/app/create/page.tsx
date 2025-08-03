@@ -319,6 +319,24 @@ export default function CreateCardPage() {
           box-shadow: 0 12px 48px rgba(0, 246, 255, 0.2);
         }
         
+        /* Centrado específico para vista previa en móvil */
+        @media (max-width: 768px) {
+          .preview-container {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            text-align: center !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+          }
+          
+          .preview-content {
+            width: 100% !important;
+            max-width: 350px !important;
+            margin: 0 auto !important;
+          }
+        }
+        
       `}</style>
       
       <div className="animated-gradient-background">
