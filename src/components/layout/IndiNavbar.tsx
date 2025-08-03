@@ -198,20 +198,35 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
           white-space: nowrap;
         }
         
+        /* Forzar posición fija en la derecha SIEMPRE */
+        .nav-actions-fixed-right {
+          position: fixed !important;
+          top: 20px !important;
+          right: 20px !important;
+          left: auto !important;
+          transform: none !important;
+          margin: 0 !important;
+          width: auto !important;
+          display: block !important;
+          justify-content: flex-start !important;
+        }
+        
         @media (max-width: 768px) {
           .indi-navbar-container {
             padding: 1rem 0;
           }
           
-          .nav-actions-container {
-            position: static;
-            transform: none;
-            margin-top: 1rem;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            left: auto;
-            right: auto;
+          /* Mantener posición fija incluso en móvil */
+          .nav-actions-fixed-right {
+            position: fixed !important;
+            top: 15px !important;
+            right: 15px !important;
+            left: auto !important;
+            transform: none !important;
+            margin: 0 !important;
+            width: auto !important;
+            display: block !important;
+            justify-content: flex-start !important;
           }
           
           .nav-actions {
@@ -274,7 +289,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             
             {/* Acciones - Posición absoluta derecha */}
             {showActions && (
-              <div className="nav-actions-container" style={{
+              <div className="nav-actions-container nav-actions-fixed-right" style={{
                 position: 'fixed',
                 top: '20px',
                 right: '20px',
