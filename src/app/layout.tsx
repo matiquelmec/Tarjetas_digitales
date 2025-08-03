@@ -37,8 +37,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        {/* Preload critical resources */}
-        <link rel="preload" href="/logo.png" as="image" />
+        {/* Preconnect to external resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link 

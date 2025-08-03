@@ -61,13 +61,15 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
           bottom: 0;
           background: linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0);
           background-size: 400% 400%;
-          animation: gradientAnimation 3s ease infinite;
+          animation: gradientAnimation 15s ease infinite;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           z-index: 9999;
           overflow: hidden;
+          width: 100vw;
+          height: 100vh;
         }
         
         @keyframes gradientAnimation {

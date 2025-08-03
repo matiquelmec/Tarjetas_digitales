@@ -11,9 +11,18 @@ interface AppInitializerProps {
 export default function AppInitializer({ children }: AppInitializerProps) {
   const [isInitialized, setIsInitialized] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const { status } = useSession();
+
+  // Ensure component is mounted to avoid hydration issues
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   
   useEffect(() => {
+    // Only run on client side after mount
+    if (!isMounted) return;
+    
     // Verificar si ya se inicializó en esta sesión
     const hasInitialized = sessionStorage.getItem('appInitialized');
     
@@ -29,7 +38,7 @@ export default function AppInitializer({ children }: AppInitializerProps) {
       // NextAuth está listo, inicializar la app
       setIsInitialized(true);
     }
-  }, [status]);
+  }, [status, isMounted]);
 
   const handleLoadingComplete = () => {
     // Marcar como inicializado para futuras cargas
@@ -37,8 +46,8 @@ export default function AppInitializer({ children }: AppInitializerProps) {
     setShowContent(true);
   };
 
-  // Si NextAuth aún está cargando o no se ha inicializado, mostrar loading
-  if (status === 'loading' || !isInitialized) {
+  // Show loading during SSR and until mounted
+  if (!isMounted || status === 'loading' || !isInitialized) {
     return (
       <div style={{
         position: 'fixed',
@@ -47,9 +56,13 @@ export default function AppInitializer({ children }: AppInitializerProps) {
         right: 0,
         bottom: 0,
         background: 'linear-gradient(-45deg, #00c6ff, #0072ff, #8e2de2, #4a00e0)',
+        backgroundSize: '400% 400%',
+        animation: 'gradientAnimation 15s ease infinite',
         zIndex: 9999
       }}>
-        <LoadingScreen onLoadingComplete={handleLoadingComplete} />
+        {isMounted && (
+          <LoadingScreen onLoadingComplete={handleLoadingComplete} />
+        )}
       </div>
     );
   }
