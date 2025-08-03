@@ -84,7 +84,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
         .nav-actions-container {
           position: absolute;
           top: 20px;
-          left: 20px;
+          right: 20px;
           transform: none;
           z-index: 10;
           pointer-events: auto;
@@ -158,6 +158,33 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
           box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
         }
         
+        .btn-nav-upgrade {
+          background: linear-gradient(135deg, #D4A017, #B8860B);
+          color: white;
+          border: 2px solid #D4A017;
+          font-weight: 700;
+          box-shadow: 0 6px 20px rgba(212, 160, 23, 0.4);
+          backdrop-filter: blur(10px);
+          animation: upgradeGlow 2s ease-in-out infinite alternate;
+        }
+        
+        .btn-nav-upgrade:hover {
+          background: linear-gradient(135deg, #E5B41F, #CD950C);
+          border-color: #E5B41F;
+          color: white;
+          transform: translateY(-4px) scale(1.05);
+          box-shadow: 0 10px 30px rgba(212, 160, 23, 0.6);
+        }
+        
+        @keyframes upgradeGlow {
+          0% { 
+            box-shadow: 0 6px 20px rgba(212, 160, 23, 0.4);
+          }
+          100% { 
+            box-shadow: 0 8px 25px rgba(212, 160, 23, 0.6), 0 0 20px rgba(212, 160, 23, 0.3);
+          }
+        }
+        
         .user-greeting {
           background: rgba(255, 255, 255, 0.25);
           color: white;
@@ -184,6 +211,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             display: flex;
             justify-content: center;
             left: auto;
+            right: auto;
           }
           
           .nav-actions {
@@ -201,6 +229,12 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
             text-align: center;
             width: 100%;
             margin-top: 0.5rem;
+          }
+          
+          .btn-nav-upgrade {
+            order: -1; /* Mostrar primero en móvil */
+            flex-basis: 100%;
+            margin-bottom: 0.5rem;
           }
         }
         
@@ -244,7 +278,7 @@ const IndiNavbar: React.FC<IndiNavbarProps> = ({
                 <div className="nav-actions">
                   {session ? (
                     <>
-                      <Link href="/pricing" className="btn-nav btn-nav-outline">
+                      <Link href="/pricing" className="btn-nav btn-nav-upgrade">
                         ⭐ Actualizar Plan
                       </Link>
                       <Link href="/dashboard" className="btn-nav btn-nav-outline">
