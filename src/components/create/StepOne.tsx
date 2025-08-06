@@ -17,7 +17,7 @@ interface CardData {
 
 interface StepOneProps {
   cardData: CardData;
-  updateCardData: (field: keyof CardData, value: string) => void;
+  updateCardData: (field: string, value: string) => void;
 }
 
 export function StepOne({ cardData, updateCardData }: StepOneProps) {

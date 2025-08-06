@@ -3,12 +3,13 @@ import { prisma } from '@/lib/db';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const { slug } = await params;
     const card = await prisma.card.findFirst({
       where: { 
-        customUrl: params.slug,
+        customUrl: slug,
         isActive: true 
       },
       include: { user: true },

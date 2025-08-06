@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Hubo un problema con la comunicación intergaláctica. Por favor, inténtalo de nuevo.',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.message : 'Unknown error') : undefined
       },
       { status: 500 }
     );

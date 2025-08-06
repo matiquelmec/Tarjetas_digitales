@@ -5,10 +5,11 @@ import { CardService } from '@/lib/cardService';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const card = await CardService.getPublicCard(params.id);
+    const { id } = await params;
+    const card = await CardService.getPublicCard(id);
     
     if (!card) {
       return NextResponse.json({ error: 'Card not found' }, { status: 404 });
@@ -23,7 +24,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptionsSafe);
@@ -32,8 +33,9 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const { id } = await params;
     const cardData = await request.json();
-    const card = await CardService.updateCard(params.id, session.user.id, cardData);
+    const card = await CardService.updateCard(id, session.user.id, cardData);
     
     return NextResponse.json(card);
   } catch (error) {
@@ -44,7 +46,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptionsSafe);
@@ -53,7 +55,8 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    await CardService.deleteCard(params.id, session.user.id);
+    const { id } = await params;
+    await CardService.deleteCard(id, session.user.id);
     
     return NextResponse.json({ message: 'Card deleted successfully' });
   } catch (error) {

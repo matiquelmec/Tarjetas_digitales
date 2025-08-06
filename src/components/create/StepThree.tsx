@@ -15,7 +15,7 @@ interface CardData {
 
 interface StepThreeProps {
   cardData: CardData;
-  updateCardData: (field: keyof CardData, value: string) => void;
+  updateCardData: (field: string, value: string) => void;
 }
 
 export function StepThree({ cardData, updateCardData }: StepThreeProps) {
@@ -99,7 +99,7 @@ export function StepThree({ cardData, updateCardData }: StepThreeProps) {
                   <Form.Control
                     type="text"
                     placeholder={platform.placeholder}
-                    value={cardData[platform.key]}
+                    value={(cardData as Record<string, string>)[platform.key] || ''}
                     onChange={(e) => updateCardData(platform.key, e.target.value)}
                   />
                 </InputGroup>
@@ -107,7 +107,7 @@ export function StepThree({ cardData, updateCardData }: StepThreeProps) {
                 <Form.Control
                   type="url"
                   placeholder={platform.placeholder}
-                  value={cardData[platform.key]}
+                  value={(cardData as Record<string, string>)[platform.key] || ''}
                   onChange={(e) => updateCardData(platform.key, e.target.value)}
                 />
               )}
@@ -121,7 +121,7 @@ export function StepThree({ cardData, updateCardData }: StepThreeProps) {
         <h6 className="mb-3">Vista Previa de Enlaces</h6>
         <div className="d-flex flex-wrap gap-2">
           {socialPlatforms.map((platform) => {
-            const value = cardData[platform.key];
+            const value = (cardData as Record<string, string>)[platform.key];
             if (!value) return null;
             
             const url = platform.prefix 

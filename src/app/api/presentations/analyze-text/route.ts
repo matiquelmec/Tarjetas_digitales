@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Error analyzing your text. Our intergalactic systems are recalibrating. Please try again.',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.message : 'Unknown error') : undefined
       },
       { status: 500 }
     );

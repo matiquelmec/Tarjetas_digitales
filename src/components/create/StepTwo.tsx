@@ -21,7 +21,7 @@ interface CardData {
 
 interface StepTwoProps {
   cardData: CardData;
-  updateCardData: (field: keyof CardData, value: string | boolean | number) => void;
+  updateCardData: (field: string, value: string | boolean | number) => void;
 }
 
 export function StepTwo({ cardData, updateCardData }: StepTwoProps) {

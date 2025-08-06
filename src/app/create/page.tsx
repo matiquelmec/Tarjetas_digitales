@@ -132,7 +132,7 @@ export default function CreateCardPage() {
     }
   };
 
-  const updateCardData = (field: keyof typeof cardData, value: string | boolean | number) => {
+  const updateCardData = (field: string, value: string | boolean | number) => {
     setCardData(prev => {
       const newData = { ...prev, [field]: value };
       return newData;

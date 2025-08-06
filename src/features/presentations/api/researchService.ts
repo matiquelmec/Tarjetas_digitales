@@ -44,13 +44,13 @@ export class ResearchService {
       
       switch (intent.type) {
         case 'new_topic':
-          return await this.handleNewTopic(message, conversationState);
+          return await this.handleNewTopic(message);
         case 'clarification':
           return await this.handleClarification(message, conversationState);
         case 'research_request':
-          return await this.handleResearchRequest(message, conversationState);
+          return await this.handleClarification(message, conversationState);
         case 'approval':
-          return await this.handleApproval(message, conversationState);
+          return await this.handleClarification(message, conversationState);
         default:
           return this.createIndiResponse('clarification', 
             '¡Interesante! Puedes contarme más detalles sobre lo que buscas, terrícola? 🤔'
@@ -79,7 +79,7 @@ export class ResearchService {
 
   // Handle clarification responses
   private async handleClarification(message: string, state: ConversationState): Promise<IndiResponse> {
-    const context = await this.extractContext(message, state.context);
+    const context = await this.extractContext(message, state.context || {});
     
     // If we have enough context, proceed to research
     if (this.hasEnoughContext(context)) {
@@ -259,7 +259,7 @@ export class ResearchService {
       id: `response_${Date.now()}`,
       message,
       type: 'information',
-      state,
+      state: (state || 'clarifying') as 'researching' | 'analyzing' | 'generating' | 'ready' | 'clarifying',
       followUpQuestions: followUps,
       researchData: data,
       confidence: 85

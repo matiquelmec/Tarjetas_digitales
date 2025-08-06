@@ -27,10 +27,10 @@ const SlidePreview: React.FC<SlidePreviewProps> = ({
           <div className="slide-content title-slide">
             {content.title && (
               <h1 className="slide-title" style={{ 
-                color: theme.colors.text.primary,
-                fontFamily: theme.fonts.heading.family,
+                color: typeof theme.colors === 'object' && 'text' in theme.colors ? (theme.colors as any).text.primary : '#ffffff',
+                fontFamily: typeof theme.fonts === 'object' && 'heading' in theme.fonts ? (theme.fonts as any).heading.family : 'Arial',
                 fontSize: '2rem',
-                fontWeight: theme.fonts.heading.weight,
+                fontWeight: typeof theme.fonts === 'object' && 'heading' in theme.fonts ? (theme.fonts as any).heading.weight : 'normal',
                 marginBottom: '1rem',
                 textAlign: 'center'
               }}>

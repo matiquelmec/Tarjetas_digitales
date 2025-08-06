@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Alert, Badge } from 'react-bootstrap';
-import { useSession, Session } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import type { Session } from 'next-auth';
 
 // Asumiendo que LogEntry se define así en tu logger
 interface LogEntry {
@@ -137,11 +138,11 @@ export default function DebugPage() {
                     <>
                       <div className="d-flex justify-content-between">
                         <span>Conexión:</span>
-                        {getStatusBadge(diagnostics.checks.database.connected)}
+                        {getStatusBadge(Boolean(diagnostics.checks.database.connected))}
                       </div>
                       <div className="d-flex justify-content-between">
                         <span>Consultas:</span>
-                        {getStatusBadge(diagnostics.checks.database.canQuery)}
+                        {getStatusBadge(Boolean(diagnostics.checks.database.canQuery))}
                       </div>
                       {diagnostics.checks.database.error && (
                         <Alert variant="danger" className="mt-2">
@@ -167,11 +168,11 @@ export default function DebugPage() {
                     <>
                       <div className="d-flex justify-content-between">
                         <span>Configurado:</span>
-                        {getStatusBadge(diagnostics.checks.nextAuth.configured)}
+                        {getStatusBadge(Boolean(diagnostics.checks.nextAuth.configured))}
                       </div>
                       <div className="d-flex justify-content-between">
                         <span>Tiene Sesión:</span>
-                        {getStatusBadge(diagnostics.checks.nextAuth.hasSession)}
+                        {getStatusBadge(Boolean(diagnostics.checks.nextAuth.hasSession))}
                       </div>
                       <div className="d-flex justify-content-between">
                         <span>Estrategia:</span>
