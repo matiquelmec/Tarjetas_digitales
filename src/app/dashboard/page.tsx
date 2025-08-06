@@ -635,6 +635,89 @@ export default function Dashboard() {
           {/* Tab Content */}
           {pathname === '/dashboard' && (
             <>
+              {/* Acciones Rápidas */}
+              <Row className="mb-5 g-3">
+                <Col lg={8}>
+                  <div className="glass-card p-4">
+                    <h3 className="text-white mb-3 d-flex align-items-center">
+                      <span className="me-2">🚀</span>
+                      Acciones Rápidas
+                    </h3>
+                    <Row className="g-3">
+                      <Col md={6}>
+                        <Link href="/create" className="text-decoration-none">
+                          <div className="action-card h-100">
+                            <div className="icon-wrapper alien-primary-gradient text-white mb-3">
+                              🆔
+                            </div>
+                            <h5 className="fw-bold mb-2">Crear Tarjeta Digital</h5>
+                            <p className="text-muted mb-3 small">
+                              Diseña tu tarjeta profesional con efectos únicos y compártela por WhatsApp para atraer más clientes.
+                            </p>
+                            <Button className="alien-create-btn">
+                              <span className="create-icon">✨</span>
+                              Crear Ahora
+                            </Button>
+                          </div>
+                        </Link>
+                      </Col>
+                      <Col md={6}>
+                        <Link href="/dashboard/cards" className="text-decoration-none">
+                          <div className="action-card h-100">
+                            <div className="icon-wrapper alien-success-gradient text-white mb-3">
+                              📊
+                            </div>
+                            <h5 className="fw-bold mb-2">Ver Mis Tarjetas</h5>
+                            <p className="text-muted mb-3 small">
+                              Gestiona tus tarjetas existentes, ve estadísticas de views y optimiza tu networking digital.
+                            </p>
+                            <Button variant="outline-primary" className="w-100">
+                              <span className="me-2">👁️</span>
+                              Ver Dashboard
+                            </Button>
+                          </div>
+                        </Link>
+                      </Col>
+                    </Row>
+                  </div>
+                </Col>
+                <Col lg={4}>
+                  <div className="glass-card p-4 h-100">
+                    <h5 className="text-white mb-3 d-flex align-items-center">
+                      <span className="me-2">📈</span>
+                      Estadísticas
+                    </h5>
+                    <div className="d-flex flex-column gap-3">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <span className="text-white-50">Tarjetas Activas</span>
+                        <span className="text-white fw-bold fs-4">{cards.length}</span>
+                      </div>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <span className="text-white-50">Views Totales</span>
+                        <span className="text-white fw-bold fs-4">
+                          {cards.reduce((total, card) => total + (card.views || 0), 0)}
+                        </span>
+                      </div>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <span className="text-white-50">Plan Actual</span>
+                        <span className="alien-badge bg-primary bg-opacity-20 text-primary">
+                          {session?.user?.plan === 'PREMIUM' ? 'PREMIUM' : 'FREE'}
+                        </span>
+                      </div>
+                    </div>
+                    {session?.user?.plan !== 'PREMIUM' && (
+                      <div className="mt-3">
+                        <Link href="/pricing" className="text-decoration-none">
+                          <Button variant="outline-warning" size="sm" className="w-100">
+                            ⭐ Upgrade a Premium
+                          </Button>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </Col>
+              </Row>
+
               {/* Estadísticas Intergalácticas */}
               <Row className="mb-5 g-4">
                 <Col md={6} lg={4}>
@@ -714,6 +797,27 @@ export default function Dashboard() {
                 </Col>
               </Row>
 
+              {/* Botón Flotante para Crear Tarjeta */}
+              <div style={{
+                position: 'fixed',
+                bottom: '30px',
+                right: '30px',
+                zIndex: 1000
+              }}>
+                <Link href="/create" className="text-decoration-none">
+                  <Button 
+                    className="alien-create-btn d-flex align-items-center gap-2 px-4 py-3"
+                    style={{
+                      fontSize: '1.1rem',
+                      borderRadius: '50px',
+                      boxShadow: '0 8px 25px rgba(0, 246, 255, 0.4)'
+                    }}
+                  >
+                    <span style={{ fontSize: '1.3rem' }}>✨</span>
+                    Crear Tarjeta
+                  </Button>
+                </Link>
+              </div>
             </>
           )}
         </Container>
