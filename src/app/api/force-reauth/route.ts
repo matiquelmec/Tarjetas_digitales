@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptionsSafe } from '@/lib/auth-safe';
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     console.log('Force reauth - checking current session');
     const session = await getServerSession(authOptionsSafe);

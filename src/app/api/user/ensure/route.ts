@@ -4,7 +4,7 @@ import { authOptionsSafe } from '@/lib/auth-safe';
 import { prisma } from '@/lib/db';
 import { Plan } from '@prisma/client';
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     console.log('POST /api/user/ensure - Starting request');
     
@@ -96,5 +96,5 @@ export async function POST(request: NextRequest) {
 
 // Also allow GET for testing
 export async function GET() {
-  return POST({} as NextRequest);
+  return POST();
 }

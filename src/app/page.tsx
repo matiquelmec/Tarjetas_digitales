@@ -8,17 +8,17 @@ import IndiNavbar from '@/components/layout/IndiNavbar';
 
 type ServiceStatus = 'available' | 'coming-soon' | 'contact-us';
 
-interface Service {
-  icon: string;
-  title: string;
-  description: string;
-  features: string[];
-  status: ServiceStatus;
-  buttonText: string;
-  buttonVariant: string;
-  link?: string;
-  comingSoonDate?: string;
-}
+// interface Service { // Currently unused, reserved for future service grid
+//   icon: string;
+//   title: string;
+//   description: string;
+//   features: string[];
+//   status: ServiceStatus;
+//   buttonText: string;
+//   buttonVariant: string;
+//   link?: string;
+//   comingSoonDate?: string;
+// }
 
 export default function HomePage() {
   const { data: session } = useSession();

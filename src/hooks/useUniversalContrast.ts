@@ -71,7 +71,7 @@ export function useUniversalContrast() {
     
     // Aplicar cada color optimizado
     Object.entries(optimizedTheme).forEach(([key, value]) => {
-      updateFunction(key, value);
+      updateFunction(key as keyof ThemeColors, value);
     });
     
     console.log('🔍 Contraste universal aplicado:', {

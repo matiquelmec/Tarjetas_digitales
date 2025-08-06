@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptionsSafe } from '@/lib/auth-safe';
-import { authOptionsDebug } from '@/lib/auth-debug';
+// import { authOptionsDebug } from '@/lib/auth-debug'; // Unused import
 import { CardService } from '@/lib/cardService';
 import { PlanLimitService } from '@/lib/planLimits';
 

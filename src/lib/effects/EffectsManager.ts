@@ -300,7 +300,7 @@ export class EffectsManager {
   /**
    * Genera configuración de partículas basada en tipo
    */
-  public generateParticleConfig(particles: ParticleConfig): Record<string, unknown> {
+  public generateParticleConfig(particles: ParticleConfig): Record<string, unknown> | null {
     if (!particles.enabled) return null;
 
     const baseConfig = {

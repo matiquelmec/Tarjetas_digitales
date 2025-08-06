@@ -30,7 +30,7 @@ export default function CreateCardPage() {
   const { data: session } = useSession();
   const [currentStep, setCurrentStep] = useState(1);
   const [showPublishModal, setShowPublishModal] = useState(false);
-  const [planLimits, setPlanLimits] = useState<PlanLimits | null>(null);
+  const [, setPlanLimits] = useState<PlanLimits | null>(null);
   const [limitError, setLimitError] = useState<string | null>(null);
   const [cardData, setCardData] = useState({
     // Datos básicos - Prellenado con datos realistas

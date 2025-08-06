@@ -79,13 +79,13 @@ export class ResearchService {
 
   // Handle clarification responses
   private async handleClarification(message: string, state: ConversationState): Promise<IndiResponse> {
-    const context = await this.extractContext(message, state.context || {});
+    const context = await this.extractContext();
     
     // If we have enough context, proceed to research
-    if (this.hasEnoughContext(context)) {
+    if (this.hasEnoughContext()) {
       return await this.performResearch(state.topic, context);
     } else {
-      const additionalQuestions = await this.generateFollowUpQuestions(context);
+      const additionalQuestions = await this.generateFollowUpQuestions();
       return this.createIndiResponse('clarifying',
         `¡Perfecto! Eso me ayuda mucho. ${additionalQuestions.length > 0 ? 
           `Una pregunta más: ${additionalQuestions[0]}` : 
@@ -117,9 +117,9 @@ export class ResearchService {
     researchData.statistics.push(...statisticsResults);
     
     // Generate insights from collected data
-    researchData.keyInsights = await this.generateInsights(researchData.sources);
-    researchData.trends = await this.identifyTrends(researchData.sources);
-    researchData.relatedTopics = await this.findRelatedTopics(topic, researchData.sources);
+    researchData.keyInsights = await this.generateInsights();
+    researchData.trends = await this.identifyTrends();
+    researchData.relatedTopics = await this.findRelatedTopics();
 
     // Create presentation structure suggestion
     const suggestedStructure = await this.suggestPresentationStructure(topic, context, researchData);
@@ -267,12 +267,12 @@ export class ResearchService {
   }
 
   // Placeholder methods - to be fully implemented
-  private async extractContext(message: string, existingContext: Record<string, unknown>) { return {}; }
-  private hasEnoughContext(context: Record<string, unknown>): boolean { return true; }
-  private async generateFollowUpQuestions(context: Record<string, unknown>): Promise<string[]> { return []; }
-  private async generateInsights(sources: ResearchSource[]): Promise<KeyInsight[]> { return []; }
-  private async identifyTrends(sources: ResearchSource[]): Promise<TrendData[]> { return []; }
-  private async findRelatedTopics(topic: string, sources: ResearchSource[]): Promise<string[]> { return []; }
+  private async extractContext(): Promise<Record<string, unknown>> { return {}; }
+  private hasEnoughContext(): boolean { return true; }
+  private async generateFollowUpQuestions(): Promise<string[]> { return []; }
+  private async generateInsights(): Promise<KeyInsight[]> { return []; }
+  private async identifyTrends(): Promise<TrendData[]> { return []; }
+  private async findRelatedTopics(): Promise<string[]> { return []; }
   private async suggestPresentationStructure(topic: string, context: Record<string, unknown>, data: ResearchData): Promise<PresentationStructure> {
     return {
       title: `Presentation about ${topic}`,
