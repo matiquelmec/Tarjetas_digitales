@@ -1,7 +1,7 @@
 // Export all presentation components
-// TODO: Temporarily disabled for deployment
-// export { default as IndiChat } from './IndiChat';
-// export { default as ThemeSelector } from './ThemeSelector';
+export { default as IndiChat } from './IndiChat';
+export { default as SlidePreview } from './SlidePreview';
+export { default as ThemeSelector } from './ThemeSelector';
 // TODO: Add more components as they are implemented
 // export { default as SlidePreview } from './SlidePreview';
 // export { default as PresentationEditor } from './PresentationEditor';

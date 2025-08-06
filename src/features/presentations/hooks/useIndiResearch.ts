@@ -223,7 +223,7 @@ export const useIndiResearch = () => {
     });
     setError(null);
     setIndiState('normal');
-    setIndiMessage(null);
+    setIndiMessage('');
   }, [setIndiState, setIndiMessage]);
 
   // Auto-initialize on mount

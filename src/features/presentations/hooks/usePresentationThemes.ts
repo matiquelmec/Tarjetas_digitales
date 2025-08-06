@@ -243,14 +243,14 @@ export const usePresentationThemes = () => {
 
   // Import theme configuration
   const importThemeConfig = useCallback((config: Record<string, unknown>) => {
-    if (config.themeId) {
+    if (config.themeId && typeof config.themeId === 'string') {
       selectTheme(config.themeId);
     }
-    if (config.customizations) {
+    if (config.customizations && typeof config.customizations === 'object') {
       setThemeState(prev => ({
         ...prev,
-        customizations: config.customizations,
-        isCustomized: Object.keys(config.customizations).length > 0
+        customizations: config.customizations as ThemeState['customizations'],
+        isCustomized: Object.keys(config.customizations as object).length > 0
       }));
     }
     if (config.layoutKey && themeState.selectedTheme) {

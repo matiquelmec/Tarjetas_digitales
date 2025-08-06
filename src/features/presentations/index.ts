@@ -1,9 +1,8 @@
 // Main export file for presentations feature
-// TODO: Temporarily disabled for deployment
-// export * from './components';
-// export * from './hooks';
+export * from './components';
+export * from './hooks';
 export * from './api';
-// Temporarily disabled due to duplicate exports
-// export * from './types';
-// export * from './types/research';
-// export * from './types/themes';
+// Export types carefully to avoid conflicts
+export * from './types/research';
+export * from './types/themes';
+// Note: ./types has conflicting exports, handle individually if needed
