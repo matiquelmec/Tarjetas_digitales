@@ -204,7 +204,7 @@ export const useLoadingState = (initialState = false) => {
 // Componente para mostrar múltiples skeletons
 export const SkeletonGrid: React.FC<{
   count: number;
-  component: React.ComponentType<{}>;
+  component: React.ComponentType<Record<string, unknown>>;
   className?: string;
   cols?: number;
 }> = ({ count, component: Component, className = '', cols = 3 }) => (

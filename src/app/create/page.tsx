@@ -23,7 +23,7 @@ const BusinessCard = dynamic(() => import('@/features/digital-card/components/Bu
 
 interface PlanLimits {
   maxCards: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export default function CreateCardPage() {

@@ -8,8 +8,7 @@ import type {
 } from '../types/themes';
 import { 
   PRESENTATION_THEMES, 
-  getThemeById, 
-  getThemesByCategory,
+  getThemeById,
   getFreeThemes,
   getPremiumThemes 
 } from '../types/themes';
@@ -243,7 +242,7 @@ export const usePresentationThemes = () => {
   }, [themeState]);
 
   // Import theme configuration
-  const importThemeConfig = useCallback((config: any) => {
+  const importThemeConfig = useCallback((config: Record<string, unknown>) => {
     if (config.themeId) {
       selectTheme(config.themeId);
     }
@@ -260,7 +259,7 @@ export const usePresentationThemes = () => {
         setThemeState(prev => ({ ...prev, selectedLayout: layout }));
       }
     }
-  }, [selectTheme, themeState.selectedTheme]);
+  }, [selectTheme, themeState]);
 
   return {
     // State

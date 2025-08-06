@@ -6,8 +6,6 @@ import type {
   ConversationState,
   ConversationMessage,
   IndiResponse,
-  ResearchContext,
-  ResearchData,
   PresentationStructure,
   TextAnalysisInput,
   TextAnalysisResult

@@ -1,6 +1,5 @@
 // Research Service - Core research and analysis functionality
 import type {
-  ResearchQuery,
   ResearchData,
   ResearchSource,
   KeyInsight,
@@ -66,7 +65,7 @@ export class ResearchService {
   }
 
   // Handle new topic introduction
-  private async handleNewTopic(message: string, state: ConversationState): Promise<IndiResponse> {
+  private async handleNewTopic(message: string): Promise<IndiResponse> {
     const topic = this.extractTopic(message);
     
     // Generate contextual questions
@@ -96,7 +95,7 @@ export class ResearchService {
   }
 
   // Perform comprehensive research
-  private async performResearch(topic: string, context: any): Promise<IndiResponse> {
+  private async performResearch(topic: string, context: Record<string, unknown>): Promise<IndiResponse> {
     const researchData: ResearchData = {
       sources: [],
       keyInsights: [],
@@ -260,7 +259,7 @@ export class ResearchService {
       id: `response_${Date.now()}`,
       message,
       type: 'information',
-      state: state as any,
+      state,
       followUpQuestions: followUps,
       researchData: data,
       confidence: 85
@@ -268,13 +267,13 @@ export class ResearchService {
   }
 
   // Placeholder methods - to be fully implemented
-  private async extractContext(message: string, existingContext: any) { return {}; }
-  private hasEnoughContext(context: any): boolean { return true; }
-  private async generateFollowUpQuestions(context: any): Promise<string[]> { return []; }
+  private async extractContext(message: string, existingContext: Record<string, unknown>) { return {}; }
+  private hasEnoughContext(context: Record<string, unknown>): boolean { return true; }
+  private async generateFollowUpQuestions(context: Record<string, unknown>): Promise<string[]> { return []; }
   private async generateInsights(sources: ResearchSource[]): Promise<KeyInsight[]> { return []; }
   private async identifyTrends(sources: ResearchSource[]): Promise<TrendData[]> { return []; }
   private async findRelatedTopics(topic: string, sources: ResearchSource[]): Promise<string[]> { return []; }
-  private async suggestPresentationStructure(topic: string, context: any, data: ResearchData): Promise<PresentationStructure> {
+  private async suggestPresentationStructure(topic: string, context: Record<string, unknown>, data: ResearchData): Promise<PresentationStructure> {
     return {
       title: `Presentation about ${topic}`,
       estimatedSlides: 10,
@@ -303,7 +302,7 @@ export class ResearchService {
       keyMessages: []
     };
   }
-  private generateImprovementSuggestions(analysis: string): string[] { return ['Add more examples']; }
+  private generateImprovementSuggestions(_analysis: string): string[] { return ['Add more examples']; }
   private calculateReadingTime(text: string): string {
     const wordsPerMinute = 200;
     const words = text.split(' ').length;

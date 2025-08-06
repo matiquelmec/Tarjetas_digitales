@@ -22,7 +22,7 @@ interface CardData {
 
 interface PlanLimits {
   maxCards: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export default function Dashboard() {

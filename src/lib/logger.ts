@@ -2,13 +2,13 @@ interface LogEntry {
   timestamp: string;
   level: 'info' | 'warn' | 'error' | 'debug';
   message: string;
-  meta?: any;
+  meta?: unknown;
 }
 
 class Logger {
   private logs: LogEntry[] = [];
 
-  private log(level: LogEntry['level'], message: string, meta?: any) {
+  private log(level: LogEntry['level'], message: string, meta?: unknown) {
     const entry: LogEntry = {
       timestamp: new Date().toISOString(),
       level,
@@ -25,19 +25,19 @@ class Logger {
     }
   }
 
-  info(message: string, meta?: any) {
+  info(message: string, meta?: unknown) {
     this.log('info', message, meta);
   }
 
-  warn(message: string, meta?: any) {
+  warn(message: string, meta?: unknown) {
     this.log('warn', message, meta);
   }
 
-  error(message: string, meta?: any) {
+  error(message: string, meta?: unknown) {
     this.log('error', message, meta);
   }
 
-  debug(message: string, meta?: any) {
+  debug(message: string, meta?: unknown) {
     this.log('debug', message, meta);
   }
 

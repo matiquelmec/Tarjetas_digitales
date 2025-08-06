@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic'; // Unused import
 import { useSession } from 'next-auth/react';
 import { useCards } from '@/hooks/useCards';
 import BusinessCard from './BusinessCard';
@@ -44,9 +44,9 @@ export default function BusinessCardGenerator() {
   const [enableGlassmorphism, setEnableGlassmorphism] = useState(false);
   const [enableSubtleAnimations, setEnableSubtleAnimations] = useState(false);
   const [enableBackgroundPatterns, setEnableBackgroundPatterns] = useState(false);
-  const [enableParticles, setEnableParticles] = useState(false);
-  const [particleType, setParticleType] = useState<'floating' | 'constellation' | 'professional' | 'creative'>('floating');
-  const [particleDensity, setParticleDensity] = useState(3);
+  const [enableParticles] = useState(false);
+  const [particleType] = useState<'floating' | 'constellation' | 'professional' | 'creative'>('floating');
+  const [particleDensity] = useState(3);
   const [enableAIPalette, setEnableAIPalette] = useState(false);
   const [currentPaletteIndex, setCurrentPaletteIndex] = useState(0);
   const [whatsappShareUrl, setWhatsappShareUrl] = useState('');

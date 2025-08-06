@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap'; // Unused import
 import { useIndiResearch } from '../hooks/useIndiResearch';
 import { useIndi } from '@/hooks/useIndi';
 import type { ConversationMessage } from '../types/research';
@@ -13,11 +13,12 @@ interface IndiChatProps {
 
 const IndiChat: React.FC<IndiChatProps> = ({ onPresentationGenerated, className = '' }) => {
   const [inputMessage, setInputMessage] = useState('');
-  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [, setIsInputFocused] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   
-  const { currentState, message: indiMessage, isVisible } = useIndi();
+  const { message: indiMessage } = useIndi();
+  // const { currentState, isVisible } = useIndi(); // Unused variables
   const {
     conversationState,
     isLoading,

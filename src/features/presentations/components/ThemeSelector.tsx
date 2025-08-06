@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Row, Col, Form, Button, Badge } from 'react-bootstrap';
+import { Row, Col, Form, Badge } from 'react-bootstrap';
 import { usePresentationThemes } from '../hooks/usePresentationThemes';
 import type { PresentationTheme } from '../types/themes';
 

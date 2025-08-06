@@ -1,4 +1,5 @@
-import { MercadoPagoConfig, Preference } from 'mercadopago';
+import { MercadoPagoConfig } from 'mercadopago';
+// import { Preference } from 'mercadopago'; // Unused import
 
 // Initialize MercadoPago only if access token is available
 export const mercadopago = process.env.MP_ACCESS_TOKEN 

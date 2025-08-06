@@ -1,5 +1,5 @@
 import { prisma } from './db';
-import { Card, User } from '@prisma/client';
+import { Card } from '@prisma/client';
 
 export interface CardData {
   title: string;

@@ -23,13 +23,11 @@ export function usePerformanceOptimization(): PerformanceSettings {
     
     // Detectar tipo de dispositivo y performance
     const isLowEndDevice = () => {
-      // @ts-expect-error: La propiedad connection no es estándar en todos los navegadores
-      const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+      const connection = (navigator as Record<string, unknown>).connection || (navigator as Record<string, unknown>).mozConnection || (navigator as Record<string, unknown>).webkitConnection;
       const slowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
       
       // Detectar dispositivos con menos memoria/CPU
-      // @ts-expect-error: La propiedad deviceMemory no es estándar en todos los navegadores
-      const deviceMemory = (navigator as any).deviceMemory;
+      const deviceMemory = (navigator as Record<string, unknown>).deviceMemory;
       const lowMemory = deviceMemory && deviceMemory < 4;
       
       // Detectar si es dispositivo móvil de gama baja

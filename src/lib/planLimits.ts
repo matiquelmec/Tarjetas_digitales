@@ -134,7 +134,7 @@ export class PlanLimitService {
                 email: userId,
                 name: '',
                 image: '',
-                plan: 'FREE' as any,
+                plan: 'FREE',
               },
               include: { _count: { select: { cards: true } } }
             });

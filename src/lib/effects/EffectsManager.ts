@@ -6,7 +6,7 @@
 export interface EffectConfig {
   enabled: boolean;
   intensity?: number;
-  customProperties?: Record<string, any>;
+  customProperties?: Record<string, unknown>;
 }
 
 export interface ParticleConfig extends EffectConfig {
@@ -65,7 +65,7 @@ export class EffectsManager {
       },
       particles: {
         enabled: props.enableParticles || false,
-        type: (props.particleType as any) || 'floating',
+        type: (props.particleType as ParticleConfig['type']) || 'floating',
         count: props.particleCount || 30,
         intensity: 1,
         speed: 1
@@ -300,7 +300,7 @@ export class EffectsManager {
   /**
    * Genera configuración de partículas basada en tipo
    */
-  public generateParticleConfig(particles: ParticleConfig): any {
+  public generateParticleConfig(particles: ParticleConfig): Record<string, unknown> {
     if (!particles.enabled) return null;
 
     const baseConfig = {
