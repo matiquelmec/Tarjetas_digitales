@@ -173,7 +173,7 @@ const SlidePreview: React.FC<SlidePreviewProps> = ({
                   paddingLeft: '1rem',
                   margin: '0 0 0.75rem 0'
                 }}>
-                  "{content.quote.text}"
+                  &ldquo;{content.quote.text}&rdquo;
                 </blockquote>
                 <cite style={{
                   color: theme.colors.text.secondary,

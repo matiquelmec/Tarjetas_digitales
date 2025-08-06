@@ -39,7 +39,7 @@ export interface SlideContent {
   bullets?: string[];
   imageUrl?: string;
   videoUrl?: string;
-  chartData?: any;
+  chartData?: Record<string, unknown>;
   quote?: {
     text: string;
     author: string;

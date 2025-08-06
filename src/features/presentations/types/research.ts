@@ -97,7 +97,7 @@ export interface ConversationMessage {
   role: 'user' | 'indi';
   content: string;
   timestamp: Date;
-  data?: any; // Additional data like research results, suggestions, etc.
+  data?: unknown; // Additional data like research results, suggestions, etc.
 }
 
 export interface PresentationStructure {
@@ -123,7 +123,7 @@ export interface VisualSuggestion {
   type: 'chart' | 'image' | 'video' | 'infographic' | 'icon' | 'diagram';
   description: string;
   prompt?: string; // For AI generation
-  data?: any; // For charts/graphs
+  data?: unknown; // For charts/graphs
   priority: 'high' | 'medium' | 'low';
 }
 

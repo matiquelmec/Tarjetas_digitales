@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { Container } from 'react-bootstrap';
 import BusinessCard from '@/features/digital-card/components/BusinessCard';
 
@@ -96,9 +97,7 @@ export default function PublicCardSlugPage() {
     );
   }
 
-  import Link from 'next/link';
-
-// ... (código existente)
+  // Card not found error state
 
   if (error || !card) {
     return (

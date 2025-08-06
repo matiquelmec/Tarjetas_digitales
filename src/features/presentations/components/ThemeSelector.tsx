@@ -343,7 +343,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ onThemeChange, className 
                     onChange={(e) => customizeColors({ accent: e.target.value })}
                   />
                 </div>
-              </Form.Label>
+              </Form.Group>
             </Col>
             
             <Col md={6}>
