@@ -4,9 +4,30 @@ import { Form, Row, Col, Alert, Badge } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
+interface CardData {
+  name: string;
+  title: string;
+  company?: string;
+  email?: string;
+  phone?: string;
+  linkedin?: string;
+  twitter?: string;
+  instagram?: string;
+  website?: string;
+  photo?: string;
+  customUrl?: string;
+  isPublic: boolean;
+  enableHoverEffect?: boolean;
+  enableGlassmorphism?: boolean;
+  enableSubtleAnimations?: boolean;
+  enableBackgroundPatterns?: boolean;
+  enableParticles?: boolean;
+  template?: string;
+}
+
 interface StepFourProps {
-  cardData: any;
-  updateCardData: (field: string, value: any) => void;
+  cardData: CardData;
+  updateCardData: (field: keyof CardData, value: string | boolean) => void;
 }
 
 export function StepFour({ cardData, updateCardData }: StepFourProps) {
@@ -51,14 +72,12 @@ export function StepFour({ cardData, updateCardData }: StepFourProps) {
     }
   }, [cardData.name, cardData.customUrl, updateCardData]);
 
-  const fullUrl = `https://tarjetasdigitales.netlify.app/card/[id]`;
-
   const completionPercentage = () => {
     const requiredFields = ['name', 'title', 'email'];
     const optionalFields = ['company', 'phone', 'linkedin', 'website'];
     
-    const requiredCompleted = requiredFields.filter(field => cardData[field]).length;
-    const optionalCompleted = optionalFields.filter(field => cardData[field]).length;
+    const requiredCompleted = requiredFields.filter(field => cardData[field as keyof CardData]).length;
+    const optionalCompleted = optionalFields.filter(field => cardData[field as keyof CardData]).length;
     
     const total = requiredFields.length + optionalFields.length;
     const completed = requiredCompleted + optionalCompleted;

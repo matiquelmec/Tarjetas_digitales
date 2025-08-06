@@ -1,11 +1,37 @@
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { getServerSession, Session } from 'next-auth';
 import { authOptionsSafe } from '@/lib/auth-safe';
 import { prisma } from '@/lib/db';
-import { logger } from '@/lib/logger';
+import { logger, LogEntry } from '@/lib/logger';
+
+interface CheckStatus {
+  connected?: boolean;
+  canQuery?: boolean;
+  configured?: boolean;
+  hasSession?: boolean;
+  sessionStrategy?: string;
+  error?: string;
+  GOOGLE_CLIENT_ID?: boolean;
+  GOOGLE_CLIENT_SECRET?: boolean;
+  NEXTAUTH_SECRET?: boolean;
+  NEXTAUTH_URL?: string | undefined;
+  DATABASE_URL?: boolean;
+  NODE_ENV?: string | undefined;
+}
+
+interface Diagnostics {
+  timestamp: string;
+  checks: { [key: string]: CheckStatus };
+  errors: string[];
+  warnings: string[];
+  session?: Session | null;
+  recentLogs?: LogEntry[];
+  recentErrors?: LogEntry[];
+  healthy?: boolean;
+}
 
 export async function GET() {
-  const diagnostics: any = {
+  const diagnostics: Diagnostics = {
     timestamp: new Date().toISOString(),
     checks: {},
     errors: [],

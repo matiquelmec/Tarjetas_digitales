@@ -2,9 +2,20 @@
 
 import { Form, Row, Col, InputGroup } from 'react-bootstrap';
 
+interface CardData {
+  location?: string;
+  linkedin?: string;
+  twitter?: string;
+  instagram?: string;
+  facebook?: string;
+  website?: string;
+  appointmentLink?: string;
+  professionalDetails?: string;
+}
+
 interface StepThreeProps {
-  cardData: any;
-  updateCardData: (field: string, value: any) => void;
+  cardData: CardData;
+  updateCardData: (field: keyof CardData, value: string) => void;
 }
 
 export function StepThree({ cardData, updateCardData }: StepThreeProps) {

@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, Stack, Button } from 'react-bootstrap';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { getBestTextColor, getContrastRatio, isAccessible } from '@/lib/contrast';
@@ -186,17 +186,14 @@ const staticStyles = `
   }
 `;
 
-export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, enableParticles = false, particleType = 'floating', particleCount = 30, particleDensity = 3, particleColor = 'auto', whatsappShareUrl, appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, website, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, template = 'modern', fontFamily = 'Montserrat' }: BusinessCardProps) {
+export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, enableParticles = false, particleType = 'floating', particleCount = 30, particleColor = 'auto', appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, website, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, template = 'modern', fontFamily = 'Montserrat' }: BusinessCardProps) {
   const [qrCodeValue, setQrCodeValue] = useState('');
 
   // Sistema de efectos visuales limpio y modular
   const {
     effectsState,
-    particleConfig,
     dynamicStyles,
     cssClasses,
-    validation,
-    applyEffectsToElement
   } = useVisualEffects({
     enableHoverEffect,
     enableGlassmorphism,
@@ -696,7 +693,8 @@ ${formattedAbout ? `${formattedAbout}
     }
 
     // Transform base - NO aplicar si hover effect está habilitado (conflicto con CSS)
-    let transform = enableHoverEffect ? 'none' : 'translateY(0)';
+    // Transform base - NO aplicar si hover effect está habilitado (conflicto con CSS)
+    const transform = enableHoverEffect ? 'none' : 'translateY(0)';
 
     // Animaciones inteligentes - evitar conflicto con subtle animations
     let animation = 'none';

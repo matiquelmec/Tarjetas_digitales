@@ -4,7 +4,7 @@
  */
 
 import { useMemo, useCallback, useEffect, useState } from 'react';
-import EffectsManager, { VisualEffectsState, ParticleConfig } from '@/lib/effects/EffectsManager';
+import EffectsManager, { VisualEffectsState } from '@/lib/effects/EffectsManager';
 
 interface UseVisualEffectsProps {
   // Props legacy para compatibilidad
@@ -112,11 +112,11 @@ export function useVisualEffects({
   // Información de debug mejorada
   const debugInfo = useMemo(() => {
     const activeEffects = Object.entries(effectsState)
-      .filter(([_, config]) => config.enabled)
+      .filter(([, config]) => config.enabled)
       .map(([name, config]) => ({
         name,
         intensity: config.intensity || 1,
-        type: name === 'particles' ? (config as any).type : undefined
+        type: name === 'particles' ? (config as { type?: string }).type : undefined
       }));
 
     // Log en desarrollo para detectar problemas

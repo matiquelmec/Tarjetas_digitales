@@ -8,6 +8,16 @@ import { useCards } from '@/hooks/useCards';
 import BusinessCard from './BusinessCard';
 import { PlanLimits, PLAN_LIMITS } from '@/lib/planLimits';
 
+interface Palette {
+  name: string;
+  pageBackgroundColor: string;
+  cardBackgroundColor: string;
+  cardTextColor: string;
+  buttonSecondaryColor: string;
+  buttonSecondaryHoverColor: string;
+  buttonNormalBackgroundColor: string;
+}
+
 export default function BusinessCardGenerator() {
   const { data: session } = useSession();
   const { saveCard, loading: saveLoading, error: saveError } = useCards();
@@ -55,7 +65,7 @@ export default function BusinessCardGenerator() {
     }
   }, [session]);
 
-  const minimalistPalettes = [
+  const minimalistPalettes: Palette[] = [
     { name: 'Carbón y Naranja', pageBackgroundColor: '#1a1a1a', cardBackgroundColor: '#2c2c2c', cardTextColor: '#ffffff', buttonSecondaryColor: '#ff6600', buttonSecondaryHoverColor: '#cc5200', buttonNormalBackgroundColor: '#444444' },
     { name: 'Menta y Negro', pageBackgroundColor: '#f0f2f5', cardBackgroundColor: '#ffffff', cardTextColor: '#1a1a1a', buttonSecondaryColor: '#1abc9c', buttonSecondaryHoverColor: '#16a085', buttonNormalBackgroundColor: '#e9ecef' },
     { name: 'Azul Nórdico', pageBackgroundColor: '#e5e9f0', cardBackgroundColor: '#d8dee9', cardTextColor: '#2e3440', buttonSecondaryColor: '#5e81ac', buttonSecondaryHoverColor: '#4c6a91', buttonNormalBackgroundColor: '#eceff4' },
@@ -80,7 +90,8 @@ export default function BusinessCardGenerator() {
     setButtonTextColor(getContrastTextColor(buttonNormalBackgroundColor));
   }, [buttonNormalBackgroundColor]);
 
-  const applyPalette = (palette: any) => {
+  const applyPalette = (palette: Palette) => {
+
     setPageBackgroundColor(palette.pageBackgroundColor);
     setCardBackgroundColor(palette.cardBackgroundColor);
     setCardTextColor(palette.cardTextColor);

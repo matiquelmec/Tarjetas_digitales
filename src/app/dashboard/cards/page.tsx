@@ -2,9 +2,9 @@
 
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Table, Alert, ProgressBar, Breadcrumb, Form, InputGroup } from 'react-bootstrap';
+import { Container, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
 import Link from 'next/link';
-import { PlanLimits, PLAN_LIMITS } from '@/lib/planLimits'; // Assuming this import is needed
+import { PlanLimits } from '@/lib/planLimits'; // Assuming this import is needed
 import IndiNavbar from '@/components/layout/IndiNavbar';
 
 interface CardData {
@@ -28,7 +28,7 @@ export default function DashboardCardsPage() {
   const [welcomeMessage, setWelcomeMessage] = useState('');
   const [deletingCardId, setDeletingCardId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState<'name' | 'views' | 'clicks' | 'date'>('date');
+  const [sortBy] = useState<'name' | 'views' | 'clicks' | 'date'>('date');
 
   useEffect(() => {
     if (session?.user?.id) {

@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, ProgressBar, Alert } from 'react-bootstrap';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { AuthWrapper } from '@/components/AuthWrapper';
 import IndiNavbar from '@/components/layout/IndiNavbar';
 import { StepOne } from '@/components/create/StepOne';
@@ -22,12 +21,16 @@ const BusinessCard = dynamic(() => import('@/features/digital-card/components/Bu
   ssr: false
 });
 
+interface PlanLimits {
+  maxCards: number;
+  [key: string]: any;
+}
+
 export default function CreateCardPage() {
   const { data: session } = useSession();
-  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [showPublishModal, setShowPublishModal] = useState(false);
-  const [planLimits, setPlanLimits] = useState<any>(null);
+  const [planLimits, setPlanLimits] = useState<PlanLimits | null>(null);
   const [limitError, setLimitError] = useState<string | null>(null);
   const [cardData, setCardData] = useState({
     // Datos básicos - Prellenado con datos realistas
@@ -129,7 +132,7 @@ export default function CreateCardPage() {
     }
   };
 
-  const updateCardData = (field: string, value: any) => {
+  const updateCardData = (field: keyof typeof cardData, value: string | boolean | number) => {
     setCardData(prev => {
       const newData = { ...prev, [field]: value };
       return newData;

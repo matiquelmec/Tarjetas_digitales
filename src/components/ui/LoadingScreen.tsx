@@ -49,7 +49,7 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
     }, interval);
 
     return () => clearInterval(progressTimer);
-  }, [onLoadingComplete]);
+  }, [onLoadingComplete, loadingMessages.length]);
 
   return (
     <div className="loading-screen">

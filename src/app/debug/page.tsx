@@ -2,17 +2,29 @@
 
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Alert, Badge } from 'react-bootstrap';
-import { useSession } from 'next-auth/react';
+import { useSession, Session } from 'next-auth/react';
+
+// Asumiendo que LogEntry se define así en tu logger
+interface LogEntry {
+  timestamp: string;
+  level: 'info' | 'warn' | 'error' | 'debug';
+  message: string;
+  meta?: Record<string, unknown>;
+}
+
+interface CheckStatus {
+  [key: string]: boolean | string | undefined;
+}
 
 interface DiagnosticResult {
   timestamp: string;
   healthy: boolean;
-  checks: any;
+  checks: Record<string, CheckStatus>;
   errors: string[];
   warnings: string[];
-  recentLogs: any[];
-  recentErrors: any[];
-  session?: any;
+  recentLogs: LogEntry[];
+  recentErrors: LogEntry[];
+  session?: Session | null;
 }
 
 export default function DebugPage() {

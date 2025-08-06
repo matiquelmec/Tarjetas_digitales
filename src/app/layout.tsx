@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
+import { Montserrat } from 'next/font/google';
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css';
 import { Providers } from '@/components/Providers';
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800', '900'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: "Indi - Plataforma Digital Profesional Intergaláctica",
@@ -35,15 +42,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className={montserrat.className}>
       <head>
-        {/* Preconnect to external resources */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" 
-          rel="stylesheet"
-        />
         {/* Critical CSS inline para evitar FOUC */}
         <style dangerouslySetInnerHTML={{
           __html: `
@@ -59,7 +59,6 @@ export default function RootLayout({
             body { 
               margin: 0; 
               padding: 0; 
-              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
               background: linear-gradient(-45deg, #0f0c29, #24243e, #302b63, #1a1a2e) !important;
               background-size: 400% 400% !important;
               animation: gradientAnimation 15s ease infinite !important;

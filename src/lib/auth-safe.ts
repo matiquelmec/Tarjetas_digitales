@@ -1,7 +1,6 @@
 // Safe auth configuration that doesn't validate environment variables during build
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "./db";
 import { Plan } from "@prisma/client";
 
@@ -103,7 +102,7 @@ export const authOptionsSafe: NextAuthOptions = {
       
       return session;
     },
-    signIn: async ({ user, account, profile }) => {
+    signIn: async ({ user }) => {
       console.log('SignIn callback - user:', user.email);
       return true;
     },

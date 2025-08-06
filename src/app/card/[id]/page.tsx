@@ -96,6 +96,10 @@ export default function PublicCardPage() {
     );
   }
 
+  import Link from 'next/link';
+
+// ... (código existente)
+
   if (error || !card) {
     return (
       <Container fluid className="d-flex justify-content-center align-items-center min-vh-100" style={{ background: '#121212' }}>
@@ -103,9 +107,9 @@ export default function PublicCardPage() {
           <div style={{ fontSize: '4rem' }} className="mb-3">💼</div>
           <h2>{error || 'Tarjeta no encontrada'}</h2>
           <p className="text-white-50">La tarjeta que buscas no existe o ha sido eliminada.</p>
-          <a href="/" className="btn btn-primary mt-3">
-            Volver al inicio
-          </a>
+          <Link href="/" passHref>
+            <a className="btn btn-primary mt-3">Volver al inicio</a>
+          </Link>
         </div>
       </Container>
     );

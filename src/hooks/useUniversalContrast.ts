@@ -65,7 +65,7 @@ export function useUniversalContrast() {
    */
   const applyAndUpdate = useCallback((
     theme: ThemeColors, 
-    updateFunction: (field: string, value: any) => void
+    updateFunction: (field: keyof ThemeColors, value: string) => void
   ): void => {
     const optimizedTheme = applyContrastRules(theme);
     

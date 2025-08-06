@@ -1,8 +1,8 @@
 'use client';
 
-import { useSession, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AuthWrapper } from '../../components/AuthWrapper';
@@ -20,14 +20,19 @@ interface CardData {
   createdAt: string;
 }
 
+interface PlanLimits {
+  maxCards: number;
+  [key: string]: any;
+}
+
 export default function Dashboard() {
   const { data: session } = useSession();
   const pathname = usePathname();
   const [cards, setCards] = useState<CardData[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [planLimits, setPlanLimits] = useState<any>(null);
-  const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
-  const [welcomeMessage, setWelcomeMessage] = useState('');
+  const [, setLoading] = useState(true);
+  const [, setPlanLimits] = useState<PlanLimits | null>(null);
+  const [, setShowWelcomeMessage] = useState(false);
+  const [, setWelcomeMessage] = useState('');
   
   // Handle post-login redirection
   usePostLoginRedirect();

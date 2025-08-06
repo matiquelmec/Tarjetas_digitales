@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Container, Row, Col, Card, Button, ListGroup, Badge } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, ListGroup } from 'react-bootstrap';
 import { useSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
 import IndiNavbar from '@/components/layout/IndiNavbar';

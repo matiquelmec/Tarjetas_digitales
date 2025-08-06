@@ -1,20 +1,31 @@
 'use client';
 
-import { Form, Row, Col, Card, Button } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
 import { useUniversalContrast } from '@/hooks/useUniversalContrast';
 
+interface CardData {
+  cardBackgroundColor?: string;
+  cardTextColor?: string;
+  buttonSecondaryColor?: string;
+  buttonSecondaryHoverColor?: string;
+  buttonNormalBackgroundColor?: string;
+  fontFamily?: string;
+  enableHoverEffect?: boolean;
+  enableGlassmorphism?: boolean;
+  enableSubtleAnimations?: boolean;
+  enableBackgroundPatterns?: boolean;
+  enableParticles?: boolean;
+  particleType?: string;
+  particleDensity?: number;
+}
+
 interface StepTwoProps {
-  cardData: any;
-  updateCardData: (field: string, value: any) => void;
+  cardData: CardData;
+  updateCardData: (field: keyof CardData, value: string | boolean | number) => void;
 }
 
 export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
   const { applyAndUpdate } = useUniversalContrast();
-
-  const applyPalette = (palette: any) => {
-    // Aplicar paleta con reglas universales de contraste
-    applyAndUpdate(palette, updateCardData);
-  };
 
   return (
     <div>

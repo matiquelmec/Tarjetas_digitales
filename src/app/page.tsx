@@ -1,12 +1,9 @@
 'use client';
 
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 import { usePostLoginRedirect } from '@/hooks/usePostLoginRedirect';
-import IndiLogo from '@/components/ui/IndiLogo';
 import IndiNavbar from '@/components/layout/IndiNavbar';
 
 type ServiceStatus = 'available' | 'coming-soon' | 'contact-us';
@@ -24,101 +21,8 @@ interface Service {
 }
 
 export default function HomePage() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
-
-  const services: Service[] = [
-    {
-      icon: '💼',
-      title: 'Tarjetas Digitales Premium',
-      description: 'Crea tarjetas de presentación digitales con efectos visuales premium, QR codes integrados y compartir instantáneo por WhatsApp.',
-      features: [
-        'Editor visual en tiempo real',
-        'Efectos glassmorphism y partículas',
-        'URLs personalizadas',
-        'Analytics de interacción',
-      ],
-      status: 'available',
-      buttonText: 'Comenzar Ahora',
-      buttonVariant: 'primary',
-      link: '/dashboard',
-    },
-    {
-      icon: '🚀',
-      title: 'CVs Inteligentes',
-      description: 'Sube tu CV actual y nuestra IA lo optimiza con diseños modernos, palabras clave relevantes y estructura profesional.',
-      features: [
-        'Optimización con IA',
-        'Plantillas modernas ATS-friendly',
-        'Análisis de palabras clave',
-        'Exportación PDF/Word',
-      ],
-      status: 'coming-soon',
-      buttonText: 'Próximamente',
-      buttonVariant: 'outline-light',
-      comingSoonDate: 'Febrero 2025',
-    },
-    {
-      icon: '🎯',
-      title: 'Presentaciones Inmersivas',
-      description: 'Crea presentaciones que hipnoticen a tu audiencia con transiciones cinematográficas y contenido interactivo.',
-      features: [
-        'Transiciones cinematográficas',
-        'Elementos interactivos',
-        'Colaboración en tiempo real',
-        'Analytics de engagement',
-      ],
-      status: 'coming-soon',
-      buttonText: 'Próximamente',
-      buttonVariant: 'outline-light',
-      comingSoonDate: 'Marzo 2025',
-    },
-    {
-      icon: '🏢',
-      title: 'Soluciones Empresariales',
-      description: 'White-label completo, integraciones CRM avanzadas, SSO y herramientas de gestión de equipos para empresas.',
-      features: [
-        'White-label personalizable',
-        'Integraciones CRM/API',
-        'Single Sign-On (SSO)',
-        'Manager dashboard',
-      ],
-      status: 'contact-us',
-      buttonText: 'Consulta Enterprise',
-      buttonVariant: 'btn-premium-gold-outline',
-      link: '/contact', // Assuming a contact page exists
-    },
-    {
-      icon: '🔗',
-      title: 'API & Integraciones',
-      description: 'Conecta nuestra plataforma con tus herramientas favoritas. API RESTful completa con webhooks y SDKs.',
-      features: [
-        'API RESTful completa',
-        'Webhooks en tiempo real',
-        'SDKs JavaScript/Python',
-        'HubSpot, Salesforce, Zapier',
-      ],
-      status: 'contact-us',
-      buttonText: 'Ver Documentación',
-      buttonVariant: 'outline-info',
-      link: '/docs', // Assuming a docs page exists
-    },
-    {
-      icon: '🎨',
-      title: 'Template Marketplace',
-      description: 'Descubre plantillas premium creadas por diseñadores profesionales o vende tus propios diseños.',
-      features: [
-        'Plantillas premium exclusivas',
-        'Diseños por profesionales',
-        'Vende tus creaciones',
-        'Comisiones del 70%',
-      ],
-      status: 'coming-soon',
-      buttonText: 'Próximamente',
-      buttonVariant: 'outline-light',
-      comingSoonDate: 'Abril 2025',
-    },
-  ];
   
   // Handle post-login redirection
   usePostLoginRedirect();

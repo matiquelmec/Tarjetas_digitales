@@ -4,10 +4,40 @@ import { Modal, Button, Alert, Form, InputGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
+interface CardData {
+  name: string;
+  title: string;
+  about?: string;
+  email?: string;
+  whatsapp?: string;
+  phone?: string;
+  website?: string;
+  linkedin?: string;
+  twitter?: string;
+  instagram?: string;
+  facebook?: string;
+  photo?: string;
+  location?: string;
+  appointmentLink?: string;
+  professionalDetails?: string;
+  cardBackgroundColor?: string;
+  cardTextColor?: string;
+  buttonSecondaryColor?: string;
+  buttonSecondaryHoverColor?: string;
+  buttonNormalBackgroundColor?: string;
+  pageBackgroundColor?: string;
+  enableHoverEffect?: boolean;
+  enableGlassmorphism?: boolean;
+  enableSubtleAnimations?: boolean;
+  enableBackgroundPatterns?: boolean;
+  enableAIPalette?: boolean;
+  customUrl?: string;
+}
+
 interface PublishModalProps {
   show: boolean;
   onHide: () => void;
-  cardData: any;
+  cardData: CardData;
 }
 
 export function PublishModal({ show, onHide, cardData }: PublishModalProps) {

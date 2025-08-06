@@ -46,11 +46,12 @@ model User {
   plan          Plan      @default(FREE)
   stripeCustomerId String? @unique
   
-  accounts     Account[]
-  sessions     Session[]
-  cards        Card[]
-  cvs          SmartCV[]
-  subscription Subscription?
+  accounts      Account[]
+  sessions      Session[]
+  cards         Card[]
+  cvs           SmartCV[]
+  presentations Presentation[]
+  subscription  Subscription?
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -150,4 +151,34 @@ model SmartCV {
   updatedAt DateTime @updatedAt
 
   @@index([userId])
+}
+
+// Modelo para Presentaciones Inmersivas
+model Presentation {
+  id          String @id @default(cuid())
+  title       String
+  description String?
+  slides      Json   // Array de slides serializado
+  theme       Json   // Configuración del tema
+  settings    Json   // Configuraciones de la presentación
+  
+  // URLs y acceso
+  customUrl   String?  @unique
+  isPublic    Boolean  @default(false)
+  
+  // Analytics
+  views         Int @default(0)
+  uniqueViews   Int @default(0)
+  averageTime   Int @default(0) // En segundos
+  analyticsData Json? // Datos detallados de analytics
+  
+  // Relaciones
+  userId    String
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([userId])
+  @@index([isPublic])
 }

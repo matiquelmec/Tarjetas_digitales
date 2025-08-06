@@ -23,12 +23,12 @@ export function usePerformanceOptimization(): PerformanceSettings {
     
     // Detectar tipo de dispositivo y performance
     const isLowEndDevice = () => {
-      // @ts-ignore
+      // @ts-expect-error: La propiedad connection no es estándar en todos los navegadores
       const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
       const slowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
       
       // Detectar dispositivos con menos memoria/CPU
-      // @ts-ignore
+      // @ts-expect-error: La propiedad deviceMemory no es estándar en todos los navegadores
       const deviceMemory = (navigator as any).deviceMemory;
       const lowMemory = deviceMemory && deviceMemory < 4;
       

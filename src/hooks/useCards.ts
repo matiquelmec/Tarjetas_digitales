@@ -12,7 +12,7 @@ export interface CardFormData {
   twitter?: string;
   instagram?: string;
   photoUrl?: string;
-  customization: any;
+  customization: Record<string, any>;
 }
 
 export function useCards() {

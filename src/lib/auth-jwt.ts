@@ -53,7 +53,7 @@ export const authOptionsJWT: NextAuthOptions = {
       
       return session;
     },
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       logger.debug('SignIn callback (JWT) triggered', {
         provider: account?.provider,
         userEmail: user?.email

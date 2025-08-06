@@ -1,12 +1,12 @@
 'use client';
 
 import { useSession, signIn } from 'next-auth/react';
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { Container, Button, Card } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export function AuthWrapper({ children }: { children: React.ReactNode }) {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   useEffect(() => {

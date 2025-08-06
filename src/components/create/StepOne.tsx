@@ -4,59 +4,27 @@ import { Form, Row, Col, InputGroup, Button } from 'react-bootstrap';
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 
+interface CardData {
+  name: string;
+  title: string;
+  company?: string;
+  email?: string;
+  phone?: string;
+  whatsapp?: string;
+  about?: string;
+  photo?: string;
+}
+
 interface StepOneProps {
-  cardData: any;
-  updateCardData: (field: string, value: any) => void;
+  cardData: CardData;
+  updateCardData: (field: keyof CardData, value: string) => void;
 }
 
 export function StepOne({ cardData, updateCardData }: StepOneProps) {
   const [titleSuggestions, setTitleSuggestions] = useState<string[]>([]);
   const [aboutSuggestions, setAboutSuggestions] = useState<string[]>([]);
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
-
-  const validateField = (field: string, value: string) => {
-    const newErrors = { ...errors };
-    
-    switch (field) {
-      case 'name':
-        if (!value.trim()) {
-          newErrors.name = 'El nombre es requerido';
-        } else if (value.trim().length < 2) {
-          newErrors.name = 'El nombre debe tener al menos 2 caracteres';
-        } else {
-          delete newErrors.name;
-        }
-        break;
-      case 'title':
-        if (!value.trim()) {
-          newErrors.title = 'El título profesional es requerido';
-        } else if (value.trim().length < 3) {
-          newErrors.title = 'El título debe tener al menos 3 caracteres';
-        } else {
-          delete newErrors.title;
-        }
-        break;
-      case 'about':
-        if (value.trim().length > 0 && value.trim().length < 10) {
-          newErrors.about = 'La descripción debe tener al menos 10 caracteres o estar vacía';
-        } else {
-          delete newErrors.about;
-        }
-        break;
-      case 'email':
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (value.trim() && !emailRegex.test(value)) {
-          newErrors.email = 'Por favor ingresa un email válido';
-        } else {
-          delete newErrors.email;
-        }
-        break;
-    }
-    
-    setErrors(newErrors);
-  };
 
   const generateTitleSuggestions = (text: string) => {
     const suggestions = [
