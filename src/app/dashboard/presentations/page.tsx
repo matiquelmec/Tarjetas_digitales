@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Nav, Tab } from 'react-bootstrap';
 import { AuthWrapper } from '@/components/AuthWrapper';
 import IndiNavbar from '@/components/layout/IndiNavbar';
@@ -10,6 +10,8 @@ import IndiChat from '@/features/presentations/components/IndiChat';
 
 export default function PresentationsPage() {
   const [activeTab, setActiveTab] = useState('create');
+  const [presentations, setPresentations] = useState<any[]>([]);
+  const [currentPresentation, setCurrentPresentation] = useState<any>(null);
   const [currentSlides, setCurrentSlides] = useState([
     {
       id: '1',
@@ -22,6 +24,147 @@ export default function PresentationsPage() {
   ]);
   const [selectedTheme, setSelectedTheme] = useState('stellar');
   const [presentationTitle, setPresentationTitle] = useState('Mi Presentación');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Cargar presentaciones al montar el componente
+  useEffect(() => {
+    loadPresentations();
+  }, []);
+
+  const loadPresentations = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch('/api/presentations');
+      if (!response.ok) {
+        throw new Error('Error cargando presentaciones');
+      }
+      const data = await response.json();
+      setPresentations(data.presentations || []);
+    } catch (error) {
+      console.error('Error loading presentations:', error);
+      setError('Error cargando presentaciones');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handlePresentationGenerated = (presentation: any) => {
+    if (presentation && presentation.slides) {
+      setCurrentPresentation(presentation);
+      setCurrentSlides(presentation.slides);
+      setPresentationTitle(presentation.title);
+      
+      if (presentation.theme && typeof presentation.theme === 'object') {
+        setSelectedTheme(presentation.theme.name || 'stellar');
+      }
+      
+      // Cambiar a la pestaña de creación para mostrar el resultado
+      setActiveTab('create');
+      
+      // Recargar la lista de presentaciones
+      loadPresentations();
+    }
+  };
+
+  const handleSavePresentation = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const presentationData = {
+        title: presentationTitle,
+        description: currentPresentation?.description || 'Presentación creada con IA',
+        slides: currentSlides,
+        theme: typeof selectedTheme === 'string' 
+          ? { name: selectedTheme, primaryColor: '#00f6ff', secondaryColor: '#0072ff', backgroundColor: '#0f0c29', fontFamily: 'Inter' }
+          : selectedTheme,
+        settings: {
+          autoPlay: false,
+          loop: false,
+          showProgress: true,
+          allowDownload: false,
+          transitionEffect: 'slide'
+        }
+      };
+
+      let response;
+      
+      if (currentPresentation && currentPresentation.id) {
+        // Actualizar presentación existente
+        response = await fetch(`/api/presentations/${currentPresentation.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(presentationData)
+        });
+      } else {
+        // Crear nueva presentación
+        response = await fetch('/api/presentations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(presentationData)
+        });
+      }
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error guardando presentación');
+      }
+
+      const data = await response.json();
+      setCurrentPresentation(data.presentation);
+      
+      // Recargar lista
+      loadPresentations();
+      
+      alert('Presentación guardada exitosamente');
+
+    } catch (error) {
+      console.error('Error saving presentation:', error);
+      setError(error instanceof Error ? error.message : 'Error guardando presentación');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleExportPDF = async () => {
+    if (!currentPresentation || !currentPresentation.id) {
+      alert('Guarda la presentación primero antes de exportar');
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      
+      const response = await fetch(`/api/presentations/${currentPresentation.id}/export?format=pdf`, {
+        method: 'GET'
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error exportando PDF');
+      }
+
+      // Descargar el archivo
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${presentationTitle.replace(/[^a-z0-9]/gi, '_')}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      alert('PDF exportado exitosamente');
+
+    } catch (error) {
+      console.error('Error exporting PDF:', error);
+      alert(`Error exportando PDF: ${error instanceof Error ? error.message : 'Error desconocido'}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const addSlide = (type: 'title' | 'content' | 'image' | 'chart' = 'content') => {
     const newSlide = {
@@ -272,11 +415,31 @@ export default function PresentationsPage() {
                     <Card.Header className="border-0 d-flex justify-content-between align-items-center">
                       <h5 className="mb-0">🔮 Vista Previa</h5>
                       <div>
-                        <Button className="alien-btn me-2" size="sm">
+                        <Button 
+                          className="alien-btn me-2" 
+                          size="sm"
+                          onClick={handleSavePresentation}
+                          disabled={isLoading}
+                        >
                           <span className="me-2">💾</span>
-                          Guardar
+                          {isLoading ? 'Guardando...' : 'Guardar'}
                         </Button>
-                        <Button className="alien-btn" size="sm">
+                        <Button 
+                          className="alien-btn me-2" 
+                          size="sm"
+                          disabled={!currentPresentation}
+                          onClick={handleExportPDF}
+                          title={!currentPresentation ? 'Genera o carga una presentación primero' : 'Exportar a PDF'}
+                        >
+                          <span className="me-2">📄</span>
+                          Exportar PDF
+                        </Button>
+                        <Button 
+                          className="alien-btn" 
+                          size="sm"
+                          disabled={!currentPresentation}
+                          title={!currentPresentation ? 'Genera o carga una presentación primero' : 'Modo presentación'}
+                        >
                           <span className="me-2">▶️</span>
                           Presentar
                         </Button>
@@ -327,7 +490,7 @@ export default function PresentationsPage() {
                       </p>
                     </Card.Header>
                     <Card.Body style={{ height: '600px', overflow: 'hidden' }}>
-                      <IndiChat />
+                      <IndiChat onPresentationGenerated={handlePresentationGenerated} />
                     </Card.Body>
                   </Card>
                 </Col>
