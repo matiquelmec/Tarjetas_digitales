@@ -22,16 +22,16 @@ export async function POST(request: NextRequest) {
   try {
     // Verificar autenticación
     const session = await getServerSession(authOptionsMinimal);
-    if (!session?.user?.id) {
+    if (!session?.user?.email) {
       return NextResponse.json(
         { error: 'Usuario no autenticado' },
         { status: 401 }
       );
     }
 
-    // Verificar usuario en base de datos
+    // Verificar usuario en base de datos por email
     const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
+      where: { email: session.user.email },
       select: { plan: true, id: true }
     });
 
@@ -229,12 +229,12 @@ Crea entre 5-8 slides dependiendo de la duración solicitada. Usa tipos: "title"
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptionsMinimal);
-    if (!session?.user?.id) {
+    if (!session?.user?.email) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
+      where: { email: session.user.email },
       select: { plan: true }
     });
 
