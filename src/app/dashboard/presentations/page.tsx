@@ -26,6 +26,8 @@ export default function PresentationsPage() {
   const [presentationTitle, setPresentationTitle] = useState('Mi Presentación');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   // Cargar presentaciones al montar el componente
   useEffect(() => {
@@ -180,6 +182,67 @@ export default function PresentationsPage() {
     };
     setCurrentSlides([...currentSlides, newSlide]);
   };
+
+  // Funciones para modo presentación
+  const startPresentation = () => {
+    if (currentSlides.length === 0) return;
+    setCurrentSlideIndex(0);
+    setIsFullscreen(true);
+  };
+
+  const exitPresentation = () => {
+    setIsFullscreen(false);
+    setCurrentSlideIndex(0);
+  };
+
+  const nextSlide = () => {
+    if (currentSlideIndex < currentSlides.length - 1) {
+      setCurrentSlideIndex(currentSlideIndex + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSlideIndex > 0) {
+      setCurrentSlideIndex(currentSlideIndex - 1);
+    }
+  };
+
+  const goToSlide = (index: number) => {
+    if (index >= 0 && index < currentSlides.length) {
+      setCurrentSlideIndex(index);
+    }
+  };
+
+  // Manejar teclas en modo presentación
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (!isFullscreen) return;
+      
+      switch (event.key) {
+        case 'ArrowRight':
+        case 'Space':
+          nextSlide();
+          break;
+        case 'ArrowLeft':
+          prevSlide();
+          break;
+        case 'Escape':
+          exitPresentation();
+          break;
+        case 'Home':
+          goToSlide(0);
+          break;
+        case 'End':
+          goToSlide(currentSlides.length - 1);
+          break;
+      }
+    };
+
+    if (isFullscreen) {
+      document.addEventListener('keydown', handleKeyPress);
+      return () => document.removeEventListener('keydown', handleKeyPress);
+    }
+  }, [isFullscreen, currentSlideIndex, currentSlides.length]);
 
   return (
     <AuthWrapper>
@@ -615,6 +678,191 @@ export default function PresentationsPage() {
             font-size: 3rem;
           }
         }
+        
+        /* Estilos para modo presentación fullscreen */
+        .fullscreen-presentation {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: #000;
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        .presentation-overlay {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+        }
+        
+        .presentation-slide {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 2rem;
+        }
+        
+        .presentation-controls {
+          position: absolute;
+          bottom: 2rem;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 90%;
+          max-width: 800px;
+          background: rgba(0, 0, 0, 0.7);
+          backdrop-filter: blur(10px);
+          border-radius: 20px;
+          padding: 1rem 2rem;
+          transition: opacity 0.3s ease;
+        }
+        
+        .controls-left,
+        .controls-right {
+          flex: 1;
+        }
+        
+        .controls-center {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          justify-content: center;
+        }
+        
+        .control-btn {
+          background: rgba(255, 255, 255, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          color: white;
+          border-radius: 12px;
+          padding: 8px 12px;
+          font-size: 1rem;
+          font-weight: 600;
+          transition: all 0.3s ease;
+          min-width: 40px;
+        }
+        
+        .control-btn:hover:not(:disabled) {
+          background: rgba(255, 255, 255, 0.3);
+          color: white;
+          transform: translateY(-2px);
+        }
+        
+        .control-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+        
+        .slide-counter {
+          color: white;
+          font-weight: 600;
+          font-size: 1rem;
+          min-width: 60px;
+          text-align: center;
+        }
+        
+        .slide-indicators {
+          display: flex;
+          gap: 8px;
+          justify-content: flex-end;
+        }
+        
+        .indicator {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.3);
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        
+        .indicator:hover {
+          background: rgba(255, 255, 255, 0.5);
+          transform: scale(1.2);
+        }
+        
+        .indicator.active {
+          background: #00f6ff;
+          box-shadow: 0 0 10px rgba(0, 246, 255, 0.5);
+        }
+        
+        .keyboard-hints {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background: rgba(0, 0, 0, 0.7);
+          color: rgba(255, 255, 255, 0.8);
+          padding: 8px 12px;
+          border-radius: 8px;
+          font-size: 0.8rem;
+          backdrop-filter: blur(10px);
+        }
+        
+        .btn-present {
+          background: linear-gradient(135deg, #28a745, #20c997);
+          border: none;
+          color: white;
+          border-radius: 8px;
+          padding: 6px 12px;
+          font-size: 0.85rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+        
+        .btn-present:hover:not(:disabled) {
+          background: linear-gradient(135deg, #218838, #17a2b8);
+          color: white;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-present:disabled {
+          background: #6c757d;
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+        
+        /* Ocultar controles automáticamente después de unos segundos */
+        .presentation-controls {
+          animation: fadeInControls 0.5s ease;
+        }
+        
+        @keyframes fadeInControls {
+          from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+          to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        
+        /* Responsive para modo presentación */
+        @media (max-width: 768px) {
+          .presentation-controls {
+            width: 95%;
+            padding: 0.75rem 1rem;
+            flex-direction: column;
+            gap: 1rem;
+          }
+          
+          .controls-left,
+          .controls-right {
+            flex: none;
+          }
+          
+          .keyboard-hints {
+            display: none;
+          }
+          
+          .slide-indicators {
+            justify-content: center;
+          }
+        }
       `}</style>
       
       {/* Navbar con Indi */}
@@ -748,6 +996,15 @@ export default function PresentationsPage() {
                             <span className="me-2">📄</span>
                             PDF
                           </Button>
+                          <Button 
+                            className="btn-present" 
+                            size="sm"
+                            onClick={startPresentation}
+                            disabled={currentSlides.length === 0}
+                          >
+                            <span className="me-2">▶️</span>
+                            Presentar
+                          </Button>
                         </div>
                       </div>
                       
@@ -819,6 +1076,79 @@ export default function PresentationsPage() {
           </Tab.Content>
         </Tab.Container>
       </Container>
+
+      {/* Modo Presentación Fullscreen */}
+      {isFullscreen && (
+        <div className="fullscreen-presentation">
+          <div className="presentation-overlay">
+            {/* Slide actual */}
+            <div className="presentation-slide">
+              <SlidePreview
+                slide={currentSlides[currentSlideIndex]}
+                theme={selectedTheme}
+                isPreview={false}
+              />
+            </div>
+
+            {/* Controles de presentación */}
+            <div className="presentation-controls">
+              <div className="controls-left">
+                <Button 
+                  className="control-btn"
+                  onClick={exitPresentation}
+                  title="Salir (Esc)"
+                >
+                  ✕
+                </Button>
+              </div>
+
+              <div className="controls-center">
+                <Button 
+                  className="control-btn"
+                  onClick={prevSlide}
+                  disabled={currentSlideIndex === 0}
+                  title="Anterior (←)"
+                >
+                  ←
+                </Button>
+                
+                <span className="slide-counter">
+                  {currentSlideIndex + 1} / {currentSlides.length}
+                </span>
+                
+                <Button 
+                  className="control-btn"
+                  onClick={nextSlide}
+                  disabled={currentSlideIndex === currentSlides.length - 1}
+                  title="Siguiente (→ o Espacio)"
+                >
+                  →
+                </Button>
+              </div>
+
+              <div className="controls-right">
+                <div className="slide-indicators">
+                  {currentSlides.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`indicator ${index === currentSlideIndex ? 'active' : ''}`}
+                      onClick={() => goToSlide(index)}
+                      title={`Ir a slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Instrucciones de teclado */}
+            <div className="keyboard-hints">
+              <small>
+                ← → Navegar | Espacio: Siguiente | Esc: Salir | Home/End: Primera/Última
+              </small>
+            </div>
+          </div>
+        </div>
+      )}
     </AuthWrapper>
   );
 }
