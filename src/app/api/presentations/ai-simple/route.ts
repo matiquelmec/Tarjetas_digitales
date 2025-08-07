@@ -153,14 +153,32 @@ Crea entre 5-8 slides dependiendo de la duración solicitada. Usa tipos: "title"
     // Parsear respuesta JSON de Claude
     let aiResult;
     try {
+      console.log('Raw AI content:', aiContent);
+      
       // Extraer JSON del texto si viene con markdown
       const jsonMatch = aiContent.match(/```json\n([\s\S]*?)\n```/) || aiContent.match(/\{[\s\S]*\}/);
       const jsonString = jsonMatch ? (jsonMatch[1] || jsonMatch[0]) : aiContent;
+      
+      console.log('Extracted JSON string:', jsonString);
+      
       aiResult = JSON.parse(jsonString);
+      
+      console.log('Parsed AI result:', aiResult);
+      
+      // Validar estructura básica
+      if (!aiResult.slides || !Array.isArray(aiResult.slides)) {
+        throw new Error('Respuesta de IA no contiene slides válidos');
+      }
+      
     } catch (parseError) {
       console.error('Error parsing AI response:', parseError);
+      console.error('AI content was:', aiContent);
       return NextResponse.json(
-        { error: 'Error procesando respuesta de IA' },
+        { 
+          error: 'Error procesando respuesta de IA',
+          details: parseError.message,
+          rawContent: process.env.NODE_ENV === 'development' ? aiContent : undefined
+        },
         { status: 500 }
       );
     }

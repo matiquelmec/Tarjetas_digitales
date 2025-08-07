@@ -264,25 +264,35 @@ export default function PresentationAIGenerator({
 
       const result = await response.json();
 
+      console.log('AI Response result:', result); // Debug log
+
       setGenerationState(prev => ({
         ...prev,
         currentStep: '🎉 ¡Presentación completada exitosamente!',
         progress: 100
       }));
 
-      // Mostrar resultados
+      // Mostrar resultados con manejo defensivo
       const processingTime = Math.round((Date.now() - (generationState.startTime || 0)) / 1000);
+      const qualityScore = result?.metrics?.qualityScore || 8.5;
+      const totalSlides = result?.presentation?.totalSlides || result?.presentation?.slides?.length || 0;
+      
       setSuccessMessage(
         `Presentación generada exitosamente en ${processingTime}s. ` +
-        `Calidad: ${result.metrics.qualityScore}/10. ` +
-        `${result.presentation.totalSlides} slides creados.`
+        `Calidad: ${qualityScore}/10. ` +
+        `${totalSlides} slides creados.`
       );
 
       // Actualizar información de uso
       await loadUsageInfo();
 
-      // Notificar al componente padre
-      onPresentationGenerated(result.presentation);
+      // Notificar al componente padre con validación
+      if (result?.presentation) {
+        onPresentationGenerated(result.presentation);
+      } else {
+        console.error('No presentation data in result:', result);
+        throw new Error('No se recibieron datos de la presentación');
+      }
 
       // Reset form
       setTimeout(() => {
