@@ -208,15 +208,49 @@ export default function PresentationsPage() {
   };
 
   // Funciones para modo presentación
-  const startPresentation = () => {
+  const startPresentation = async () => {
     if (currentSlides.length === 0) return;
+    
     setCurrentSlideIndex(0);
     setIsFullscreen(true);
+    
+    // Entrar en fullscreen nativo del navegador
+    try {
+      const element = document.documentElement;
+      if (element.requestFullscreen) {
+        await element.requestFullscreen();
+      } else if ((element as any).mozRequestFullScreen) {
+        await (element as any).mozRequestFullScreen();
+      } else if ((element as any).webkitRequestFullscreen) {
+        await (element as any).webkitRequestFullscreen();
+      } else if ((element as any).msRequestFullscreen) {
+        await (element as any).msRequestFullscreen();
+      }
+    } catch (error) {
+      console.log('Fullscreen not supported or denied:', error);
+    }
   };
 
-  const exitPresentation = () => {
+  const exitPresentation = async () => {
     setIsFullscreen(false);
     setCurrentSlideIndex(0);
+    
+    // Salir de fullscreen nativo
+    try {
+      if (document.fullscreenElement) {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if ((document as any).mozCancelFullScreen) {
+          await (document as any).mozCancelFullScreen();
+        } else if ((document as any).webkitExitFullscreen) {
+          await (document as any).webkitExitFullscreen();
+        } else if ((document as any).msExitFullscreen) {
+          await (document as any).msExitFullscreen();
+        }
+      }
+    } catch (error) {
+      console.log('Error exiting fullscreen:', error);
+    }
   };
 
   const nextSlide = () => {
@@ -237,7 +271,7 @@ export default function PresentationsPage() {
     }
   };
 
-  // Manejar teclas en modo presentación
+  // Manejar teclas en modo presentación y cambios de fullscreen
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (!isFullscreen) return;
@@ -262,9 +296,28 @@ export default function PresentationsPage() {
       }
     };
 
+    const handleFullscreenChange = () => {
+      // Si el usuario salió de fullscreen (F11, ESC, etc.) sincronizar nuestro estado
+      if (!document.fullscreenElement && isFullscreen) {
+        setIsFullscreen(false);
+        setCurrentSlideIndex(0);
+      }
+    };
+
     if (isFullscreen) {
       document.addEventListener('keydown', handleKeyPress);
-      return () => document.removeEventListener('keydown', handleKeyPress);
+      document.addEventListener('fullscreenchange', handleFullscreenChange);
+      document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+      
+      return () => {
+        document.removeEventListener('keydown', handleKeyPress);
+        document.removeEventListener('fullscreenchange', handleFullscreenChange);
+        document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+        document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+      };
     }
   }, [isFullscreen, currentSlideIndex, currentSlides.length]);
 
@@ -710,11 +763,18 @@ export default function PresentationsPage() {
           left: 0;
           width: 100vw;
           height: 100vh;
-          background: #000;
+          background: linear-gradient(-45deg, #0f0c29, #24243e, #302b63, #1a1a2e);
+          background-size: 400% 400%;
+          animation: gradientAnimation 15s ease infinite;
           z-index: 9999;
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: none; /* Ocultar cursor durante la presentación */
+        }
+        
+        .fullscreen-presentation:hover {
+          cursor: default; /* Mostrar cursor al mover el mouse */
         }
         
         .presentation-overlay {
@@ -743,11 +803,17 @@ export default function PresentationsPage() {
           justify-content: space-between;
           width: 90%;
           max-width: 800px;
-          background: rgba(0, 0, 0, 0.7);
-          backdrop-filter: blur(10px);
-          border-radius: 20px;
+          background: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(15px);
+          border-radius: 25px;
           padding: 1rem 2rem;
-          transition: opacity 0.3s ease;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          opacity: 0;
+          transition: all 0.3s ease;
+        }
+        
+        .fullscreen-presentation:hover .presentation-controls {
+          opacity: 1;
         }
         
         .controls-left,
@@ -1031,9 +1097,10 @@ export default function PresentationsPage() {
                             size="sm"
                             onClick={startPresentation}
                             disabled={currentSlides.length === 0}
+                            title="Presentar en pantalla completa nativa (F11)"
                           >
-                            <span className="me-2">▶️</span>
-                            Presentar
+                            <span className="me-2">🖥️</span>
+                            Pantalla Completa
                           </Button>
                         </div>
                       </div>
