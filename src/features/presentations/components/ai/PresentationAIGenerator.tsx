@@ -90,7 +90,7 @@ export default function PresentationAIGenerator({
 
   const loadUsageInfo = async () => {
     try {
-      const response = await fetch('/api/presentations/ai-generate', {
+      const response = await fetch('/api/presentations/ai-simple', {
         method: 'GET'
       });
       if (response.ok) {
@@ -106,7 +106,7 @@ export default function PresentationAIGenerator({
           capabilities: {
             maxDocumentLength: 5000,
             researchEnabled: false,
-            maxDuration: 10,
+            maxDuration: 15,
             customInstructions: false,
             priorityProcessing: false
           }
@@ -123,7 +123,7 @@ export default function PresentationAIGenerator({
         capabilities: {
           maxDocumentLength: 5000,
           researchEnabled: false,
-          maxDuration: 10,
+          maxDuration: 15,
           customInstructions: false,
           priorityProcessing: false
         }
@@ -247,7 +247,7 @@ export default function PresentationAIGenerator({
         customInstructions: customInstructions.trim() || undefined
       };
 
-      const response = await fetch('/api/presentations/ai-generate', {
+      const response = await fetch('/api/presentations/ai-simple', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -781,90 +781,14 @@ Mínimo 100 caracteres para crear una presentación efectiva."
               </Col>
             </Row>
 
-            {/* Opciones avanzadas */}
-            <div className="mb-4">
-              <Button
-                variant="link"
-                onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
-                className="p-0 text-decoration-none fw-bold"
-                disabled={generationState.isGenerating}
-              >
-                ⚙️ Opciones Avanzadas {showAdvancedOptions ? '▼' : '▶'}
-              </Button>
-              
-              <Collapse in={showAdvancedOptions}>
-                <div className="advanced-options mt-3">
-                  {/* Nivel de interactividad */}
-                  <Form.Group className="mb-3">
-                    <Form.Label className="fw-bold">🎪 Nivel de Interactividad</Form.Label>
-                    <Form.Select 
-                      value={interactivityLevel} 
-                      onChange={(e) => setInteractivityLevel(e.target.value)}
-                      disabled={generationState.isGenerating}
-                    >
-                      <option value="low">Bajo - Pocas actividades</option>
-                      <option value="medium">Medio - Balance ideal</option>
-                      <option value="high">Alto - Muy interactiva</option>
-                    </Form.Select>
-                  </Form.Group>
-
-                  {/* Investigación con IA */}
-                  <Form.Group className="mb-3">
-                    <Form.Check
-                      type="checkbox"
-                      id="requiresResearch"
-                      checked={requiresResearch}
-                      onChange={(e) => setRequiresResearch(e.target.checked)}
-                      disabled={generationState.isGenerating || !usageInfo?.capabilities?.researchEnabled}
-                      label={
-                        <span>
-                          🔍 Investigar datos actualizados con IA
-                          {usageInfo?.capabilities?.researchEnabled && (
-                            <span className="feature-tag">PREMIUM</span>
-                          )}
-                        </span>
-                      }
-                    />
-                    <Form.Text className="text-muted">
-                      Busca estadísticas actuales, tendencias y casos de estudio relevantes
-                    </Form.Text>
-                  </Form.Group>
-
-                  {/* Instrucciones personalizadas */}
-                  {usageInfo?.capabilities?.customInstructions && (
-                    <Form.Group className="mb-3">
-                      <Form.Label className="fw-bold">
-                        📝 Instrucciones Personalizadas
-                        <span className="feature-tag">PRO</span>
-                      </Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        rows={3}
-                        value={customInstructions}
-                        onChange={(e) => setCustomInstructions(e.target.value)}
-                        placeholder="ej: Enfócate en métricas financieras, incluye más ejemplos prácticos..."
-                        disabled={generationState.isGenerating}
-                        maxLength={500}
-                      />
-                      <Form.Text className="text-muted">
-                        {customInstructions.length}/500 caracteres
-                      </Form.Text>
-                    </Form.Group>
-                  )}
-                </div>
-              </Collapse>
-            </div>
-
-            {/* Upgrade hint para usuarios FREE */}
-            {usageInfo?.plan === 'FREE' && (
-              <div className="plan-upgrade-hint">
-                <h6>🚀 Desbloquea Todo el Potencial</h6>
-                <p>
-                  Actualiza a PRO para: Investigación con IA • Documentos más largos • 
-                  Instrucciones personalizadas • Procesamiento prioritario
-                </p>
-              </div>
-            )}
+            {/* Mensaje informativo simple */}
+            <Alert variant="info" className="mb-4">
+              <Alert.Heading>🤖 IA Simplificada</Alert.Heading>
+              <p className="mb-0">
+                Versión básica que genera presentaciones profesionales aplicando la regla 6x6 
+                (máximo 6 puntos por slide, 6 palabras por punto) para máximo impacto.
+              </p>
+            </Alert>
 
             {/* Botón de generación */}
             <div className="text-center">
