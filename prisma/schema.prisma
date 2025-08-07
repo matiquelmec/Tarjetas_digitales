@@ -131,9 +131,11 @@ model Presentation {
   id            String   @id @default(cuid())
   title         String
   description   String?
-  slides        Json
-  theme         Json
-  settings      Json
+  content       Json     // Contenido completo de la presentación generada por IA
+  slides        Json?    // Mantener compatibilidad con slides legacy
+  theme         Json?    // Tema aplicado
+  settings      Json?    // Configuraciones de presentación
+  metadata      Json?    // Metadatos de generación AI y calidad
   customUrl     String?  @unique
   isPublic      Boolean  @default(false)
   views         Int      @default(0)
@@ -147,6 +149,31 @@ model Presentation {
 
   @@index([userId])
   @@index([isPublic])
+  @@index([createdAt])
+}
+
+// Nueva tabla para logging de actividad de usuarios
+model UserActivity {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String   // Tipo de acción realizada
+  details   Json?    // Detalles específicos de la acción
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+// Tabla para base de conocimientos RAG
+model KnowledgeBase {
+  id        String   @id @default(cuid())
+  content   String   // Contenido del documento
+  embedding Float[]  // Vector embedding para búsqueda semántica
+  metadata  Json     // Metadatos: tipo, topic, fuente, etc.
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
 }
 
 enum Plan {

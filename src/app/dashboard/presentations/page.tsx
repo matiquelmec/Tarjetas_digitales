@@ -7,6 +7,7 @@ import IndiNavbar from '@/components/layout/IndiNavbar';
 import SlidePreview from '@/features/presentations/components/SlidePreview';
 import ThemeSelector from '@/features/presentations/components/ThemeSelector';
 import IndiChat from '@/features/presentations/components/IndiChat';
+import PresentationAIGenerator from '@/features/presentations/components/ai/PresentationAIGenerator';
 
 export default function PresentationsPage() {
   const [activeTab, setActiveTab] = useState('create');
@@ -52,14 +53,36 @@ export default function PresentationsPage() {
   };
 
   const handlePresentationGenerated = (presentation: any) => {
-    if (presentation && presentation.slides) {
-      setCurrentPresentation(presentation);
-      setCurrentSlides(presentation.slides);
-      setPresentationTitle(presentation.title);
-      
-      if (presentation.theme && typeof presentation.theme === 'object') {
-        setSelectedTheme(presentation.theme.name || 'stellar');
-      }
+    if (presentation) {
+      // Adaptamos la estructura de PresentationMind AI al formato existente
+      const adaptedPresentation = {
+        id: presentation.id,
+        title: presentation.metadata?.title || presentation.title,
+        description: presentation.metadata?.subtitle || 'Presentación generada con IA',
+        slides: presentation.slides?.map((slide: any, index: number) => ({
+          id: slide.id || `slide-${index + 1}`,
+          type: slide.content?.contentType === 'intro' ? 'title' : 'content',
+          content: slide.content?.contentType === 'intro' ? {
+            title: slide.title,
+            subtitle: slide.content.keyMessage
+          } : {
+            title: slide.title,
+            content: slide.content?.bulletPoints?.join('\n• ') || slide.speakerNotes
+          }
+        })) || [],
+        theme: { 
+          name: 'stellar', 
+          primaryColor: '#00f6ff', 
+          secondaryColor: '#0072ff', 
+          backgroundColor: '#0f0c29', 
+          fontFamily: 'Inter' 
+        }
+      };
+
+      setCurrentPresentation(adaptedPresentation);
+      setCurrentSlides(adaptedPresentation.slides);
+      setPresentationTitle(adaptedPresentation.title);
+      setSelectedTheme('stellar');
       
       // Cambiar a la pestaña de creación para mostrar el resultado
       setActiveTab('create');
@@ -1055,18 +1078,24 @@ export default function PresentationsPage() {
               </Row>
             </Tab.Pane>
 
-            {/* Tab 3: Asistente IA */}
+            {/* Tab 3: Generador con IA */}
             <Tab.Pane eventKey="ai-assistant">
               <Row>
-                <Col>
+                <Col lg={8}>
+                  <PresentationAIGenerator 
+                    onPresentationGenerated={handlePresentationGenerated}
+                    onError={(error) => setError(error)}
+                  />
+                </Col>
+                <Col lg={4}>
                   <Card className="glass-card text-white">
                     <Card.Header className="border-0">
-                      <h5 className="mb-0">🤖 Asistente IA - Indi</h5>
+                      <h5 className="mb-0">💬 Chat con Indi</h5>
                       <p className="mb-0 small text-white-50">
-                        Chatea con Indi para generar contenido y mejorar tu presentación
+                        ¿Necesitas ayuda o tienes preguntas específicas?
                       </p>
                     </Card.Header>
-                    <Card.Body style={{ height: '600px', overflow: 'hidden' }}>
+                    <Card.Body style={{ height: '500px', overflow: 'hidden' }}>
                       <IndiChat onPresentationGenerated={handlePresentationGenerated} />
                     </Card.Body>
                   </Card>
