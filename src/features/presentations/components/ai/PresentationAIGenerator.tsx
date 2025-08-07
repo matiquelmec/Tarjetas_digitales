@@ -216,7 +216,7 @@ export default function PresentationAIGenerator({
         customInstructions: customInstructions.trim() || undefined
       };
 
-      const response = await fetch('/api/presentations/ai-test', {
+      const response = await fetch('/api/presentations/ai-generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

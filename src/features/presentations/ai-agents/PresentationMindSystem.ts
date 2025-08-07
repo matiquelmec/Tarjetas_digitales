@@ -156,7 +156,8 @@ export interface AgentReports {
 export class PresentationMindSystem {
   private orchestrator: OrchestratorAgent;
   private contentAnalysis: ContentAnalysisAgent;
-  private research: ResearchAgent;
+  private research: ResearchAgent | null;
+  private hasResearchCapability: boolean;
   
   constructor(
     anthropicApiKey: string,
@@ -165,7 +166,16 @@ export class PresentationMindSystem {
   ) {
     this.orchestrator = new OrchestratorAgent(anthropicApiKey);
     this.contentAnalysis = new ContentAnalysisAgent(anthropicApiKey);
-    this.research = new ResearchAgent(anthropicApiKey, supabaseUrl, supabaseKey);
+    
+    // Solo inicializar ResearchAgent si Supabase está disponible
+    if (supabaseUrl && supabaseKey) {
+      this.research = new ResearchAgent(anthropicApiKey, supabaseUrl, supabaseKey);
+      this.hasResearchCapability = true;
+    } else {
+      this.research = null;
+      this.hasResearchCapability = false;
+      console.warn('🔍 Research capabilities disabled - Supabase not configured');
+    }
   }
 
   async createPresentation(input: PresentationMindInput): Promise<PresentationMindOutput> {
@@ -217,10 +227,10 @@ export class PresentationMindSystem {
       agentReports.contentAnalysis.ruleCompliance = this.validateRuleCompliance(optimizedContent);
       agentReports.contentAnalysis.narrativeCoherence = 8.5; // Score basado en optimización
 
-      // FASE 3: INVESTIGACIÓN Y ENRIQUECIMIENTO (si se requiere)
+      // FASE 3: INVESTIGACIÓN Y ENRIQUECIMIENTO (si se requiere y está disponible)
       let researchResult: ResearchOutput | null = null;
       
-      if (input.requiresResearch) {
+      if (input.requiresResearch && this.hasResearchCapability && this.research) {
         console.log('🔍 Realizando investigación de datos actualizados...');
         const researchStart = Date.now();
         
@@ -246,6 +256,16 @@ export class PresentationMindSystem {
         agentReports.research.sourcesValidated = researchResult.credibleSources.length;
         agentReports.research.actualityScore = this.calculateActualityScore(researchResult);
         agentReports.research.credibilityAverage = this.calculateCredibilityAverage(researchResult);
+      } else if (input.requiresResearch && !this.hasResearchCapability) {
+        console.log('⚠️  Investigación solicitada pero Supabase no configurado - modo básico');
+        // Configurar reportes básicos para investigación
+        agentReports.research = {
+          dataPointsFound: 0,
+          sourcesValidated: 0,
+          actualityScore: 0,
+          credibilityAverage: 0,
+          processingTime: 0
+        };
       }
 
       // FASE 4: ENSAMBLAJE DE PRESENTACIÓN FINAL

@@ -99,20 +99,34 @@ export async function POST(request: NextRequest) {
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
-    if (!anthropicKey || !supabaseUrl || !supabaseKey) {
-      console.error('Missing required environment variables for AI agents');
+    if (!anthropicKey) {
+      console.error('Missing ANTHROPIC_API_KEY');
       return NextResponse.json(
-        { error: 'Configuración del sistema incompleta' },
+        { error: 'Configuración de IA incompleta' },
         { status: 500 }
       );
     }
 
-    // Inicializar sistema PresentationMind AI
-    const presentationMind = new PresentationMindSystem(
-      anthropicKey,
-      supabaseUrl,
-      supabaseKey
-    );
+    // Si faltan variables de Supabase, usar modo básico sin investigación
+    let presentationMind;
+    let hasResearchCapability = false;
+    
+    if (supabaseUrl && supabaseKey) {
+      presentationMind = new PresentationMindSystem(
+        anthropicKey,
+        supabaseUrl,
+        supabaseKey
+      );
+      hasResearchCapability = true;
+    } else {
+      console.warn('Supabase not configured - running in basic mode without research');
+      // Crear versión simplificada que solo usa Anthropic
+      presentationMind = new PresentationMindSystem(
+        anthropicKey,
+        '', // Supabase URL vacío
+        ''  // Supabase key vacío
+      );
+    }
 
     // Preparar input para el sistema
     const aiInput: PresentationMindInput = {
@@ -121,7 +135,7 @@ export async function POST(request: NextRequest) {
       duration,
       objective,
       interactivityLevel,
-      requiresResearch: requiresResearch && user.plan !== 'FREE', // Solo planes pagos tienen investigación
+      requiresResearch: requiresResearch && user.plan !== 'FREE' && hasResearchCapability, // Solo si Supabase está disponible
       customInstructions
     };
 
