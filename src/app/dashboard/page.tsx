@@ -149,6 +149,229 @@ export default function Dashboard() {
           transform: translateY(-5px);
           box-shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.5);
         }
+        
+        /* Nuevo diseño simplificado */
+        .dashboard-header-modern {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(20px);
+          border-radius: 20px;
+          padding: 2rem;
+          margin-bottom: 2rem;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dashboard-title-clean {
+          font-size: 2.2rem;
+          font-weight: 700;
+          margin: 0;
+          color: white;
+        }
+        
+        .user-name-highlight {
+          color: #00f6ff;
+          text-shadow: 0 0 10px rgba(0, 246, 255, 0.5);
+        }
+        
+        .dashboard-subtitle-clean {
+          font-size: 1.1rem;
+          color: rgba(255, 255, 255, 0.8);
+          margin: 0;
+        }
+        
+        .btn-create-primary {
+          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          border: none;
+          padding: 12px 24px;
+          border-radius: 16px;
+          font-weight: 600;
+          color: white;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(0, 246, 255, 0.3);
+        }
+        
+        .btn-create-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(0, 246, 255, 0.5);
+          background: linear-gradient(135deg, #00d4e7, #0056cc);
+          color: white;
+        }
+        
+        .stats-overview-card {
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 20px;
+          padding: 2rem 1rem;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+          margin-bottom: 1rem;
+        }
+        
+        .stat-item {
+          padding: 1rem 0;
+        }
+        
+        .stat-number {
+          font-size: 2.5rem;
+          font-weight: 800;
+          color: #1a1a1a;
+          line-height: 1;
+          margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+          font-size: 0.9rem;
+          color: #666;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+        
+        .plan-badge-modern {
+          background: linear-gradient(135deg, #ffd700, #ffb347);
+          padding: 8px 16px;
+          border-radius: 12px;
+          font-weight: 700;
+          color: #1a1a1a;
+          font-size: 0.85rem;
+          display: inline-block;
+          margin-bottom: 0.5rem;
+        }
+        
+        .section-title {
+          color: white;
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin-bottom: 1rem;
+        }
+        
+        .product-card {
+          background: white;
+          border-radius: 20px;
+          padding: 2rem;
+          text-decoration: none;
+          color: inherit;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+          height: 100%;
+          display: block;
+          border: 2px solid transparent;
+        }
+        
+        .product-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+          border-color: #00f6ff;
+          color: inherit;
+          text-decoration: none;
+        }
+        
+        .product-card.coming-soon {
+          opacity: 0.7;
+        }
+        
+        .product-card.coming-soon:hover {
+          border-color: #ffc107;
+        }
+        
+        .product-icon {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+          display: block;
+        }
+        
+        .product-title {
+          font-size: 1.3rem;
+          font-weight: 700;
+          margin-bottom: 0.75rem;
+          color: #1a1a1a;
+        }
+        
+        .product-description {
+          color: #666;
+          margin-bottom: 1.5rem;
+          line-height: 1.5;
+        }
+        
+        .product-stats {
+          margin-bottom: 1rem;
+        }
+        
+        .product-stats .stat-value {
+          font-size: 1.8rem;
+          font-weight: 800;
+          color: #00f6ff;
+          margin-right: 0.5rem;
+        }
+        
+        .product-stats .stat-text {
+          color: #666;
+          font-size: 0.9rem;
+        }
+        
+        .product-status {
+          font-size: 0.85rem;
+          font-weight: 600;
+          padding: 6px 12px;
+          border-radius: 12px;
+          display: inline-block;
+        }
+        
+        .product-status.active {
+          background: rgba(40, 167, 69, 0.1);
+          color: #28a745;
+        }
+        
+        .product-status.coming-soon {
+          background: rgba(255, 193, 7, 0.1);
+          color: #ffc107;
+        }
+        
+        .upgrade-banner {
+          background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.05));
+          border: 2px solid rgba(255, 193, 7, 0.3);
+          border-radius: 20px;
+          padding: 1.5rem;
+        }
+        
+        .upgrade-content {
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+        }
+        
+        .upgrade-icon {
+          font-size: 3rem;
+          flex-shrink: 0;
+        }
+        
+        .upgrade-text {
+          flex: 1;
+        }
+        
+        .upgrade-text h5 {
+          color: white;
+          margin-bottom: 0.5rem;
+          font-weight: 700;
+        }
+        
+        .upgrade-text p {
+          color: rgba(255, 255, 255, 0.8);
+          margin: 0;
+        }
+        
+        .btn-upgrade {
+          background: linear-gradient(135deg, #ffc107, #ff8c00);
+          border: none;
+          padding: 10px 20px;
+          border-radius: 12px;
+          font-weight: 600;
+          color: #1a1a1a;
+          flex-shrink: 0;
+        }
+        
+        .btn-upgrade:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+          color: #1a1a1a;
+        }
         .stat-card {
           background: rgba(255, 255, 255, 0.95);
           border-radius: 16px;
@@ -564,21 +787,63 @@ export default function Dashboard() {
 
         /* Responsive */
         @media (max-width: 991px) {
-          .dashboard-header-minimal {
+          .dashboard-header-modern {
             padding: 1.5rem 1rem;
+            text-align: center;
           }
           
-          .dashboard-title {
+          .dashboard-title-clean {
             font-size: 1.8rem;
           }
           
-          .quick-stats-bar {
-            justify-content: center;
+          .btn-create-primary {
             margin-top: 1rem;
+            width: 100%;
           }
           
-          .stat-value {
-            font-size: 1.4rem;
+          .stats-overview-card {
+            padding: 1.5rem 0.5rem;
+          }
+          
+          .stat-number {
+            font-size: 2rem;
+          }
+          
+          .product-card {
+            text-align: center;
+            padding: 1.5rem;
+          }
+          
+          .upgrade-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+          }
+          
+          .btn-upgrade {
+            width: 100%;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .dashboard-header-modern {
+            padding: 1rem;
+          }
+          
+          .dashboard-title-clean {
+            font-size: 1.5rem;
+          }
+          
+          .stats-overview-card {
+            padding: 1rem 0.25rem;
+          }
+          
+          .stat-number {
+            font-size: 1.5rem;
+          }
+          
+          .stat-label {
+            font-size: 0.75rem;
           }
         }
       `}</style>
@@ -587,45 +852,27 @@ export default function Dashboard() {
         <IndiNavbar variant="transparent" position="relative" showActions={true} />
         
         <Container className="py-4">
-          {/* Centro de Comando Intergaláctico */}
-          <div className="alien-command-center">
-            {/* Partículas espaciales sutiles */}
-            <div className="dashboard-particles">
-              <span className="space-particle particle-1">✨</span>
-              <span className="space-particle particle-2">🌟</span>
-              <span className="space-particle particle-3">⭐</span>
-              <span className="space-particle particle-4">💫</span>
-            </div>
-            
+          {/* Dashboard Header Simplificado */}
+          <div className="dashboard-header-modern">
             <Row className="align-items-center">
               <Col lg={8}>
-                <div className="dashboard-welcome">
-                  <div className="alien-status-badge mb-2">
-                    <span className="signal-indicator">📡</span>
-                    <small>Conectado al Sistema Intergaláctico</small>
-                  </div>
-                  <h1 className="dashboard-title text-white mb-2">
-                    Centro de Comando <span className="alien-glow-text">Intergaláctico</span>
+                <div className="welcome-section">
+                  <h1 className="dashboard-title-clean">
+                    ¡Hola, <span className="user-name-highlight">{session?.user?.name?.split(' ')[0] || 'Usuario'}</span>! 👋
                   </h1>
-                  <p className="dashboard-subtitle text-white opacity-90">
-                    Transmisión recibida, <span className="commander-name">Comandante {session?.user?.name?.split(' ')[0] || 'Usuario'}</span>
+                  <p className="dashboard-subtitle-clean">
+                    Gestiona tu identidad digital profesional desde un solo lugar
                   </p>
                 </div>
               </Col>
-              <Col lg={4}>
-                <div className="quick-stats-bar">
-                  <div className="stat-compact alien-stat">
-                    <span className="stat-icon">🆔</span>
-                    <span className="stat-value">{cards.length}</span>
-                    <span className="stat-label-compact">Tarjetas Activas</span>
-                  </div>
-                  <div className="stat-divider-compact">⚡</div>
-                  <div className="stat-compact alien-stat">
-                    <span className="stat-icon">🌟</span>
-                    <span className="stat-value plan-badge-alien">
-                      {session?.user?.plan?.toString() === 'premium' ? 'PREMIUM' : 'FREE'}
-                    </span>
-                  </div>
+              <Col lg={4} className="text-end">
+                <div className="header-actions">
+                  <Link href="/create" className="text-decoration-none">
+                    <Button className="btn-create-primary">
+                      <span className="me-2">✨</span>
+                      Crear Tarjeta
+                    </Button>
+                  </Link>
                 </div>
               </Col>
             </Row>
@@ -635,189 +882,139 @@ export default function Dashboard() {
           {/* Tab Content */}
           {pathname === '/dashboard' && (
             <>
-              {/* Acciones Rápidas */}
-              <Row className="mb-5 g-3">
-                <Col lg={8}>
-                  <div className="glass-card p-4">
-                    <h3 className="text-white mb-3 d-flex align-items-center">
-                      <span className="me-2">🚀</span>
-                      Acciones Rápidas
-                    </h3>
-                    <Row className="g-3">
-                      <Col md={6}>
-                        <Link href="/create" className="text-decoration-none">
-                          <div className="action-card h-100">
-                            <div className="icon-wrapper alien-primary-gradient text-white mb-3">
-                              🆔
-                            </div>
-                            <h5 className="fw-bold mb-2">Crear Tarjeta Digital</h5>
-                            <p className="text-muted mb-3 small">
-                              Diseña tu tarjeta profesional con efectos únicos y compártela por WhatsApp para atraer más clientes.
-                            </p>
-                            <Button className="alien-create-btn">
-                              <span className="create-icon">✨</span>
-                              Crear Ahora
-                            </Button>
-                          </div>
-                        </Link>
+              {/* Stats Overview */}
+              <Row className="mb-4">
+                <Col>
+                  <div className="stats-overview-card">
+                    <Row className="text-center">
+                      <Col md={3}>
+                        <div className="stat-item">
+                          <div className="stat-number">{cards.length}</div>
+                          <div className="stat-label">Tarjetas Creadas</div>
+                        </div>
                       </Col>
-                      <Col md={6}>
-                        <Link href="/dashboard/cards" className="text-decoration-none">
-                          <div className="action-card h-100">
-                            <div className="icon-wrapper alien-success-gradient text-white mb-3">
-                              📊
-                            </div>
-                            <h5 className="fw-bold mb-2">Ver Mis Tarjetas</h5>
-                            <p className="text-muted mb-3 small">
-                              Gestiona tus tarjetas existentes, ve estadísticas de views y optimiza tu networking digital.
-                            </p>
-                            <Button variant="outline-primary" className="w-100">
-                              <span className="me-2">👁️</span>
-                              Ver Dashboard
-                            </Button>
+                      <Col md={3}>
+                        <div className="stat-item">
+                          <div className="stat-number">
+                            {cards.reduce((total, card) => total + (card.views || 0), 0)}
                           </div>
-                        </Link>
+                          <div className="stat-label">Views Totales</div>
+                        </div>
+                      </Col>
+                      <Col md={3}>
+                        <div className="stat-item">
+                          <div className="stat-number">
+                            {cards.filter(card => card.isActive).length}
+                          </div>
+                          <div className="stat-label">Tarjetas Activas</div>
+                        </div>
+                      </Col>
+                      <Col md={3}>
+                        <div className="stat-item">
+                          <div className="plan-badge-modern">
+                            {session?.user?.plan === 'PREMIUM' ? 'PREMIUM' : 'FREE'}
+                          </div>
+                          <div className="stat-label">Plan Actual</div>
+                        </div>
                       </Col>
                     </Row>
                   </div>
                 </Col>
-                <Col lg={4}>
-                  <div className="glass-card p-4 h-100">
-                    <h5 className="text-white mb-3 d-flex align-items-center">
-                      <span className="me-2">📈</span>
-                      Estadísticas
-                    </h5>
-                    <div className="d-flex flex-column gap-3">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <span className="text-white-50">Tarjetas Activas</span>
-                        <span className="text-white fw-bold fs-4">{cards.length}</span>
-                      </div>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <span className="text-white-50">Views Totales</span>
-                        <span className="text-white fw-bold fs-4">
-                          {cards.reduce((total, card) => total + (card.views || 0), 0)}
-                        </span>
-                      </div>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <span className="text-white-50">Plan Actual</span>
-                        <span className="alien-badge bg-primary bg-opacity-20 text-primary">
-                          {session?.user?.plan === 'PREMIUM' ? 'PREMIUM' : 'FREE'}
-                        </span>
-                      </div>
-                    </div>
-                    {session?.user?.plan !== 'PREMIUM' && (
-                      <div className="mt-3">
-                        <Link href="/pricing" className="text-decoration-none">
-                          <Button variant="outline-warning" size="sm" className="w-100">
-                            ⭐ Upgrade a Premium
-                          </Button>
-                        </Link>
-                      </div>
-                    )}
-                  </div>
-                </Col>
               </Row>
 
-              {/* Estadísticas Intergalácticas */}
+              {/* Productos Principales */}
+              <Row className="mb-5">
+                <Col>
+                  <h3 className="section-title">Mis Productos</h3>
+                </Col>
+              </Row>
+              
               <Row className="mb-5 g-4">
                 <Col md={6} lg={4}>
                   <Link href="/dashboard/cards" className="text-decoration-none">
-                    <div className="stat-card alien-stat-card clickable-stat-card">
-                      <div className="alien-glow-effect"></div>
-                      <div className="icon-wrapper alien-primary-gradient text-white">
-                        🆔
-                      </div>
-                      <h2 className="fw-bold text-dark mb-1">{cards.length}</h2>
-                      <p className="text-muted mb-2">Tarjetas Digitales Premium</p>
-                      <div className="module-description mb-3">
-                        <small className="text-secondary">
-                          Crea tu tarjeta digital con diseño exclusivo y propiedades interactivas. Compártela fácilmente por WhatsApp y atrae más clientes para tu negocio con efectos visuales únicos que nadie más tiene.
-                        </small>
-                      </div>
-                      <div className="d-flex justify-content-center mb-3">
-                        <span className="alien-badge bg-primary bg-opacity-10 text-primary fw-semibold">
-                          En órbita: {cards.filter(card => card.isActive).length}
-                        </span>
-                      </div>
-                      <div className="card-hover-text">
-                        <small className="text-primary fw-semibold">Click para gestionar →</small>
+                    <div className="product-card">
+                      <div className="product-icon">🆔</div>
+                      <div className="product-content">
+                        <h4 className="product-title">Tarjetas Digitales</h4>
+                        <p className="product-description">
+                          Crea tarjetas de presentación interactivas y compártelas fácilmente.
+                        </p>
+                        <div className="product-stats">
+                          <span className="stat-value">{cards.length}</span>
+                          <span className="stat-text">creadas</span>
+                        </div>
+                        <div className="product-status active">
+                          ✅ Disponible
+                        </div>
                       </div>
                     </div>
                   </Link>
                 </Col>
+                
                 <Col md={6} lg={4}>
                   <Link href="/dashboard/cv" className="text-decoration-none">
-                    <div className="stat-card alien-stat-card clickable-stat-card">
-                      <div className="alien-glow-effect"></div>
-                      <div className="icon-wrapper alien-warning-gradient text-white">
-                        📄
-                      </div>
-                      <h2 className="fw-bold text-muted mb-1">0</h2>
-                      <p className="text-muted mb-2">CVs Inteligentes con IA</p>
-                      <div className="module-description mb-3">
-                        <small className="text-secondary">
-                          Optimiza automáticamente tu currículum con IA avanzada. Usa plantillas ATS-friendly que pasan filtros automáticos y captan la atención de reclutadores al instante, multiplicando tus entrevistas de trabajo.
-                        </small>
-                      </div>
-                      <div className="d-flex justify-content-center mb-3">
-                        <span className="alien-badge bg-warning bg-opacity-10 text-warning fw-semibold">
-                          Próximamente
-                        </span>
-                      </div>
-                      <div className="card-hover-text">
-                        <small className="text-warning fw-semibold">Click para crear →</small>
+                    <div className="product-card coming-soon">
+                      <div className="product-icon">📄</div>
+                      <div className="product-content">
+                        <h4 className="product-title">CVs Inteligentes</h4>
+                        <p className="product-description">
+                          Optimiza tu currículum con IA para conseguir más entrevistas.
+                        </p>
+                        <div className="product-stats">
+                          <span className="stat-value">0</span>
+                          <span className="stat-text">creados</span>
+                        </div>
+                        <div className="product-status coming-soon">
+                          🚧 Próximamente
+                        </div>
                       </div>
                     </div>
                   </Link>
                 </Col>
+                
                 <Col md={6} lg={4}>
                   <Link href="/dashboard/presentations" className="text-decoration-none">
-                    <div className="stat-card alien-stat-card clickable-stat-card">
-                      <div className="alien-glow-effect"></div>
-                      <div className="icon-wrapper alien-info-gradient text-white">
-                        📊
-                      </div>
-                      <h2 className="fw-bold text-muted mb-1">0</h2>
-                      <p className="text-muted mb-2">Presentaciones Inmersivas</p>
-                      <div className="module-description mb-3">
-                        <small className="text-secondary">
-                          Hipnotiza a tu audiencia con presentaciones cinematográficas que convierten ideas en resultados. Elementos interactivos y transiciones que cierran más deals y generan impacto duradero en clientes.
-                        </small>
-                      </div>
-                      <div className="d-flex justify-content-center mb-3">
-                        <span className="alien-badge bg-info bg-opacity-10 text-info fw-semibold">
-                          Próximamente
-                        </span>
-                      </div>
-                      <div className="card-hover-text">
-                        <small className="text-info fw-semibold">Click para explorar →</small>
+                    <div className="product-card">
+                      <div className="product-icon">📊</div>
+                      <div className="product-content">
+                        <h4 className="product-title">Presentaciones</h4>
+                        <p className="product-description">
+                          Crea presentaciones interactivas con IA para impactar a tu audiencia.
+                        </p>
+                        <div className="product-stats">
+                          <span className="stat-value">0</span>
+                          <span className="stat-text">creadas</span>
+                        </div>
+                        <div className="product-status active">
+                          ✅ Disponible
+                        </div>
                       </div>
                     </div>
                   </Link>
                 </Col>
               </Row>
 
-              {/* Botón Flotante para Crear Tarjeta */}
-              <div style={{
-                position: 'fixed',
-                bottom: '30px',
-                right: '30px',
-                zIndex: 1000
-              }}>
-                <Link href="/create" className="text-decoration-none">
-                  <Button 
-                    className="alien-create-btn d-flex align-items-center gap-2 px-4 py-3"
-                    style={{
-                      fontSize: '1.1rem',
-                      borderRadius: '50px',
-                      boxShadow: '0 8px 25px rgba(0, 246, 255, 0.4)'
-                    }}
-                  >
-                    <span style={{ fontSize: '1.3rem' }}>✨</span>
-                    Crear Tarjeta
-                  </Button>
-                </Link>
-              </div>
+              {/* Acciones Rápidas */}
+              {session?.user?.plan !== 'PREMIUM' && (
+                <Row className="mb-4">
+                  <Col>
+                    <div className="upgrade-banner">
+                      <div className="upgrade-content">
+                        <div className="upgrade-icon">⭐</div>
+                        <div className="upgrade-text">
+                          <h5>Desbloquea todo el potencial</h5>
+                          <p>Accede a plantillas premium, analytics avanzados y mucho más</p>
+                        </div>
+                        <Link href="/pricing" className="text-decoration-none">
+                          <Button className="btn-upgrade">
+                            Upgrade a Premium
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              )}
             </>
           )}
         </Container>
