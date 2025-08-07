@@ -90,7 +90,7 @@ export default function PresentationAIGenerator({
 
   const loadUsageInfo = async () => {
     try {
-      const response = await fetch('/api/presentations/ai-generate');
+      const response = await fetch('/api/presentations/ai-test');
       if (response.ok) {
         const data = await response.json();
         setUsageInfo(data);
@@ -216,7 +216,7 @@ export default function PresentationAIGenerator({
         customInstructions: customInstructions.trim() || undefined
       };
 
-      const response = await fetch('/api/presentations/ai-generate', {
+      const response = await fetch('/api/presentations/ai-test', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
