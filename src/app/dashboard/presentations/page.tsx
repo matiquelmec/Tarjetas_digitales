@@ -53,21 +53,20 @@ export default function PresentationsPage() {
   };
 
   const handlePresentationGenerated = (presentation: any) => {
+    console.log('handlePresentationGenerated received:', presentation);
+    
     if (presentation) {
-      // Adaptamos la estructura de PresentationMind AI al formato existente
+      // Adaptamos la estructura del endpoint ai-simple al formato existente
       const adaptedPresentation = {
         id: presentation.id,
-        title: presentation.metadata?.title || presentation.title,
-        description: presentation.metadata?.subtitle || 'Presentación generada con IA',
+        title: presentation.title || 'Presentación IA',
+        description: presentation.subtitle || 'Presentación generada con IA',
         slides: presentation.slides?.map((slide: any, index: number) => ({
           id: slide.id || `slide-${index + 1}`,
-          type: slide.content?.contentType === 'intro' ? 'title' : 'content',
-          content: slide.content?.contentType === 'intro' ? {
-            title: slide.title,
-            subtitle: slide.content.keyMessage
-          } : {
-            title: slide.title,
-            content: slide.content?.bulletPoints?.join('\n• ') || slide.speakerNotes
+          type: slide.type || 'content',
+          content: slide.content || {
+            title: slide.title || `Slide ${index + 1}`,
+            content: slide.content?.text || 'Contenido generado con IA'
           }
         })) || [],
         theme: { 
@@ -78,6 +77,8 @@ export default function PresentationsPage() {
           fontFamily: 'Inter' 
         }
       };
+
+      console.log('adaptedPresentation:', adaptedPresentation);
 
       setCurrentPresentation(adaptedPresentation);
       setCurrentSlides(adaptedPresentation.slides);

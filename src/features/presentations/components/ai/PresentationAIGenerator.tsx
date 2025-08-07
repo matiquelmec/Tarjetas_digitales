@@ -265,6 +265,7 @@ export default function PresentationAIGenerator({
       const result = await response.json();
 
       console.log('AI Response result:', result); // Debug log
+      console.log('AI Response result stringified:', JSON.stringify(result, null, 2)); // More detailed debug
 
       setGenerationState(prev => ({
         ...prev,
@@ -288,7 +289,14 @@ export default function PresentationAIGenerator({
 
       // Notificar al componente padre con validación
       if (result?.presentation) {
-        onPresentationGenerated(result.presentation);
+        console.log('About to call onPresentationGenerated with:', result.presentation);
+        try {
+          onPresentationGenerated(result.presentation);
+          console.log('onPresentationGenerated completed successfully');
+        } catch (callbackError) {
+          console.error('Error in onPresentationGenerated callback:', callbackError);
+          // No lanzar el error para evitar que se propague
+        }
       } else {
         console.error('No presentation data in result:', result);
         throw new Error('No se recibieron datos de la presentación');
