@@ -156,6 +156,8 @@ export default function PresentationAIGenerator({
       return;
     }
 
+    let progressInterval: NodeJS.Timeout;
+
     try {
       setError('');
       setSuccessMessage('');
@@ -168,7 +170,7 @@ export default function PresentationAIGenerator({
       });
 
       // Simulación de progreso mientras se procesa
-      const progressInterval = setInterval(() => {
+      progressInterval = setInterval(() => {
         setGenerationState(prev => {
           if (prev.progress >= 95) {
             clearInterval(progressInterval);

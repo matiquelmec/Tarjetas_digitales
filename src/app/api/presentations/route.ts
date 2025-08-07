@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/db';
+import { authOptionsMinimal } from '@/lib/auth-minimal';
+import { prisma } from '@/lib/prisma';
 
 // GET: Obtener todas las presentaciones del usuario
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptionsMinimal);
     
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
 // POST: Crear nueva presentación
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptionsMinimal);
     
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
 // DELETE: Eliminar múltiples presentaciones
 export async function DELETE(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptionsMinimal);
     
     if (!session?.user?.email) {
       return NextResponse.json(
