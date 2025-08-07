@@ -207,43 +207,282 @@ export default function PresentationsPage() {
           box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
         }
         
-        .alien-nav-tab {
+        /* Nuevos estilos modernos */
+        .presentations-header {
           background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(0, 246, 255, 0.3);
+          backdrop-filter: blur(20px);
+          border-radius: 20px;
+          padding: 2rem;
+          margin-bottom: 2rem;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .page-title {
+          font-size: 2rem;
+          font-weight: 700;
+          color: white;
+          margin: 0;
+        }
+        
+        .page-subtitle {
+          color: rgba(255, 255, 255, 0.8);
+          margin: 0;
+          font-size: 1.1rem;
+        }
+        
+        .header-stats {
+          text-align: center;
+        }
+        
+        .stat-compact {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .stat-number {
+          font-size: 2rem;
+          font-weight: 800;
+          color: #00f6ff;
+          line-height: 1;
+        }
+        
+        .stat-label {
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.7);
+          margin-top: 0.25rem;
+        }
+        
+        .modern-nav-tabs {
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.05);
+          padding: 0.5rem;
+          border-radius: 16px;
+          margin-bottom: 2rem;
+        }
+        
+        .modern-nav-tab {
+          background: transparent;
+          border: 1px solid transparent;
           color: rgba(255, 255, 255, 0.7);
           border-radius: 12px;
           margin: 0 4px;
           transition: all 0.3s ease;
+          padding: 0.75rem 1.5rem;
+          font-weight: 500;
         }
         
-        .alien-nav-tab:hover {
-          background: rgba(0, 246, 255, 0.1);
-          color: #00f6ff;
-          transform: translateY(-2px);
+        .modern-nav-tab:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: white;
         }
         
-        .alien-nav-tab.active {
+        .modern-nav-tab.active {
           background: linear-gradient(135deg, #00f6ff, #0072ff);
           color: white;
           border-color: transparent;
-          box-shadow: 0 4px 20px rgba(0, 246, 255, 0.4);
+          box-shadow: 0 4px 15px rgba(0, 246, 255, 0.3);
         }
         
-        .alien-btn {
+        .slides-sidebar {
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 16px;
+          padding: 1.5rem;
+          height: fit-content;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-header {
+          display: flex;
+          justify-content: between;
+          align-items: center;
+          margin-bottom: 1rem;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid #e9ecef;
+        }
+        
+        .sidebar-header h6 {
+          margin: 0;
+          color: #1a1a1a;
+          font-weight: 600;
+          flex: 1;
+        }
+        
+        .btn-add-slide {
           background: linear-gradient(135deg, #00f6ff, #0072ff);
           border: none;
-          padding: 8px 20px;
-          border-radius: 16px;
-          font-weight: 600;
-          transition: all 0.3s ease;
           color: white;
+          border-radius: 8px;
+          padding: 4px 12px;
+          font-size: 0.85rem;
+          font-weight: 500;
         }
         
-        .alien-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(0, 246, 255, 0.4);
+        .btn-add-slide:hover {
           background: linear-gradient(135deg, #00d4e7, #0056cc);
           color: white;
+          transform: translateY(-1px);
+        }
+        
+        .slides-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+        
+        .slide-item {
+          padding: 0.75rem;
+          border: 1px solid #e9ecef;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        
+        .slide-item:hover {
+          border-color: #00f6ff;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(0, 246, 255, 0.2);
+        }
+        
+        .slide-preview-mini {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+        
+        .slide-icon {
+          font-size: 1.5rem;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(0, 246, 255, 0.1);
+          border-radius: 8px;
+        }
+        
+        .slide-info {
+          flex: 1;
+        }
+        
+        .slide-number {
+          font-weight: 600;
+          color: #1a1a1a;
+          font-size: 0.9rem;
+        }
+        
+        .slide-type {
+          color: #666;
+          font-size: 0.8rem;
+          margin-top: 2px;
+        }
+        
+        .editor-main {
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .editor-toolbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem 1.5rem;
+          background: #f8f9fa;
+          border-bottom: 1px solid #e9ecef;
+        }
+        
+        .toolbar-left h6 {
+          margin: 0;
+          color: #1a1a1a;
+          font-weight: 600;
+        }
+        
+        .presentation-title {
+          color: #666;
+          font-size: 0.9rem;
+          margin-left: 0.5rem;
+        }
+        
+        .toolbar-right {
+          display: flex;
+          gap: 0.5rem;
+        }
+        
+        .btn-action {
+          background: #6c757d;
+          border: none;
+          color: white;
+          border-radius: 8px;
+          padding: 6px 12px;
+          font-size: 0.85rem;
+          font-weight: 500;
+        }
+        
+        .btn-action:hover {
+          background: #5a6268;
+          color: white;
+          transform: translateY(-1px);
+        }
+        
+        .slide-canvas {
+          padding: 2rem;
+          min-height: 500px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #f8f9fa;
+        }
+        
+        .empty-state {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 400px;
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 20px;
+          margin: 2rem 0;
+        }
+        
+        .empty-content {
+          text-align: center;
+          max-width: 400px;
+        }
+        
+        .empty-icon {
+          font-size: 4rem;
+          margin-bottom: 1rem;
+          display: block;
+        }
+        
+        .empty-content h4 {
+          color: #1a1a1a;
+          font-weight: 700;
+          margin-bottom: 0.75rem;
+        }
+        
+        .empty-content p {
+          color: #666;
+          margin-bottom: 1.5rem;
+          line-height: 1.5;
+        }
+        
+        .btn-primary-action {
+          background: linear-gradient(135deg, #00f6ff, #0072ff);
+          border: none;
+          color: white;
+          padding: 12px 24px;
+          border-radius: 16px;
+          font-weight: 600;
+          box-shadow: 0 4px 15px rgba(0, 246, 255, 0.3);
+        }
+        
+        .btn-primary-action:hover {
+          background: linear-gradient(135deg, #00d4e7, #0056cc);
+          color: white;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(0, 246, 255, 0.4);
         }
         
         .slides-container {
@@ -308,43 +547,124 @@ export default function PresentationsPage() {
           background: rgba(0, 246, 255, 0.1);
           color: white;
         }
+        
+        /* Responsive */
+        @media (max-width: 991px) {
+          .presentations-header {
+            padding: 1.5rem 1rem;
+            text-align: center;
+          }
+          
+          .page-title {
+            font-size: 1.8rem;
+          }
+          
+          .slides-sidebar {
+            margin-bottom: 1.5rem;
+          }
+          
+          .editor-toolbar {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: stretch;
+          }
+          
+          .toolbar-right {
+            justify-content: center;
+          }
+          
+          .slide-canvas {
+            padding: 1rem;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .presentations-header {
+            padding: 1rem;
+          }
+          
+          .page-title {
+            font-size: 1.5rem;
+          }
+          
+          .modern-nav-tabs {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          
+          .modern-nav-tab {
+            margin: 2px 0;
+            text-align: center;
+          }
+          
+          .slides-sidebar {
+            padding: 1rem;
+          }
+          
+          .sidebar-header {
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: stretch;
+          }
+          
+          .empty-content {
+            padding: 1rem;
+          }
+          
+          .empty-icon {
+            font-size: 3rem;
+          }
+        }
       `}</style>
       
       {/* Navbar con Indi */}
       <IndiNavbar variant="transparent" position="relative" showActions={true} />
       
       <Container fluid className="py-4">
-        <Row className="mb-4">
-          <Col>
-            <h1 className="title-glow text-center mb-1" style={{ fontSize: '2.5rem' }}>
-              📊 Presentaciones Inmersivas
-            </h1>
-            <p className="text-center text-white-50 mb-0">
-              Crea presentaciones que hipnoticen a tu audiencia con tecnología intergaláctica
-            </p>
-          </Col>
-        </Row>
+        {/* Header simplificado */}
+        <div className="presentations-header">
+          <Row className="align-items-center mb-4">
+            <Col lg={8}>
+              <div className="header-content">
+                <h1 className="page-title">
+                  📊 Presentaciones con IA
+                </h1>
+                <p className="page-subtitle">
+                  Crea presentaciones profesionales con inteligencia artificial
+                </p>
+              </div>
+            </Col>
+            <Col lg={4} className="text-end">
+              <div className="header-stats">
+                <div className="stat-compact">
+                  <span className="stat-number">{presentations.length}</span>
+                  <span className="stat-label">Presentaciones</span>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </div>
 
         <Tab.Container activeKey={activeTab} onSelect={(key) => setActiveTab(key || 'create')}>
           <Row className="mb-4">
             <Col>
-              <Nav variant="pills" className="justify-content-center">
+              <Nav variant="pills" className="modern-nav-tabs">
                 <Nav.Item>
-                  <Nav.Link eventKey="create" className="alien-nav-tab">
+                  <Nav.Link eventKey="create" className="modern-nav-tab">
                     <span className="me-2">✨</span>
-                    Crear Presentación
+                    Editor
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="themes" className="alien-nav-tab">
-                    <span className="me-2">🎨</span>
-                    Temas y Diseño
-                  </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="ai-assistant" className="alien-nav-tab">
+                  <Nav.Link eventKey="ai-assistant" className="modern-nav-tab">
                     <span className="me-2">🤖</span>
-                    Asistente IA
+                    Generar con IA
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="themes" className="modern-nav-tab">
+                    <span className="me-2">🎨</span>
+                    Temas
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
@@ -352,111 +672,111 @@ export default function PresentationsPage() {
           </Row>
 
           <Tab.Content>
-            {/* Tab 1: Crear Presentación */}
+            {/* Tab 1: Editor de Presentación */}
             <Tab.Pane eventKey="create">
-              <Row>
-                <Col lg={3}>
-                  <Card className="glass-card h-100 text-white">
-                    <Card.Header className="border-0">
-                      <h5 className="mb-0">🎭 Diapositivas</h5>
-                    </Card.Header>
-                    <Card.Body className="slides-container">
-                      {currentSlides.map((slide, index) => (
-                        <div 
-                          key={slide.id} 
-                          className="slide-thumbnail"
-                        >
-                          <div className="text-center">
-                            <div className="mb-2">
-                              {slide.type === 'title' && '📋'}
-                              {slide.type === 'content' && '📄'}
-                              {slide.type === 'image' && '🖼️'}
-                              {slide.type === 'chart' && '📊'}
-                            </div>
-                            <div>
-                              Slide {index + 1}
-                              <br />
-                              <small className="text-muted">
-                                {slide.type === 'title' ? 'Título' : 
-                                 slide.type === 'content' ? 'Contenido' : 
-                                 slide.type === 'image' ? 'Imagen' : 'Gráfico'}
-                              </small>
+              {currentSlides.length > 0 ? (
+                <Row>
+                  <Col lg={4}>
+                    <div className="slides-sidebar">
+                      <div className="sidebar-header">
+                        <h6>Diapositivas ({currentSlides.length})</h6>
+                        <div className="sidebar-actions">
+                          <Button 
+                            className="btn-add-slide" 
+                            size="sm"
+                            onClick={() => addSlide('content')}
+                          >
+                            <span className="me-1">+</span>
+                            Agregar
+                          </Button>
+                        </div>
+                      </div>
+                      
+                      <div className="slides-list">
+                        {currentSlides.map((slide, index) => (
+                          <div 
+                            key={slide.id} 
+                            className="slide-item"
+                          >
+                            <div className="slide-preview-mini">
+                              <div className="slide-icon">
+                                {slide.type === 'title' && '📋'}
+                                {slide.type === 'content' && '📄'}
+                                {slide.type === 'bullets' && '📝'}
+                                {slide.type === 'quote' && '💬'}
+                                {slide.type === 'chart' && '📊'}
+                              </div>
+                              <div className="slide-info">
+                                <div className="slide-number">Slide {index + 1}</div>
+                                <div className="slide-type">
+                                  {slide.type === 'title' ? 'Título' : 
+                                   slide.type === 'content' ? 'Contenido' :
+                                   slide.type === 'bullets' ? 'Lista' :
+                                   slide.type === 'quote' ? 'Cita' : 'Gráfico'}
+                                </div>
+                              </div>
                             </div>
                           </div>
+                        ))}
+                      </div>
+                    </div>
+                  </Col>
+                  
+                  <Col lg={8}>
+                    <div className="editor-main">
+                      <div className="editor-toolbar">
+                        <div className="toolbar-left">
+                          <h6 className="mb-0">Vista Previa</h6>
+                          <span className="presentation-title">{presentationTitle}</span>
                         </div>
-                      ))}
+                        <div className="toolbar-right">
+                          <Button 
+                            className="btn-action" 
+                            size="sm"
+                            onClick={handleSavePresentation}
+                            disabled={isLoading}
+                          >
+                            <span className="me-2">💾</span>
+                            {isLoading ? 'Guardando...' : 'Guardar'}
+                          </Button>
+                          <Button 
+                            className="btn-action" 
+                            size="sm"
+                            disabled={!currentPresentation}
+                            onClick={handleExportPDF}
+                          >
+                            <span className="me-2">📄</span>
+                            PDF
+                          </Button>
+                        </div>
+                      </div>
                       
-                      <div className="text-center mt-3">
-                        <Button 
-                          className="alien-btn mb-2" 
-                          size="sm" 
-                          style={{ width: '100%' }}
-                          onClick={() => addSlide('content')}
-                        >
-                          <span className="me-2">➕</span>
-                          Agregar Slide
-                        </Button>
-                        <Button 
-                          className="alien-btn" 
-                          size="sm" 
-                          style={{ width: '100%', background: 'linear-gradient(135deg, #8e2de2, #4a00e0)' }}
-                          onClick={() => addSlide('image')}
-                        >
-                          <span className="me-2">🖼️</span>
-                          Slide con Imagen
-                        </Button>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                
-                <Col lg={9}>
-                  <Card className="glass-card text-white">
-                    <Card.Header className="border-0 d-flex justify-content-between align-items-center">
-                      <h5 className="mb-0">🔮 Vista Previa</h5>
-                      <div>
-                        <Button 
-                          className="alien-btn me-2" 
-                          size="sm"
-                          onClick={handleSavePresentation}
-                          disabled={isLoading}
-                        >
-                          <span className="me-2">💾</span>
-                          {isLoading ? 'Guardando...' : 'Guardar'}
-                        </Button>
-                        <Button 
-                          className="alien-btn me-2" 
-                          size="sm"
-                          disabled={!currentPresentation}
-                          onClick={handleExportPDF}
-                          title={!currentPresentation ? 'Genera o carga una presentación primero' : 'Exportar a PDF'}
-                        >
-                          <span className="me-2">📄</span>
-                          Exportar PDF
-                        </Button>
-                        <Button 
-                          className="alien-btn" 
-                          size="sm"
-                          disabled={!currentPresentation}
-                          title={!currentPresentation ? 'Genera o carga una presentación primero' : 'Modo presentación'}
-                        >
-                          <span className="me-2">▶️</span>
-                          Presentar
-                        </Button>
-                      </div>
-                    </Card.Header>
-                    <Card.Body style={{ minHeight: '600px' }}>
-                      <div className="h-100 d-flex align-items-center justify-content-center">
+                      <div className="slide-canvas">
                         <SlidePreview
                           slide={currentSlides[0]}
                           theme={selectedTheme}
                           isPreview={true}
                         />
                       </div>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              </Row>
+                    </div>
+                  </Col>
+                </Row>
+              ) : (
+                <div className="empty-state">
+                  <div className="empty-content">
+                    <div className="empty-icon">📊</div>
+                    <h4>¡Comencemos con tu presentación!</h4>
+                    <p>Usa el asistente de IA para generar una presentación automáticamente o crea una desde cero.</p>
+                    <Button 
+                      className="btn-primary-action" 
+                      onClick={() => setActiveTab('ai-assistant')}
+                    >
+                      <span className="me-2">🤖</span>
+                      Generar con IA
+                    </Button>
+                  </div>
+                </div>
+              )}
             </Tab.Pane>
 
             {/* Tab 2: Temas y Diseño */}
