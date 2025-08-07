@@ -939,6 +939,12 @@ export default function PresentationsPage() {
                     Temas
                   </Nav.Link>
                 </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="my-presentations" className="modern-nav-tab">
+                    <span className="me-2">📋</span>
+                    Mis Presentaciones ({presentations.length})
+                  </Nav.Link>
+                </Nav.Item>
               </Nav>
             </Col>
           </Row>
@@ -1098,6 +1104,126 @@ export default function PresentationsPage() {
                     </Card.Header>
                     <Card.Body style={{ height: '500px', overflow: 'hidden' }}>
                       <IndiChat onPresentationGenerated={handlePresentationGenerated} />
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+            </Tab.Pane>
+
+            {/* Tab 4: Mis Presentaciones */}
+            <Tab.Pane eventKey="my-presentations">
+              <Row>
+                <Col>
+                  <Card className="glass-card text-white">
+                    <Card.Header className="border-0">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <h5 className="mb-0">📋 Mis Presentaciones</h5>
+                        <Button 
+                          variant="outline-light" 
+                          size="sm"
+                          onClick={loadPresentations}
+                          disabled={isLoading}
+                        >
+                          {isLoading ? '🔄' : '🔄'} Actualizar
+                        </Button>
+                      </div>
+                      <p className="mb-0 small text-white-50">
+                        {presentations.length} presentación(es) guardada(s)
+                      </p>
+                    </Card.Header>
+                    <Card.Body>
+                      {isLoading ? (
+                        <div className="text-center py-5">
+                          <div className="spinner-border text-info" role="status">
+                            <span className="visually-hidden">Cargando...</span>
+                          </div>
+                          <p className="mt-3 text-white-50">Cargando presentaciones...</p>
+                        </div>
+                      ) : presentations.length === 0 ? (
+                        <div className="text-center py-5">
+                          <div className="mb-4" style={{ fontSize: '3rem' }}>📊</div>
+                          <h6 className="text-white-50">No tienes presentaciones guardadas</h6>
+                          <p className="text-white-50 small">
+                            Usa la pestaña "Generar con IA" para crear tu primera presentación
+                          </p>
+                          <Button 
+                            variant="primary" 
+                            onClick={() => setActiveTab('ai-assistant')}
+                          >
+                            🤖 Generar con IA
+                          </Button>
+                        </div>
+                      ) : (
+                        <Row>
+                          {presentations.map((presentation, index) => (
+                            <Col lg={4} md={6} key={presentation.id} className="mb-4">
+                              <Card 
+                                className="h-100 presentation-card"
+                                style={{ 
+                                  background: 'rgba(255, 255, 255, 0.05)',
+                                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                                  transition: 'all 0.3s ease',
+                                  cursor: 'pointer'
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.transform = 'translateY(-5px)';
+                                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 246, 255, 0.3)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.transform = 'translateY(0)';
+                                  e.currentTarget.style.boxShadow = 'none';
+                                }}
+                                onClick={() => {
+                                  // Cargar presentación en el editor
+                                  if (presentation.slides) {
+                                    setCurrentSlides(presentation.slides);
+                                    setPresentationTitle(presentation.title);
+                                    setCurrentPresentation(presentation);
+                                    setActiveTab('create');
+                                  }
+                                }}
+                              >
+                                <Card.Body className="text-white">
+                                  <div className="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 className="mb-1" style={{ color: '#00f6ff' }}>
+                                      {presentation.title}
+                                    </h6>
+                                    <small className="text-white-50">
+                                      {new Date(presentation.updatedAt || presentation.createdAt).toLocaleDateString()}
+                                    </small>
+                                  </div>
+                                  <p className="small text-white-50 mb-3">
+                                    {presentation.description || 'Sin descripción'}
+                                  </p>
+                                  <div className="d-flex justify-content-between align-items-center">
+                                    <div className="small text-white-50">
+                                      👀 {presentation.views || 0} vistas
+                                    </div>
+                                    <div className="d-flex gap-2">
+                                      <Button 
+                                        size="sm" 
+                                        variant="outline-info"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          // Cargar y editar presentación
+                                          if (presentation.slides) {
+                                            setCurrentSlides(presentation.slides);
+                                            setPresentationTitle(presentation.title);
+                                            setCurrentPresentation(presentation);
+                                            setActiveTab('create');
+                                          }
+                                        }}
+                                      >
+                                        ✏️ Editar
+                                      </Button>
+                                    </div>
+                                  </div>
+                                </Card.Body>
+                              </Card>
+                            </Col>
+                          ))}
+                        </Row>
+                      )}
                     </Card.Body>
                   </Card>
                 </Col>
