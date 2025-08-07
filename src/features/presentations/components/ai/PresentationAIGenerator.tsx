@@ -90,13 +90,44 @@ export default function PresentationAIGenerator({
 
   const loadUsageInfo = async () => {
     try {
-      const response = await fetch('/api/presentations/ai-test');
+      const response = await fetch('/api/presentations/ai-generate', {
+        method: 'GET'
+      });
       if (response.ok) {
         const data = await response.json();
         setUsageInfo(data);
+      } else {
+        // Fallback con valores por defecto si el endpoint falla
+        setUsageInfo({
+          presentationsThisMonth: 0,
+          planLimit: 2,
+          remainingGenerations: 2,
+          plan: 'FREE',
+          capabilities: {
+            maxDocumentLength: 5000,
+            researchEnabled: false,
+            maxDuration: 10,
+            customInstructions: false,
+            priorityProcessing: false
+          }
+        });
       }
     } catch (error) {
       console.error('Error loading usage info:', error);
+      // Fallback con valores por defecto
+      setUsageInfo({
+        presentationsThisMonth: 0,
+        planLimit: 2,
+        remainingGenerations: 2,
+        plan: 'FREE',
+        capabilities: {
+          maxDocumentLength: 5000,
+          researchEnabled: false,
+          maxDuration: 10,
+          customInstructions: false,
+          priorityProcessing: false
+        }
+      });
     }
   };
 
@@ -115,7 +146,7 @@ export default function PresentationAIGenerator({
       }
       
       // Verificar límite de longitud según el plan
-      const maxLength = usageInfo?.capabilities.maxDocumentLength || 5000;
+      const maxLength = usageInfo?.capabilities?.maxDocumentLength || 5000;
       
       if (result.text.length > maxLength) {
         setError(`El documento es muy largo. Máximo permitido: ${maxLength.toLocaleString()} caracteres. Actual: ${result.text.length.toLocaleString()}`);
@@ -212,7 +243,7 @@ export default function PresentationAIGenerator({
         duration,
         objective,
         interactivityLevel,
-        requiresResearch: requiresResearch && usageInfo?.capabilities.researchEnabled,
+        requiresResearch: requiresResearch && usageInfo?.capabilities?.researchEnabled,
         customInstructions: customInstructions.trim() || undefined
       };
 
@@ -629,11 +660,11 @@ Por ejemplo:
 
 Mínimo 100 caracteres para crear una presentación efectiva."
                     disabled={generationState.isGenerating}
-                    maxLength={usageInfo?.capabilities.maxDocumentLength || 50000}
+                    maxLength={usageInfo?.capabilities?.maxDocumentLength || 50000}
                     style={{ minHeight: '300px' }}
                   />
                   <Form.Text className="text-muted">
-                    {document.length.toLocaleString()} / {(usageInfo?.capabilities.maxDocumentLength || 50000).toLocaleString()} caracteres
+                    {document.length.toLocaleString()} / {(usageInfo?.capabilities?.maxDocumentLength || 50000).toLocaleString()} caracteres
                   </Form.Text>
                 </Tab>
                 
@@ -716,13 +747,13 @@ Mínimo 100 caracteres para crear una presentación efectiva."
                     value={duration}
                     onChange={(e) => setDuration(parseInt(e.target.value))}
                     min={5}
-                    max={usageInfo?.capabilities.maxDuration || 60}
+                    max={usageInfo?.capabilities?.maxDuration || 60}
                     disabled={generationState.isGenerating}
                   />
                   <div className="d-flex justify-content-between small text-muted">
                     <span>5 min</span>
                     <span className="fw-bold">{duration} minutos</span>
-                    <span>{usageInfo?.capabilities.maxDuration || 60} min</span>
+                    <span>{usageInfo?.capabilities?.maxDuration || 60} min</span>
                   </div>
                 </Form.Group>
               </Col>
@@ -784,11 +815,11 @@ Mínimo 100 caracteres para crear una presentación efectiva."
                       id="requiresResearch"
                       checked={requiresResearch}
                       onChange={(e) => setRequiresResearch(e.target.checked)}
-                      disabled={generationState.isGenerating || !usageInfo?.capabilities.researchEnabled}
+                      disabled={generationState.isGenerating || !usageInfo?.capabilities?.researchEnabled}
                       label={
                         <span>
                           🔍 Investigar datos actualizados con IA
-                          {usageInfo?.capabilities.researchEnabled && (
+                          {usageInfo?.capabilities?.researchEnabled && (
                             <span className="feature-tag">PREMIUM</span>
                           )}
                         </span>
@@ -800,7 +831,7 @@ Mínimo 100 caracteres para crear una presentación efectiva."
                   </Form.Group>
 
                   {/* Instrucciones personalizadas */}
-                  {usageInfo?.capabilities.customInstructions && (
+                  {usageInfo?.capabilities?.customInstructions && (
                     <Form.Group className="mb-3">
                       <Form.Label className="fw-bold">
                         📝 Instrucciones Personalizadas
