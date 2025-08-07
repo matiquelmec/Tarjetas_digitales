@@ -7,14 +7,14 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptionsMinimal } from '@/lib/auth-minimal';
 import { PresentationMindSystem, PresentationMindInput } from '@/features/presentations/ai-agents/PresentationMindSystem';
 import { prisma } from '@/lib/prisma';
 
 export async function POST(request: NextRequest) {
   try {
     // Verificar autenticación
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptionsMinimal);
     if (!session?.user?.id) {
       return NextResponse.json(
         { error: 'Usuario no autenticado' },
@@ -249,7 +249,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptionsMinimal);
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
     }

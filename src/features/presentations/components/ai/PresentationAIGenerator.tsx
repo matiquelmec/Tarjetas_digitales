@@ -18,9 +18,12 @@ import {
   Col, 
   Badge,
   Collapse,
-  InputGroup
+  InputGroup,
+  Tabs,
+  Tab
 } from 'react-bootstrap';
 import { useSession } from 'next-auth/react';
+import { processFile, validateText } from '@/utils/fileProcessors';
 
 interface PresentationAIGeneratorProps {
   onPresentationGenerated: (presentation: any) => void;
@@ -97,40 +100,41 @@ export default function PresentationAIGenerator({
     }
   };
 
-  const handleFileUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
+    setError('');
     
-    reader.onload = (e) => {
-      const text = e.target?.result as string;
+    try {
+      const result = await processFile(file);
+      
+      if (!result.success) {
+        setError(result.message);
+        return;
+      }
       
       // Verificar límite de longitud según el plan
       const maxLength = usageInfo?.capabilities.maxDocumentLength || 5000;
       
-      if (text.length > maxLength) {
-        setError(`El documento es muy largo. Máximo permitido: ${maxLength.toLocaleString()} caracteres. Actual: ${text.length.toLocaleString()}`);
+      if (result.text.length > maxLength) {
+        setError(`El documento es muy largo. Máximo permitido: ${maxLength.toLocaleString()} caracteres. Actual: ${result.text.length.toLocaleString()}`);
         return;
       }
       
-      setDocument(text);
-      setError('');
+      setDocument(result.text);
       
       // Generar título automáticamente si está vacío
-      if (!title && text.length > 100) {
-        const firstLine = text.split('\n')[0];
+      if (!title && result.text.length > 100) {
+        const firstLine = result.text.split('\n')[0];
         if (firstLine.length > 5 && firstLine.length < 100) {
           setTitle(firstLine);
         }
       }
-    };
-
-    reader.onerror = () => {
-      setError('Error leyendo el archivo. Intenta nuevamente.');
-    };
-
-    reader.readAsText(file);
+      
+    } catch (error) {
+      setError('Error procesando el archivo. Intenta copiando y pegando el texto directamente.');
+    }
   }, [usageInfo, title]);
 
   const simulateProgress = (targetProgress: number, stepName: string) => {
@@ -598,36 +602,65 @@ export default function PresentationAIGenerator({
           )}
 
           <Form onSubmit={(e) => { e.preventDefault(); generatePresentation(); }}>
-            {/* Upload de documento */}
+            {/* Input de documento con pestañas */}
             <Form.Group className="mb-4">
               <Form.Label className="fw-bold">
-                📄 Documento Base
+                📄 Contenido del Documento
                 <span className="text-danger">*</span>
               </Form.Label>
               
-              <div 
-                className={`file-upload-area ${document ? 'has-content' : ''}`}
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <div className="upload-icon">
-                  {document ? '✅' : '📤'}
-                </div>
-                <div className="upload-text">
-                  {document ? `Documento cargado (${document.length.toLocaleString()} caracteres)` : 'Haz click para subir documento'}
-                </div>
-                <div className="upload-hint">
-                  {document ? 'Click para cambiar archivo' : 'Soporta: TXT, DOC, DOCX, PDF'}
-                </div>
+              <Tabs defaultActiveKey="text" id="document-input-tabs" className="mb-3">
+                <Tab eventKey="text" title="✏️ Escribir/Pegar Texto">
+                  <Form.Control
+                    as="textarea"
+                    rows={10}
+                    value={document}
+                    onChange={(e) => setDocument(e.target.value)}
+                    placeholder="Pega aquí el contenido de tu documento o escríbelo directamente...
+
+Por ejemplo:
+- Informe ejecutivo de la empresa
+- Artículo o investigación
+- Propuesta de proyecto
+- Plan de negocio
+- Cualquier texto que quieras convertir en presentación
+
+Mínimo 100 caracteres para crear una presentación efectiva."
+                    disabled={generationState.isGenerating}
+                    maxLength={usageInfo?.capabilities.maxDocumentLength || 50000}
+                    style={{ minHeight: '300px' }}
+                  />
+                  <Form.Text className="text-muted">
+                    {document.length.toLocaleString()} / {(usageInfo?.capabilities.maxDocumentLength || 50000).toLocaleString()} caracteres
+                  </Form.Text>
+                </Tab>
                 
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept=".txt,.doc,.docx,.pdf"
-                  onChange={handleFileUpload}
-                  style={{ display: 'none' }}
-                  disabled={generationState.isGenerating}
-                />
-              </div>
+                <Tab eventKey="upload" title="📤 Subir Archivo">
+                  <div 
+                    className={`file-upload-area ${document ? 'has-content' : ''}`}
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <div className="upload-icon">
+                      {document ? '✅' : '📤'}
+                    </div>
+                    <div className="upload-text">
+                      {document ? `Archivo procesado (${document.length.toLocaleString()} caracteres)` : 'Click para subir archivo'}
+                    </div>
+                    <div className="upload-hint">
+                      {document ? 'Click para cambiar archivo' : 'Solo archivos .txt por ahora. Para PDF/Word, copia y pega el texto en la pestaña anterior.'}
+                    </div>
+                    
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept=".txt"
+                      onChange={handleFileUpload}
+                      style={{ display: 'none' }}
+                      disabled={generationState.isGenerating}
+                    />
+                  </div>
+                </Tab>
+              </Tabs>
             </Form.Group>
 
             {/* Título de la presentación */}
