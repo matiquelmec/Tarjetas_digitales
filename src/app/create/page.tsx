@@ -13,16 +13,11 @@ import { PublishModal } from '@/components/create/PublishModal';
 // Import BusinessCard statically to fix production Button import issues
 import BusinessCard from '@/features/digital-card/components/BusinessCard';
 
-interface PlanLimits {
-  maxCards: number;
-  [key: string]: unknown;
-}
 
 export default function CreateCardPage() {
   const { data: session } = useSession();
   const [currentStep, setCurrentStep] = useState(1);
   const [showPublishModal, setShowPublishModal] = useState(false);
-  const [, setPlanLimits] = useState<PlanLimits | null>(null);
   const [limitError, setLimitError] = useState<string | null>(null);
   const [cardData, setCardData] = useState({
     // Datos básicos - Prellenado con datos realistas
@@ -45,10 +40,10 @@ export default function CreateCardPage() {
     buttonNormalBackgroundColor: '#1F1F1F',
     fontFamily: 'Montserrat', // Fuente por defecto - Modern Professional
     
-    // Efectos visuales - Desactivados para usuarios FREE
-    enableHoverEffect: false,
-    enableGlassmorphism: false,
-    enableSubtleAnimations: false,
+    // Efectos visuales - Todos disponibles
+    enableHoverEffect: true,
+    enableGlassmorphism: true,
+    enableSubtleAnimations: true,
     enableBackgroundPatterns: false,
     
     // Sistema de partículas - NUEVO

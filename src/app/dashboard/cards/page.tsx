@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
 import Link from 'next/link';
-import { PlanLimits } from '@/lib/planLimits'; // Assuming this import is needed
 import IndiNavbar from '@/components/layout/IndiNavbar';
 
 interface CardData {
@@ -23,7 +22,6 @@ export default function DashboardCardsPage() {
   const { data: session } = useSession();
   const [cards, setCards] = useState<CardData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [planLimits, setPlanLimits] = useState<PlanLimits | null>(null);
   const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
   const [welcomeMessage, setWelcomeMessage] = useState('');
   const [deletingCardId, setDeletingCardId] = useState<string | null>(null);
@@ -659,7 +657,7 @@ export default function DashboardCardsPage() {
                 </h1>
               </div>
               <div>
-                {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 ? (
+                {false ? (
                   <Link href="/pricing">
                     <Button 
                       className="btn-premium-gold"
@@ -716,7 +714,7 @@ export default function DashboardCardsPage() {
 
 
           {/* Plan Limit Warning - Solo si está en el límite */}
-          {planLimits && cards.length >= planLimits.maxCards && planLimits.maxCards !== -1 && (
+          {false && (
             <Row className="mb-4">
               <Col>
                 <div className="alert-premium border-0 d-flex align-items-center p-3">

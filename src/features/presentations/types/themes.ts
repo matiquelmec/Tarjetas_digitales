@@ -5,7 +5,6 @@ export interface PresentationTheme {
   emoji: string;
   description: string;
   category: 'professional' | 'creative' | 'executive' | 'natural' | 'tech' | 'custom';
-  isPremium: boolean;
   
   // Core colors
   colors: {
@@ -125,7 +124,6 @@ export const PRESENTATION_THEMES: PresentationTheme[] = [
     emoji: '💼',
     description: 'Autoridad y confianza institucional para presentaciones ejecutivas',
     category: 'professional',
-    isPremium: true,
     colors: {
       primary: '#1a237e',
       secondary: '#283593',
@@ -211,7 +209,6 @@ export const PRESENTATION_THEMES: PresentationTheme[] = [
     emoji: '⚡',
     description: 'Futuro, precisión e innovación tecnológica',
     category: 'tech',
-    isPremium: false,
     colors: {
       primary: '#0d1421',
       secondary: '#1a252f',
@@ -298,7 +295,6 @@ export const PRESENTATION_THEMES: PresentationTheme[] = [
     emoji: '🎨',
     description: 'Creatividad, inspiración y expresión artística',
     category: 'creative',
-    isPremium: true,
     colors: {
       primary: '#f8bbd9',
       secondary: '#e1bee7',
@@ -385,7 +381,6 @@ export const PRESENTATION_THEMES: PresentationTheme[] = [
     emoji: '💎',
     description: 'Elegancia cristalina con destellos azul diamante',
     category: 'executive',
-    isPremium: true,
     colors: {
       primary: '#1a1a2e',
       secondary: '#16213e',
@@ -476,9 +471,9 @@ export const getThemesByCategory = (category: string): PresentationTheme[] => {
 };
 
 export const getFreeThemes = (): PresentationTheme[] => {
-  return PRESENTATION_THEMES.filter(theme => !theme.isPremium);
+  return PRESENTATION_THEMES; // Todos los temas están disponibles
 };
 
 export const getPremiumThemes = (): PresentationTheme[] => {
-  return PRESENTATION_THEMES.filter(theme => theme.isPremium);
+  return []; // No hay distinción premium
 };

@@ -6,17 +6,7 @@ import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { useSession } from 'next-auth/react';
 import { useCards } from '@/hooks/useCards';
 import BusinessCard from './BusinessCard';
-// import { AccessService } from '@/lib/planLimits'; // TODO: Actualizar para nuevo sistema
 
-// Tipo temporal para mantener compatibilidad
-interface PlanLimits {
-  canUseHoverEffect: boolean;
-  canUseGlassmorphism: boolean;
-  canUseSubtleAnimations: boolean;
-  canUseBackgroundPatterns: boolean;
-  canUseAIPalette: boolean;
-  canUseCustomTemplates: boolean;
-}
 
 interface Palette {
   name: string;
@@ -32,7 +22,6 @@ export default function BusinessCardGenerator() {
   const { data: session } = useSession();
   const { saveCard, loading: saveLoading, error: saveError } = useCards();
   const [saveSuccess, setSaveSuccess] = useState(false);
-  const [planLimits, setPlanLimits] = useState<PlanLimits | null>(null);
   
   const [name, setName] = useState('Alejandro Torres');
   const [photoUrl, setPhotoUrl] = useState('https://randomuser.me/api/portraits/men/75.jpg');
@@ -434,7 +423,6 @@ export default function BusinessCardGenerator() {
                     checked={enableHoverEffect} 
                     onChange={(e) => setEnableHoverEffect(e.target.checked)} 
                     style={{ color: editorTextColor }} 
-                    disabled={!planLimits?.canUseHoverEffect}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -445,7 +433,6 @@ export default function BusinessCardGenerator() {
                     checked={enableGlassmorphism} 
                     onChange={(e) => setEnableGlassmorphism(e.target.checked)} 
                     style={{ color: editorTextColor }} 
-                    disabled={!planLimits?.canUseGlassmorphism}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -456,7 +443,6 @@ export default function BusinessCardGenerator() {
                     checked={enableSubtleAnimations} 
                     onChange={(e) => setEnableSubtleAnimations(e.target.checked)} 
                     style={{ color: editorTextColor }} 
-                    disabled={!planLimits?.canUseSubtleAnimations}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -467,7 +453,6 @@ export default function BusinessCardGenerator() {
                     checked={enableBackgroundPatterns} 
                     onChange={(e) => setEnableBackgroundPatterns(e.target.checked)} 
                     style={{ color: editorTextColor }} 
-                    disabled={!planLimits?.canUseBackgroundPatterns}
                   />
                 </Form.Group>
               </fieldset>
@@ -495,7 +480,6 @@ export default function BusinessCardGenerator() {
                       }
                     }}
                     style={{ color: editorTextColor }} 
-                    disabled={!planLimits?.canUseAIPalette}
                   />
                 </Form.Group>
                 {enableAIPalette && (
@@ -515,7 +499,6 @@ export default function BusinessCardGenerator() {
                     value={selectedTemplate} 
                     onChange={(e) => setSelectedTemplate(e.target.value)}
                     style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: editorTextColor, border: `1px solid ${editorTextColor}33` }}
-                    disabled={!planLimits?.canUseCustomTemplates}
                   >
                     <option value="modern" style={{ backgroundColor: '#2c2c2c', color: '#ffffff' }}>Modern - Diseño limpio y profesional</option>
                     <option value="elegant" style={{ backgroundColor: '#2c2c2c', color: '#ffffff' }}>Elegant - Estilo sofisticado y minimalista</option>

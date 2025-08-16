@@ -21,7 +21,6 @@ interface SimpleTheme {
     heading: string;
     body: string;
   };
-  isPremium: boolean;
 }
 
 interface ThemeSelectorProps {
@@ -48,7 +47,6 @@ const SAMPLE_THEMES: SimpleTheme[] = [
       heading: 'Roboto, sans-serif',
       body: 'Open Sans, sans-serif'
     },
-    isPremium: false
   },
   {
     id: 'creative-gradient',
@@ -67,7 +65,6 @@ const SAMPLE_THEMES: SimpleTheme[] = [
       heading: 'Montserrat, sans-serif',
       body: 'Source Sans Pro, sans-serif'
     },
-    isPremium: true
   },
   {
     id: 'tech-dark',
@@ -86,7 +83,6 @@ const SAMPLE_THEMES: SimpleTheme[] = [
       heading: 'JetBrains Mono, monospace',
       body: 'Inter, sans-serif'
     },
-    isPremium: false
   }
 ];
 
@@ -103,7 +99,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ onThemeChange, className 
 
   const canAccessTheme = (theme: SimpleTheme): boolean => {
     // Simplified: assume user can access free themes
-    return !theme.isPremium;
+    return true; // Todos los temas disponibles
   };
 
   const getThemesByCategory = (category: string): SimpleTheme[] => {
@@ -198,7 +194,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ onThemeChange, className 
           </div>
 
           {/* Premium Badge */}
-          {theme.isPremium && (
+          {false && (
             <Badge 
               bg="warning" 
               style={{ 
@@ -281,7 +277,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ onThemeChange, className 
             <div>
               <div className="fw-bold">
                 {selectedTheme.name}
-                {selectedTheme.isPremium && (
+                {false && (
                   <Badge bg="warning" className="ms-2" style={{ fontSize: '0.6rem' }}>
                     PRO
                   </Badge>

@@ -71,11 +71,7 @@ export const usePresentationThemes = () => {
     const theme = getThemeById(themeId);
     if (!theme) return;
 
-    // Check if user has access to premium themes
-    if (theme.isPremium && session?.user?.plan === 'FREE') {
-      console.warn('Premium theme requires upgrade');
-      return false;
-    }
+    // Todos los temas están disponibles
 
     setThemeState(prev => ({
       ...prev,
@@ -204,7 +200,7 @@ export const usePresentationThemes = () => {
 
   // Check if user can access theme
   const canAccessTheme = useCallback((theme: PresentationTheme): boolean => {
-    if (!theme.isPremium) return true;
+    return true; // Todos los temas disponibles
     return session?.user?.plan !== 'FREE';
   }, [session?.user?.plan]);
 

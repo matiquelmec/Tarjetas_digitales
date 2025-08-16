@@ -42,7 +42,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Corporate Executive',
                 emoji: '💼',
                 description: 'Autoridad y confianza institucional',
-                isFree: false,
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%)',
                   cardTextColor: '#ffffff',
@@ -55,7 +54,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Medical Trust',
                 emoji: '🏥',
                 description: 'Salud, tranquilidad y profesionalismo médico',
-                isFree: false,
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #43a047 100%)',
                   cardTextColor: '#ffffff',
@@ -68,7 +66,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Legal Authority',
                 emoji: '⚖️',
                 description: 'Justicia, seriedad y tradición',
-                isFree: false,
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #8e24aa 100%)',
                   cardTextColor: '#ffffff',
@@ -81,7 +78,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Financial Gold',
                 emoji: '💰',
                 description: 'Prosperidad, estabilidad y valor',
-                isFree: false,
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #e65100 0%, #f57900 50%, #ff9800 100%)',
                   cardTextColor: '#ffffff',
@@ -94,7 +90,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Tech Innovation',
                 emoji: '⚡',
                 description: 'Futuro, precisión e innovación',
-                isFree: true,
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #0d1421 0%, #1a252f 50%, #263238 100%)',
                   cardTextColor: '#e8f5e8', // Verde muy suave para mejor legibilidad
@@ -145,7 +140,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               >
                 <div style={{ fontSize: '1.8rem', marginBottom: '8px' }}>{theme.emoji}</div>
                 <small style={{ fontSize: '11px', fontWeight: '600', lineHeight: '1.2' }}>
-                  {theme.name} {theme.isFree ? <span className="badge bg-success ms-1" style={{ fontSize: '8px' }}>GRATIS</span> : <span className="badge bg-warning ms-1" style={{ fontSize: '8px' }}>PREMIUM</span>}
+                  {theme.name}
                 </small>
                 
                 {/* 5-Color Preview Bar */}
@@ -168,7 +163,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Artist Canvas',
                 emoji: '🎨',
                 description: 'Creatividad, inspiración y expresión artística',
-                isFree: false,
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #f8bbd9 0%, #e1bee7 100%)',
                   cardTextColor: '#2d1b4e', // Morado más oscuro para excelente contraste
@@ -181,7 +175,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Nature Harmony',
                 emoji: '🌿',
                 description: 'Naturaleza, equilibrio y sostenibilidad',
-                isFree: true,
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
                   cardTextColor: '#ffffff',
@@ -194,7 +187,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Ocean Depth',
                 emoji: '🌊',
                 description: 'Profundidad, calma y fluidez oceánica',
-                isFree: true,
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #0277bd 0%, #29b6f6 100%)',
                   cardTextColor: '#ffffff',
@@ -207,7 +199,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Sunset Warmth',
                 emoji: '🌅',
                 description: 'Calidez, energía y optimismo radiante',
-                isFree: true,
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #f57c00 0%, #ffab40 100%)',
                   cardTextColor: '#ffffff',
@@ -220,7 +211,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Midnight Elegance',
                 emoji: '🌙',
                 description: 'Sofisticación, misterio y elegancia nocturna',
-                isFree: false,
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #263238 0%, #37474f 100%)',
                   cardTextColor: '#ffffff',
@@ -271,7 +261,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
               >
                 <div style={{ fontSize: '1.8rem', marginBottom: '8px' }}>{theme.emoji}</div>
                 <small style={{ fontSize: '11px', fontWeight: '600', lineHeight: '1.2' }}>
-                  {theme.name} {theme.isFree ? <span className="badge bg-success ms-1" style={{ fontSize: '8px' }}>GRATIS</span> : <span className="badge bg-warning ms-1" style={{ fontSize: '8px' }}>PREMIUM</span>}
+                  {theme.name}
                 </small>
                 
                 {/* 5-Color Preview Bar */}
@@ -290,7 +280,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
 
       {/* Advanced Manual Customization */}
       <div className="mb-4">
-        <h5 className="mb-3">⚙️ Personalización Manual <span className="badge bg-success ms-2">GRATIS</span></h5>
+        <h5 className="mb-3">⚙️ Personalización Manual</h5>
         <p className="text-muted mb-3">Ajusta cada color individualmente para máximo control</p>
         
         <Row>
@@ -544,13 +534,13 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
 
       {/* Premium Gradient Collection */}
       <div className="mb-4">
-        <h5 className="mb-3">✨ Colección de Gradientes <span className="badge bg-warning">PREMIUM</span></h5>
+        <h5 className="mb-3">✨ Colección de Gradientes</h5>
         <p className="text-muted mb-3">Gradientes exclusivos optimizados para efectos Glassmorphism</p>
         
         {/* Executive Collection */}
         <div className="mb-4">
           <h6 className="mb-3 d-flex align-items-center gap-2">
-            <span>🏆</span> Colección Ejecutiva <span className="badge bg-warning ms-2">PREMIUM</span>
+            <span>🏆</span> Colección Ejecutiva
           </h6>
           <div className="d-flex gap-3 flex-wrap">
             {[
@@ -660,7 +650,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
         {/* Cosmic Collection */}
         <div className="mb-4">
           <h6 className="mb-3 d-flex align-items-center gap-2">
-            <span>🌌</span> Colección Cósmica <span className="badge bg-warning ms-2">PREMIUM</span>
+            <span>🌌</span> Colección Cósmica
           </h6>
           <div className="d-flex gap-3 flex-wrap">
             {[
@@ -755,7 +745,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
         {/* Nature Collection */}
         <div className="mb-4">
           <h6 className="mb-3 d-flex align-items-center gap-2">
-            <span>🌿</span> Colección Natural <span className="badge bg-warning ms-2">PREMIUM</span>
+            <span>🌿</span> Colección Natural
           </h6>
           <div className="d-flex gap-3 flex-wrap">
             {[
@@ -867,7 +857,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Playfair Display',
                 key: 'Playfair Display',
                 personality: 'Executive Authority',
-                isFree: false,
                 emoji: '👔',
                 description: 'Liderazgo y sofisticación',
                 ideal: 'CEOs, Directores, Abogados',
@@ -877,7 +866,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Montserrat',
                 key: 'Montserrat',  
                 personality: 'Modern Professional',
-                isFree: true,
                 emoji: '🚀',
                 description: 'Innovación y claridad',
                 ideal: 'Tech, Marketing, Startups',
@@ -887,7 +875,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Merriweather',
                 key: 'Merriweather',
                 personality: 'Trusted Expert',
-                isFree: false,
                 emoji: '🎓',
                 description: 'Confiabilidad y experiencia',
                 ideal: 'Médicos, Académicos',
@@ -897,7 +884,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Poppins',
                 key: 'Poppins',
                 personality: 'Creative Leader',
-                isFree: false,
                 emoji: '🎨',
                 description: 'Creatividad y dinamismo',
                 ideal: 'Creativos, Coaches',
@@ -907,7 +893,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Source Sans Pro',
                 key: 'Source Sans Pro',
                 personality: 'Technical Precision',
-                isFree: false,
                 emoji: '⚙️',
                 description: 'Precisión y competencia',
                 ideal: 'Ingenieros, Arquitectos',
@@ -917,7 +902,6 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Crimson Text',
                 key: 'Crimson Text',
                 personality: 'Distinguished Scholar',
-                isFree: false,
                 emoji: '📚',
                 description: 'Distinción académica',
                 ideal: 'Profesores, Investigadores',
@@ -978,7 +962,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                     fontWeight: '600',
                     marginBottom: '1px'
                   }}>
-                    {font.personality} {font.isFree ? <span className="badge bg-success ms-1" style={{ fontSize: '7px' }}>GRATIS</span> : <span className="badge bg-warning ms-1" style={{ fontSize: '7px' }}>PREMIUM</span>}
+                    {font.personality}
                   </div>
                   <div style={{ 
                     fontSize: '9px', 
@@ -1037,7 +1021,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
 
       {/* Visual Effects */}
       <div className="mb-4">
-        <h5 className="mb-3">✨ Efectos Visuales <span className="badge bg-warning">PREMIUM</span></h5>
+        <h5 className="mb-3">✨ Efectos Visuales</h5>
         
         <Row>
           <Col md={6}>
@@ -1143,7 +1127,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
       <div className="bg-success bg-opacity-20 p-3 rounded" style={{ border: '1px solid rgba(25, 135, 84, 0.3)' }}>
         <small className="text-light" style={{ color: '#ffffff !important' }}>
           <strong style={{ color: '#00ff88' }}>🎨 Pro Tip:</strong> Las paletas con IA están optimizadas para máximo impacto visual. 
-          Todos los efectos están incluidos en tu trial de 7 días.
+          Todos los efectos están disponibles para usar libremente.
         </small>
       </div>
     </div>
