@@ -63,17 +63,17 @@ export async function POST(request: NextRequest) {
     const userAccess = await AccessService.getUserAccess(session.user.id);
     if (!userAccess || !userAccess.hasAccess) {
       return NextResponse.json({ 
-        error: 'Premium features require active subscription',
+        error: 'Access required',
         message: userAccess?.isTrialUser 
-          ? 'Tu período de prueba ha expirado. Suscríbete para continuar usando funciones premium.'
-          : 'Necesitas una suscripción activa para usar funciones premium.'
+          ? 'Tu período de prueba ha expirado. Suscríbete por $4,990 CLP para continuar.'
+          : 'Necesitas una suscripción activa para crear tarjetas.'
       }, { status: 403 });
     }
     
-    // Con el nuevo sistema, todos los usuarios con acceso tienen funciones premium completas
+    // Con el nuevo sistema, todos los usuarios con acceso tienen todas las funciones
     // No necesitamos validar funciones individuales ya que el trial incluye todo
 
-    // Crear la tarjeta con acceso completo a funciones premium
+    // Crear la tarjeta con acceso completo a todas las funciones
     const card = await CardService.createCard(session.user.id, cardData);
     
     return NextResponse.json(card, { status: 201 });

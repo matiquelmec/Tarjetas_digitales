@@ -849,7 +849,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
 
         <div className="bg-success bg-opacity-20 p-3 rounded mt-4" style={{ border: '1px solid rgba(25, 135, 84, 0.3)' }}>
           <small className="text-light" style={{ color: '#ffffff !important' }}>
-            <strong style={{ color: '#00ff88' }}>✨ Pro Tip Exclusivo:</strong> Los gradientes premium están específicamente diseñados para maximizar el efecto Glassmorphism. 
+            <strong style={{ color: '#00ff88' }}>✨ Pro Tip:</strong> Los gradientes están específicamente diseñados para maximizar el efecto Glassmorphism. 
             Combínalos con efectos visuales para crear tarjetas que <strong>hipnoticen</strong> a tus contactos.
           </small>
         </div>
@@ -857,7 +857,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
 
       {/* Font Selection */}
       <div className="mb-4">
-        <h5 className="mb-3">✍️ Tipografía Profesional <small className="text-muted">(1 gratuita + 5 premium)</small></h5>
+        <h5 className="mb-3">✍️ Tipografía Profesional <small className="text-muted">(6 fuentes disponibles)</small></h5>
         <p className="text-muted mb-3">Elige la fuente que mejor represente tu personalidad profesional</p>
         
         <div className="mb-4">
@@ -1143,7 +1143,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
       <div className="bg-success bg-opacity-20 p-3 rounded" style={{ border: '1px solid rgba(25, 135, 84, 0.3)' }}>
         <small className="text-light" style={{ color: '#ffffff !important' }}>
           <strong style={{ color: '#00ff88' }}>🎨 Pro Tip:</strong> Las paletas con IA están optimizadas para máximo impacto visual. 
-          Los efectos premium están disponibles en planes pagos.
+          Todos los efectos están incluidos en tu trial de 7 días.
         </small>
       </div>
     </div>
