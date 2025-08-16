@@ -956,11 +956,8 @@ export default function HomePage() {
             {/* Partículas espaciales de fondo */}
             <div className="space-particles">
               <div className="particle space-particle-1">🆔</div>
-              <div className="particle space-particle-2">📄</div>
               <div className="particle space-particle-3">📊</div>
-              <div className="particle space-particle-4">🔗</div>
               <div className="particle space-particle-5">💻</div>
-              <div className="particle space-particle-6">✨</div>
             </div>
             
             <Row className="align-items-center min-vh-70 justify-content-center">
@@ -971,7 +968,7 @@ export default function HomePage() {
                   </div>
                   
                   <h1 className="hero-title-alien text-white mb-3">
-                    Lleva tu Imagen Personal
+                    Lleva tu Imagen Digital y Presentaciones
                     <br />
                     <span className="hero-highlight-alien">al Siguiente Nivel</span>
                   </h1>
@@ -984,10 +981,9 @@ export default function HomePage() {
                   
                   {/* Destacar productos */}
                   <div className="hero-products mb-4">
-                    <div className="d-flex flex-wrap gap-2 justify-content-center">
-                      <span className="badge bg-success px-3 py-2">🆔 Tarjetas Digitales • GRATIS</span>
-                      <span className="badge bg-warning text-dark px-3 py-2">📄 CVs Inteligentes</span>
-                      <span className="badge bg-info px-3 py-2">📊 Presentaciones Pro</span>
+                    <div className="d-flex flex-wrap gap-3 justify-content-center">
+                      <span className="badge bg-success px-4 py-2">🆔 Tarjetas Digitales • GRATIS</span>
+                      <span className="badge bg-info px-4 py-2">📊 Presentaciones Pro</span>
                     </div>
                   </div>
                   
@@ -1029,9 +1025,9 @@ export default function HomePage() {
               </Row>
               
               <Row className="justify-content-center">
-                <Col lg={10} xl={8}>
-                  <Row className="g-4">
-                    <Col md={6}>
+                <Col lg={10} xl={9}>
+                  <Row className="g-4 justify-content-center">
+                    <Col md={6} lg={4}>
                     <div className="capability-card">
                       <div className="capability-icon mb-3">
                         🆔
@@ -1050,7 +1046,7 @@ export default function HomePage() {
                     </div>
                   </Col>
                   
-                    <Col md={6}>
+                    <Col md={6} lg={4}>
                       <div className="capability-card">
                         <div className="capability-icon mb-3">
                           📄
@@ -1069,7 +1065,7 @@ export default function HomePage() {
                     </div>
                   </Col>
                   
-                    <Col md={6}>
+                    <Col md={6} lg={4}>
                       <div className="capability-card">
                         <div className="capability-icon mb-3">
                           📊
@@ -1088,24 +1084,6 @@ export default function HomePage() {
                     </div>
                   </Col>
                   
-                    <Col md={6}>
-                      <div className="capability-card">
-                        <div className="capability-icon mb-3">
-                          🔗
-                        </div>
-                        <h4 className="capability-title text-white mb-3">
-                          Identidad Digital Completa
-                        </h4>
-                      <div className="mb-3">
-                        <span className="badge bg-gradient fs-6 px-3 py-2 mb-2" style={{background: 'linear-gradient(135deg, #00f6ff, #0072ff)'}}>
-                          🎯 TODO INCLUIDO
-                        </span>
-                      </div>
-                      <p className="capability-description text-white opacity-85">
-                        Una plataforma integral donde tu identidad profesional evoluciona constantemente
-                      </p>
-                    </div>
-                  </Col>
                   </Row>
                 </Col>
               </Row>
