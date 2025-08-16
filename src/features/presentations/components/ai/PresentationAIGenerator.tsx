@@ -90,7 +90,7 @@ export default function PresentationAIGenerator({
 
   const loadUsageInfo = async () => {
     try {
-      const response = await fetch('/api/presentations/ai-simple', {
+      const response = await fetch('/api/presentations/ai-generate', {
         method: 'GET'
       });
       if (response.ok) {
@@ -105,9 +105,9 @@ export default function PresentationAIGenerator({
           plan: 'FREE',
           capabilities: {
             maxDocumentLength: 5000,
-            researchEnabled: false,
-            maxDuration: 15,
-            customInstructions: false,
+            researchEnabled: true, // Activado para mostrar capacidades del sistema
+            maxDuration: 60,
+            customInstructions: true,
             priorityProcessing: false
           }
         });
@@ -122,9 +122,9 @@ export default function PresentationAIGenerator({
         plan: 'FREE',
         capabilities: {
           maxDocumentLength: 5000,
-          researchEnabled: false,
-          maxDuration: 15,
-          customInstructions: false,
+          researchEnabled: true, // Activado para mostrar capacidades del sistema
+          maxDuration: 60,
+          customInstructions: true,
           priorityProcessing: false
         }
       });
@@ -247,7 +247,7 @@ export default function PresentationAIGenerator({
         customInstructions: customInstructions.trim() || undefined
       };
 
-      const response = await fetch('/api/presentations/ai-simple', {
+      const response = await fetch('/api/presentations/ai-generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -799,12 +799,102 @@ Mínimo 100 caracteres para crear una presentación efectiva."
               </Col>
             </Row>
 
-            {/* Mensaje informativo simple */}
-            <Alert variant="info" className="mb-4">
-              <Alert.Heading>🤖 IA Simplificada</Alert.Heading>
+            {/* Opciones avanzadas */}
+            <div className="mb-4">
+              <Button
+                variant="outline-secondary"
+                onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
+                className="mb-3"
+                disabled={generationState.isGenerating}
+              >
+                ⚙️ Opciones Avanzadas {showAdvancedOptions ? '▲' : '▼'}
+              </Button>
+
+              <Collapse in={showAdvancedOptions}>
+                <div className="advanced-options">
+                  <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3">
+                        <Form.Label className="fw-bold">
+                          🎪 Nivel de Interactividad
+                        </Form.Label>
+                        <Form.Select
+                          value={interactivityLevel}
+                          onChange={(e) => setInteractivityLevel(e.target.value)}
+                          disabled={generationState.isGenerating}
+                        >
+                          <option value="low">🔹 Bajo - Presentación tradicional</option>
+                          <option value="medium">🔸 Medio - Elementos interactivos moderados</option>
+                          <option value="high">🔶 Alto - Máxima participación de audiencia</option>
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+                    <Col md={6}>
+                      <Form.Group className="mb-3">
+                        <Form.Label className="fw-bold">
+                          🔍 Investigación Automática
+                          {usageInfo?.capabilities?.researchEnabled && <span className="feature-tag">PRO</span>}
+                        </Form.Label>
+                        <Form.Check
+                          type="switch"
+                          id="research-switch"
+                          label="Buscar datos y estadísticas actualizadas"
+                          checked={requiresResearch}
+                          onChange={(e) => setRequiresResearch(e.target.checked)}
+                          disabled={generationState.isGenerating || !usageInfo?.capabilities?.researchEnabled}
+                        />
+                        {!usageInfo?.capabilities?.researchEnabled && (
+                          <Form.Text className="text-muted">
+                            Disponible en planes pagos
+                          </Form.Text>
+                        )}
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  {usageInfo?.capabilities?.customInstructions && (
+                    <Form.Group className="mb-3">
+                      <Form.Label className="fw-bold">
+                        📝 Instrucciones Personalizadas
+                        <span className="feature-tag">PRO</span>
+                      </Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        value={customInstructions}
+                        onChange={(e) => setCustomInstructions(e.target.value)}
+                        placeholder="Instrucciones específicas para el generador de IA (ej: 'Incluir más gráficos', 'Enfoque en casos prácticos', etc.)"
+                        maxLength={500}
+                        disabled={generationState.isGenerating}
+                      />
+                      <Form.Text className="text-muted">
+                        {customInstructions.length}/500 caracteres
+                      </Form.Text>
+                    </Form.Group>
+                  )}
+
+                  {!usageInfo?.capabilities?.researchEnabled && (
+                    <div className="plan-upgrade-hint">
+                      <h6>🚀 Desbloquea el Poder Completo de la IA</h6>
+                      <p>
+                        Actualiza a Plan Profesional para investigación automática, 
+                        instrucciones personalizadas, y procesamiento prioritario.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </Collapse>
+            </div>
+
+            {/* Mensaje informativo avanzado */}
+            <Alert variant="success" className="mb-4">
+              <Alert.Heading>🚀 IA Multi-Agente Avanzada</Alert.Heading>
               <p className="mb-0">
-                Versión básica que genera presentaciones profesionales aplicando la regla 6x6 
-                (máximo 6 puntos por slide, 6 palabras por punto) para máximo impacto.
+                Sistema completo con agentes especializados: <strong>Orquestador</strong> para planificación, 
+                <strong>Análisis de Contenido</strong> con regla 6x6, y <strong>Investigación RAG</strong> para datos actualizados.
+                {requiresResearch && usageInfo?.capabilities?.researchEnabled && (
+                  <><br/><span className="text-success">✅ Investigación automática activada</span></>
+                )}
               </p>
             </Alert>
 

@@ -2,7 +2,7 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "./db";
-import { Plan } from "@prisma/client";
+import { UserStatus } from "@prisma/client";
 
 // Basic auth configuration without validation (for build compatibility)
 export const authOptionsSafe: NextAuthOptions = {
@@ -26,12 +26,19 @@ export const authOptionsSafe: NextAuthOptions = {
 
           if (!dbUser) {
             console.log('Creating new user in database for email:', user.email);
+            // Crear usuario con trial automático de 7 días
+            const now = new Date();
+            const trialEndDate = new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000));
+            
             dbUser = await prisma.user.create({
               data: {
                 email: user.email!,
                 name: user.name || '',
                 image: user.image || '',
-                plan: Plan.FREE,
+                status: UserStatus.TRIAL,
+                trialStartDate: now,
+                trialEndDate: trialEndDate,
+                isFirstYear: true,
               },
             });
             console.log('User created successfully:', dbUser.id);
@@ -40,14 +47,14 @@ export const authOptionsSafe: NextAuthOptions = {
           }
 
           token.userId = dbUser.id;
-          token.plan = dbUser.plan;
-          console.log('Token updated with userId:', dbUser.id, 'plan:', dbUser.plan);
+          token.status = dbUser.status;
+          console.log('Token updated with userId:', dbUser.id, 'status:', dbUser.status);
         } catch (error) {
           console.error('Error in JWT callback:', error);
           // Even if there's an error, don't fail the login completely
           if (user.email) {
             token.userId = user.email; // Fallback to email as ID
-            token.plan = Plan.FREE;
+            token.status = UserStatus.TRIAL;
           }
         }
       }
@@ -60,7 +67,7 @@ export const authOptionsSafe: NextAuthOptions = {
           });
           if (dbUser) {
             token.userId = dbUser.id;
-            token.plan = dbUser.plan;
+            token.status = dbUser.status;
             console.log('Retrieved existing user from token refresh:', dbUser.id);
           }
         } catch (error) {
@@ -82,21 +89,21 @@ export const authOptionsSafe: NextAuthOptions = {
             });
             if (dbUser) {
               session.user.id = dbUser.id; // Use database ID
-              session.user.plan = dbUser.plan;
+              session.user.status = dbUser.status;
               console.log('Session user ID set to database ID:', dbUser.id);
             } else {
               session.user.id = token.userId as string;
-              session.user.plan = token.plan || Plan.FREE;
+              session.user.status = token.status || UserStatus.TRIAL;
               console.log('Session user ID set to token ID:', token.userId);
             }
           } catch (error) {
             console.error('Error fetching user in session callback:', error);
             session.user.id = token.userId as string;
-            session.user.plan = token.plan || Plan.FREE;
+            session.user.status = token.status || UserStatus.TRIAL;
           }
         } else {
           session.user.id = token.userId as string;
-          session.user.plan = token.plan || Plan.FREE;
+          session.user.status = token.status || UserStatus.TRIAL;
         }
       }
       

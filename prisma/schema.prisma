@@ -34,21 +34,27 @@ model Session {
 }
 
 model User {
-  id               String         @id @default(cuid())
-  name             String?
-  email            String         @unique
-  emailVerified    DateTime?
-  image            String?
-  plan             Plan           @default(FREE)
-  stripeCustomerId String?        @unique
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-  accounts         Account[]
-  cards            Card[]
-  presentations    Presentation[]
-  sessions         Session[]
-  cvs              SmartCV[]
-  subscription     Subscription?
+  id                   String         @id @default(cuid())
+  name                 String?
+  email                String         @unique
+  emailVerified        DateTime?
+  image                String?
+  // Nuevo sistema de trial + subscription
+  trialStartDate       DateTime?
+  trialEndDate         DateTime?
+  subscriptionStartDate DateTime?
+  subscriptionEndDate  DateTime?
+  isFirstYear          Boolean        @default(true)
+  status               UserStatus     @default(TRIAL)
+  stripeCustomerId     String?        @unique
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  accounts             Account[]
+  cards                Card[]
+  presentations        Presentation[]
+  sessions             Session[]
+  cvs                  SmartCV[]
+  subscription         Subscription?
 }
 
 model VerificationToken {
@@ -109,6 +115,10 @@ model Subscription {
   currentPeriodStart   DateTime
   currentPeriodEnd     DateTime
   cancelAtPeriodEnd    Boolean  @default(false)
+  // Nuevos campos para primer año vs renovación
+  isFirstYear          Boolean  @default(true)
+  price                Decimal
+  originalPrice        Decimal  // Para tracking de primer año vs renovación
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
   user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -176,9 +186,8 @@ model KnowledgeBase {
   @@index([createdAt])
 }
 
-enum Plan {
-  FREE
-  PROFESSIONAL
-  BUSINESS
-  ENTERPRISE
+enum UserStatus {
+  TRIAL       // 7 días de prueba
+  ACTIVE      // Suscripción activa
+  EXPIRED     // Suscripción vencida
 }

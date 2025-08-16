@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { AuthWrapper } from '../../components/AuthWrapper';
 import { usePostLoginRedirect } from '@/hooks/usePostLoginRedirect';
 import IndiNavbar from '@/components/layout/IndiNavbar';
+import TrialBanner from '@/components/ui/TrialBanner';
 
 interface CardData {
   id: string;
@@ -852,6 +853,7 @@ export default function Dashboard() {
         <IndiNavbar variant="transparent" position="relative" showActions={true} />
         
         <Container className="py-4">
+          <TrialBanner />
           {/* Dashboard Header Simplificado */}
           <div className="dashboard-header-modern">
             <Row className="align-items-center">

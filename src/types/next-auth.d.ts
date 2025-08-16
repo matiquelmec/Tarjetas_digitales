@@ -1,5 +1,5 @@
 // import NextAuth from "next-auth" // Unused import
-import { Plan } from "@prisma/client"
+import { UserStatus } from "@prisma/client"
 
 declare module "next-auth" {
   interface Session {
@@ -8,21 +8,21 @@ declare module "next-auth" {
       name?: string | null
       email?: string | null
       image?: string | null
-      plan?: Plan
+      status?: UserStatus
     }
     accessToken?: string
   }
 
   interface User {
     id: string
-    plan?: Plan
+    status?: UserStatus
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
     userId?: string
-    plan?: Plan
+    status?: UserStatus
     accessToken?: string
   }
 }

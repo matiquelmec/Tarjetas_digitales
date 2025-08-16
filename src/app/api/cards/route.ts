@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptionsSafe } from '@/lib/auth-safe';
-// import { authOptionsDebug } from '@/lib/auth-debug'; // Unused import
 import { CardService } from '@/lib/cardService';
-import { PlanLimitService } from '@/lib/planLimits';
+import { AccessService, PlanLimitService } from '@/lib/planLimits';
 
 export async function GET() {
   try {
@@ -49,37 +48,32 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Check plan limits before creating card
-    const limitCheck = await PlanLimitService.canCreateCard(session.user.id);
-    if (!limitCheck.allowed) {
+    // Check user access before creating card
+    const accessCheck = await AccessService.canCreateCard(session.user.id);
+    if (!accessCheck.allowed) {
       return NextResponse.json({ 
-        error: 'Plan limit exceeded',
-        message: limitCheck.reason 
+        error: 'Access denied',
+        message: accessCheck.reason 
       }, { status: 403 });
     }
 
     const cardData = await request.json();
 
-    // Validate premium features against user's plan
-    const planLimits = await PlanLimitService.getUserPlanLimits(session.user.id);
-    if (planLimits) {
-      if (cardData.enableHoverEffect && !planLimits.canUseHoverEffect) {
-        return NextResponse.json({ error: 'Hover effect is a premium feature.' }, { status: 403 });
-      }
-      if (cardData.enableGlassmorphism && !planLimits.canUseGlassmorphism) {
-        return NextResponse.json({ error: 'Glassmorphism is a premium feature.' }, { status: 403 });
-      }
-      if (cardData.enableSubtleAnimations && !planLimits.canUseSubtleAnimations) {
-        return NextResponse.json({ error: 'Subtle animations are a premium feature.' }, { status: 403 });
-      }
-      if (cardData.enableBackgroundPatterns && !planLimits.canUseBackgroundPatterns) {
-        return NextResponse.json({ error: 'Background patterns are a premium feature.' }, { status: 403 });
-      }
-      if (cardData.enableAIPalette && !planLimits.canUseAIPalette) {
-        return NextResponse.json({ error: 'AI palettes are a premium feature.' }, { status: 403 });
-      }
+    // Verificar acceso del usuario
+    const userAccess = await AccessService.getUserAccess(session.user.id);
+    if (!userAccess || !userAccess.hasAccess) {
+      return NextResponse.json({ 
+        error: 'Premium features require active subscription',
+        message: userAccess?.isTrialUser 
+          ? 'Tu período de prueba ha expirado. Suscríbete para continuar usando funciones premium.'
+          : 'Necesitas una suscripción activa para usar funciones premium.'
+      }, { status: 403 });
     }
+    
+    // Con el nuevo sistema, todos los usuarios con acceso tienen funciones premium completas
+    // No necesitamos validar funciones individuales ya que el trial incluye todo
 
+    // Crear la tarjeta con acceso completo a funciones premium
     const card = await CardService.createCard(session.user.id, cardData);
     
     return NextResponse.json(card, { status: 201 });

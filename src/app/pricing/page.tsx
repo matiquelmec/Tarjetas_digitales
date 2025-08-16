@@ -1,61 +1,41 @@
 'use client';
 
-import { useState } from 'react';
-import { Container, Row, Col, Card, Button, ListGroup } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
 import { useSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
 import IndiNavbar from '@/components/layout/IndiNavbar';
 
 export default function PricingPage() {
   const { data: session } = useSession();
-  const [loading, setLoading] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [userAccess, setUserAccess] = useState<any>(null);
 
-  const handleCardPayment = async () => {
-    if (!session) {
-      signIn();
-      return;
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetchUserAccess();
     }
+  }, [session]);
 
-    setLoading('card');
-
+  const fetchUserAccess = async () => {
     try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          planType: 'card',
-          amount: 4990,
-          successUrl: `${window.location.origin}/dashboard?success=true&type=card`,
-          cancelUrl: `${window.location.origin}/pricing?canceled=true`,
-        }),
-      });
-
-      const data = await response.json();
-      
-      if (data.url) {
-        window.location.href = data.url;
-      } else if (data.error === 'MercadoPago not configured') {
-        alert('Sistema de pagos no configurado aún. Por favor contacta a soporte.');
-      } else {
-        alert('Error creando sesión de pago: ' + (data.error || 'Error desconocido'));
+      const response = await fetch('/api/user/plan-limits');
+      if (response.ok) {
+        const data = await response.json();
+        setUserAccess(data);
       }
     } catch (error) {
-      console.error('Error creating checkout session:', error);
-      alert('Error creando sesión de pago');
-    } finally {
-      setLoading(null);
+      console.error('Error fetching user access:', error);
     }
   };
 
-  const handleProPayment = async () => {
+  const handleSubscriptionPayment = async (subscriptionType: 'FIRST_YEAR' | 'RENEWAL' = 'FIRST_YEAR') => {
     if (!session) {
       signIn();
       return;
     }
 
-    setLoading('pro');
+    setLoading(true);
 
     try {
       const response = await fetch('/api/create-checkout-session', {
@@ -64,9 +44,8 @@ export default function PricingPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          planType: 'pro',
-          amount: 12990,
-          successUrl: `${window.location.origin}/dashboard?success=true&type=pro`,
+          subscriptionType,
+          successUrl: `${window.location.origin}/dashboard?success=true&type=${subscriptionType.toLowerCase()}`,
           cancelUrl: `${window.location.origin}/pricing?canceled=true`,
         }),
       });
@@ -84,8 +63,27 @@ export default function PricingPage() {
       console.error('Error creating checkout session:', error);
       alert('Error creando sesión de pago');
     } finally {
-      setLoading(null);
+      setLoading(false);
     }
+  };
+
+  const getTrialDaysRemaining = () => {
+    if (userAccess?.isTrialUser && userAccess?.daysRemaining) {
+      return userAccess.daysRemaining;
+    }
+    return null;
+  };
+
+  const isUserExpired = () => {
+    return userAccess?.status === 'EXPIRED';
+  };
+
+  const getPriceForUser = () => {
+    return isUserExpired() ? 2990 : 4990;
+  };
+
+  const getSubscriptionTypeForUser = () => {
+    return isUserExpired() ? 'RENEWAL' : 'FIRST_YEAR';
   };
 
   return (
@@ -119,8 +117,8 @@ export default function PricingPage() {
           transform: scale(1.05);
           position: relative;
         }
-        .pricing-card-popular::before {
-          content: "🔥 MÁS POPULAR";
+        .pricing-card-featured::before {
+          content: "✨ RECOMENDADO";
           position: absolute;
           top: -12px;
           left: 50%;
@@ -139,71 +137,62 @@ export default function PricingPage() {
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
-        .feature-included {
-          color: #10b981;
-        }
-        .feature-not-included {
-          color: #6b7280;
-          opacity: 0.5;
-        }
-        .btn-pay-per-card {
+        .btn-subscription {
           background: linear-gradient(135deg, #00F6FF, #0072ff) !important;
           border: none !important;
           color: white !important;
           font-weight: 700 !important;
-          padding: 12px 30px !important;
+          padding: 15px 40px !important;
           border-radius: 12px !important;
           box-shadow: 0 8px 24px rgba(0, 246, 255, 0.3) !important;
           transition: all 0.3s ease !important;
+          font-size: 1.1rem !important;
         }
-        .btn-pay-per-card:hover {
+        .btn-subscription:hover {
           transform: translateY(-2px) !important;
           box-shadow: 0 12px 32px rgba(0, 246, 255, 0.4) !important;
         }
-        .btn-pro-plan {
-          background: linear-gradient(135deg, #8b5cf6, #7c3aed) !important;
-          border: none !important;
-          color: white !important;
-          font-weight: 700 !important;
-          padding: 12px 30px !important;
-          border-radius: 12px !important;
-          box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3) !important;
-          transition: all 0.3s ease !important;
-        }
-        .btn-pro-plan:hover {
-          transform: translateY(-2px) !important;
-          box-shadow: 0 12px 32px rgba(139, 92, 246, 0.4) !important;
-        }
-        .btn-business-plan {
-          background: linear-gradient(135deg, #D4A017, #B8860B) !important;
-          border: none !important;
-          color: white !important;
-          font-weight: 700 !important;
-          padding: 12px 30px !important;
-          border-radius: 12px !important;
-          box-shadow: 0 8px 24px rgba(212, 160, 23, 0.3) !important;
-          transition: all 0.3s ease !important;
-        }
-        .btn-business-plan:hover {
-          transform: translateY(-2px) !important;
-          box-shadow: 0 12px 32px rgba(212, 160, 23, 0.4) !important;
-        }
-        .savings-label {
-          background: rgba(16, 185, 129, 0.2);
-          color: #10b981;
-          padding: 4px 12px;
-          border-radius: 12px;
-          font-size: 0.8rem;
+        .trial-badge {
+          background: linear-gradient(135deg, #10b981, #059669);
+          color: white;
+          padding: 8px 16px;
+          border-radius: 20px;
+          font-size: 0.9rem;
           font-weight: 600;
           display: inline-block;
-          margin-top: 8px;
+          margin-bottom: 16px;
+        }
+        .renewal-badge {
+          background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+          color: white;
+          padding: 8px 16px;
+          border-radius: 20px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          display: inline-block;
+          margin-bottom: 16px;
+        }
+        .feature-list {
+          list-style: none;
+          padding: 0;
+        }
+        .feature-list li {
+          padding: 8px 0;
+          display: flex;
+          align-items: center;
+        }
+        .feature-list li::before {
+          content: "✓";
+          color: #10b981;
+          font-weight: bold;
+          margin-right: 12px;
+          font-size: 1.2rem;
         }
       `}</style>
       <div className="animated-gradient-background">
-        {/* Navbar con Indi */}
         <IndiNavbar variant="transparent" position="relative" showActions={true} />
         
-        <Container className="py-4">
+        <Container className="py-5">
           {/* Header */}
           <Row className="mb-5">
             <Col>
@@ -212,214 +201,106 @@ export default function PricingPage() {
                   ← Volver al inicio
                 </Link>
                 <h1 className="text-white display-4 fw-bold mb-3">
-                  Precios Simples y Transparentes
+                  Tarjetas Digitales Premium
                 </h1>
-                <p className="text-white lead opacity-90">
-                  Sin compromisos mensuales. Paga solo por lo que necesitas.
+                <p className="text-white lead opacity-90 mb-4">
+                  Prueba gratis por 7 días, luego suscríbete por solo {getPriceForUser()} CLP/año
                 </p>
+                
+                {/* Trial Status */}
+                {userAccess?.isTrialUser && getTrialDaysRemaining() && (
+                  <div className="trial-badge">
+                    🎉 Te quedan {getTrialDaysRemaining()} días de prueba gratis
+                  </div>
+                )}
+                
+                {isUserExpired() && (
+                  <div className="renewal-badge">
+                    💎 Precio especial de renovación: $2,990 CLP
+                  </div>
+                )}
               </div>
             </Col>
           </Row>
 
-          {/* Pricing Cards */}
-          <Row className="justify-content-center g-4">
-            {/* Tarjeta Individual - Pay per Card */}
-            <Col lg={4} md={6}>
-              <Card className="glass-card text-white h-100 pricing-card-featured pricing-card-popular">
-                <Card.Header className="text-center border-0 bg-transparent pt-4 pb-3">
+          {/* Main Pricing Card */}
+          <Row className="justify-content-center">
+            <Col lg={6} md={8}>
+              <Card className="glass-card text-white pricing-card-featured">
+                <Card.Header className="text-center border-0 bg-transparent pt-5 pb-4">
+                  <div className="mb-4">
+                    <span style={{ fontSize: '4rem' }}>💎</span>
+                  </div>
+                  <h2 className="fw-bold mb-3">Acceso Premium</h2>
                   <div className="mb-3">
-                    <span style={{ fontSize: '3rem' }}>💎</span>
+                    <span className="display-3 fw-bold price-highlight">
+                      ${getPriceForUser().toLocaleString()}
+                    </span>
+                    <span className="text-white opacity-75 fs-4"> CLP/año</span>
                   </div>
-                  <h3 className="fw-bold mb-2">Tarjeta Individual</h3>
-                  <div className="mb-2">
-                    <span className="display-4 fw-bold price-highlight">$4.990</span>
-                    <span className="text-white opacity-75"> CLP</span>
-                  </div>
-                  <p className="text-white opacity-75 mb-0">Pago único por tarjeta</p>
-                  <div className="savings-label">
-                    ✨ Sin compromisos mensuales
-                  </div>
+                  
+                  {!isUserExpired() ? (
+                    <p className="text-white opacity-90 mb-0 fs-5">
+                      7 días gratis, luego $4,990/año
+                    </p>
+                  ) : (
+                    <p className="text-white opacity-90 mb-0 fs-5">
+                      Renovación especial - Era $4,990, ahora $2,990
+                    </p>
+                  )}
                 </Card.Header>
-                <Card.Body className="px-4">
-                  <ListGroup variant="flush" className="bg-transparent">
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> 1 tarjeta digital premium
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Editor visual completo
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Efectos glassmorphism
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> QR code integrado
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Analytics básicos
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> URL personalizada
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Sin marca de agua
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Válida por 12 meses
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-not-included">✗</span> Analytics avanzados
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-not-included">✗</span> Integraciones CRM
-                    </ListGroup.Item>
-                  </ListGroup>
+                
+                <Card.Body className="px-5 py-4">
+                  <h5 className="text-white mb-4 text-center">✨ Todo incluido:</h5>
+                  <ul className="feature-list text-white">
+                    <li>Tarjetas digitales ilimitadas</li>
+                    <li>Editor visual completo y avanzado</li>
+                    <li>Efectos premium (glassmorphism, animaciones)</li>
+                    <li>QR codes integrados</li>
+                    <li>Analytics y estadísticas detalladas</li>
+                    <li>URLs personalizadas</li>
+                    <li>Sin marca de agua</li>
+                    <li>Exportación en múltiples formatos</li>
+                    <li>Plantillas premium exclusivas</li>
+                    <li>Soporte prioritario</li>
+                    <li>Integración con CRM</li>
+                    <li>Actualizaciones automáticas</li>
+                  </ul>
                 </Card.Body>
-                <Card.Footer className="border-0 bg-transparent p-4">
-                  <Button 
-                    className="btn-pay-per-card w-100 mb-3"
-                    onClick={handleCardPayment}
-                    disabled={loading === 'card'}
-                  >
-                    {loading === 'card' ? 'Procesando...' : '💎 Activar Mi Tarjeta'}
-                  </Button>
+                
+                <Card.Footer className="border-0 bg-transparent p-5 pt-2">
+                  {userAccess?.hasAccess ? (
+                    <div className="text-center">
+                      <Badge bg="success" className="fs-6 p-3 mb-3">
+                        ✅ Ya tienes acceso premium activo
+                      </Badge>
+                      <div>
+                        <Link href="/dashboard" className="btn btn-subscription">
+                          Ir al Dashboard
+                        </Link>
+                      </div>
+                    </div>
+                  ) : (
+                    <Button 
+                      className="btn-subscription w-100 mb-3"
+                      onClick={() => handleSubscriptionPayment(getSubscriptionTypeForUser())}
+                      disabled={loading}
+                      size="lg"
+                    >
+                      {loading ? 'Procesando...' : (
+                        isUserExpired() 
+                          ? '💎 Renovar Suscripción ($2,990)'
+                          : '🚀 Comenzar Trial Gratis'
+                      )}
+                    </Button>
+                  )}
+                  
                   <div className="text-center">
                     <small className="text-white opacity-75">
-                      Pago único. Sin renovación automática.
-                    </small>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-
-            {/* Plan PRO - Para múltiples tarjetas */}
-            <Col lg={4} md={6}>
-              <Card className="glass-card text-white h-100">
-                <Card.Header className="text-center border-0 bg-transparent pt-4 pb-3">
-                  <div className="mb-3">
-                    <span style={{ fontSize: '3rem' }}>🚀</span>
-                  </div>
-                  <h3 className="fw-bold mb-2">Plan PRO</h3>
-                  <div className="mb-2">
-                    <span className="display-4 fw-bold" style={{ color: '#8b5cf6' }}>$12.990</span>
-                    <span className="text-white opacity-75"> CLP</span>
-                  </div>
-                  <p className="text-white opacity-75 mb-0">por mes</p>
-                  <div className="savings-label">
-                    💰 Ahorra 40% vs tarjetas individuales
-                  </div>
-                </Card.Header>
-                <Card.Body className="px-4">
-                  <ListGroup variant="flush" className="bg-transparent">
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> <strong>3 tarjetas incluidas</strong>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Tarjetas adicionales: $2.990 c/u
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Todo lo del plan individual
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> <strong>Analytics avanzados</strong>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> <strong>Templates exclusivos</strong>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> <strong>Integraciones CRM</strong>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> <strong>Soporte prioritario</strong>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Dashboard avanzado
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Exportar datos
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-not-included">✗</span> Team management
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Card.Body>
-                <Card.Footer className="border-0 bg-transparent p-4">
-                  <Button 
-                    className="btn-pro-plan w-100 mb-3"
-                    onClick={handleProPayment}
-                    disabled={loading === 'pro'}
-                  >
-                    {loading === 'pro' ? 'Procesando...' : '🚀 Comenzar Plan PRO'}
-                  </Button>
-                  <div className="text-center">
-                    <small className="text-white opacity-75">
-                      Facturación mensual. Cancela cuando quieras.
-                    </small>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-
-            {/* Plan Business */}
-            <Col lg={4} md={6}>
-              <Card className="glass-card text-white h-100">
-                <Card.Header className="text-center border-0 bg-transparent pt-4 pb-3">
-                  <div className="mb-3">
-                    <span style={{ fontSize: '3rem' }}>🏢</span>
-                  </div>
-                  <h3 className="fw-bold mb-2">Plan Business</h3>
-                  <div className="mb-2">
-                    <span className="display-4 fw-bold" style={{ color: '#D4A017' }}>$29.990</span>
-                    <span className="text-white opacity-75"> CLP</span>
-                  </div>
-                  <p className="text-white opacity-75 mb-0">por mes</p>
-                  <div className="savings-label">
-                    🎯 Perfecto para equipos
-                  </div>
-                </Card.Header>
-                <Card.Body className="px-4">
-                  <ListGroup variant="flush" className="bg-transparent">
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> <strong>10 tarjetas incluidas</strong>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Tarjetas ilimitadas adicionales
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Todo lo del Plan PRO
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> <strong>Team management</strong>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> <strong>White-label opcional</strong>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> <strong>API access</strong>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> <strong>Custom domain</strong>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Manager dashboard
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Soporte dedicado
-                    </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent text-white border-0 px-0">
-                      <span className="feature-included">✓</span> Capacitación incluida
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Card.Body>
-                <Card.Footer className="border-0 bg-transparent p-4">
-                  <Button 
-                    className="btn-business-plan w-100 mb-3"
-                    href="mailto:contacto@tarjetasdigitales.cl?subject=Consulta Plan Business"
-                  >
-                    🏢 Contactar Ventas
-                  </Button>
-                  <div className="text-center">
-                    <small className="text-white opacity-75">
-                      Consultora personalizada incluida.
+                      {!isUserExpired() 
+                        ? 'Acceso completo por 7 días gratis. Cancela en cualquier momento.'
+                        : 'Precio especial para usuarios existentes. 12 meses completos.'
+                      }
                     </small>
                   </div>
                 </Card.Footer>
@@ -436,11 +317,11 @@ export default function PricingPage() {
                   <Col md={4}>
                     <div className="glass-card p-4 h-100">
                       <div className="mb-3">
-                        <span style={{ fontSize: '2.5rem' }}>💰</span>
+                        <span style={{ fontSize: '2.5rem' }}>🎯</span>
                       </div>
-                      <h5 className="text-white fw-bold">Sin Compromisos</h5>
+                      <h5 className="text-white fw-bold">Simple y Directo</h5>
                       <p className="text-white opacity-75">
-                        Paga solo por lo que necesitas. Sin suscripciones forzadas ni renovaciones automáticas.
+                        Una sola suscripción anual. Sin planes confusos ni límites artificiales.
                       </p>
                     </div>
                   </Col>
@@ -449,20 +330,20 @@ export default function PricingPage() {
                       <div className="mb-3">
                         <span style={{ fontSize: '2.5rem' }}>⚡</span>
                       </div>
-                      <h5 className="text-white fw-bold">Activación Inmediata</h5>
+                      <h5 className="text-white fw-bold">Prueba Sin Riesgo</h5>
                       <p className="text-white opacity-75">
-                        Crea tu tarjeta gratis, ve el resultado y actívala solo si te encanta.
+                        7 días completos para probar todas las funciones. Cancela cuando quieras.
                       </p>
                     </div>
                   </Col>
                   <Col md={4}>
                     <div className="glass-card p-4 h-100">
                       <div className="mb-3">
-                        <span style={{ fontSize: '2.5rem' }}>🎯</span>
+                        <span style={{ fontSize: '2.5rem' }}>💰</span>
                       </div>
-                      <h5 className="text-white fw-bold">Transparencia Total</h5>
+                      <h5 className="text-white fw-bold">Precio Justo</h5>
                       <p className="text-white opacity-75">
-                        Precios claros, sin costos ocultos. Lo que ves es lo que pagas.
+                        Usuarios existentes pagan menos en la renovación. Premiamos la lealtad.
                       </p>
                     </div>
                   </Col>
@@ -478,20 +359,24 @@ export default function PricingPage() {
                 <h4 className="text-white text-center mb-4">Preguntas Frecuentes</h4>
                 <div className="text-white">
                   <div className="mb-3">
-                    <strong>¿Qué pasa después de 12 meses?</strong>
-                    <p className="opacity-75 mb-0">Tu tarjeta seguirá funcionando. Para renovar con nuevas funciones, el costo es solo $2.990.</p>
+                    <strong>¿Qué incluye el trial de 7 días?</strong>
+                    <p className="opacity-75 mb-0">Acceso completo a todas las funcionalidades premium. Sin restricciones.</p>
                   </div>
                   <div className="mb-3">
-                    <strong>¿Puedo cambiar el diseño después de pagar?</strong>
-                    <p className="opacity-75 mb-0">¡Sí! Puedes editar tu tarjeta las veces que quieras sin costo adicional.</p>
+                    <strong>¿Qué pasa después del primer año?</strong>
+                    <p className="opacity-75 mb-0">Puedes renovar por $2,990 CLP/año (precio especial para usuarios existentes).</p>
                   </div>
                   <div className="mb-3">
-                    <strong>¿El Plan PRO se renueva automáticamente?</strong>
-                    <p className="opacity-75 mb-0">Sí, pero puedes cancelar en cualquier momento desde tu dashboard.</p>
+                    <strong>¿Puedo cancelar en cualquier momento?</strong>
+                    <p className="opacity-75 mb-0">Sí, puedes cancelar durante el trial o tu suscripción desde el dashboard.</p>
+                  </div>
+                  <div className="mb-3">
+                    <strong>¿Hay límite en el número de tarjetas?</strong>
+                    <p className="opacity-75 mb-0">No, puedes crear tarjetas ilimitadas con tu suscripción activa.</p>
                   </div>
                   <div>
                     <strong>¿Ofrecen garantía?</strong>
-                    <p className="opacity-75 mb-0">Sí, 30 días de garantía completa. Si no estás satisfecho, te devolvemos tu dinero.</p>
+                    <p className="opacity-75 mb-0">Sí, 30 días de garantía completa desde el inicio de tu suscripción.</p>
                   </div>
                 </div>
               </div>

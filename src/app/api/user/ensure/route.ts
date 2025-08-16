@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptionsSafe } from '@/lib/auth-safe';
 import { prisma } from '@/lib/db';
-import { Plan } from '@prisma/client';
+import { UserStatus } from '@prisma/client';
+import { AccessService } from '@/lib/planLimits';
 
 export async function POST() {
   try {
@@ -38,19 +39,27 @@ export async function POST() {
       console.log('Creating new user for:', session.user.email);
       
       try {
+        // Crear usuario con trial automático de 7 días
+        const now = new Date();
+        const trialEndDate = new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000));
+        
         user = await prisma.user.create({
           data: {
             email: session.user.email,
             name: session.user.name || '',
             image: session.user.image || '',
-            plan: Plan.FREE,
+            status: UserStatus.TRIAL,
+            trialStartDate: now,
+            trialEndDate: trialEndDate,
+            isFirstYear: true,
           },
         });
         
-        console.log('User created successfully:', {
+        console.log('User created successfully with trial:', {
           id: user.id,
           email: user.email,
-          plan: user.plan
+          status: user.status,
+          trialEndDate: user.trialEndDate
         });
         
         return NextResponse.json({ 
@@ -60,7 +69,8 @@ export async function POST() {
             id: user.id,
             email: user.email,
             name: user.name,
-            plan: user.plan
+            status: user.status,
+            trialEndDate: user.trialEndDate
           }
         });
       } catch (createError) {
@@ -79,7 +89,9 @@ export async function POST() {
           id: user.id,
           email: user.email,
           name: user.name,
-          plan: user.plan
+          status: user.status,
+          trialEndDate: user.trialEndDate,
+          subscriptionEndDate: user.subscriptionEndDate
         }
       });
     }

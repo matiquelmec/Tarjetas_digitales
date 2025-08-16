@@ -6,7 +6,17 @@ import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { useSession } from 'next-auth/react';
 import { useCards } from '@/hooks/useCards';
 import BusinessCard from './BusinessCard';
-import { PlanLimits, PLAN_LIMITS } from '@/lib/planLimits';
+// import { AccessService } from '@/lib/planLimits'; // TODO: Actualizar para nuevo sistema
+
+// Tipo temporal para mantener compatibilidad
+interface PlanLimits {
+  canUseHoverEffect: boolean;
+  canUseGlassmorphism: boolean;
+  canUseSubtleAnimations: boolean;
+  canUseBackgroundPatterns: boolean;
+  canUseAIPalette: boolean;
+  canUseCustomTemplates: boolean;
+}
 
 interface Palette {
   name: string;
@@ -60,9 +70,16 @@ export default function BusinessCardGenerator() {
   const [selectedTemplate, setSelectedTemplate] = useState('modern');
 
   useEffect(() => {
-    if (session?.user?.plan) {
-      setPlanLimits(PLAN_LIMITS[session.user.plan]);
-    }
+    // TODO: Actualizar para usar nuevo sistema de acceso
+    // Temporalmente permitir todo para mantener funcionalidad
+    setPlanLimits({
+      canUseHoverEffect: true,
+      canUseGlassmorphism: true, 
+      canUseSubtleAnimations: true,
+      canUseBackgroundPatterns: true,
+      canUseAIPalette: true,
+      canUseCustomTemplates: true
+    });
   }, [session]);
 
   const minimalistPalettes: Palette[] = [

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { mercadopago } from '@/lib/mercadopago';
+import { mercadopago, CARD_PRICES } from '@/lib/mercadopago';
 import { prisma } from '@/lib/db';
-import { Plan } from '@prisma/client';
+import { UserStatus } from '@prisma/client';
+import { AccessService } from '@/lib/planLimits';
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,41 +35,57 @@ export async function POST(request: NextRequest) {
       if (paymentData.status === 'approved') {
         const externalReference = paymentData.external_reference;
         
-        // Parse external reference: "user-{userId}-plan-{planType}"
-        const match = externalReference?.match(/^user-(.+)-plan-(.+)$/);
+        // Parse external reference: "user-{userId}-subscription-{type}-{timestamp}"
+        const match = externalReference?.match(/^user-(.+)-subscription-(.+)-(\d+)$/);
         if (!match) {
           console.error('Invalid external reference format:', externalReference);
           return NextResponse.json({ error: 'Invalid external reference' }, { status: 400 });
         }
 
-        const [, userId, planType] = match;
+        const [, userId, subscriptionType, timestamp] = match;
         
-        // Validate plan type
-        if (!['PROFESSIONAL', 'BUSINESS', 'ENTERPRISE'].includes(planType)) {
-          console.error('Invalid plan type:', planType);
-          return NextResponse.json({ error: 'Invalid plan type' }, { status: 400 });
+        // Validate subscription type
+        if (!['first-year', 'renewal'].includes(subscriptionType)) {
+          console.error('Invalid subscription type:', subscriptionType);
+          return NextResponse.json({ error: 'Invalid subscription type' }, { status: 400 });
         }
 
-        // Update user's plan in database
+        // Update user's subscription in database
         try {
-          await prisma.user.update({
-            where: { id: userId },
-            data: { plan: planType as Plan }
-          });
+          const isFirstYear = subscriptionType === 'first-year';
+          const price = isFirstYear ? CARD_PRICES.FIRST_YEAR : CARD_PRICES.RENEWAL;
+          const subscriptionEndDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000); // 1 año
+          
+          // Activar suscripción del usuario
+          await AccessService.activateSubscription(userId, subscriptionEndDate, isFirstYear);
 
-          // Create subscription record
-          await prisma.subscription.create({
-            data: {
-              userId,
-              stripeSubscriptionId: paymentId, // Using payment ID as subscription ID for now
-              stripePriceId: `mp-${planType.toLowerCase()}`,
+          // Create/update subscription record
+          await prisma.subscription.upsert({
+            where: { userId },
+            update: {
+              stripeSubscriptionId: paymentId,
+              stripePriceId: `mp-${subscriptionType}`,
               status: 'active',
               currentPeriodStart: new Date(),
-              currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+              currentPeriodEnd: subscriptionEndDate,
+              isFirstYear,
+              price,
+              originalPrice: CARD_PRICES.FIRST_YEAR,
+            },
+            create: {
+              userId,
+              stripeSubscriptionId: paymentId,
+              stripePriceId: `mp-${subscriptionType}`,
+              status: 'active',
+              currentPeriodStart: new Date(),
+              currentPeriodEnd: subscriptionEndDate,
+              isFirstYear,
+              price,
+              originalPrice: CARD_PRICES.FIRST_YEAR,
             }
           });
 
-          console.log(`Updated user ${userId} to plan ${planType}`);
+          console.log(`Activated subscription for user ${userId}, type: ${subscriptionType}, price: ${price}`);
         } catch (dbError) {
           console.error('Database error:', dbError);
           return NextResponse.json({ error: 'Database error' }, { status: 500 });

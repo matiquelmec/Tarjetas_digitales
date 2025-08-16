@@ -12,7 +12,7 @@ export default function AppInitializer({ children }: AppInitializerProps) {
   const [isInitialized, setIsInitialized] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const { status } = useSession();
+  const { data: session, status } = useSession();
 
   // Ensure component is mounted to avoid hydration issues
   useEffect(() => {
@@ -35,10 +35,34 @@ export default function AppInitializer({ children }: AppInitializerProps) {
 
     // Esperar a que NextAuth esté listo
     if (status !== 'loading') {
+      // Si hay usuario logueado, asegurar que tenga trial iniciado
+      if (session?.user?.id) {
+        ensureUserTrialSetup(session.user.id);
+      }
+      
       // NextAuth está listo, inicializar la app
       setIsInitialized(true);
     }
   }, [status, isMounted]);
+
+  // Función para asegurar que el usuario tenga trial configurado
+  const ensureUserTrialSetup = async (userId: string) => {
+    try {
+      const response = await fetch('/api/user/ensure', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (response.ok) {
+        const userData = await response.json();
+        console.log('Usuario inicializado:', userData);
+      }
+    } catch (error) {
+      console.error('Error inicializando usuario:', error);
+    }
+  };
 
   const handleLoadingComplete = () => {
     // Marcar como inicializado para futuras cargas

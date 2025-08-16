@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
   try {
     // Verificar autenticación
     const session = await getServerSession(authOptionsMinimal);
-    if (!session?.user?.id) {
+    if (!session?.user?.email) {
       return NextResponse.json(
         { error: 'Usuario no autenticado' },
         { status: 401 }
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
 
     // Verificar límites del plan del usuario
     const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
+      where: { email: session.user.email },
       select: { plan: true, id: true }
     });
 
@@ -264,19 +264,23 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptionsMinimal);
-    if (!session?.user?.id) {
+    if (!session?.user?.email) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
     }
 
     // Obtener estado de generaciones del usuario
     const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-      select: { plan: true }
+      where: { email: session.user.email },
+      select: { plan: true, id: true }
     });
+
+    if (!user) {
+      return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
+    }
 
     const presentationsThisMonth = await prisma.presentation.count({
       where: { 
-        userId: session.user.id,
+        userId: user.id,
         createdAt: {
           gte: new Date(new Date().setDate(new Date().getDate() - 30))
         }
