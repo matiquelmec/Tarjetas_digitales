@@ -33,10 +33,10 @@ export const DEFAULT_CARD_DATA = {
   enableSubtleAnimations: false,
   enableBackgroundPatterns: false,
   
-  // Sistema de partículas - Desactivado
-  enableParticles: false,
-  particleType: 'floating' as const,
-  particleCount: 30,
+  // Sistema de partículas - Activado para mostrar nuevo Authority Presence system
+  enableParticles: true,
+  particleType: 'professional' as const, // Usa el tipo que mapea a 'minimal' intensity
+  particleCount: 4, // Reducido para elegancia del nuevo sistema
   particleDensity: 3,
   
   // Efectos de ambiente - Desactivados para simplicidad

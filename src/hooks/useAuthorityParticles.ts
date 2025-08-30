@@ -182,39 +182,41 @@ export function useAuthorityParticles(config: AuthorityParticlesConfig) {
     });
   }, []);
 
-  // Renderizar partículas con efectos de autoridad
+  // Renderizar partículas con efectos de autoridad (versión simplificada para debugging)
   const renderAuthorityParticles = useCallback((ctx: CanvasRenderingContext2D) => {
-    particlesRef.current.forEach(particle => {
+    console.log('🎨 Rendering particles:', particlesRef.current.length);
+    
+    particlesRef.current.forEach((particle, index) => {
       ctx.save();
       
-      // Configurar blending para elegancia
-      ctx.globalCompositeOperation = 'screen';
+      // Debug log para primera partícula
+      if (index === 0) {
+        console.log('🎨 Rendering particle:', {
+          x: particle.x,
+          y: particle.y,
+          color: particle.color,
+          opacity: particle.opacity,
+          scale: particle.scale
+        });
+      }
+      
+      // Configurar rendering
       ctx.globalAlpha = particle.opacity;
       
-      // Centro de la partícula
+      // Posición de la partícula
       ctx.translate(particle.x, particle.y);
       ctx.scale(particle.scale, particle.scale);
       
-      // Glow exterior de autoridad
-      const glowGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 8);
-      glowGradient.addColorStop(0, particle.color);
-      glowGradient.addColorStop(0.5, particle.color.replace(/[\d.]+\)$/, `${particle.glowIntensity * 0.6})`));
-      glowGradient.addColorStop(1, 'transparent');
-      
-      ctx.fillStyle = glowGradient;
+      // Renderizado simplificado para debugging - círculo sólido brillante
+      ctx.fillStyle = particle.color;
+      ctx.shadowColor = particle.color;
+      ctx.shadowBlur = 10;
       ctx.beginPath();
-      ctx.arc(0, 0, 8, 0, Math.PI * 2);
+      ctx.arc(0, 0, 4, 0, Math.PI * 2);
       ctx.fill();
       
-      // Núcleo sólido de presencia
-      const coreGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 2);
-      coreGradient.addColorStop(0, particle.color);
-      coreGradient.addColorStop(1, particle.color.replace(/[\d.]+\)$/, '0.9)'));
-      
-      ctx.fillStyle = coreGradient;
-      ctx.beginPath();
-      ctx.arc(0, 0, 2, 0, Math.PI * 2);
-      ctx.fill();
+      // Reset shadow
+      ctx.shadowBlur = 0;
       
       ctx.restore();
     });
@@ -247,7 +249,21 @@ export function useAuthorityParticles(config: AuthorityParticlesConfig) {
 
   // Inicializar sistema de partículas
   useEffect(() => {
-    if (!canvasRef.current || !config.enabled) return;
+    console.log('🌟 AuthorityParticles Hook - Initializing:', {
+      enabled: config.enabled,
+      canvasExists: !!canvasRef.current,
+      theme: config.theme,
+      count: config.count,
+      deviceOptimization
+    });
+
+    if (!canvasRef.current || !config.enabled) {
+      console.log('🌟 AuthorityParticles Hook - Skipping initialization:', {
+        canvasExists: !!canvasRef.current,
+        enabled: config.enabled
+      });
+      return;
+    }
 
     // Configurar canvas
     const canvas = canvasRef.current;
@@ -256,6 +272,7 @@ export function useAuthorityParticles(config: AuthorityParticlesConfig) {
 
     // Crear partículas iniciales
     particlesRef.current = createAuthorityParticles();
+    console.log('🌟 AuthorityParticles Hook - Created particles:', particlesRef.current.length);
 
     // Iniciar animación
     lastFrameTimeRef.current = performance.now();
