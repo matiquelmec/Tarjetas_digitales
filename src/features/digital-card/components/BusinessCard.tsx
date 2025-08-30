@@ -10,6 +10,8 @@ import { useMouseTracking } from '@/hooks/useMouseTracking';
 // 🎨 INDI Design System - Visual Excellence
 import { DesignTokens } from '@/lib/design/tokens';
 import { useOptimizedColors, evaluateContrast, generateButtonColors } from '@/lib/design/contrast';
+// 🌟 Authority Presence Particles System v2.0
+import AuthorityParticles from '@/components/effects/AuthorityParticles';
 
 const QrCodeDisplay = dynamic(() => import('./QrCodeDisplay'), { ssr: false });
 
@@ -1091,105 +1093,43 @@ ${formattedAbout ? `${formattedAbout}
     );
   };
 
-  // Renderizado de partículas usando el nuevo sistema limpio
-  const renderParticles = () => {
+  // 🌟 Sistema Authority Presence Particles v2.0 - Reemplaza sistema legacy
+  const renderAuthorityParticles = () => {
+    // Solo activar si partículas están habilitadas
     if (!effectsState.particles.enabled) return null;
 
-    const particles = [];
-    const particleCount = effectsState.particles.count;
-    
-    const getParticleColor = () => {
-      if (particleColor !== 'auto') return particleColor;
-      return cardTextColor === '#ffffff' ? 'rgba(255, 255, 255, 0.6)' : cardTextColor + '60';
+    // Detectar intensidad basada en tipo de partícula legacy
+    let intensity: 'minimal' | 'balanced' | 'prominent' = 'balanced';
+    if (effectsState.particles.type === 'professional') {
+      intensity = 'minimal'; // Máxima elegancia
+    } else if (effectsState.particles.type === 'constellation') {
+      intensity = 'prominent'; // Más presencia visual
+    }
+
+    // Determinar tema basado en colores de la tarjeta
+    const getThemeFromBackground = (background: string): string => {
+      if (background.includes('#1a1a2e')) return 'diamond';
+      if (background.includes('#064e3b')) return 'emerald';
+      if (background.includes('#4a4a4a')) return 'platinum';
+      if (background.includes('#667eea')) return 'sapphire';
+      if (background.includes('#fc466b')) return 'ruby';
+      if (background.includes('#ffd700')) return 'gold';
+      return 'professional'; // fallback
     };
 
-    const color = getParticleColor();
-
-    for (let i = 0; i < particleCount; i++) {
-      const size = effectsState.particles.type === 'professional' ? 
-        Math.random() * 4 + 2 : Math.random() * 6 + 3;
-      
-      const left = Math.random() * 85 + 5;
-      const top = Math.random() * 85 + 5;
-      const animationDelay = Math.random() * 4;
-
-      particles.push(
-        <div
-          key={i}
-          className={`particle particle-${effectsState.particles.type}`}
-          style={{
-            position: 'absolute',
-            left: `${left}%`,
-            top: `${top}%`,
-            width: `${size}px`,
-            height: `${size}px`,
-            background: color,
-            borderRadius: effectsState.particles.type === 'creative' ? '0' : '50%',
-            animationDelay: `${animationDelay}s`,
-            zIndex: 2,
-            ...(effectsState.particles.type === 'floating' && {
-              animation: 'floatingParticle 6s ease-in-out infinite',
-            }),
-            ...(effectsState.particles.type === 'creative' && {
-              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-              animation: 'creativeSwirl 8s linear infinite',
-            }),
-            ...(effectsState.particles.type === 'constellation' && {
-              boxShadow: `0 0 10px ${color}`,
-              animation: 'constellation 4s ease-in-out infinite',
-            }),
-            ...(effectsState.particles.type === 'professional' && {
-              borderRadius: '2px',
-              animation: 'professionalPulse 3s ease-in-out infinite',
-            }),
-          }}
-        />
-      );
-    }
-
-    // Líneas de conexión para constellation
-    if (effectsState.particles.type === 'constellation') {
-      const lines = [];
-      for (let i = 0; i < Math.min(particleCount / 3, 5); i++) {
-        const width = Math.random() * 60 + 20;
-        const left = Math.random() * 70 + 10;
-        const top = Math.random() * 70 + 15;
-        const rotation = Math.random() * 180;
-
-        lines.push(
-          <div
-            key={`line-${i}`}
-            className="constellation-line"
-            style={{
-              position: 'absolute',
-              left: `${left}%`,
-              top: `${top}%`,
-              width: `${width}px`,
-              height: '1px',
-              background: color,
-              transform: `rotate(${rotation}deg)`,
-              opacity: 0.3,
-              zIndex: 1,
-            }}
-          />
-        );
-      }
-      particles.push(...lines);
-    }
+    const detectedTheme = getThemeFromBackground(cardBackgroundColor);
 
     return (
-      <div className="particles-container" style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        overflow: 'hidden',
-        pointerEvents: 'none',
-        borderRadius: 'inherit'
-      }}>
-        {particles}
-      </div>
+      <AuthorityParticles
+        enabled={true}
+        theme={detectedTheme}
+        intensity={intensity}
+        interactionMode="strategic"
+        containerWidth={400}
+        containerHeight={600}
+        onHover={effectsState.hoverEffect.enabled}
+        particleCount={Math.min(effectsState.particles.count, 5)} // Cap para elegancia
+      />
     );
   };
 
@@ -1316,7 +1256,7 @@ ${formattedAbout ? `${formattedAbout}
           className={`${getBaseCardClasses()} ${cssClasses} indi-card-container`} 
           style={cardStyles}
         >
-          {renderParticles()}
+          {renderAuthorityParticles()}
           <Card.Body style={{ padding: 0 }}>
           <Stack gap={0} className="indi-sections-container">
             {/* 🎨 HEADER SECTION - Máximo Impacto Visual */}
