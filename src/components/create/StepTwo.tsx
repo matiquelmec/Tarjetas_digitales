@@ -56,6 +56,19 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
           <div className="d-flex gap-3 flex-wrap">
             {[
               {
+                name: 'Emerald Professional',
+                emoji: '💎',
+                description: 'Elegancia natural y sofisticación',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#0a2e1a', // Fondo verde muy oscuro
+                  buttonSecondaryColor: '#10b981', // Verde esmeralda brillante
+                  buttonSecondaryHoverColor: '#059669',
+                  buttonNormalBackgroundColor: 'rgba(16, 185, 129, 0.2)'
+                }
+              },
+              {
                 name: 'Corporate Executive',
                 emoji: '💼',
                 description: 'Autoridad y confianza institucional',

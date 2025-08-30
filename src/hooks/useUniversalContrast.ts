@@ -70,15 +70,23 @@ export function useUniversalContrast() {
   ): void => {
     const optimizedTheme = applyContrastRules(theme);
     
+    // Debug específico para pageBackgroundColor
+    console.log('🎨 Aplicando tema completo:', {
+      original: theme,
+      optimized: optimizedTheme,
+      pageBackgroundColor: {
+        original: theme.pageBackgroundColor,
+        optimized: optimizedTheme.pageBackgroundColor
+      }
+    });
+    
     // Aplicar cada color optimizado
     Object.entries(optimizedTheme).forEach(([key, value]) => {
+      console.log(`🔧 Actualizando ${key}:`, value);
       updateFunction(key as keyof ThemeColors, value);
     });
     
-    console.log('🔍 Contraste universal aplicado:', {
-      original: theme,
-      optimized: optimizedTheme
-    });
+    console.log('🔍 Contraste universal aplicado completamente');
   }, [applyContrastRules]);
 
   /**
