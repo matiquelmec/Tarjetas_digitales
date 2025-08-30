@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import Link from 'next/link';
+import { DEFAULT_CARD_DATA } from '@/lib/constants/defaultCardData';
 
 const BusinessCard = dynamic(() => import('@/features/digital-card/components/BusinessCard'), {
   loading: () => <div className="d-flex justify-content-center align-items-center" style={{ height: '400px' }}>
@@ -15,50 +16,13 @@ const BusinessCard = dynamic(() => import('@/features/digital-card/components/Bu
 });
 
 export default function DemoPage() {
-  // Datos demo con template Ocean original
+  // Usar datos consistentes para demo
   const demoCardData = {
-    name: 'Dr. María Elena Rodríguez',
-    title: 'Especialista en Cardiología Clínica',
-    about: 'Con más de 15 años de experiencia en cardiología clínica, me especializo en el diagnóstico y tratamiento de enfermedades cardiovasculares. Comprometida con brindar atención médica integral y de calidad a cada paciente.',
-    location: 'Providencia, Santiago, Chile',
-    whatsapp: '56987654321',
-    email: 'dra.rodriguez@clinica.cl',
-    photoUrl: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face',
-    
-    // Template Ocean con gradientes azul oceánico
-    template: 'ocean',
-    cardBackgroundColor: 'linear-gradient(135deg, #006994 0%, #004d6b 50%, #003947 100%)', // Ocean gradient
-    cardTextColor: '#ffffff',
-    buttonSecondaryColor: '#00D4FF',
-    buttonSecondaryHoverColor: '#00B8E6',
-    buttonNormalBackgroundColor: '#1F1F1F',
-    fontFamily: 'Montserrat',
-    
-    // Props requeridos adicionales
-    whatsappShareUrl: 'https://wa.me/56987654321',
-    appointmentLink: 'https://calendly.com/dra-rodriguez',
-    professionalDetails: 'Especialista certificada en cardiología clínica con experiencia en procedimientos mínimamente invasivos.',
-    linkedin: 'https://linkedin.com/in/maria-rodriguez-cardiologa',
-    instagram: 'https://instagram.com/dra.rodriguez.cardio',
-    twitter: '',
-    facebook: '',
-    website: 'https://drarodriguez.cl',
-    
-    // Todos los efectos premium activados
+    ...DEFAULT_CARD_DATA,
+    // Activar algunos efectos para mostrar capacidades
     enableHoverEffect: true,
     enableGlassmorphism: true,
-    enableSubtleAnimations: true,
-    enableBackgroundPatterns: true,
-    enableParticles: true,
-    particleType: 'floating' as 'floating' | 'constellation' | 'professional' | 'creative',
-    particleCount: 50,
-    
-    // Mouse tracking interactivo (NUEVO!)
-    enableMouseTracking: true,
-    mouseTrackingSensitivity: 1.2,
-    enableMouseGlow: true,
-    enableMouseTilt: true,
-    enableMouseParticles: true
+    enableSubtleAnimations: true
   };
 
   return (

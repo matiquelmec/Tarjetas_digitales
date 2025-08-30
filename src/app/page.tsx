@@ -9,6 +9,7 @@ import HologramPreview from '@/components/HologramPreview';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import '@/styles/hologram-effects.css';
+import { DEFAULT_CARD_DATA } from '@/lib/constants/defaultCardData';
 
 // Importar BusinessCard dinámicamente para el demo
 const BusinessCard = dynamic(() => import('@/features/digital-card/components/BusinessCard'), {
@@ -57,69 +58,15 @@ export default function HomePage() {
   };
 
   // Datos del demo - Usando el mismo sistema que create page
+  // Usar los mismos datos que en el editor para consistencia total
   const demoCardData = {
-    // Datos básicos - Misma estructura que create/page.tsx
-    name: 'Dr. María Elena Rodríguez',
-    title: 'Especialista en Cardiología Clínica',
-    about: 'Con más de 15 años de experiencia en cardiología clínica, me especializo en el diagnóstico y tratamiento de enfermedades cardiovasculares.',
-    company: 'Hospital Clínico Universidad de Chile',
-    email: 'dra.rodriguez@clinica.cl',
-    phone: '+56 9 8765 4321',
-    location: 'Providencia, Santiago, Chile',
-    whatsapp: '56987654321',
-    
-    // Diseño - Usando el mismo template y sistema que create
-    template: 'ocean', // Mantenemos ocean para el demo
-    photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face',
-    cardBackgroundColor: 'linear-gradient(135deg, #006994 0%, #004d6b 50%, #003947 100%)', // Ocean gradient
-    cardTextColor: '#ffffff',
-    pageBackgroundColor: '#0a1929', // Fondo de página consistente con ocean
-    buttonSecondaryColor: '#00D4FF',
-    buttonSecondaryHoverColor: '#00B8E6',
-    buttonNormalBackgroundColor: '#1F1F1F',
-    fontFamily: 'Montserrat',
-    
-    // Efectos visuales - Todos los que tenemos en el sistema
+    ...DEFAULT_CARD_DATA,
+    // Solo para el demo de la página de inicio, activar algunos efectos visuales
     enableHoverEffect: true,
     enableGlassmorphism: true,
-    enableSubtleAnimations: true,
-    enableBackgroundPatterns: true,
-    
-    // Sistema de partículas
-    enableParticles: true,
-    particleType: 'floating' as 'floating' | 'constellation' | 'professional' | 'creative',
-    particleCount: 50,
-    particleDensity: 30,
-    
-    // Efectos de ambiente (matching schema.prisma)
-    enableAnimatedGradient: true,
-    animatedGradientType: 'aurora',
-    animatedGradientSpeed: 3,
-    animatedGradientIntensity: 3,
-    animatedGradientOpacity: 70,
-    enableFloatingShapes: false,
-    floatingShapesType: 'geometric',
-    floatingShapesCount: 3,
-    floatingShapesSpeed: 3,
-    ambientIntensity: 3,
-    ambientOpacity: 70,
-    
-    // Redes sociales
-    linkedin: 'https://linkedin.com/in/maria-rodriguez-cardiologa',
-    twitter: '',
-    instagram: 'https://instagram.com/dra.rodriguez.cardio',
-    website: 'https://drarodriguez.cl',
-    facebook: '',
-    appointmentLink: 'https://calendly.com/dra-rodriguez',
-    
-    // Detalles profesionales
-    professionalDetails: 'Especialista certificada en cardiología clínica con experiencia en procedimientos mínimamente invasivos.',
-    
-    // Configuración
-    customUrl: '',
-    isPublic: true,
+    enableSubtleAnimations: true
   };
-  
+
   return (
     <>
       <style jsx global>{`
@@ -446,14 +393,15 @@ export default function HomePage() {
               <Row className="justify-content-center">
                 <Col lg={8} xl={6}>
                     <HologramPreview
-                      mode="enhanced"
-                      showBeam={true}
-                      showParticles={true}
+                      mode="basic"
+                      showBeam={false}
+                      showParticles={false}
                       showScanlines={false}
-                      enable3D={true}
-                      title="🔥 DEMO EN VIVO - PRUEBA TODAS LAS FUNCIONES"
-                      subtitle="Vista previa interactiva • Haz clic en WhatsApp"
+                      enable3D={false}
+                      title="💼 Vista Previa de Tarjeta"
+                      subtitle="Misma tarjeta que verás en el editor"
                       pageBackgroundColor={demoCardData.pageBackgroundColor}
+                      className="preview-mode"
                     >
                       <BusinessCard
                       name={demoCardData.name}
