@@ -207,12 +207,18 @@ export function useAuthorityParticles(config: AuthorityParticlesConfig) {
       ctx.translate(particle.x, particle.y);
       ctx.scale(particle.scale, particle.scale);
       
-      // Renderizado simplificado para debugging - círculo sólido brillante
+      // Renderizado simplificado para debugging - círculo sólido brillante MÁS GRANDE
       ctx.fillStyle = particle.color;
       ctx.shadowColor = particle.color;
-      ctx.shadowBlur = 10;
+      ctx.shadowBlur = 15;
       ctx.beginPath();
-      ctx.arc(0, 0, 4, 0, Math.PI * 2);
+      ctx.arc(0, 0, 8, 0, Math.PI * 2); // Radio más grande: 8px en lugar de 4px
+      ctx.fill();
+      
+      // Añadir un segundo círculo más brillante en el centro
+      ctx.fillStyle = particle.color.replace('0.8)', '1)'); // Alpha completo
+      ctx.beginPath();
+      ctx.arc(0, 0, 3, 0, Math.PI * 2); // Núcleo brillante
       ctx.fill();
       
       // Reset shadow

@@ -117,7 +117,7 @@ export function AuthorityParticles({
         right: 0,
         bottom: 0,
         pointerEvents: 'none',
-        zIndex: 1,
+        zIndex: 10, // Mayor z-index para aparecer encima del contenido
         overflow: 'hidden',
         borderRadius: 'inherit',
         ...style
