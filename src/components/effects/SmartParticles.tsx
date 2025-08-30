@@ -1,6 +1,13 @@
 /**
- * SmartParticles v3.0
- * Sistema de partículas inteligente que aporta valor real
+ * SmartParticles v3.0 - Sistema Inteligente Anti-Colisión
+ * Partículas que aportan valor real evitando elementos importantes
+ * 
+ * Estrategia Smart Positioning:
+ * - Evita QR code (centro inferior)
+ * - Evita foto de perfil (centro superior)  
+ * - Evita botones principales (banda central)
+ * - 8 posiciones premium en bordes y esquinas
+ * - Fallback a bordes extremos para más partículas
  */
 
 'use client';
@@ -92,39 +99,37 @@ export function SmartParticles({
           bottom: `${15 + Math.random() * 15}%`
         };
       } else {
-        // Distribución estratégica para toda la tarjeta
-        // Posiciones predefinidas que se ven bien visualmente
-        const strategicPositions = [
-          { left: '15%', top: '20%' },    // Esquina superior izquierda
-          { left: '85%', top: '25%' },    // Esquina superior derecha  
-          { left: '10%', top: '60%' },    // Medio izquierda
-          { left: '90%', top: '65%' },    // Medio derecha
-          { left: '25%', top: '85%' },    // Parte inferior izquierda
-          { left: '75%', top: '80%' },    // Parte inferior derecha
-          { left: '50%', top: '15%' },    // Parte superior centro
-          { left: '50%', top: '90%' }     // Parte inferior centro
+        // Sistema de posicionamiento inteligente anti-colisión
+        const smartPositions = [
+          // Tier 1: Esquinas seguras (siempre libres)
+          { left: '12%', top: '18%', zone: 'corner-tl' },     // Top-left esquina
+          { left: '88%', top: '22%', zone: 'corner-tr' },     // Top-right esquina
+          { left: '8%', top: '45%', zone: 'middle-left' },    // Medio izquierda
+          { left: '92%', top: '48%', zone: 'middle-right' },  // Medio derecha
+          
+          // Tier 2: Bordes laterales (evita centro)
+          { left: '15%', top: '70%', zone: 'lower-left' },    // Inferior izquierda (evita QR)
+          { left: '85%', top: '75%', zone: 'lower-right' },   // Inferior derecha (evita QR)
+          
+          // Tier 3: Bordes superior/inferior (solo laterales)
+          { left: '25%', top: '12%', zone: 'top-left' },      // Superior izquierda
+          { left: '75%', top: '14%', zone: 'top-right' },     // Superior derecha
         ];
         
-        // Usar posición estratégica o fallback a distribución inteligente
-        if (i < strategicPositions.length) {
-          position = strategicPositions[i];
+        // Usar posición smart o distribuir en bordes seguros
+        if (i < smartPositions.length) {
+          position = { left: smartPositions[i].left, top: smartPositions[i].top };
         } else {
-          // Para más partículas, distribuir en los bordes evitando el centro
-          const side = i % 4;
-          switch(side) {
-            case 0: // Lado izquierdo
-              position = { left: `${5 + Math.random() * 15}%`, top: `${20 + Math.random() * 60}%` };
-              break;
-            case 1: // Lado derecho  
-              position = { left: `${80 + Math.random() * 15}%`, top: `${20 + Math.random() * 60}%` };
-              break;
-            case 2: // Parte superior
-              position = { left: `${20 + Math.random() * 60}%`, top: `${5 + Math.random() * 20}%` };
-              break;
-            case 3: // Parte inferior
-              position = { left: `${20 + Math.random() * 60}%`, top: `${75 + Math.random() * 20}%` };
-              break;
-          }
+          // Para más de 8 partículas: solo bordes extremos
+          const edgePositions = [
+            // Solo bordes laterales extremos
+            { left: `${5 + Math.random() * 10}%`, top: `${25 + Math.random() * 35}%` },   // Izquierda
+            { left: `${85 + Math.random() * 10}%`, top: `${25 + Math.random() * 35}%` },  // Derecha
+            { left: `${5 + Math.random() * 10}%`, top: `${65 + Math.random() * 20}%` },   // Inferior izq
+            { left: `${85 + Math.random() * 10}%`, top: `${65 + Math.random() * 20}%` },  // Inferior der
+          ];
+          
+          position = edgePositions[i % edgePositions.length];
         }
       }
 
