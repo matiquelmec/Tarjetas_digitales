@@ -12,6 +12,8 @@ import { DesignTokens } from '@/lib/design/tokens';
 import { useOptimizedColors, evaluateContrast, generateButtonColors } from '@/lib/design/contrast';
 // 🌟 SmartParticles v3.0 - Sistema simplificado que aporta valor real
 import SmartParticles from '@/components/effects/SmartParticles';
+// ⭐ FloatingShapes v1.0 - Formas flotantes con gradientes animados
+import FloatingShapes from '@/components/effects/FloatingShapes';
 
 const QrCodeDisplay = dynamic(() => import('./QrCodeDisplay'), { ssr: false });
 
@@ -1251,9 +1253,16 @@ ${formattedAbout ? `${formattedAbout}
       >
         {/* Partículas de fondo */}
         {renderBackgroundParticles()}
-        <SmartParticles
-          {...(getParticlesConfig() || { enabled: false, intensity: 'subtle', behavior: 'static', theme: 'professional', targetElement: 'card' })}
+        <FloatingShapes
+          enabled={effectsState.floatingShapes.enabled}
+          type={effectsState.floatingShapes.type as 'geometric' | 'organic' | 'stars' | 'particles' | 'professional'}
+          count={effectsState.floatingShapes.count}
+          speed={effectsState.floatingShapes.speed}
+          theme={getParticlesConfig()?.theme || 'professional'}
         >
+          <SmartParticles
+            {...(getParticlesConfig() || { enabled: false, intensity: 'subtle', behavior: 'static', theme: 'professional', targetElement: 'card' })}
+          >
           <Card 
             ref={cardRef}
             className={`${getBaseCardClasses()} ${cssClasses} indi-card-container`} 
@@ -1541,6 +1550,7 @@ ${formattedAbout ? `${formattedAbout}
         </Card.Body>
       </Card>
         </SmartParticles>
+        </FloatingShapes>
       </div>
     </>
   );
