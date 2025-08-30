@@ -1265,13 +1265,13 @@ ${formattedAbout ? `${formattedAbout}
         className={`${isPreviewMode ? 'preview-background-container' : 'page-background-container'} ${cssClasses}`}
         style={{
           ...(isPreviewMode ? {
-            // Preview mode: let HologramPreview handle pageBackgroundColor
+            // Preview mode: aplicar el pageBackgroundColor aquí también
             minHeight: '100%',
             width: '100%',
             margin: '0',
             padding: '1rem',
             borderRadius: '0',
-            backgroundColor: 'transparent'
+            backgroundColor: pageBackgroundColor // Usar el color de fondo real
           } : {
             // Full page mode: centrar contenido sin espacio extra
             backgroundColor: pageBackgroundColor,

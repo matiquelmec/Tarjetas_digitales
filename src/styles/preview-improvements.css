@@ -2,16 +2,23 @@
 
 /* Contenedor de vista previa mejorado */
 .preview-body {
-  background-color: var(--preview-bg, #1a1a2e) !important;
+  background-color: transparent !important; /* Dejar que BusinessCard maneje el fondo */
   transition: background-color 0.3s ease;
 }
 
 .preview-container {
-  background: inherit !important;
+  background: transparent !important; /* Sin fondo, BusinessCard lo maneja */
   min-height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Específico para el contenedor de fondo de la tarjeta */
+.preview-background-container,
+.page-background-container {
+  background-color: inherit !important;
+  transition: background-color 0.3s ease;
 }
 
 /* Simplificar efectos del holograma */

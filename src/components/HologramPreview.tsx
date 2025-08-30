@@ -113,7 +113,7 @@ export default function HologramPreview({
             overflowY: height === '100%' ? 'visible' : 'auto',
             position: 'relative',
             scrollBehavior: 'smooth',
-            backgroundColor: pageBackgroundColor,
+            backgroundColor: 'transparent', // Dejar que BusinessCard maneje el fondo
             display: 'flex',
             flexDirection: 'column',
             transition: 'background-color 0.3s ease',
@@ -126,14 +126,15 @@ export default function HologramPreview({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'flex-start',
-            padding: '2rem 1rem',
-            paddingBottom: '3rem',
+            padding: '1rem',
+            paddingBottom: '2rem',
             margin: '0',
             flex: '1',
             minHeight: '100%',
             width: '100%',
-            backgroundColor: pageBackgroundColor,
-            backgroundImage: pageBackgroundColor.includes('gradient') ? pageBackgroundColor : 'none'
+            // Dejar que BusinessCard maneje su propio fondo
+            backgroundColor: 'transparent',
+            overflow: 'visible'
           }}>
             {showScanlines && (
               <div className="demo-label" style={{
