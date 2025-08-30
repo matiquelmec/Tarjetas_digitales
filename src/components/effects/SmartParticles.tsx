@@ -1,13 +1,16 @@
 /**
- * SmartParticles v3.0 - Sistema Inteligente Anti-Colisión
- * Partículas que aportan valor real evitando elementos importantes
+ * SmartParticles v3.0 - Sistema Anti-Colisión Total
+ * Partículas que NO interfieren con elementos funcionales
  * 
- * Estrategia Smart Positioning:
- * - Evita QR code (centro inferior)
- * - Evita foto de perfil (centro superior)  
- * - Evita botones principales (banda central)
- * - 8 posiciones premium en bordes y esquinas
- * - Fallback a bordes extremos para más partículas
+ * ZONAS PROTEGIDAS (100% libres):
+ * - QR Code: Centro inferior (45%-55% x 80%-95%)
+ * - Foto perfil: Centro superior (45%-55% x 15%-35%)
+ * - Botones principales: Banda central (30%-70% x 40%-80%)  
+ * - Texto principal: Centro (40%-60% x 35%-50%)
+ * 
+ * ESTRATEGIA: Solo bordes extremos y esquinas seguras
+ * - 6 posiciones premium garantizadas
+ * - Fallback a bordes laterales <30% y >70%
  */
 
 'use client';
@@ -99,37 +102,39 @@ export function SmartParticles({
           bottom: `${15 + Math.random() * 15}%`
         };
       } else {
-        // Sistema de posicionamiento inteligente anti-colisión
-        const smartPositions = [
-          // Tier 1: Esquinas seguras (siempre libres)
-          { left: '12%', top: '18%', zone: 'corner-tl' },     // Top-left esquina
-          { left: '88%', top: '22%', zone: 'corner-tr' },     // Top-right esquina
-          { left: '8%', top: '45%', zone: 'middle-left' },    // Medio izquierda
-          { left: '92%', top: '48%', zone: 'middle-right' },  // Medio derecha
+        // Sistema anti-colisión TOTAL - Solo zonas 100% seguras
+        const safePositions = [
+          // Zona superior segura (encima de foto y texto)
+          { left: '15%', top: '12%', zone: 'top-left-safe' },    // Superior izquierda
+          { left: '85%', top: '14%', zone: 'top-right-safe' },   // Superior derecha
           
-          // Tier 2: Bordes laterales (evita centro)
-          { left: '15%', top: '70%', zone: 'lower-left' },    // Inferior izquierda (evita QR)
-          { left: '85%', top: '75%', zone: 'lower-right' },   // Inferior derecha (evita QR)
+          // Bordes laterales extremos (fuera de botones)
+          { left: '8%', top: '25%', zone: 'left-upper' },        // Izquierda alta
+          { left: '92%', top: '30%', zone: 'right-upper' },      // Derecha alta  
+          { left: '6%', top: '85%', zone: 'left-lower' },        // Izquierda baja (evita QR)
+          { left: '94%', top: '88%', zone: 'right-lower' },      // Derecha baja (evita QR)
           
-          // Tier 3: Bordes superior/inferior (solo laterales)
-          { left: '25%', top: '12%', zone: 'top-left' },      // Superior izquierda
-          { left: '75%', top: '14%', zone: 'top-right' },     // Superior derecha
+          // Posiciones adicionales solo en bordes extremos
+          { left: '10%', top: '60%', zone: 'left-middle' },      // Izquierda medio (fuera botones)
+          { left: '90%', top: '65%', zone: 'right-middle' },     // Derecha medio (fuera botones)
         ];
         
-        // Usar posición smart o distribuir en bordes seguros
-        if (i < smartPositions.length) {
-          position = { left: smartPositions[i].left, top: smartPositions[i].top };
+        // Usar posición segura o distribuir en bordes extremos únicamente
+        if (i < safePositions.length) {
+          position = { left: safePositions[i].left, top: safePositions[i].top };
         } else {
-          // Para más de 8 partículas: solo bordes extremos
-          const edgePositions = [
-            // Solo bordes laterales extremos
-            { left: `${5 + Math.random() * 10}%`, top: `${25 + Math.random() * 35}%` },   // Izquierda
-            { left: `${85 + Math.random() * 10}%`, top: `${25 + Math.random() * 35}%` },  // Derecha
-            { left: `${5 + Math.random() * 10}%`, top: `${65 + Math.random() * 20}%` },   // Inferior izq
-            { left: `${85 + Math.random() * 10}%`, top: `${65 + Math.random() * 20}%` },  // Inferior der
+          // Para más partículas: SOLO bordes laterales extremos (fuera de TODA zona central)
+          const ultraSafeEdges = [
+            // Izquierda extrema (0%-15%)
+            { left: `${4 + Math.random() * 8}%`, top: `${20 + Math.random() * 15}%` },    // Izq superior
+            { left: `${4 + Math.random() * 8}%`, top: `${80 + Math.random() * 15}%` },    // Izq inferior
+            
+            // Derecha extrema (85%-96%)  
+            { left: `${88 + Math.random() * 8}%`, top: `${20 + Math.random() * 15}%` },   // Der superior
+            { left: `${88 + Math.random() * 8}%`, top: `${80 + Math.random() * 15}%` },   // Der inferior
           ];
           
-          position = edgePositions[i % edgePositions.length];
+          position = ultraSafeEdges[i % ultraSafeEdges.length];
         }
       }
 
