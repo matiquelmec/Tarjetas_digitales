@@ -74,28 +74,58 @@ export function SmartParticles({
       const delay = i * 0.2;
       const duration = 3 + Math.random() * 2;
       
-      // Posicionamiento según target
+      // Posicionamiento estratégico según target y comportamiento
       let position = {};
+      
       if (targetElement === 'photo') {
-        // Alrededor de la foto (círculo)
+        // Alrededor de la foto (círculo elegante)
         const angle = (i / count) * Math.PI * 2;
-        const radius = 60;
+        const radius = 60 + (i * 5); // Radios variados para más dinamismo
         position = {
           left: `calc(50% + ${Math.cos(angle) * radius}px)`,
-          top: `calc(25% + ${Math.sin(angle) * radius}px)`
+          top: `calc(30% + ${Math.sin(angle) * radius}px)`
         };
       } else if (targetElement === 'button') {
-        // Cerca de los botones
+        // Cerca de los botones (parte inferior)
         position = {
-          left: `${20 + Math.random() * 60}%`,
-          bottom: `${10 + Math.random() * 20}%`
+          left: `${30 + Math.random() * 40}%`,
+          bottom: `${15 + Math.random() * 15}%`
         };
       } else {
-        // Distribución general
-        position = {
-          left: `${10 + Math.random() * 80}%`,
-          top: `${10 + Math.random() * 80}%`
-        };
+        // Distribución estratégica para toda la tarjeta
+        // Posiciones predefinidas que se ven bien visualmente
+        const strategicPositions = [
+          { left: '15%', top: '20%' },    // Esquina superior izquierda
+          { left: '85%', top: '25%' },    // Esquina superior derecha  
+          { left: '10%', top: '60%' },    // Medio izquierda
+          { left: '90%', top: '65%' },    // Medio derecha
+          { left: '25%', top: '85%' },    // Parte inferior izquierda
+          { left: '75%', top: '80%' },    // Parte inferior derecha
+          { left: '50%', top: '15%' },    // Parte superior centro
+          { left: '50%', top: '90%' }     // Parte inferior centro
+        ];
+        
+        // Usar posición estratégica o fallback a distribución inteligente
+        if (i < strategicPositions.length) {
+          position = strategicPositions[i];
+        } else {
+          // Para más partículas, distribuir en los bordes evitando el centro
+          const side = i % 4;
+          switch(side) {
+            case 0: // Lado izquierdo
+              position = { left: `${5 + Math.random() * 15}%`, top: `${20 + Math.random() * 60}%` };
+              break;
+            case 1: // Lado derecho  
+              position = { left: `${80 + Math.random() * 15}%`, top: `${20 + Math.random() * 60}%` };
+              break;
+            case 2: // Parte superior
+              position = { left: `${20 + Math.random() * 60}%`, top: `${5 + Math.random() * 20}%` };
+              break;
+            case 3: // Parte inferior
+              position = { left: `${20 + Math.random() * 60}%`, top: `${75 + Math.random() * 20}%` };
+              break;
+          }
+        }
       }
 
       newParticles.push(
@@ -107,7 +137,7 @@ export function SmartParticles({
             '--particle-color': color,
             '--particle-delay': `${delay}s`,
             '--particle-duration': `${duration}s`,
-            '--particle-size': behavior === 'static' ? '6px' : '4px'
+            '--particle-size': behavior === 'static' ? '10px' : behavior === 'interactive' ? '8px' : '6px'
           } as React.CSSProperties}
         />
       );
