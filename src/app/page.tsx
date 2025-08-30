@@ -58,13 +58,17 @@ export default function HomePage() {
   };
 
   // Datos del demo - Usando el mismo sistema que create page
-  // Usar los mismos datos que en el editor para consistencia total
+  // Usar los mismos datos que en el editor para consistencia total - SIN efectos
   const demoCardData = {
     ...DEFAULT_CARD_DATA,
-    // Solo para el demo de la página de inicio, activar algunos efectos visuales
-    enableHoverEffect: true,
-    enableGlassmorphism: true,
-    enableSubtleAnimations: true
+    // Mantener sin efectos para consistencia con otras vistas previas
+    enableHoverEffect: false,
+    enableGlassmorphism: false,
+    enableSubtleAnimations: false,
+    enableBackgroundPatterns: false,
+    enableParticles: false,
+    enableAnimatedGradient: false,
+    enableFloatingShapes: false
   };
 
   return (
@@ -77,9 +81,8 @@ export default function HomePage() {
         }
         
         .animated-gradient-background {
-          background: linear-gradient(-45deg, #0f0c29, #24243e, #302b63, #1a1a2e);
+          background: ${demoCardData.pageBackgroundColor || '#0a0d1a'};
           background-size: 400% 400%;
-          animation: gradientAnimation 15s ease infinite;
           min-height: 100vh;
         }
         
