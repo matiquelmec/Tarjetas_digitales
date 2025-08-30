@@ -805,19 +805,43 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Diamond',
                 gradient: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
                 emoji: '💎',
-                description: 'Elegancia cristalina con destellos azul diamante'
+                description: 'Elegancia cristalina con destellos azul diamante',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#0a0d1a',
+                  buttonSecondaryColor: '#7986cb',
+                  buttonSecondaryHoverColor: '#5c6bc0',
+                  buttonNormalBackgroundColor: 'rgba(121,134,203,0.2)'
+                }
               },
               {
                 name: 'Platinum',
                 gradient: 'linear-gradient(135deg, #4a4a4a 0%, #5a5a5a 50%, #2a2a2a 100%)',
                 emoji: '🔱',
-                description: 'Lujo metálico plateado con elegancia oscura'  
+                description: 'Lujo metálico plateado con elegancia oscura',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #4a4a4a 0%, #5a5a5a 50%, #2a2a2a 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#1a1a1a',
+                  buttonSecondaryColor: '#e0e0e0',
+                  buttonSecondaryHoverColor: '#bdbdbd',
+                  buttonNormalBackgroundColor: 'rgba(224,224,224,0.2)'
+                }
               },
               {
                 name: 'Sapphire',
                 gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #1e3c72 100%)',
                 emoji: '💙',
-                description: 'Azul profundo'
+                description: 'Azul profundo',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #1e3c72 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#0f1a35',
+                  buttonSecondaryColor: '#b3e5fc',
+                  buttonSecondaryHoverColor: '#81d4fa',
+                  buttonNormalBackgroundColor: 'rgba(179,229,252,0.2)'
+                }
               },
               {
                 name: 'Emerald',
@@ -827,6 +851,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 colors: {
                   cardBackgroundColor: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
                   cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#0a2e1a',
                   buttonSecondaryColor: '#ffffff',
                   buttonSecondaryHoverColor: '#f8f9fa',
                   buttonNormalBackgroundColor: 'rgba(255,255,255,0.25)'
@@ -836,7 +861,15 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Ruby',
                 gradient: 'linear-gradient(135deg, #fc466b 0%, #3f5efb 100%)',
                 emoji: '❤️',
-                description: 'Rojo intenso'
+                description: 'Rojo intenso',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #fc466b 0%, #3f5efb 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#2d0a1f',
+                  buttonSecondaryColor: '#f8bbd9',
+                  buttonSecondaryHoverColor: '#e1bee7',
+                  buttonNormalBackgroundColor: 'rgba(248,187,217,0.25)'
+                }
               }
             ].map((bg, index) => (
               <div
@@ -915,31 +948,71 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Galaxy',
                 gradient: 'linear-gradient(135deg, #2b1055 0%, #7597de 50%, #c9d6ff 100%)',
                 emoji: '🌌',
-                description: 'Espacio profundo'
+                description: 'Espacio profundo',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #2b1055 0%, #7597de 50%, #c9d6ff 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#15082a',
+                  buttonSecondaryColor: '#c9d6ff',
+                  buttonSecondaryHoverColor: '#a5c4ff',
+                  buttonNormalBackgroundColor: 'rgba(201,214,255,0.25)'
+                }
               },
               {
                 name: 'Nebula',
                 gradient: 'linear-gradient(135deg, #ff006e 0%, #8338ec 50%, #3a86ff 100%)',
                 emoji: '☄️',
-                description: 'Neón espacial'
+                description: 'Neón espacial',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #ff006e 0%, #8338ec 50%, #3a86ff 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#2d0037',
+                  buttonSecondaryColor: '#e1bee7',
+                  buttonSecondaryHoverColor: '#ce93d8',
+                  buttonNormalBackgroundColor: 'rgba(225,190,231,0.25)'
+                }
               },
               {
                 name: 'Aurora',
                 gradient: 'linear-gradient(135deg, #0c4a6e 0%, #1e3a8a 30%, #312e81 60%, #1f2937 100%)',
                 emoji: '🌈',
-                description: 'Luces boreales sobre cielo nocturno ártico'
+                description: 'Luces boreales sobre cielo nocturno ártico',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #0c4a6e 0%, #1e3a8a 30%, #312e81 60%, #1f2937 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#062537',
+                  buttonSecondaryColor: '#a5d6a7',
+                  buttonSecondaryHoverColor: '#81c784',
+                  buttonNormalBackgroundColor: 'rgba(165,214,167,0.25)'
+                }
               },
               {
                 name: 'Stellar',
                 gradient: 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)',
                 emoji: '⭐',
-                description: 'Noche estelar'
+                description: 'Noche estelar',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#080614',
+                  buttonSecondaryColor: '#ffcc02',
+                  buttonSecondaryHoverColor: '#ffb300',
+                  buttonNormalBackgroundColor: 'rgba(255,204,2,0.2)'
+                }
               },
               {
                 name: 'Cosmic',
                 gradient: 'linear-gradient(135deg, #8360c3 0%, #2ebf91 50%, #ffecd2 100%)',
                 emoji: '🪐',
-                description: 'Universo vibrante'
+                description: 'Universo vibrante',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #8360c3 0%, #2ebf91 50%, #ffecd2 100%)',
+                  cardTextColor: '#2d1b4e',
+                  pageBackgroundColor: '#42306d',
+                  buttonSecondaryColor: '#2d1b4e',
+                  buttonSecondaryHoverColor: '#1a1025',
+                  buttonNormalBackgroundColor: 'rgba(45,27,78,0.2)'
+                }
               }
             ].map((bg, index) => (
               <div
@@ -1010,31 +1083,71 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                 name: 'Sunset',
                 gradient: 'linear-gradient(135deg, #b91c1c 0%, #dc2626 30%, #ea580c 60%, #451a03 100%)',
                 emoji: '🌅',
-                description: 'Atardecer ardiente con crepúsculo'
+                description: 'Atardecer ardiente con crepúsculo',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #b91c1c 0%, #dc2626 30%, #ea580c 60%, #451a03 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#451a03',
+                  buttonSecondaryColor: '#fff3e0',
+                  buttonSecondaryHoverColor: '#ffe0b2',
+                  buttonNormalBackgroundColor: 'rgba(255,243,224,0.25)'
+                }
               },
               {
                 name: 'Ocean',
                 gradient: 'linear-gradient(135deg, #667db6 0%, #0082c8 50%, #41b883 100%)',
                 emoji: '🌊',
-                description: 'Azul oceánico'
+                description: 'Azul oceánico',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #667db6 0%, #0082c8 50%, #41b883 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#1a3d5c',
+                  buttonSecondaryColor: '#b3e5fc',
+                  buttonSecondaryHoverColor: '#81d4fa',
+                  buttonNormalBackgroundColor: 'rgba(179,229,252,0.25)'
+                }
               },
               {
                 name: 'Forest',
                 gradient: 'linear-gradient(135deg, #1b4332 0%, #2d5016 50%, #081c15 100%)',
                 emoji: '🌲',
-                description: 'Bosque profundo y frondoso'
+                description: 'Bosque profundo y frondoso',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #1b4332 0%, #2d5016 50%, #081c15 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#041e0a',
+                  buttonSecondaryColor: '#c8e6c9',
+                  buttonSecondaryHoverColor: '#a5d6a7',
+                  buttonNormalBackgroundColor: 'rgba(200,230,201,0.25)'
+                }
               },
               {
                 name: 'Desert',
                 gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%)',
                 emoji: '🏜️',
-                description: 'Arena dorada'
+                description: 'Arena dorada',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#704a7f',
+                  buttonSecondaryColor: '#ffffff',
+                  buttonSecondaryHoverColor: '#f8f9fa',
+                  buttonNormalBackgroundColor: 'rgba(255,255,255,0.25)'
+                }
               },
               {
                 name: 'Volcano',
                 gradient: 'linear-gradient(135deg, #f12711 0%, #f5af19 50%, #ff6b6b 100%)',
                 emoji: '🌋',
-                description: 'Fuego ardiente'
+                description: 'Fuego ardiente',
+                colors: {
+                  cardBackgroundColor: 'linear-gradient(135deg, #f12711 0%, #f5af19 50%, #ff6b6b 100%)',
+                  cardTextColor: '#ffffff',
+                  pageBackgroundColor: '#7a1308',
+                  buttonSecondaryColor: '#fff3e0',
+                  buttonSecondaryHoverColor: '#ffe0b2',
+                  buttonNormalBackgroundColor: 'rgba(255,243,224,0.25)'
+                }
               }
             ].map((bg, index) => (
               <div
