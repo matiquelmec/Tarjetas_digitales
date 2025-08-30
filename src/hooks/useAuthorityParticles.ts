@@ -127,9 +127,9 @@ export function useAuthorityParticles(config: AuthorityParticlesConfig) {
     const centerY = config.containerHeight / 2;
 
     for (let i = 0; i < particleCount; i++) {
-      // Distribución en órbitas elegantes
-      const orbitRadius = 40 + (i * 15); // Órbitas concéntricas
-      const initialAngle = (i / particleCount) * 2 * Math.PI;
+      // Distribución en órbitas elegantes y profesionales
+      const orbitRadius = 60 + (i * 20); // Órbitas más amplias y espaciadas
+      const initialAngle = (i / particleCount) * 2 * Math.PI + (Math.PI * 0.5); // Empezar desde arriba
       
       const particle: AuthorityParticle = {
         id: `authority-${i}`,
@@ -139,12 +139,12 @@ export function useAuthorityParticles(config: AuthorityParticlesConfig) {
         targetY: centerY,
         angle: initialAngle,
         radius: orbitRadius,
-        speed: 0.008 + (i * 0.002), // Velocidades escalonadas elegantes
-        opacity: 0.6 + (i * 0.1), // Opacidad variable
+        speed: 0.3 + (i * 0.1), // Velocidades más visibles pero elegantes
+        opacity: 0.8 - (i * 0.05), // Opacidad decreciente hacia el exterior
         scale: 1,
-        phase: i * (Math.PI / particleCount), // Desfase para movimiento orgánico
+        phase: i * (Math.PI * 2 / particleCount), // Desfase uniforme
         color: getAuthorityColor(config.theme, 0.8),
-        glowIntensity: 0.4
+        glowIntensity: 0.6
       };
 
       particles.push(particle);
@@ -153,76 +153,75 @@ export function useAuthorityParticles(config: AuthorityParticlesConfig) {
     return particles;
   }, [config, deviceOptimization, getAuthorityColor]);
 
-  // Actualizar partículas con movimiento de autoridad
+  // Actualizar partículas con movimiento de autoridad SIMPLIFICADO Y ELEGANTE
   const updateAuthorityParticles = useCallback((deltaTime: number) => {
-    particlesRef.current = particlesRef.current.map(particle => {
-      // Movimiento orbital elegante
-      particle.angle += particle.speed * deltaTime;
+    const time = performance.now() * 0.001; // Tiempo en segundos para consistencia
+    
+    particlesRef.current = particlesRef.current.map((particle, index) => {
+      // Movimiento orbital simple y elegante
+      const baseAngle = time * particle.speed + particle.phase;
       
-      // Posición orbital con variación orgánica
-      const baseX = particle.targetX + Math.cos(particle.angle) * particle.radius;
-      const baseY = particle.targetY + Math.sin(particle.angle) * particle.radius;
+      // Posición orbital limpia
+      particle.x = particle.targetX + Math.cos(baseAngle) * particle.radius;
+      particle.y = particle.targetY + Math.sin(baseAngle) * particle.radius;
       
-      // Añadir movimiento sutil para autoridad orgánica
-      const organicOffset = Math.sin(particle.angle + particle.phase) * 3;
+      // Respiración muy sutil para elegancia
+      particle.scale = 1 + Math.sin(time * 0.8 + particle.phase) * 0.05;
       
-      particle.x = baseX + organicOffset;
-      particle.y = baseY + organicOffset * 0.5;
+      // Opacidad estable con variación mínima
+      particle.opacity = 0.7 + Math.sin(time * 0.5 + particle.phase) * 0.1;
       
-      // Respiración de autoridad (escala sutil)
-      particle.scale = 1 + Math.sin(particle.angle * 2 + particle.phase) * 0.1;
-      
-      // Glow pulsante de confianza
-      particle.glowIntensity = 0.4 + Math.sin(particle.angle * 3) * 0.2;
-      
-      // Opacidad que transmite presencia constante
-      particle.opacity = 0.6 + Math.sin(particle.angle + particle.phase) * 0.2;
+      // Glow constante elegante
+      particle.glowIntensity = 0.5 + Math.sin(time * 0.3 + particle.phase) * 0.1;
 
       return particle;
     });
   }, []);
 
-  // Renderizar partículas con efectos de autoridad (versión simplificada para debugging)
+  // Renderizar partículas con efectos de autoridad PROFESIONALES Y ELEGANTES
   const renderAuthorityParticles = useCallback((ctx: CanvasRenderingContext2D) => {
-    console.log('🎨 Rendering particles:', particlesRef.current.length);
-    
     particlesRef.current.forEach((particle, index) => {
       ctx.save();
       
-      // Debug log para primera partícula
-      if (index === 0) {
-        console.log('🎨 Rendering particle:', {
-          x: particle.x,
-          y: particle.y,
-          color: particle.color,
-          opacity: particle.opacity,
-          scale: particle.scale
-        });
-      }
-      
-      // Configurar rendering
+      // Configurar rendering profesional
       ctx.globalAlpha = particle.opacity;
-      
-      // Posición de la partícula
       ctx.translate(particle.x, particle.y);
       ctx.scale(particle.scale, particle.scale);
       
-      // Renderizado simplificado para debugging - círculo sólido brillante MÁS GRANDE
-      ctx.fillStyle = particle.color;
-      ctx.shadowColor = particle.color;
-      ctx.shadowBlur = 15;
+      // EFECTO 1: Glow exterior suave (halo de autoridad)
+      const outerGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, 12);
+      outerGlow.addColorStop(0, particle.color);
+      outerGlow.addColorStop(0.3, particle.color.replace('0.8)', '0.4)'));
+      outerGlow.addColorStop(1, 'transparent');
+      
+      ctx.fillStyle = outerGlow;
       ctx.beginPath();
-      ctx.arc(0, 0, 8, 0, Math.PI * 2); // Radio más grande: 8px en lugar de 4px
+      ctx.arc(0, 0, 12, 0, Math.PI * 2);
       ctx.fill();
       
-      // Añadir un segundo círculo más brillante en el centro
-      ctx.fillStyle = particle.color.replace('0.8)', '1)'); // Alpha completo
+      // EFECTO 2: Círculo principal elegante
+      const mainGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, 6);
+      mainGlow.addColorStop(0, particle.color);
+      mainGlow.addColorStop(0.5, particle.color.replace('0.8)', '0.6)'));
+      mainGlow.addColorStop(1, particle.color.replace('0.8)', '0.2)'));
+      
+      ctx.fillStyle = mainGlow;
       ctx.beginPath();
-      ctx.arc(0, 0, 3, 0, Math.PI * 2); // Núcleo brillante
+      ctx.arc(0, 0, 6, 0, Math.PI * 2);
       ctx.fill();
       
-      // Reset shadow
-      ctx.shadowBlur = 0;
+      // EFECTO 3: Núcleo sólido de presencia
+      ctx.fillStyle = particle.color.replace('0.8)', '0.9)');
+      ctx.beginPath();
+      ctx.arc(0, 0, 2, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // EFECTO 4: Punto central brillante (spark de autoridad)
+      ctx.fillStyle = '#ffffff';
+      ctx.globalAlpha = particle.opacity * 0.8;
+      ctx.beginPath();
+      ctx.arc(0, 0, 0.5, 0, Math.PI * 2);
+      ctx.fill();
       
       ctx.restore();
     });
@@ -253,34 +252,28 @@ export function useAuthorityParticles(config: AuthorityParticlesConfig) {
     }
   }, [config, deviceOptimization, updateAuthorityParticles, renderAuthorityParticles]);
 
-  // Inicializar sistema de partículas
+  // Inicializar sistema de partículas OPTIMIZADO
   useEffect(() => {
-    console.log('🌟 AuthorityParticles Hook - Initializing:', {
-      enabled: config.enabled,
-      canvasExists: !!canvasRef.current,
-      theme: config.theme,
-      count: config.count,
-      deviceOptimization
-    });
+    if (!canvasRef.current || !config.enabled) return;
 
-    if (!canvasRef.current || !config.enabled) {
-      console.log('🌟 AuthorityParticles Hook - Skipping initialization:', {
-        canvasExists: !!canvasRef.current,
-        enabled: config.enabled
-      });
-      return;
-    }
-
-    // Configurar canvas
+    // Configurar canvas con mejor resolución
     const canvas = canvasRef.current;
-    canvas.width = config.containerWidth;
-    canvas.height = config.containerHeight;
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    
+    canvas.width = config.containerWidth * devicePixelRatio;
+    canvas.height = config.containerHeight * devicePixelRatio;
+    canvas.style.width = `${config.containerWidth}px`;
+    canvas.style.height = `${config.containerHeight}px`;
+    
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+    }
 
     // Crear partículas iniciales
     particlesRef.current = createAuthorityParticles();
-    console.log('🌟 AuthorityParticles Hook - Created particles:', particlesRef.current.length);
 
-    // Iniciar animación
+    // Iniciar animación suave
     lastFrameTimeRef.current = performance.now();
     animationFrameRef.current = requestAnimationFrame(animate);
 
