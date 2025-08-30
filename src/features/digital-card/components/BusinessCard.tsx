@@ -427,6 +427,16 @@ export default function BusinessCard({ name, title, about, location, whatsapp, e
     }
   }, []);
 
+  // Debug para pageBackgroundColor
+  useEffect(() => {
+    console.log('🎨 BusinessCard - pageBackgroundColor recibido:', {
+      pageBackgroundColor,
+      isPreviewMode,
+      location: window.location.pathname,
+      timestamp: new Date().toISOString()
+    });
+  }, [pageBackgroundColor, isPreviewMode]);
+
   // Bind mouse tracking to card element
   useEffect(() => {
     if (enableMouseTracking && cardRef.current) {

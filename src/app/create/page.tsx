@@ -138,9 +138,8 @@ export default function CreateCardPage() {
       <style>{generatePreviewStyles()}</style>
       <style jsx global>{`
         .animated-gradient-background {
-          background: linear-gradient(-45deg, #0f0c29, #24243e, #302b63, #1a1a2e);
-          background-size: 400% 400%;
-          animation: gradientAnimation 15s ease infinite;
+          background: ${cardData.pageBackgroundColor || '#1a1a2e'};
+          transition: background-color 0.3s ease;
           min-height: 100vh;
         }
         @keyframes gradientAnimation {
