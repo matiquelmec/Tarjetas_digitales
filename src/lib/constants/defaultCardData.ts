@@ -18,13 +18,13 @@ export const DEFAULT_CARD_DATA = {
   template: 'modern',
   photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
   
-  // Tema Emerald moderno - Gradiente verde elegante  
-  cardBackgroundColor: 'linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)',
+  // Tema Diamond predeterminado - Elegancia cristalina con destellos azul diamante
+  cardBackgroundColor: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
   cardTextColor: '#ffffff',
-  pageBackgroundColor: '#0a2e1a', // Fondo verde muy oscuro
-  buttonSecondaryColor: '#10b981', // Verde esmeralda brillante
-  buttonSecondaryHoverColor: '#059669',
-  buttonNormalBackgroundColor: 'rgba(16, 185, 129, 0.2)',
+  pageBackgroundColor: '#0a0d1a', // Fondo azul muy oscuro diamante
+  buttonSecondaryColor: '#7986cb', // Azul brillante para mejor contraste
+  buttonSecondaryHoverColor: '#5c6bc0',
+  buttonNormalBackgroundColor: 'rgba(121,134,203,0.2)',
   fontFamily: 'Inter', // Fuente moderna y legible
   
   // Efectos visuales - Desactivados por defecto para mejor rendimiento
