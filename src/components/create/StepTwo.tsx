@@ -1029,7 +1029,15 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   overflow: 'hidden',
                   boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
                 }}
-                onClick={() => updateCardData('cardBackgroundColor', bg.gradient)}
+                onClick={() => {
+                  if (bg.colors) {
+                    // Aplicar tema completo con reglas universales de contraste
+                    applyAndUpdate(bg.colors, updateCardData);
+                  } else {
+                    // Solo aplicar gradiente
+                    updateCardData('cardBackgroundColor', bg.gradient);
+                  }
+                }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)';
                   e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,0.2)';
@@ -1164,7 +1172,15 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
                   overflow: 'hidden',
                   boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
                 }}
-                onClick={() => updateCardData('cardBackgroundColor', bg.gradient)}
+                onClick={() => {
+                  if (bg.colors) {
+                    // Aplicar tema completo con reglas universales de contraste
+                    applyAndUpdate(bg.colors, updateCardData);
+                  } else {
+                    // Solo aplicar gradiente
+                    updateCardData('cardBackgroundColor', bg.gradient);
+                  }
+                }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)';
                   e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,0.2)';
