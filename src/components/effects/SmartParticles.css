@@ -1,0 +1,231 @@
+/**
+ * SmartParticles v3.0 - CSS Animations
+ * Sistema de partículas simplificado que aporta valor real
+ */
+
+/* Contenedor base */
+.smart-particles-container {
+  position: relative;
+  overflow: visible;
+}
+
+.smart-particles-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.smart-particles-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Partícula base */
+.smart-particle {
+  position: absolute;
+  width: var(--particle-size, 6px);
+  height: var(--particle-size, 6px);
+  border-radius: 50%;
+  background: var(--particle-color, #60a5fa);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Comportamiento: Static (Glow profesional) */
+.smart-particle-static {
+  animation: staticGlow var(--particle-duration, 3s) infinite ease-in-out;
+  animation-delay: var(--particle-delay, 0s);
+  box-shadow: 
+    0 0 10px var(--particle-color, #60a5fa),
+    0 0 20px rgba(96, 165, 250, 0.3);
+}
+
+@keyframes staticGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Comportamiento: Ambient (Flotación elegante) */
+.smart-particle-ambient {
+  animation: 
+    ambientFloat var(--particle-duration, 4s) infinite ease-in-out,
+    ambientFade var(--particle-duration, 4s) infinite ease-in-out;
+  animation-delay: var(--particle-delay, 0s);
+  opacity: 0.4;
+  box-shadow: 0 0 8px var(--particle-color, #60a5fa);
+}
+
+@keyframes ambientFloat {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(0.8);
+  }
+  25% {
+    transform: translateY(-15px) translateX(5px) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) translateX(10px) scale(0.9);
+  }
+  75% {
+    transform: translateY(-20px) translateX(-5px) scale(1.1);
+  }
+}
+
+@keyframes ambientFade {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Comportamiento: Interactive (Respuesta a interacciones) */
+.smart-particle-interactive {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: interactiveIdle var(--particle-duration, 2s) infinite ease-in-out;
+  animation-delay: var(--particle-delay, 0s);
+  box-shadow: 0 0 6px var(--particle-color, #60a5fa);
+}
+
+@keyframes interactiveIdle {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+/* Estados interactivos */
+.smart-particles-container.smart-particles-interactive:hover .smart-particle-interactive {
+  animation: interactiveActive 1s infinite ease-in-out;
+  opacity: 1;
+  box-shadow: 
+    0 0 12px var(--particle-color, #60a5fa),
+    0 0 24px rgba(96, 165, 250, 0.4);
+}
+
+@keyframes interactiveActive {
+  0%, 100% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+/* Efecto de hover para modo interactivo */
+.smart-particles-hover-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(96, 165, 250, 0.1) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: hoverGlow 1s ease-out;
+}
+
+@keyframes hoverGlow {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Optimizaciones para mobile */
+@media (max-width: 768px) {
+  .smart-particle {
+    --particle-size: 4px;
+  }
+  
+  .smart-particle-static {
+    box-shadow: 
+      0 0 6px var(--particle-color, #60a5fa),
+      0 0 12px rgba(96, 165, 250, 0.2);
+  }
+  
+  .smart-particle-ambient {
+    opacity: 0.3;
+  }
+  
+  @keyframes ambientFloat {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px) scale(0.8);
+    }
+    50% {
+      transform: translateY(-8px) translateX(3px) scale(0.9);
+    }
+  }
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .smart-particle {
+    animation: none !important;
+    opacity: 0.4 !important;
+    transform: none !important;
+  }
+  
+  .smart-particles-hover-effect {
+    display: none;
+  }
+}
+
+/* Colores por tema (CSS variables) */
+.smart-particles-theme-diamond {
+  --particle-color: #7986cb;
+}
+
+.smart-particles-theme-emerald {
+  --particle-color: #10b981;
+}
+
+.smart-particles-theme-ruby {
+  --particle-color: #ef4444;
+}
+
+.smart-particles-theme-sapphire {
+  --particle-color: #3b82f6;
+}
+
+.smart-particles-theme-gold {
+  --particle-color: #fbbf24;
+}
+
+.smart-particles-theme-professional {
+  --particle-color: #60a5fa;
+}
+
+.smart-particles-theme-medical {
+  --particle-color: #06b6d4;
+}
+
+.smart-particles-theme-legal {
+  --particle-color: #10b981;
+}
+
+.smart-particles-theme-creative {
+  --particle-color: #a78bfa;
+}

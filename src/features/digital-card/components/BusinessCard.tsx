@@ -10,8 +10,8 @@ import { useMouseTracking } from '@/hooks/useMouseTracking';
 // 🎨 INDI Design System - Visual Excellence
 import { DesignTokens } from '@/lib/design/tokens';
 import { useOptimizedColors, evaluateContrast, generateButtonColors } from '@/lib/design/contrast';
-// 🌟 Authority Presence Particles System v2.0
-import AuthorityParticles from '@/components/effects/AuthorityParticles';
+// 🌟 SmartParticles v3.0 - Sistema simplificado que aporta valor real
+import SmartParticles from '@/components/effects/SmartParticles';
 
 const QrCodeDisplay = dynamic(() => import('./QrCodeDisplay'), { ssr: false });
 
@@ -1093,44 +1093,44 @@ ${formattedAbout ? `${formattedAbout}
     );
   };
 
-  // 🌟 Sistema Authority Presence Particles v2.0 - Reemplaza sistema legacy
-  const renderAuthorityParticles = () => {
-    // Solo activar si partículas están habilitadas
+  // 🌟 SmartParticles v3.0 - Sistema simplificado que aporta valor real
+  const getParticlesConfig = () => {
     if (!effectsState.particles.enabled) return null;
 
-    // Detectar intensidad basada en tipo de partícula legacy
-    let intensity: 'minimal' | 'balanced' | 'prominent' = 'balanced';
-    if (effectsState.particles.type === 'professional') {
-      intensity = 'minimal'; // Máxima elegancia
+    // Mapear tipos legacy a comportamientos SmartParticles
+    let behavior: 'static' | 'interactive' | 'ambient' = 'static';
+    if (effectsState.particles.type === 'creative') {
+      behavior = 'interactive';
     } else if (effectsState.particles.type === 'constellation') {
-      intensity = 'prominent'; // Más presencia visual
+      behavior = 'ambient';
     }
 
-    // Determinar tema basado en colores de la tarjeta
+    // Mapear count a intensity
+    let intensity: 'subtle' | 'balanced' | 'prominent' = 'balanced';
+    if (effectsState.particles.count <= 3) {
+      intensity = 'subtle';
+    } else if (effectsState.particles.count >= 7) {
+      intensity = 'prominent';
+    }
+
+    // Detectar tema basado en colores de la tarjeta
     const getThemeFromBackground = (background: string): string => {
-      if (background.includes('#1a1a2e')) return 'diamond';
-      if (background.includes('#064e3b')) return 'emerald';
-      if (background.includes('#4a4a4a')) return 'platinum';
-      if (background.includes('#667eea')) return 'sapphire';
-      if (background.includes('#fc466b')) return 'ruby';
-      if (background.includes('#ffd700')) return 'gold';
-      return 'professional'; // fallback
+      if (background.includes('#1a1a2e') || background.includes('#7986cb')) return 'diamond';
+      if (background.includes('#064e3b') || background.includes('#10b981')) return 'emerald';
+      if (background.includes('#4a4a4a') || background.includes('#e5e7eb')) return 'platinum';
+      if (background.includes('#667eea') || background.includes('#3b82f6')) return 'sapphire';
+      if (background.includes('#fc466b') || background.includes('#ef4444')) return 'ruby';
+      if (background.includes('#ffd700') || background.includes('#fbbf24')) return 'gold';
+      return 'professional';
     };
 
-    const detectedTheme = getThemeFromBackground(cardBackgroundColor);
-
-    return (
-      <AuthorityParticles
-        enabled={true}
-        theme={detectedTheme}
-        intensity={intensity}
-        interactionMode="strategic"
-        containerWidth={400}
-        containerHeight={600}
-        onHover={effectsState.hoverEffect.enabled}
-        particleCount={Math.min(effectsState.particles.count, 5)} // Cap para elegancia
-      />
-    );
+    return {
+      enabled: true,
+      intensity,
+      behavior,
+      theme: getThemeFromBackground(cardBackgroundColor),
+      targetElement: 'card' as const
+    };
   };
 
   // Función helper para parsear rgb
@@ -1251,12 +1251,14 @@ ${formattedAbout ? `${formattedAbout}
       >
         {/* Partículas de fondo */}
         {renderBackgroundParticles()}
-        <Card 
-          ref={cardRef}
-          className={`${getBaseCardClasses()} ${cssClasses} indi-card-container`} 
-          style={cardStyles}
+        <SmartParticles
+          {...(getParticlesConfig() || { enabled: false, intensity: 'subtle', behavior: 'static', theme: 'professional', targetElement: 'card' })}
         >
-          {renderAuthorityParticles()}
+          <Card 
+            ref={cardRef}
+            className={`${getBaseCardClasses()} ${cssClasses} indi-card-container`} 
+            style={cardStyles}
+          >
           <Card.Body style={{ padding: 0 }}>
           <Stack gap={0} className="indi-sections-container">
             {/* 🎨 HEADER SECTION - Máximo Impacto Visual */}
@@ -1538,6 +1540,7 @@ ${formattedAbout ? `${formattedAbout}
           </Stack>
         </Card.Body>
       </Card>
+        </SmartParticles>
       </div>
     </>
   );

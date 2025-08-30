@@ -1456,68 +1456,56 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
           </Col>
         </Row>
 
-        {/* Controles avanzados de partículas */}
+        {/* SmartParticles v3.0 - Configuración simplificada */}
         {cardData.enableParticles && (
           <div className="mt-4 p-3 bg-info bg-opacity-10 rounded">
-            <h6 className="mb-3 text-info">🌟 Configuración de Partículas</h6>
+            <h6 className="mb-3 text-info">✨ SmartParticles v3.0</h6>
+            <p className="text-muted small mb-3">Sistema inteligente que aporta valor real a tu tarjeta profesional</p>
             
             <Row>
               <Col md={6}>
                 <Form.Group className="mb-3">
-                  <Form.Label>Tipo de Partículas</Form.Label>
+                  <Form.Label>Comportamiento</Form.Label>
                   <Form.Select
-                    value={cardData.particleType || 'floating'}
+                    value={cardData.particleType || 'professional'}
                     onChange={(e) => updateCardData('particleType', e.target.value)}
                   >
-                    <option value="floating">🎈 Flotantes (Suave)</option>
-                    <option value="constellation">⭐ Constelación (Tech)</option>
-                    <option value="professional">💼 Profesional (Geométrico)</option>
-                    <option value="creative">🎨 Creativo (Orgánico)</option>
+                    <option value="professional">💼 Profesional - Glow estático elegante</option>
+                    <option value="creative">🎨 Creativo - Responde a interacciones</option>
+                    <option value="constellation">🌟 Ejecutivo - Flotación sutil premium</option>
                   </Form.Select>
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Densidad de Partículas</Form.Label>
-                  <div className="d-flex align-items-center gap-2">
-                    <span className="text-muted">Pocas</span>
-                    <Form.Range
-                      min={1}
-                      max={5}
-                      step={1}
-                      value={cardData.particleDensity || 3}
-                      onChange={(e) => updateCardData('particleDensity', parseInt(e.target.value))}
-                      className="flex-grow-1"
-                    />
-                    <span className="text-muted">Muchas</span>
-                  </div>
-                  <small className="text-muted">
-                    Nivel {cardData.particleDensity || 3} - {
-                      (cardData.particleDensity || 3) <= 2 ? 'Minimalista' :
-                      (cardData.particleDensity || 3) <= 3 ? 'Equilibrado' : 'Dramático'
-                    }
+                  <small className="text-muted d-block mt-1">
+                    {cardData.particleType === 'creative' && '⚡ Magnético: Atrae partículas al cursor'}
+                    {cardData.particleType === 'constellation' && '🌙 Ambiental: Flotación lenta y elegante'}
+                    {(!cardData.particleType || cardData.particleType === 'professional') && '💎 Estático: Glow profesional constante'}
                   </small>
                 </Form.Group>
               </Col>
-            </Row>
-            <Row>
               <Col md={6}>
                 <Form.Group className="mb-3">
-                  <Form.Label>Cantidad de Partículas</Form.Label>
-                  <div className="d-flex align-items-center gap-2">
-                    <span className="text-muted">25</span>
-                    <Form.Range
-                      min={25}
-                      max={100}
-                      step={25}
-                      value={cardData.particleCount || 50}
-                      onChange={(e) => updateCardData('particleCount', parseInt(e.target.value))}
-                      className="flex-grow-1"
-                    />
-                    <span className="text-muted">100</span>
-                  </div>
-                  <small className="text-muted">
-                    {cardData.particleCount || 50} partículas
+                  <Form.Label>Intensidad Visual</Form.Label>
+                  <Form.Select
+                    value={(() => {
+                      const count = cardData.particleCount || 4;
+                      if (count <= 3) return 'subtle';
+                      if (count <= 5) return 'balanced';
+                      return 'prominent';
+                    })()}
+                    onChange={(e) => {
+                      const intensityMap = {
+                        subtle: 3,
+                        balanced: 5,
+                        prominent: 8
+                      };
+                      updateCardData('particleCount', intensityMap[e.target.value as keyof typeof intensityMap]);
+                    }}
+                  >
+                    <option value="subtle">🌙 Sutil (3 partículas) - Mínimo impacto</option>
+                    <option value="balanced">⚖️ Balanceado (5 partículas) - Balance perfecto</option>
+                    <option value="prominent">✨ Prominente (8 partículas) - Máximo impacto</option>
+                  </Form.Select>
+                  <small className="text-muted d-block mt-1">
+                    Actualmente: {cardData.particleCount || 4} partículas activas
                   </small>
                 </Form.Group>
               </Col>
@@ -1525,7 +1513,7 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
             
             <div className="bg-success bg-opacity-20 p-3 rounded" style={{ border: '1px solid rgba(25, 135, 84, 0.3)' }}>
               <small className="text-light" style={{ color: '#ffffff !important' }}>
-                <strong style={{ color: '#00ff88' }}>💡 Tip:</strong> Las partículas se adaptan automáticamente a los colores de tu tema para máxima armonía visual.
+                <strong style={{ color: '#00ff88' }}>🚀 SmartParticles:</strong> Color automático del tema + optimizado móvil + máximo 8 partículas = performance garantizado
               </small>
             </div>
           </div>
