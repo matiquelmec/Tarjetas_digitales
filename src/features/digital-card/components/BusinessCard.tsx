@@ -1276,26 +1276,16 @@ ${formattedAbout ? `${formattedAbout}
       >
         {/* Partículas de fondo */}
         {renderBackgroundParticles()}
-        {/* 🚀 Sistema Profesional v4.0 o Fallback a sistema legacy */}
-        {enableProfessionalEffects ? (
-          <ProfessionalEffectsSystem
-            enabled={enableProfessionalEffects}
-            personality={professionalPersonality || 'trustworthy'}
-            intensity={effectIntensity || 'balanced'}
-            theme={getParticlesConfig()?.theme || 'professional'}
+        <FloatingShapes
+          enabled={effectsState.floatingShapes.enabled}
+          type={effectsState.floatingShapes.type as 'geometric' | 'organic' | 'stars' | 'particles' | 'professional'}
+          count={effectsState.floatingShapes.count}
+          speed={effectsState.floatingShapes.speed}
+          theme={getParticlesConfig()?.theme || 'professional'}
+        >
+          <SmartParticles
+            {...(getParticlesConfig() || { enabled: false, intensity: 'subtle', behavior: 'static', theme: 'professional', targetElement: 'card' })}
           >
-        ) : (
-          <FloatingShapes
-            enabled={effectsState.floatingShapes.enabled}
-            type={effectsState.floatingShapes.type as 'geometric' | 'organic' | 'stars' | 'particles' | 'professional'}
-            count={effectsState.floatingShapes.count}
-            speed={effectsState.floatingShapes.speed}
-            theme={getParticlesConfig()?.theme || 'professional'}
-          >
-            <SmartParticles
-              {...(getParticlesConfig() || { enabled: false, intensity: 'subtle', behavior: 'static', theme: 'professional', targetElement: 'card' })}
-            >
-        )}
           <Card 
             ref={cardRef}
             className={`${getBaseCardClasses()} ${cssClasses} indi-card-container`} 
@@ -1582,12 +1572,8 @@ ${formattedAbout ? `${formattedAbout}
           </Stack>
         </Card.Body>
       </Card>
-        {enableProfessionalEffects ? (
-          </ProfessionalEffectsSystem>
-        ) : (
-          </SmartParticles>
-          </FloatingShapes>
-        )}
+        </SmartParticles>
+        </FloatingShapes>
       </div>
     </>
   );
