@@ -9,7 +9,7 @@ import HologramPreview from '@/components/HologramPreview';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import '@/styles/hologram-effects.css';
-import { DEFAULT_CARD_DATA } from '@/lib/constants/defaultCardData';
+import { CONSISTENT_DEMO_DATA } from '@/lib/constants/defaultCardData';
 
 // Importar BusinessCard dinámicamente para el demo
 const BusinessCard = dynamic(() => import('@/features/digital-card/components/BusinessCard'), {
@@ -57,19 +57,8 @@ export default function HomePage() {
     router.push('/dashboard');
   };
 
-  // Datos del demo - Usando el mismo sistema que create page
-  // Usar los mismos datos que en el editor para consistencia total - SIN efectos
-  const demoCardData = {
-    ...DEFAULT_CARD_DATA,
-    // Mantener sin efectos para consistencia con otras vistas previas
-    enableHoverEffect: false,
-    enableGlassmorphism: false,
-    enableSubtleAnimations: false,
-    enableBackgroundPatterns: false,
-    enableParticles: false,
-    enableAnimatedGradient: false,
-    enableFloatingShapes: false
-  };
+  // Usar datos centralizados para consistencia total
+  const demoCardData = CONSISTENT_DEMO_DATA;
 
   return (
     <>

@@ -110,6 +110,41 @@ export const MODERN_THEME = {
 };
 
 /**
+ * DATOS CENTRALIZADOS - Consistencia total homepage ↔ editor
+ * Single source of truth para todas las demos y previews
+ */
+export const CONSISTENT_DEMO_DATA = {
+  // Usar datos profesionales de Carlos Mendoza (base de DEFAULT_CARD_DATA)
+  ...DEFAULT_CARD_DATA,
+  
+  // 🚨 EFECTOS DESACTIVADOS por defecto - Usuario puede activarlos
+  enableHoverEffect: false,
+  enableGlassmorphism: false,  
+  enableSubtleAnimations: false,
+  enableBackgroundPatterns: false,
+  enableProfessionalEffects: false,
+  
+  // Partículas desactivadas
+  enableParticles: false,
+  particleType: 'professional' as const,
+  particleCount: 0,
+  particleDensity: 0,
+  
+  // Efectos de ambiente desactivados
+  enableAnimatedGradient: false,
+  animatedGradientType: 'none',
+  animatedGradientSpeed: 0,
+  animatedGradientIntensity: 0, 
+  animatedGradientOpacity: 0,
+  enableFloatingShapes: false,
+  floatingShapesType: 'none',
+  floatingShapesCount: 0,
+  floatingShapesSpeed: 0,
+  ambientIntensity: 0,
+  ambientOpacity: 0,
+};
+
+/**
  * Configuración para vista previa sin efectos
  */
 export const PREVIEW_CONFIG = {

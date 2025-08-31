@@ -17,7 +17,7 @@ import EffectsManager from '@/lib/effects/EffectsManager';
 import HologramPreview from '@/components/HologramPreview';
 import '@/styles/hologram-effects.css';
 import '@/styles/preview-improvements.css';
-import { DEFAULT_CARD_DATA } from '@/lib/constants/defaultCardData';
+import { DEFAULT_CARD_DATA, CONSISTENT_DEMO_DATA } from '@/lib/constants/defaultCardData';
 
 
 export default function CreateCardPage() {
@@ -26,8 +26,8 @@ export default function CreateCardPage() {
   const [showPublishModal, setShowPublishModal] = useState(false);
   const [limitError, setLimitError] = useState<string | null>(null);
   const [planLimits, setPlanLimits] = useState<any>(null);
-  // Usar datos unificados de ejemplo
-  const [cardData, setCardData] = useState(DEFAULT_CARD_DATA);
+  // Usar datos centralizados consistentes - efectos desactivados por defecto
+  const [cardData, setCardData] = useState(CONSISTENT_DEMO_DATA);
 
   useEffect(() => {
     if (session?.user?.id) {
