@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/auth';
+import { authOptionsSafe } from '@/lib/auth-safe';
 import { prisma } from '@/lib/db';
 import { presentationAI } from '@/lib/presentationAI';
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptionsSafe);
     
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
 // Endpoint para mejorar contenido existente
 export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptionsSafe);
     
     if (!session?.user?.email) {
       return NextResponse.json(

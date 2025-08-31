@@ -4,14 +4,14 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptionsMinimal } from '@/lib/auth-minimal';
+import { authOptionsSafe } from '@/lib/auth-safe';
 
 export async function POST(request: NextRequest) {
   try {
     console.log('🧪 AI Test endpoint called');
     
     // Verificar autenticación básica
-    const session = await getServerSession(authOptionsMinimal);
+    const session = await getServerSession(authOptionsSafe);
     console.log('Session:', session?.user?.email);
     
     if (!session?.user?.email) {

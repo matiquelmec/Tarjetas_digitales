@@ -1,3 +1,6 @@
+// DEPRECATED: This auth config causes conflicts with authOptionsSafe 
+// All APIs should use authOptionsSafe (auth-safe.ts) for consistency
+/*
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { Plan } from "@prisma/client";
@@ -38,3 +41,4 @@ export const authOptionsMinimal: NextAuthOptions = {
   },
   debug: false, // Disable debug in production
 };
+*/

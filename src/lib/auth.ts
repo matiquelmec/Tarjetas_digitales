@@ -1,4 +1,6 @@
-import { NextAuthOptions } from "next-auth";
+// DEPRECATED: This auth config causes conflicts with authOptionsSafe 
+// All APIs should use authOptionsSafe (auth-safe.ts) for consistency
+// import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "./db";

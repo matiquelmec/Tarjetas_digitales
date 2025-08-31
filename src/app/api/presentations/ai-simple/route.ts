@@ -7,8 +7,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptionsMinimal } from '@/lib/auth-minimal';
-import { prisma } from '@/lib/prisma';
+import { authOptionsSafe } from '@/lib/auth-safe';
+import { prisma } from '@/lib/db';
 
 interface SimpleSlide {
   id: string;
@@ -21,7 +21,7 @@ interface SimpleSlide {
 export async function POST(request: NextRequest) {
   try {
     // Verificar autenticación
-    const session = await getServerSession(authOptionsMinimal);
+    const session = await getServerSession(authOptionsSafe);
     if (!session?.user?.email) {
       return NextResponse.json(
         { error: 'Usuario no autenticado' },
@@ -246,7 +246,7 @@ Crea entre 5-8 slides dependiendo de la duración solicitada. Usa tipos: "title"
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptionsMinimal);
+    const session = await getServerSession(authOptionsSafe);
     if (!session?.user?.email) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
     }

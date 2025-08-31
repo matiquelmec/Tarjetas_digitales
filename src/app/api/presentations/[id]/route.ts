@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { authOptionsMinimal } from '@/lib/auth-minimal';
-import { prisma } from '@/lib/prisma';
+import { authOptionsSafe } from '@/lib/auth-safe';
+import { prisma } from '@/lib/db';
 
 // GET: Obtener una presentación específica
 export async function GET(
@@ -9,7 +9,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await getServerSession(authOptionsMinimal);
+    const session = await getServerSession(authOptionsSafe);
     const { id } = params;
 
     // Buscar la presentación
@@ -79,7 +79,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await getServerSession(authOptionsMinimal);
+    const session = await getServerSession(authOptionsSafe);
     
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -170,7 +170,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await getServerSession(authOptionsMinimal);
+    const session = await getServerSession(authOptionsSafe);
     
     if (!session?.user?.email) {
       return NextResponse.json(
