@@ -3,21 +3,12 @@
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import IndiNavbar from '@/components/layout/IndiNavbar';
 import HologramPreview from '@/components/HologramPreview';
+import BusinessCard from '@/features/digital-card/components/BusinessCard';
 import '@/styles/hologram-effects.css';
 import { CONSISTENT_DEMO_DATA } from '@/lib/constants/defaultCardData';
-
-const BusinessCard = dynamic(() => import('@/features/digital-card/components/BusinessCard'), {
-  loading: () => <div className="d-flex justify-content-center align-items-center" style={{ height: '400px' }}>
-    <div className="spinner-border text-primary" role="status" style={{ width: '3rem', height: '3rem' }}>
-      <span className="visually-hidden">Cargando demo...</span>
-    </div>
-  </div>,
-  ssr: false
-});
 
 interface CardData {
   id: string;
