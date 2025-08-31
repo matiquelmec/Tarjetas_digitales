@@ -10,7 +10,9 @@ import { useMouseTracking } from '@/hooks/useMouseTracking';
 // 🎨 INDI Design System - Visual Excellence
 import { DesignTokens } from '@/lib/design/tokens';
 import { useOptimizedColors, evaluateContrast, generateButtonColors } from '@/lib/design/contrast';
-// 🌟 SmartParticles v3.0 - Sistema simplificado que aporta valor real
+// 🚀 ProfessionalEffectsSystem v4.0 - Sistema unificado de efectos profesionales 
+import ProfessionalEffectsSystem, { ProfessionalPersonality, EffectIntensity } from '@/components/effects/ProfessionalEffectsSystem';
+// 🌟 SmartParticles v3.0 - Sistema simplificado que aporta valor real (Fallback)
 import SmartParticles from '@/components/effects/SmartParticles';
 // ⭐ FloatingShapes v1.0 - Formas flotantes con gradientes animados
 import FloatingShapes from '@/components/effects/FloatingShapes';
@@ -37,6 +39,12 @@ interface BusinessCardProps {
   particleCount?: number;
   particleDensity?: number;
   particleColor?: string;
+  
+  // 🚀 Nuevo Sistema Profesional v4.0
+  enableProfessionalEffects?: boolean;
+  professionalPersonality?: ProfessionalPersonality;
+  effectIntensity?: EffectIntensity;
+  
   // Nuevos efectos de ambiente (matching schema.prisma)
   enableAnimatedGradient?: boolean;
   animatedGradientType?: string;
@@ -344,7 +352,22 @@ const staticStyles = `
   }
 `;
 
-export default function BusinessCard({ name, title, about, location, whatsapp, email, photoUrl, cardBackgroundColor, cardTextColor, pageBackgroundColor = '#121212', enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, enableParticles = false, particleType = 'floating', particleCount = 50, particleDensity = 3, particleColor = 'auto', enableAnimatedGradient = false, animatedGradientType = 'aurora', animatedGradientSpeed = 3, animatedGradientIntensity = 3, animatedGradientOpacity = 0.5, enableFloatingShapes = false, floatingShapesType = 'geometric', floatingShapesCount = 3, floatingShapesSpeed = 3, ambientIntensity = 3, ambientOpacity = 0.5, appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, website, buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, template = 'modern', fontFamily = 'Montserrat', isPreviewMode = false, enableMouseTracking = false, mouseTrackingSensitivity = 1.0, enableMouseGlow = true, enableMouseTilt = true, enableMouseParticles = false }: BusinessCardProps) {
+export default function BusinessCard({ 
+  name, title, about, location, whatsapp, email, photoUrl, 
+  cardBackgroundColor, cardTextColor, pageBackgroundColor = '#121212', 
+  enableHoverEffect, enableGlassmorphism, enableSubtleAnimations, enableBackgroundPatterns, 
+  enableParticles = false, particleType = 'floating', particleCount = 50, particleDensity = 3, particleColor = 'auto',
+  // 🚀 Nuevo Sistema Profesional v4.0
+  enableProfessionalEffects = false, professionalPersonality = 'trustworthy', effectIntensity = 'balanced',
+  // Efectos de ambiente 
+  enableAnimatedGradient = false, animatedGradientType = 'aurora', animatedGradientSpeed = 3, animatedGradientIntensity = 3, animatedGradientOpacity = 0.5, 
+  enableFloatingShapes = false, floatingShapesType = 'geometric', floatingShapesCount = 3, floatingShapesSpeed = 3, 
+  ambientIntensity = 3, ambientOpacity = 0.5, 
+  appointmentLink, professionalDetails, linkedin, instagram, twitter, facebook, website, 
+  buttonSecondaryColor, buttonNormalBackgroundColor, buttonSecondaryHoverColor, 
+  template = 'modern', fontFamily = 'Montserrat', isPreviewMode = false, 
+  enableMouseTracking = false, mouseTrackingSensitivity = 1.0, enableMouseGlow = true, enableMouseTilt = true, enableMouseParticles = false 
+}: BusinessCardProps) {
   const [qrCodeValue, setQrCodeValue] = useState('');
 
   // 🎨 INDI DESIGN SYSTEM - AUTO-OPTIMIZACIÓN VISUAL
@@ -1253,16 +1276,26 @@ ${formattedAbout ? `${formattedAbout}
       >
         {/* Partículas de fondo */}
         {renderBackgroundParticles()}
-        <FloatingShapes
-          enabled={effectsState.floatingShapes.enabled}
-          type={effectsState.floatingShapes.type as 'geometric' | 'organic' | 'stars' | 'particles' | 'professional'}
-          count={effectsState.floatingShapes.count}
-          speed={effectsState.floatingShapes.speed}
-          theme={getParticlesConfig()?.theme || 'professional'}
-        >
-          <SmartParticles
-            {...(getParticlesConfig() || { enabled: false, intensity: 'subtle', behavior: 'static', theme: 'professional', targetElement: 'card' })}
+        {/* 🚀 Sistema Profesional v4.0 o Fallback a sistema legacy */}
+        {enableProfessionalEffects ? (
+          <ProfessionalEffectsSystem
+            enabled={enableProfessionalEffects}
+            personality={professionalPersonality || 'trustworthy'}
+            intensity={effectIntensity || 'balanced'}
+            theme={getParticlesConfig()?.theme || 'professional'}
           >
+        ) : (
+          <FloatingShapes
+            enabled={effectsState.floatingShapes.enabled}
+            type={effectsState.floatingShapes.type as 'geometric' | 'organic' | 'stars' | 'particles' | 'professional'}
+            count={effectsState.floatingShapes.count}
+            speed={effectsState.floatingShapes.speed}
+            theme={getParticlesConfig()?.theme || 'professional'}
+          >
+            <SmartParticles
+              {...(getParticlesConfig() || { enabled: false, intensity: 'subtle', behavior: 'static', theme: 'professional', targetElement: 'card' })}
+            >
+        )}
           <Card 
             ref={cardRef}
             className={`${getBaseCardClasses()} ${cssClasses} indi-card-container`} 
@@ -1549,8 +1582,12 @@ ${formattedAbout ? `${formattedAbout}
           </Stack>
         </Card.Body>
       </Card>
-        </SmartParticles>
-        </FloatingShapes>
+        {enableProfessionalEffects ? (
+          </ProfessionalEffectsSystem>
+        ) : (
+          </SmartParticles>
+          </FloatingShapes>
+        )}
       </div>
     </>
   );

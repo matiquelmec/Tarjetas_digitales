@@ -20,6 +20,11 @@ interface CardData {
   particleDensity?: number;
   particleCount?: number;
   
+  // Nuevos campos para Sistema Profesional v4.0
+  professionalPersonality?: 'executive' | 'creative' | 'trustworthy';
+  effectIntensity?: 'minimal' | 'balanced' | 'maximum';
+  enableProfessionalEffects?: boolean;
+  
   // Nuevos campos para Efectos de Ambiente (matching schema.prisma)
   enableAnimatedGradient?: boolean;
   animatedGradientType?: string;
@@ -1405,119 +1410,226 @@ export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
         </div>
       </div>
 
-      {/* Visual Effects */}
+      {/* Sistema de Efectos Profesionales v4.0 */}
       <div className="mb-4">
-        <h5 className="mb-3">✨ Efectos Visuales</h5>
+        <h5 className="mb-3">🎭 ¿Cómo quieres que te perciban?</h5>
+        <p className="text-muted mb-4">Efectos visuales diseñados para mejorar tu percepción profesional</p>
         
-        <Row>
-          <Col md={6}>
-            <Form.Check
-              type="switch"
-              id="hover-effect"
-              label="Efecto Hover"
-              checked={cardData.enableHoverEffect || false}
-              onChange={(e) => updateCardData('enableHoverEffect', e.target.checked)}
-              className="mb-3"
-            />
-            <Form.Check
-              type="switch"
-              id="glassmorphism"
-              label="Glassmorphism"
-              checked={cardData.enableGlassmorphism || false}
-              onChange={(e) => updateCardData('enableGlassmorphism', e.target.checked)}
-              className="mb-3"
-            />
-          </Col>
-          <Col md={6}>
-            <Form.Check
-              type="switch"
-              id="animations"
-              label="Animaciones Sutiles"
-              checked={cardData.enableSubtleAnimations || false}
-              onChange={(e) => updateCardData('enableSubtleAnimations', e.target.checked)}
-              className="mb-3"
-            />
-            <Form.Check
-              type="switch"
-              id="patterns"
-              label="Patrones de Fondo"
-              checked={cardData.enableBackgroundPatterns || false}
-              onChange={(e) => updateCardData('enableBackgroundPatterns', e.target.checked)}
-              className="mb-3"
-            />
-            <Form.Check
-              type="switch"
-              id="particles"
-              label="🌟 Sistema de Partículas (NUEVO)"
-              checked={cardData.enableParticles || false}
-              onChange={(e) => updateCardData('enableParticles', e.target.checked)}
-              className="mb-3"
-            />
-          </Col>
-        </Row>
+        {/* Activar/Desactivar Efectos Profesionales */}
+        <div className="mb-4">
+          <Form.Check
+            type="switch"
+            id="professional-effects"
+            label="🚀 Activar Efectos de Impacto Profesional"
+            checked={cardData.enableProfessionalEffects || false}
+            onChange={(e) => updateCardData('enableProfessionalEffects', e.target.checked)}
+            className="mb-3"
+            style={{ fontSize: '16px', fontWeight: '600' }}
+          />
+          <small className="text-muted">
+            Sistema unificado que combina partículas inteligentes + efectos de ambiente + interactividad profesional
+          </small>
+        </div>
 
-        {/* SmartParticles v3.0 - Configuración simplificada */}
-        {cardData.enableParticles && (
-          <div className="mt-4 p-3 bg-info bg-opacity-10 rounded">
-            <h6 className="mb-3 text-info">✨ SmartParticles v3.0</h6>
-            <p className="text-muted small mb-3">Sistema inteligente que aporta valor real a tu tarjeta profesional</p>
-            
-            <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Comportamiento</Form.Label>
-                  <Form.Select
-                    value={cardData.particleType || 'professional'}
-                    onChange={(e) => updateCardData('particleType', e.target.value)}
-                  >
-                    <option value="professional">💼 Profesional - Glow estático elegante</option>
-                    <option value="creative">🎨 Creativo - Responde a interacciones</option>
-                    <option value="constellation">🌟 Ejecutivo - Flotación sutil premium</option>
-                  </Form.Select>
-                  <small className="text-muted d-block mt-1">
-                    {cardData.particleType === 'creative' && '⚡ Magnético: Atrae partículas al cursor'}
-                    {cardData.particleType === 'constellation' && '🌙 Ambiental: Flotación lenta y elegante'}
-                    {(!cardData.particleType || cardData.particleType === 'professional') && '💎 Estático: Glow profesional constante'}
-                  </small>
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Intensidad Visual</Form.Label>
-                  <Form.Select
-                    value={(() => {
-                      const count = cardData.particleCount || 4;
-                      if (count <= 3) return 'subtle';
-                      if (count <= 5) return 'balanced';
-                      return 'prominent';
-                    })()}
-                    onChange={(e) => {
-                      const intensityMap = {
-                        subtle: 3,
-                        balanced: 5,
-                        prominent: 8
-                      };
-                      updateCardData('particleCount', intensityMap[e.target.value as keyof typeof intensityMap]);
+        {cardData.enableProfessionalEffects && (
+          <div className="mt-4">
+            {/* Selector de Personalidad Profesional */}
+            <div className="mb-4">
+              <h6 className="mb-3">🎭 Personalidad Profesional</h6>
+              <div className="d-flex gap-3 flex-wrap">
+                {[
+                  {
+                    key: 'executive',
+                    name: 'Ejecutivo/a',
+                    emoji: '💼',
+                    description: 'Autoridad y liderazgo',
+                    message: 'Transmites confianza y estabilidad profesional',
+                    ideal: 'CEOs, Directores, Consultores'
+                  },
+                  {
+                    key: 'creative', 
+                    name: 'Creativo/a',
+                    emoji: '🎨',
+                    description: 'Innovación y dinamismo',
+                    message: 'Muestras creatividad e innovación',
+                    ideal: 'Diseñadores, Marketers, Artistas'
+                  },
+                  {
+                    key: 'trustworthy',
+                    name: 'Confiable',
+                    emoji: '🤝', 
+                    description: 'Cercanía y profesionalismo',
+                    message: 'Generas confianza y conexión humana',
+                    ideal: 'Médicos, Abogados, Coaches'
+                  }
+                ].map((personality, index) => (
+                  <div
+                    key={index}
+                    onClick={() => updateCardData('professionalPersonality', personality.key)}
+                    style={{
+                      cursor: 'pointer',
+                      minWidth: '240px',
+                      height: '140px',
+                      borderRadius: '16px',
+                      border: cardData.professionalPersonality === personality.key 
+                        ? '3px solid #00F6FF' 
+                        : '2px solid rgba(255,255,255,0.2)',
+                      background: cardData.professionalPersonality === personality.key
+                        ? 'linear-gradient(135deg, rgba(0,246,255,0.15) 0%, rgba(0,246,255,0.08) 100%)'
+                        : 'rgba(255,255,255,0.05)',
+                      backdropFilter: 'blur(10px)',
+                      overflow: 'hidden',
+                      position: 'relative',
+                      transition: 'all 0.3s ease',
+                      transform: cardData.professionalPersonality === personality.key ? 'scale(1.02)' : 'scale(1)'
                     }}
+                    className="d-flex flex-column p-3"
+                    title={personality.message}
                   >
-                    <option value="subtle">🌙 Sutil (3 partículas) - Mínimo impacto</option>
-                    <option value="balanced">⚖️ Balanceado (5 partículas) - Balance perfecto</option>
-                    <option value="prominent">✨ Prominente (8 partículas) - Máximo impacto</option>
-                  </Form.Select>
-                  <small className="text-muted d-block mt-1">
-                    Actualmente: {cardData.particleCount || 4} partículas activas
-                  </small>
-                </Form.Group>
-              </Col>
-            </Row>
-            
-            <div className="bg-success bg-opacity-20 p-3 rounded" style={{ border: '1px solid rgba(25, 135, 84, 0.3)' }}>
+                    <div className="text-center mb-2">
+                      <div style={{ fontSize: '2rem', marginBottom: '8px' }}>
+                        {personality.emoji}
+                      </div>
+                      <div style={{ 
+                        fontSize: '16px', 
+                        fontWeight: '700',
+                        color: 'white',
+                        marginBottom: '4px'
+                      }}>
+                        {personality.name}
+                      </div>
+                      <div style={{ 
+                        fontSize: '12px', 
+                        color: '#00F6FF',
+                        fontWeight: '600',
+                        marginBottom: '8px'
+                      }}>
+                        {personality.description}
+                      </div>
+                      <div style={{ 
+                        fontSize: '11px', 
+                        color: 'rgba(255,255,255,0.8)',
+                        lineHeight: '1.3',
+                        marginBottom: '6px'
+                      }}>
+                        {personality.message}
+                      </div>
+                      <div style={{ 
+                        fontSize: '9px', 
+                        color: 'rgba(255,255,255,0.6)',
+                        borderTop: '1px solid rgba(255,255,255,0.1)',
+                        paddingTop: '6px'
+                      }}>
+                        Ideal: {personality.ideal}
+                      </div>
+                    </div>
+                    {cardData.professionalPersonality === personality.key && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '12px',
+                          right: '12px',
+                          background: '#00F6FF',
+                          color: '#000',
+                          borderRadius: '50%',
+                          width: '24px',
+                          height: '24px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '14px',
+                          fontWeight: 'bold'
+                        }}
+                      >
+                        ✓
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Selector de Intensidad */}
+            <div className="mb-4">
+              <h6 className="mb-3">⚡ Intensidad de Impacto</h6>
+              <Row>
+                <Col md={8}>
+                  <Form.Group className="mb-3">
+                    <Form.Select
+                      value={cardData.effectIntensity || 'balanced'}
+                      onChange={(e) => updateCardData('effectIntensity', e.target.value)}
+                    >
+                      <option value="minimal">🌙 Mínimal - Sutil y elegante (3 partículas)</option>
+                      <option value="balanced">⚖️ Balanceado - Impacto perfecto (5 partículas)</option>
+                      <option value="maximum">✨ Máximo - Presencia dominante (8 partículas)</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <div className="d-flex align-items-center justify-content-center" style={{ height: '100%' }}>
+                    <div className="d-flex gap-1">
+                      {[1,2,3,4,5].map(dot => (
+                        <div
+                          key={dot}
+                          style={{
+                            width: '12px',
+                            height: '12px',
+                            borderRadius: '50%',
+                            background: (() => {
+                              const intensity = cardData.effectIntensity || 'balanced';
+                              const activeCount = intensity === 'minimal' ? 2 : intensity === 'balanced' ? 3 : 5;
+                              return dot <= activeCount ? '#00F6FF' : 'rgba(255,255,255,0.2)';
+                            })(),
+                            transition: 'all 0.3s ease'
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+              <small className="text-muted">
+                {cardData.professionalPersonality === 'executive' && 'Efectos de autoridad: Marco profesional + elevación premium + presencia estática'}
+                {cardData.professionalPersonality === 'creative' && 'Efectos dinámicos: Magnetismo interactivo + transiciones fluidas + respuesta al cursor'}
+                {(!cardData.professionalPersonality || cardData.professionalPersonality === 'trustworthy') && 'Efectos cálidos: Glow acogedor + animaciones suaves + atmósfera confiable'}
+              </small>
+            </div>
+
+            <div className="bg-info bg-opacity-20 p-3 rounded" style={{ border: '1px solid rgba(13, 202, 240, 0.3)' }}>
               <small className="text-light" style={{ color: '#ffffff !important' }}>
-                <strong style={{ color: '#00ff88' }}>🚀 SmartParticles:</strong> Color automático del tema + optimizado móvil + máximo 8 partículas = performance garantizado
+                <strong style={{ color: '#0dcaf0' }}>🧠 Psicología Profesional:</strong> Cada personalidad está diseñada para maximizar 
+                la percepción de competencia. Los efectos se adaptan automáticamente al tema de tu tarjeta.
               </small>
             </div>
           </div>
         )}
+
+        {/* Efectos Básicos Adicionales */}
+        <div className="mt-4">
+          <h6 className="mb-3">🔧 Efectos Básicos Adicionales</h6>
+          <Row>
+            <Col md={6}>
+              <Form.Check
+                type="switch"
+                id="glassmorphism"
+                label="✨ Glassmorphism"
+                checked={cardData.enableGlassmorphism || false}
+                onChange={(e) => updateCardData('enableGlassmorphism', e.target.checked)}
+                className="mb-3"
+              />
+            </Col>
+            <Col md={6}>
+              <Form.Check
+                type="switch"
+                id="animations"
+                label="🎬 Animaciones Sutiles"
+                checked={cardData.enableSubtleAnimations || false}
+                onChange={(e) => updateCardData('enableSubtleAnimations', e.target.checked)}
+                className="mb-3"
+              />
+            </Col>
+          </Row>
+        </div>
       </div>
 
       <div className="bg-success bg-opacity-20 p-3 rounded" style={{ border: '1px solid rgba(25, 135, 84, 0.3)' }}>

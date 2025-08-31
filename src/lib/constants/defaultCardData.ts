@@ -33,7 +33,12 @@ export const DEFAULT_CARD_DATA = {
   enableSubtleAnimations: true,
   enableBackgroundPatterns: true,
   
-  // Sistema de partículas - Activado para mostrar nuevo Authority Presence system
+  // 🚀 Sistema Profesional v4.0 - Activado por defecto para demostrar nueva funcionalidad
+  enableProfessionalEffects: true,
+  professionalPersonality: 'executive' as const, // Personalidad ejecutiva para demostración
+  effectIntensity: 'balanced' as const, // Intensidad perfecta para demo
+  
+  // Sistema de partículas legacy - Mantenido para compatibilidad
   enableParticles: true,
   particleType: 'professional' as const, // Usa el tipo que mapea a 'minimal' intensity
   particleCount: 4, // Reducido para elegancia del nuevo sistema
