@@ -95,8 +95,14 @@ export function useVisualEffects({
       ambientOpacity
     });
 
+    // Aplicar efectos inteligentes según el tema, luego optimizar para dispositivo
+    const intelligentEffects = effectsManager.applyIntelligentEffects(baseState, { 
+      background: cardBackgroundColor, 
+      text: cardTextColor 
+    });
+    
     // Optimizar para móvil si es necesario
-    return effectsManager.optimizeForDevice(baseState, isMobile);
+    return effectsManager.optimizeForDevice(intelligentEffects, isMobile);
   }, [
     enableHoverEffect,
     enableGlassmorphism,

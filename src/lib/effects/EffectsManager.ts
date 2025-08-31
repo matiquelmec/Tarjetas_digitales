@@ -101,7 +101,7 @@ export class EffectsManager {
       },
       glassmorphism: {
         enabled: props.enableGlassmorphism || false,
-        intensity: 0.8
+        intensity: 1.0 // Aumentar intensidad para que sea más visible
       },
       subtleAnimations: {
         enabled: props.enableSubtleAnimations || false,
@@ -109,7 +109,7 @@ export class EffectsManager {
       },
       backgroundPatterns: {
         enabled: props.enableBackgroundPatterns || false,
-        intensity: 0.4
+        intensity: 0.6 // Aumentar intensidad para que sea más visible
       },
       particles: {
         enabled: props.enableParticles || false,
@@ -123,7 +123,10 @@ export class EffectsManager {
         enabled: props.enableAnimatedGradient || false,
         type: props.animatedGradientType || 'aurora',
         speed: props.animatedGradientSpeed || 3,
-        intensity: props.animatedGradientIntensity || 3
+        intensity: props.animatedGradientIntensity || 3,
+        customProperties: {
+          opacity: (props.animatedGradientOpacity || 50) / 100 // Opacidad específica para gradientes
+        }
       },
       floatingShapes: {
         enabled: props.enableFloatingShapes || false,
@@ -373,7 +376,7 @@ export class EffectsManager {
     if (effects.animatedGradients.enabled) {
       console.log('🌈 Generando CSS para gradientes animados:', effects.animatedGradients);
       const intensity = effects.animatedGradients.intensity / 5; // 0.2 - 1.0  
-      const opacity = effects.ambient.opacity; // Ya es 0.0 - 1.0
+      const opacity = (effects.animatedGradients.customProperties?.opacity as number) || 0.5; // Usar opacidad específica para gradientes
       const speed = effects.animatedGradients.speed;
       const duration = 15 - (speed * 2); // 5-13 segundos
 
@@ -743,6 +746,39 @@ export class EffectsManager {
       warnings,
       recommendations
     };
+  }
+
+  /**
+   * Aplica efectos inteligentemente según el tema de la tarjeta
+   */
+  public applyIntelligentEffects(effects: VisualEffectsState, cardColors: { background: string; text: string }): VisualEffectsState {
+    const optimized = { ...effects };
+    
+    // Detectar si es un tema oscuro o claro
+    const baseColor = this.extractBaseColor(cardColors.background);
+    const isLightTheme = this.isLightColor(baseColor);
+    
+    // Ajustar intensidades según el tema
+    if (optimized.glassmorphism.enabled) {
+      // Glassmorphism funciona mejor en temas oscuros
+      optimized.glassmorphism.intensity = isLightTheme ? 0.7 : 1.0;
+    }
+    
+    if (optimized.backgroundPatterns.enabled) {
+      // Patrones más sutiles en temas claros
+      optimized.backgroundPatterns.intensity = isLightTheme ? 0.4 : 0.7;
+    }
+    
+    if (optimized.animatedGradients.enabled) {
+      // Gradientes más visibles según el contraste
+      const currentOpacity = (optimized.animatedGradients.customProperties?.opacity as number) || 0.5;
+      optimized.animatedGradients.customProperties = {
+        ...optimized.animatedGradients.customProperties,
+        opacity: isLightTheme ? Math.min(currentOpacity * 1.2, 1.0) : currentOpacity
+      };
+    }
+    
+    return optimized;
   }
 
   /**

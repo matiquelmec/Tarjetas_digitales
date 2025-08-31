@@ -27,11 +27,11 @@ export const DEFAULT_CARD_DATA = {
   buttonNormalBackgroundColor: 'rgba(121,134,203,0.2)',
   fontFamily: 'Inter', // Fuente moderna y legible
   
-  // Efectos visuales - Desactivados por defecto para mejor rendimiento
-  enableHoverEffect: false,
-  enableGlassmorphism: false,
-  enableSubtleAnimations: false,
-  enableBackgroundPatterns: false,
+  // Efectos visuales - Algunos habilitados para demostración
+  enableHoverEffect: true,
+  enableGlassmorphism: true,
+  enableSubtleAnimations: true,
+  enableBackgroundPatterns: true,
   
   // Sistema de partículas - Activado para mostrar nuevo Authority Presence system
   enableParticles: true,
@@ -39,13 +39,13 @@ export const DEFAULT_CARD_DATA = {
   particleCount: 4, // Reducido para elegancia del nuevo sistema
   particleDensity: 3,
   
-  // Efectos de ambiente - Desactivados para simplicidad
-  enableAnimatedGradient: false,
+  // Efectos de ambiente - Algunos habilitados para demostración
+  enableAnimatedGradient: true,
   animatedGradientType: 'aurora',
-  animatedGradientSpeed: 3,
-  animatedGradientIntensity: 3,
-  animatedGradientOpacity: 50,
-  enableFloatingShapes: false,
+  animatedGradientSpeed: 2,
+  animatedGradientIntensity: 2,
+  animatedGradientOpacity: 30,
+  enableFloatingShapes: true,
   floatingShapesType: 'geometric',
   floatingShapesCount: 3,
   floatingShapesSpeed: 3,
