@@ -132,7 +132,7 @@ const designModes: DesignModeConfig[] = [
   }
 ];
 
-export function StepTwo({ cardData, updateCardData }: StepTwoProps) {
+export function StepTwoSimple({ cardData, updateCardData }: StepTwoProps) {
   const [selectedMode, setSelectedMode] = useState<DesignMode>('minimal');
   const [showAdvanced, setShowAdvanced] = useState(false);
   const { applyAndUpdate } = useUniversalContrast();
