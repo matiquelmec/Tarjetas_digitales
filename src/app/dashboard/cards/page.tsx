@@ -8,7 +8,7 @@ import Link from 'next/link';
 import IndiNavbar from '@/components/layout/IndiNavbar';
 import HologramPreview from '@/components/HologramPreview';
 import '@/styles/hologram-effects.css';
-import { DEFAULT_CARD_DATA } from '@/lib/constants/defaultCardData';
+import { CONSISTENT_DEMO_DATA } from '@/lib/constants/defaultCardData';
 
 const BusinessCard = dynamic(() => import('@/features/digital-card/components/BusinessCard'), {
   loading: () => <div className="d-flex justify-content-center align-items-center" style={{ height: '400px' }}>
@@ -42,8 +42,8 @@ export default function DashboardCardsPage() {
   const [sortBy] = useState<'name' | 'views' | 'clicks' | 'date'>('date');
   const [planLimits, setPlanLimits] = useState<any>(null);
 
-  // Usar datos consistentes para vista previa
-  const demoCardData = DEFAULT_CARD_DATA;
+  // Usar datos centralizados consistentes para vista previa
+  const demoCardData = CONSISTENT_DEMO_DATA;
 
   // Resto del código permanece igual...
   useEffect(() => {

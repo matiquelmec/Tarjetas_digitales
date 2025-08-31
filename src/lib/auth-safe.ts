@@ -13,8 +13,10 @@ export const authOptionsSafe: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user, account }) => {
+    jwt: async (params) => {
       try {
+        // Safe destructuring with fallbacks
+        const { token = {}, user, account } = params || {};
         console.log('JWT callback - token:', !!token, 'user:', !!user, 'account:', !!account);
         
         if (account && user && user.email && token) {
@@ -65,8 +67,10 @@ export const authOptionsSafe: NextAuthOptions = {
       
       return token || {};
     },
-    session: async ({ session, token }) => {
+    session: async (params) => {
       try {
+        // Safe destructuring with fallbacks
+        const { session, token } = params || {};
         console.log('Session callback - session:', !!session, 'token:', !!token);
         
         if (token && session?.user) {
@@ -102,9 +106,15 @@ export const authOptionsSafe: NextAuthOptions = {
       
       return session || null;
     },
-    signIn: async ({ user }) => {
-      console.log('SignIn callback - user:', user.email);
-      return true;
+    signIn: async (params) => {
+      try {
+        const { user } = params || {};
+        console.log('SignIn callback - user:', user?.email);
+        return true;
+      } catch (error) {
+        console.error('Error in signIn callback:', error);
+        return true; // Allow sign in even if callback fails
+      }
     },
   },
   session: {
