@@ -5,7 +5,7 @@ import { Container, Tab, Tabs, Button } from 'react-bootstrap';
 import HologramPreview from '@/components/HologramPreview';
 import { MobilePreviewModal } from './MobilePreviewModal';
 import { StepOne } from './StepOne';
-import { StepTwo } from './StepTwo';
+import { StepTwoTabs } from './StepTwoTabs';
 import { StepThree } from './StepThree';
 import { StepFour } from './StepFour';
 import IndiNavbar from '@/components/layout/IndiNavbar';
@@ -33,7 +33,7 @@ export function MobileCreatePage({ cardData, updateCardData, onPublish }: Mobile
 
   const tabs = [
     { key: 'datos', title: 'Datos', icon: '📝', component: 'StepOne' },
-    { key: 'diseño', title: 'Diseño', icon: '🎨', component: 'StepTwo' },
+    { key: 'diseño', title: 'Diseño', icon: '🎨', component: 'StepTwoTabs' },
     { key: 'redes', title: 'Redes', icon: '🔗', component: 'StepThree' },
     { key: 'final', title: 'Final', icon: '🚀', component: 'StepFour' }
   ];
@@ -116,7 +116,7 @@ export function MobileCreatePage({ cardData, updateCardData, onPublish }: Mobile
       case 'datos':
         return <StepOne cardData={cardData} updateCardData={updateCardData} />;
       case 'diseño':
-        return <StepTwo cardData={cardData} updateCardData={updateCardData} />;
+        return <StepTwoTabs cardData={cardData} updateCardData={updateCardData} />;
       case 'redes':
         return <StepThree cardData={cardData} updateCardData={updateCardData} />;
       case 'final':

@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import { AuthWrapper } from '@/components/AuthWrapper';
 import IndiNavbar from '@/components/layout/IndiNavbar';
 import { StepOne } from '@/components/create/StepOne';
-import { StepTwo } from '@/components/create/StepTwo';
+import { StepTwoTabs } from '@/components/create/StepTwoTabs';
 import { StepThree } from '@/components/create/StepThree';
 import { StepFour } from '@/components/create/StepFour';
 import { PublishModal } from '@/components/create/PublishModal';
@@ -123,7 +123,7 @@ export default function CreateCardPage() {
       case 1:
         return <StepOne cardData={cardData} updateCardData={updateCardData} />;
       case 2:
-        return <StepTwo cardData={cardData} updateCardData={updateCardData} />;
+        return <StepTwoTabs cardData={cardData} updateCardData={updateCardData} />;
       case 3:
         return <StepThree cardData={cardData} updateCardData={updateCardData} />;
       case 4:
