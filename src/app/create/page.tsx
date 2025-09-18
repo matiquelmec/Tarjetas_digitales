@@ -134,7 +134,6 @@ export default function CreateCardPage() {
   };
 
   return (
-    <AuthWrapper>
       <style>{generatePreviewStyles()}</style>
       <style jsx global>{`
         .animated-gradient-background {
@@ -376,7 +375,7 @@ export default function CreateCardPage() {
           <Row>
             {/* Formulario - 50% */}
             <Col lg={6}>
-              <Card className="glass-card text-white" style={{ height: 'fit-content' }}>
+              <Card className="glass-card text-white">
                 <Card.Header>
                   <h4 className="mb-0">{steps[currentStep - 1].title}</h4>
                 </Card.Header>
@@ -485,6 +484,5 @@ export default function CreateCardPage() {
           onPublish={() => setShowPublishModal(true)}
         />
       </div>
-    </AuthWrapper>
   );
 }
